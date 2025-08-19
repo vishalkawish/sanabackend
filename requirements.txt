@@ -1,6 +1,6 @@
 fastapi==0.111.1
 uvicorn==0.23.2
 python-dotenv==1.0.1
-swisseph==2.11.1
+pyswisseph
 geopy==2.3.0
 openai==1.33.0

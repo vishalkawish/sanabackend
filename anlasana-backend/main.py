@@ -4,8 +4,10 @@ from pydantic import BaseModel
 import swisseph as swe
 import datetime
 from geopy.geocoders import Nominatim
-from openai import OpenAI
 import os
+from openai import OpenAI
+
+
 
 # ---------------------------
 # Init
@@ -14,7 +16,8 @@ app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana")
 
 # OpenAI client reads key automatically from env
-client = OpenAI()  # ensure OPENAI_API_KEY is set in Render environment variables
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)  # ensure OPENAI_API_KEY is set in Render environment variables
 
 # ---------------------------
 # Models

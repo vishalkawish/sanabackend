@@ -5,9 +5,7 @@ import swisseph as swe
 import datetime
 from geopy.geocoders import Nominatim
 import os
-from openai import OpenAI
-
-
+import openai  # use the global module instead of OpenAI class
 
 # ---------------------------
 # Init
@@ -15,9 +13,8 @@ from openai import OpenAI
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana")
 
-# OpenAI client reads key automatically from env
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-client = OpenAI(api_key=OPENAI_API_KEY)  # ensure OPENAI_API_KEY is set in Render environment variables
+# OpenAI key from environment
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 # ---------------------------
 # Models
@@ -90,7 +87,7 @@ def get_natal_chart(data: NatalData):
     }
 
     # ---------------------------
-    # AI Interpretation yes
+    # AI Interpretation
     # ---------------------------
     prompt = f"""
     You are Sana, an emotional mirror and master astrologer.
@@ -102,7 +99,7 @@ def get_natal_chart(data: NatalData):
     Important: No markdown, no explanations, output PURE JSON only.
     """
 
-    ai_response = client.chat.completions.create(
+    ai_response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are Sana, a soulful astrology guide."},

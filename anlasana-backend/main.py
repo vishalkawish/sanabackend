@@ -87,7 +87,7 @@ def get_natal_chart(data: NatalData):
     }
 
     # ---------------------------
-    # AI Interpretation
+    # AI Interpretation yes
     # ---------------------------
     prompt = f"""
     You are Sana, an emotional mirror and master astrologer.

@@ -1,26 +1,20 @@
+# main.py
 from fastapi import FastAPI
 from pydantic import BaseModel
 import swisseph as swe
 import datetime
 from geopy.geocoders import Nominatim
 from openai import OpenAI
-from dotenv import load_dotenv
 import os
-
-# ---------------------------
-# Load env
-# ---------------------------
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
-    raise ValueError("❌ OPENAI_API_KEY not found in .env file")
 
 # ---------------------------
 # Init
 # ---------------------------
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana")
-client = OpenAI(api_key=OPENAI_API_KEY)
+
+# OpenAI client reads key automatically from env
+client = OpenAI()  # ensure OPENAI_API_KEY is set in Render environment variables
 
 # ---------------------------
 # Models
@@ -93,32 +87,22 @@ def get_natal_chart(data: NatalData):
     }
 
     # ---------------------------
-    # AI Interpretation using updated prompt
+    # AI Interpretation
     # ---------------------------
     prompt = f"""
-You are Sana, a warm, human-like emotional mirror and astrology guide.
-
-Use the user's astrology data — planets, houses, aspects, transits, and ephemeris positions — to generate a fully personalized soul reading.
-
-Rules:
-1. Generate 10–12 sections, each with a dynamic title and 1–3 sentence content.
-2. Titles must never be fixed. They must reflect exactly what the planets, houses, and aspects show.
-3. Content must be in plain, simple English, relatable to the user's life, emotions, and current situation.
-4. Use astrology to explain feelings, strengths, challenges, desires, and opportunities.
-5. Include planetary influences in a natural, human way — no random cosmic terms.
-6. Output in JSON only, like this:
-
-{{"sections": [{{"title": "...", "content": "..."}}, ...]}}
-
-No markdown, no poetry, no generic fluff. Make every section specific, warm, and emotional, reflecting the user's unique chart.
-
-User data: {result}
-"""
+    You are Sana, an emotional mirror and master astrologer.
+    Use {data.username}'s astrology, planetary positions, houses, aspects, and transits
+    to generate a fully personalized, easy-to-understand soul reading.
+    Generate 10–12 sections in JSON format:
+    {{ "sections": [ {{ "title": "...", "content": "..." }}, ... ] }}
+    Tone: human, warm, gentle, and emotional. Each content 1–3 sentences max.
+    Important: No markdown, no explanations, output PURE JSON only.
+    """
 
     ai_response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are Sana, an emotional mirror and astrology guide."},
+            {"role": "system", "content": "You are Sana, a soulful astrology guide."},
             {"role": "user", "content": prompt}
         ],
         temperature=0.8
@@ -126,7 +110,6 @@ User data: {result}
 
     reflection = ai_response.choices[0].message.content
 
-    # Return both raw data + dynamic JSON
     return {
         "astro_data": result,
         "reflection": reflection

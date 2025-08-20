@@ -13,20 +13,24 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Rest of your code...
-# ...
 # ---------------------------
 # Init
 # ---------------------------
 app = FastAPI()
-# Use a more descriptive user agent for geocoding requests
 geolocator = Nominatim(user_agent="anlasana-astro-api")
 
 # OpenAI key from environment
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-if not openai.api_key:
-    # Use HTTPException for a clean, user-friendly error response
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
     raise HTTPException(status_code=500, detail="OpenAI API key not found. Set environment variable OPENAI_API_KEY")
+
+# Create a client instance with the API key.
+# This ensures that no hidden configurations are passed.
+# This is a best practice for modern OpenAI library versions.
+try:
+    openai_client = openai.OpenAI(api_key=api_key)
+except Exception as e:
+    raise HTTPException(status_code=500, detail=f"Failed to initialize OpenAI client: {e}")
 
 # ---------------------------
 # Models
@@ -52,7 +56,7 @@ def get_natal_chart(data: NatalData):
     try:
         # 1. Convert place → lat/lon with proper error handling
         try:
-            location = geolocator.geocode(data.place, timeout=10) # Added timeout
+            location = geolocator.geocode(data.place, timeout=10)
             if not location:
                 raise HTTPException(status_code=404, detail=f"❌ Place not found: {data.place}")
         except (GeocoderTimedOut, GeocoderServiceError) as e:
@@ -76,7 +80,6 @@ def get_natal_chart(data: NatalData):
         )
 
         # 3. Calculate houses (Placidus)
-        # Using a try-except block for swisseph calculations for robustness
         try:
             houses, ascmc = swe.houses(jd_ut, lat, lon, b"P")
         except swe.SweError as e:
@@ -99,7 +102,7 @@ def get_natal_chart(data: NatalData):
 
         for pl, name in planet_names.items():
             xx, ret = swe.calc_ut(jd_ut, pl)
-            planets[name] = round(xx[0], 2)  # longitude only
+            planets[name] = round(xx[0], 2)
 
         astro_data = {
             "username": data.username,
@@ -114,7 +117,6 @@ def get_natal_chart(data: NatalData):
         # ---------------------------
         # AI Interpretation (OpenAI >=1.0.0)
         # ---------------------------
-        # Pass the calculated astro_data to the AI
         prompt_content = f"""
 You are Sana, an emotional mirror and master astrologer.
 Use the following natal chart data to generate a fully personalized,
@@ -134,10 +136,9 @@ Important:
 - Each content section should be 1-3 sentences max.
 - The reading must feel personal and directly address the user.
 """
-        
-        # Add new try-except block for the OpenAI API call
         try:
-            ai_response = openai.chat.completions.create(
+            # Use the explicitly created client instance
+            ai_response = openai_client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are Sana, a soulful astrology guide who outputs PURE JSON."},
@@ -146,22 +147,17 @@ Important:
                 temperature=0.8,
                 response_format={"type": "json_object"}
             )
-            # Check if the response is valid before accessing attributes
             if ai_response and ai_response.choices:
                 reflection = ai_response.choices[0].message.content
             else:
-                # Handle cases where the response object is empty or unexpected
                 raise HTTPException(status_code=500, detail="OpenAI API call returned an invalid response.")
 
         except openai.OpenAIError as e:
-            # Catch specific OpenAI API errors and provide a clear message
             raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
         
     except HTTPException as e:
-        # Re-raise the HTTPException to be handled by FastAPI
         raise e
     except Exception as e:
-        # Catch any other unexpected errors and return a 500 status code
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
     return {

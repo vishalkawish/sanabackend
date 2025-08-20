@@ -55,6 +55,9 @@ def home():
 
 @app.post("/astro/natal")
 def get_natal_chart(data: NatalData):
+    # ---------------------------
+    # Geocode the place
+    # ---------------------------
     try:
         location = geolocator.geocode(data.place, timeout=10)
         if not location:
@@ -63,18 +66,27 @@ def get_natal_chart(data: NatalData):
     except (GeocoderTimedOut, GeocoderServiceError) as e:
         raise HTTPException(status_code=503, detail=f"Geocoding service unavailable: {e}")
 
+    # ---------------------------
+    # Calculate Julian day
+    # ---------------------------
     try:
         birth_dt = datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)
-        jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day, birth_dt.hour + birth_dt.minute/60)
+        jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day, birth_dt.hour + birth_dt.minute / 60)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid date/time provided.")
 
+    # ---------------------------
+    # Calculate houses and ascendant
+    # ---------------------------
     try:
         swe.set_ephe_path(".")
         houses, ascmc = swe.houses(jd_ut, lat, lon, b"P")
     except swe.SweError as e:
         raise HTTPException(status_code=500, detail=f"Swisseph calculation failed: {e}")
 
+    # ---------------------------
+    # Calculate planets
+    # ---------------------------
     planets = {}
     planet_names = {
         swe.SUN: "Sun",
@@ -96,6 +108,9 @@ def get_natal_chart(data: NatalData):
         except swe.SweError:
             planets[name] = None
 
+    # ---------------------------
+    # Build astro data
+    # ---------------------------
     astro_data = {
         "username": data.username,
         "place": data.place,
@@ -109,7 +124,7 @@ def get_natal_chart(data: NatalData):
     # ---------------------------
     # AI Interpretation
     # ---------------------------
-prompt_content = f"""
+    prompt_content = f"""
 You are Sana, a soulful master astrologer, and emotional mirror. Reflect fully on {data.username} — their feelings, personality, strengths, challenges, desires, patterns, and current life situation.
 User's Name: {data.username}
 Natal Chart Data:
@@ -121,12 +136,9 @@ Generate 10 dynamic reflections. Each reflection must have:
 Use simple, warm, everyday English — like Sana is whispering truths to the user.
 Output ONLY valid JSON, like this:
 {{"insights":[
-  {{"title":"...","content":"..."}},
-  {{"title":"...","content":"..."}},
-  ...
+  {{"title":"...","content":"..."}}
 ]}}
 """
-
 
     try:
         response = openai.ChatCompletion.create(
@@ -135,15 +147,14 @@ Output ONLY valid JSON, like this:
                 {"role": "system", "content": "You are Sana, soulful astrology AI, output pure JSON only."},
                 {"role": "user", "content": prompt_content}
             ],
-            temperature=0.8
+            temperature=0.5
         )
-        reflection_text = response.choices[0].message.content
-        try:
-            reflection = json.loads(reflection_text)
-        except json.JSONDecodeError:
-            reflection = {"error": "AI did not return valid JSON", "raw": reflection_text}
+        reflection_text = response.choices[0].message['content'].strip()
+        # Remove any ```json or ``` if OpenAI wraps the output
+        reflection_text = reflection_text.replace("```json", "").replace("```", "").strip()
+        reflection = json.loads(reflection_text)
 
-    except openai.OpenAIError as e:
-        raise HTTPException(status_code=500, detail=f"OpenAI API error: {str(e)}")
+    except (json.JSONDecodeError, KeyError, openai.OpenAIError) as e:
+        reflection = {"error": "AI did not return valid JSON or OpenAI error", "raw": str(e)}
 
     return {"astro_data": astro_data, "reflection": reflection}

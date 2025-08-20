@@ -134,17 +134,28 @@ Important:
 - Each content section should be 1-3 sentences max.
 - The reading must feel personal and directly address the user.
 """
+        
+        # Add new try-except block for the OpenAI API call
+        try:
+            ai_response = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are Sana, a soulful astrology guide who outputs PURE JSON."},
+                    {"role": "user", "content": prompt_content}
+                ],
+                temperature=0.8,
+                response_format={"type": "json_object"}
+            )
+            # Check if the response is valid before accessing attributes
+            if ai_response and ai_response.choices:
+                reflection = ai_response.choices[0].message.content
+            else:
+                # Handle cases where the response object is empty or unexpected
+                raise HTTPException(status_code=500, detail="OpenAI API call returned an invalid response.")
 
-        ai_response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are Sana, a soulful astrology guide who outputs PURE JSON."},
-                {"role": "user", "content": prompt_content}
-            ],
-            temperature=0.8,
-            response_format={"type": "json_object"}
-        )
-        reflection = ai_response.choices[0].message.content
+        except openai.OpenAIError as e:
+            # Catch specific OpenAI API errors and provide a clear message
+            raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
         
     except HTTPException as e:
         # Re-raise the HTTPException to be handled by FastAPI

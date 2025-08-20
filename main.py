@@ -18,13 +18,12 @@ load_dotenv()
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana-astro-api")
 
-# OpenAI API key
-api_key = os.environ.get("OPENAI_API_KEY")
-if not api_key:
-    raise RuntimeError("OpenAI API key not found. Set environment variable OPENAI_API_KEY")
+# Make sure OPENAI_API_KEY is set in environment
+if not os.environ.get("OPENAI_API_KEY"):
+    raise RuntimeError("OpenAI API key not found. Set OPENAI_API_KEY in env")
 
-# Initialize modern OpenAI client
-openai_client = openai.OpenAI(api_key=api_key)
+# Use OpenAI module directly
+openai_client = openai
 
 # ---------------------------
 # Models
@@ -148,22 +147,13 @@ Each content: 1-3 sentences, personal, gentle tone.
             ],
             temperature=0.8
         )
-
         reflection_text = response.choices[0].message.content
-
-        # Strip ```json or ``` if present
-        reflection_text = reflection_text.strip()
-        if reflection_text.startswith("```json"):
-            reflection_text = reflection_text[len("```json"):].strip()
-        if reflection_text.endswith("```"):
-            reflection_text = reflection_text[:-3].strip()
-
         try:
             reflection = json.loads(reflection_text)
         except json.JSONDecodeError:
             reflection = {"error": "AI did not return valid JSON", "raw": reflection_text}
 
-    except openai.error.OpenAIError as e:
+    except Exception as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 
     return {"astro_data": astro_data, "reflection": reflection}

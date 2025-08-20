@@ -9,7 +9,6 @@ import json
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 from dotenv import load_dotenv
-import time
 
 # ---------------------------
 # Load environment
@@ -24,6 +23,7 @@ api_key = os.environ.get("OPENAI_API_KEY")
 if not api_key:
     raise RuntimeError("OpenAI API key not found. Set environment variable OPENAI_API_KEY")
 
+# Initialize modern OpenAI client
 openai_client = openai.OpenAI(api_key=api_key)
 
 # ---------------------------
@@ -38,7 +38,6 @@ class NatalData(BaseModel):
     minute: int
     place: str
 
-    # Simple validators
     @validator("hour")
     def valid_hour(cls, v):
         if not 0 <= v <= 23:
@@ -109,9 +108,9 @@ def get_natal_chart(data: NatalData):
     for pl, name in planet_names.items():
         try:
             xx, ret = swe.calc_ut(jd_ut, pl)
-            planets[name] = round(xx[0], 2)  # longitude
+            planets[name] = round(xx[0], 2)
         except swe.SweError:
-            planets[name] = None  # fallback if calculation fails
+            planets[name] = None
 
     astro_data = {
         "username": data.username,
@@ -149,13 +148,22 @@ Each content: 1-3 sentences, personal, gentle tone.
             ],
             temperature=0.8
         )
+
         reflection_text = response.choices[0].message.content
+
+        # Strip ```json or ``` if present
+        reflection_text = reflection_text.strip()
+        if reflection_text.startswith("```json"):
+            reflection_text = reflection_text[len("```json"):].strip()
+        if reflection_text.endswith("```"):
+            reflection_text = reflection_text[:-3].strip()
+
         try:
-            reflection = json.loads(reflection_text)  # parse to JSON
+            reflection = json.loads(reflection_text)
         except json.JSONDecodeError:
             reflection = {"error": "AI did not return valid JSON", "raw": reflection_text}
 
-    except openai.OpenAIError as e:
+    except openai.error.OpenAIError as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 
     return {"astro_data": astro_data, "reflection": reflection}

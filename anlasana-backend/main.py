@@ -4,10 +4,8 @@ from pydantic import BaseModel
 import swisseph as swe
 import datetime
 from geopy.geocoders import Nominatim
-from dotenv import load_dotenv
 import os
-import openai
-
+import openai  # Make sure openai>=1.0.0
 
 # ---------------------------
 # Init
@@ -15,12 +13,8 @@ import openai
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana")
 
-
-load_dotenv()  # load variables from .env
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
 # OpenAI key from environment
-#openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 # ---------------------------
 # Models
@@ -32,7 +26,7 @@ class NatalData(BaseModel):
     day: int
     hour: int
     minute: int
-    place: str
+    place: str   # Example: "Delhi"
 
 # ---------------------------
 # Routes
@@ -80,7 +74,7 @@ def get_natal_chart(data: NatalData):
 
     for pl, name in planet_names.items():
         xx, ret = swe.calc_ut(jd_ut, pl)
-        planets[name] = round(xx[0], 2)
+        planets[name] = round(xx[0], 2)  # longitude only
 
     result = {
         "username": data.username,
@@ -93,19 +87,20 @@ def get_natal_chart(data: NatalData):
     }
 
     # ---------------------------
-    # AI Interpretation
+    # AI Interpretation (OpenAI 1.x API)
     # ---------------------------
+    prompt = f"""
+    You are Sana, an emotional mirror and master astrologer.
+    Use {data.username}'s astrology, planetary positions, houses, aspects, and transits
+    to generate a fully personalized, easy-to-understand soul reading.
+    Generate 10–12 sections in JSON format:
+    {{ "sections": [ {{ "title": "...", "content": "..." }}, ... ] }}
+    Tone: human, warm, gentle, and emotional. Each content 1–3 sentences max.
+    Important: No markdown, no explanations, output PURE JSON only.
+    """
+
     try:
-        prompt = f"""
-        You are Sana, a soulful astrology guide.
-        Use {data.username}'s astrology, planetary positions, houses, aspects, and transits
-        to generate a fully personalized, easy-to-understand soul reading.
-        Generate 10–12 sections in JSON format:
-        {{ "sections": [ {{ "title": "...", "content": "..." }}, ... ] }}
-        Tone: human, warm, gentle, and emotional. Each content 1–3 sentences max.
-        Important: No markdown, no explanations, output PURE JSON only.
-        """
-        ai_response = openai.ChatCompletion.create(
+        ai_response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are Sana, a soulful astrology guide."},
@@ -113,9 +108,9 @@ def get_natal_chart(data: NatalData):
             ],
             temperature=0.8
         )
-        reflection = ai_response.choices[0].message.content
+        reflection = ai_response.choices[0].message["content"]
     except Exception as e:
-        reflection = f"AI reflection failed: {e}"
+        reflection = f"AI reflection failed: {str(e)}"
 
     return {
         "astro_data": result,

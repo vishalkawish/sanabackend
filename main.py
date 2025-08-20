@@ -14,16 +14,13 @@ from dotenv import load_dotenv
 # Load environment
 # ---------------------------
 load_dotenv()
+openai.api_key = os.environ.get("OPENAI_API_KEY")  # no proxies
+
+if not openai.api_key:
+    raise RuntimeError("OpenAI API key not found. Set environment variable OPENAI_API_KEY")
 
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana-astro-api")
-
-# Make sure OPENAI_API_KEY is set in environment
-if not os.environ.get("OPENAI_API_KEY"):
-    raise RuntimeError("OpenAI API key not found. Set OPENAI_API_KEY in env")
-
-# Use OpenAI module directly
-openai_client = openai
 
 # ---------------------------
 # Models
@@ -58,9 +55,6 @@ def home():
 
 @app.post("/astro/natal")
 def get_natal_chart(data: NatalData):
-    # ---------------------------
-    # 1️⃣ Geocoding
-    # ---------------------------
     try:
         location = geolocator.geocode(data.place, timeout=10)
         if not location:
@@ -69,27 +63,18 @@ def get_natal_chart(data: NatalData):
     except (GeocoderTimedOut, GeocoderServiceError) as e:
         raise HTTPException(status_code=503, detail=f"Geocoding service unavailable: {e}")
 
-    # ---------------------------
-    # 2️⃣ Convert DOB → Julian Day
-    # ---------------------------
     try:
         birth_dt = datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)
         jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day, birth_dt.hour + birth_dt.minute/60)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid date/time provided.")
 
-    # ---------------------------
-    # 3️⃣ Houses calculation
-    # ---------------------------
     try:
-        swe.set_ephe_path(".")  # make sure eph files are in current directory
+        swe.set_ephe_path(".")
         houses, ascmc = swe.houses(jd_ut, lat, lon, b"P")
     except swe.SweError as e:
         raise HTTPException(status_code=500, detail=f"Swisseph calculation failed: {e}")
 
-    # ---------------------------
-    # 4️⃣ Planet positions
-    # ---------------------------
     planets = {}
     planet_names = {
         swe.SUN: "Sun",
@@ -122,24 +107,21 @@ def get_natal_chart(data: NatalData):
     }
 
     # ---------------------------
-    # 5️⃣ AI Interpretation
+    # AI Interpretation
     # ---------------------------
     prompt_content = f"""
-You are Sana, an emotional mirror and master astrologer.
-Generate a fully personalized, easy-to-understand soul reading for this user.
-Output ONLY valid JSON.
+You are Sana, soulful astrology AI. Generate a JSON reflection with 10 sections:
 
 User's Name: {data.username}
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 
-Generate 10–12 sections like:
-{{ "sections": [ {{ "title": "Sun", "content": "..." }}, ... ] }}
-Each content: 1-3 sentences, personal, gentle tone.
+Each section: title + 1-3 sentences.
+Output ONLY valid JSON.
 """
 
     try:
-        response = openai_client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are Sana, soulful astrology AI, output pure JSON only."},
@@ -153,7 +135,7 @@ Each content: 1-3 sentences, personal, gentle tone.
         except json.JSONDecodeError:
             reflection = {"error": "AI did not return valid JSON", "raw": reflection_text}
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
+    except openai.OpenAIError as e:
+        raise HTTPException(status_code=500, detail=f"OpenAI API error: {str(e)}")
 
     return {"astro_data": astro_data, "reflection": reflection}

@@ -209,24 +209,25 @@ def get_full_chart(data: NatalData):
     astro_data = calculate_chart(data)
 
     natal_prompt = f"""
-You are Sana, a master astrologer and emotional mirror.
-Generate 10 dynamic daily life reflections for {data.username}.
+You are Sana, a master astrologer and a mirror of user soul.
+Generate 5 dynamic daily life reflections for {data.username}.
 Each item: "title" (short, emotional) + "content" (1 sentence, warm, simple).
-Output ONLY JSON: {{"insights":[{{"title":"...","content":"..."}}]}}
+tell user why they are like, how they feel, their strength, fear etc using chart below..let user know someone is understanding and reading their soul
+Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
     soulmate_prompt = f"""
-You are Sana, the soulful astrologer of love and destiny.
-Generate 7 dynamic soulmate reflections for {data.username}.
-Focus on love energy, cosmic match, partner style, cravings, rituals, challenges, healing.
+You are Sana, the master astrologer of love and destiny.
+Generate 5 dynamic love reflections for {data.username}.
+Focus on love energy, cosmic match, partner style,  {data.username} cravings, rituals for love and grounding, challenges in love, cosmic timing, lucky color and lucky number from charts no guessing.
 Each item: "title" + "content".
-Output ONLY JSON: {{"soulmate":[{{"title":"...","content":"..."}}]}}
+Output ONLY JSON: {{"love":[{{"title":"...","content":"..."}}]}}
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
     poetic_prompt = f"""
-You are Sana, a poetic astrologer. Transform the technical chart into a short, soulful reading.
+You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading.
 Return ONLY JSON in this shape:
 {{
   "poetic": {{
@@ -234,8 +235,8 @@ Return ONLY JSON in this shape:
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
-      {{"title":"...","content":"..."}},
-      {{"title":"...","content":"..."}},
+      {{"color":"...","content":"..."}},
+      {{"number":"...","content":"..."}},
       {{"title":"...","content":"..."}}
     ],
     "closing": "..."
@@ -285,7 +286,6 @@ Natal Chart Data:
         poetic = {"error": f"Poetic JSON parse error: {str(e)}"}
 
     return {
-        "astro_data": astro_data,
         "natal": natal,
         "soulmate": soulmate,
         "poetic": poetic

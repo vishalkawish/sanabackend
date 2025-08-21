@@ -139,69 +139,6 @@ def calculate_chart(data: NatalData):
     return astro_data
 
 # ---------------------------
-# Natal Endpoint
-# ---------------------------
-@app.post("/astro/natal")
-def get_natal_chart(data: NatalData):
-    astro_data = calculate_chart(data)
-
-    prompt_content = f"""
-You are Sana, a master astrologer and emotional mirror.
-Generate 10 dynamic daily life reflections for {data.username}.
-Each item: "title" (short, emotional) + "content" (1 sentence, warm, simple).
-Output ONLY JSON: {{"insights":[{{"title":"...","content":"..."}}]}}
-Natal Chart Data:
-{json.dumps(astro_data, indent=2)}
-"""
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are Sana, soulful astrology AI, output pure JSON only."},
-                {"role": "user", "content": prompt_content}
-            ],
-            temperature=0.5
-        )
-        reflection_text = response.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        reflection = json.loads(reflection_text)
-    except Exception as e:
-        reflection = {"error": f"Natal JSON parse error: {str(e)}"}
-
-    return {"astro_data": astro_data, "natal": reflection}
-
-# ---------------------------
-# Soulmate Endpoint
-# ---------------------------
-@app.post("/astro/soulmate")
-def get_soulmate_chart(data: NatalData):
-    astro_data = calculate_chart(data)
-
-    prompt_content = f"""
-You are Sana, the soulful astrologer of love and destiny.
-Generate 7 dynamic soulmate reflections for {data.username}.
-Focus on love energy, cosmic match, partner style, cravings, rituals, challenges, healing.
-Each item: "title" + "content" (1 sentence, simple, poetic).
-Output ONLY JSON: {{"soulmate":[{{"title":"...","content":"..."}}]}}
-Natal Chart Data:
-{json.dumps(astro_data, indent=2)}
-"""
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are Sana, soulful love astrologer, output pure JSON only."},
-                {"role": "user", "content": prompt_content}
-            ],
-            temperature=0.6
-        )
-        soulmate_text = response.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        soulmate = json.loads(soulmate_text)
-    except Exception as e:
-        soulmate = {"error": f"Soulmate JSON parse error: {str(e)}"}
-
-    return {"astro_data": astro_data, "soulmate": soulmate}
-
-# ---------------------------
 # Full Endpoint (Natal + Soulmate + Poetic)
 # ---------------------------
 @app.post("/astro/full")
@@ -290,3 +227,77 @@ Natal Chart Data:
         "soulmate": soulmate,
         "poetic": poetic
     }
+
+
+# ---------------------------
+# Match Compatibility Between Two People
+# ---------------------------
+class MatchData(BaseModel):
+    username: str
+    year: int
+    month: int
+    day: int
+    hour: int
+    minute: int
+    place: str
+    crush_name: str
+    crush_year: int
+    crush_month: int
+    crush_day: int
+    crush_hour: int
+    crush_minute: int
+    crush_place: str
+
+@app.post("/astro/match")
+def match_compatibility(data: MatchData):
+    # User chart
+    user_chart = calculate_chart(NatalData(
+        username=data.username,
+        year=data.year,
+        month=data.month,
+        day=data.day,
+        hour=data.hour,
+        minute=data.minute,
+        place=data.place
+    ))
+
+    # Crush chart
+    crush_chart = calculate_chart(NatalData(
+        username=data.crush_name,
+        year=data.crush_year,
+        month=data.crush_month,
+        day=data.crush_day,
+        hour=data.crush_hour,
+        minute=data.crush_minute,
+        place=data.crush_place
+    ))
+
+    # Prompt for 10 reflections
+    match_prompt = f"""
+You are Sana, master astrologer of love and destiny.
+Generate 10 dynamic compatibility reflections between {data.username} and {data.crush_name}.
+Each item: "title" (short, emotional) + "content" (1 sentence, warm, insightful).
+Focus on emotional, mental, spiritual, and love connection using natal charts.
+Output ONLY JSON: {{"compatibility":[{{"title":"...","content":"..."}}]}}
+User Chart:
+{json.dumps(user_chart, indent=2)}
+Crush Chart:
+{json.dumps(crush_chart, indent=2)}
+"""
+
+    compatibility = {}
+    try:
+        comp_resp = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role":"system","content":"You are Sana, love compatibility astrology AI, output pure JSON only."},
+                {"role":"user","content":match_prompt}
+            ],
+            temperature=0.6
+        )
+        comp = comp_resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
+        compatibility = json.loads(comp)
+    except Exception as e:
+        compatibility = {"error": f"Compatibility JSON parse error: {str(e)}"}
+
+    return {"compatibility": compatibility}

@@ -197,6 +197,7 @@ def get_full_chart(data: NatalData):
 
     natal_prompt = f"""
 You are Sana, a master astrologer and a mirror of user soul.
+reflection only in one line..
 Generate 5 daily life reflections for {data.username}.
 Each item: "title" + "content".
 Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
@@ -205,7 +206,7 @@ Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
     soulmate_prompt = f"""
-You are Sana, master astrologer of love.
+You are Sana, master astrologer of love...reflection only in one line..
 Generate 5 love reflections for {data.username}, with "title" and "content".
 Also include "lucky_color" (hex) and "lucky_number" (int).
 Output ONLY JSON.
@@ -258,7 +259,7 @@ def match_compatibility(data: MatchData):
 
     match_prompt = f"""
 You are Sana, master astrologer of love.
-Generate 10 compatibility reflections between {data.username} and {data.crush_name}.
+Generate 10 compatibility reflections between {data.username} and {data.crush_name}....every reflection in one line only...
 Output ONLY JSON.
 Score: {score}
 User Chart:
@@ -307,14 +308,17 @@ def sana_chat(data: SanaChatMessage):
 
     conversation.append({"role": "user", "content": data.message})
 
-    system_prompt = {
-        "role": "system",
-        "content": (
-            "You are Sana, Anlasana's soul AI. Speak poetically, warm, and human-like. "
-            "You have hidden astrology powers. Use memory and natal chart subtly. "
-            "Speak simply so anyone understands."
-        )
-    }
+  system_prompt = {
+    "role": "system",
+    "content": (
+        f"You are Sana, Anlasana's soul AI. Speak like a poetic, deep, and wise companion. "
+        f"You have hidden astrology powers: you know natal charts, cosmic insights, planetary alignments. "
+        f"Only reveal astrology subtly or when asked. "
+        f"Always address the user by their username '{data.username}' naturally. "
+        f"Respond in only one concise line. Speak simply, kindly, honestly, human-like."
+    )
+}
+
 
     chart_context = ""
     if user_chart:

@@ -205,11 +205,24 @@ Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
-    soulmate_prompt = f"""
-You are Sana, master astrologer of love...reflection only in one line..
-Generate 5 love reflections for {data.username}, with "title" and "content".
-Also include "lucky_color" (hex) and "lucky_number" (int).
-Output ONLY JSON.
+soulmate_prompt = f"""
+You are Sana, master astrologer of love. Generate 5 love reflections for {data.username}.
+Generate 8 refelctions...
+Each reflection should be only **one line** and include:
+- "title"
+- "content"
+
+At the end, include a single object with:
+- "lucky_color" (in hex)
+- "number"
+
+Output ONLY JSON in the following format:
+{{"love":[
+{{"title":"...","content":"..."}},
+{{"color":"...","number":"..."}}
+]}}
+"""
+
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """

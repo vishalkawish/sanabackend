@@ -9,6 +9,8 @@ import json
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 from dotenv import load_dotenv
+from pathlib import Path
+import math
 
 # ---------------------------
 # Load environment
@@ -21,6 +23,16 @@ if not openai.api_key:
 
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana-astro-api")
+
+# ---------------------------
+# Directories
+# ---------------------------
+USER_CHART_DIR = Path("./user_charts")
+USER_CHART_DIR.mkdir(exist_ok=True)
+CHAT_HISTORY_DIR = Path("./sana_chat_history")
+CHAT_HISTORY_DIR.mkdir(exist_ok=True)
+MEMORY_DIR = Path("./sana_chat_memory")
+MEMORY_DIR.mkdir(exist_ok=True)
 
 # ---------------------------
 # Models
@@ -46,8 +58,21 @@ class NatalData(BaseModel):
             raise ValueError("Minute must be between 0 and 59")
         return v
 
+class MatchData(NatalData):
+    crush_name: str
+    crush_year: int
+    crush_month: int
+    crush_day: int
+    crush_hour: int
+    crush_minute: int
+    crush_place: str
+
+class SanaChatMessage(BaseModel):
+    username: str
+    message: str
+
 # ---------------------------
-# Helpers: Zodiac conversion
+# Zodiac Helpers
 # ---------------------------
 SIGNS = [
     "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
@@ -55,7 +80,6 @@ SIGNS = [
 ]
 
 def deg_to_sign(deg: float):
-    """Return ('Sign', degree_in_sign) for a 0..360 longitude."""
     deg = deg % 360.0
     idx = int(deg // 30)
     sign = SIGNS[idx]
@@ -80,7 +104,7 @@ def home():
     return {"message": "✨ Anlasana backend is running 🚀"}
 
 # ---------------------------
-# Core Calculation (shared)
+# Core chart calculation
 # ---------------------------
 def calculate_chart(data: NatalData):
     # Geocode
@@ -136,10 +160,36 @@ def calculate_chart(data: NatalData):
         "houses": [round(h, 2) for h in houses],
         "planets": planets_signed
     }
+    # Save chart locally for chat
+    with open(USER_CHART_DIR / f"{data.username}.json", "w") as f:
+        json.dump(astro_data, f, indent=2)
     return astro_data
 
 # ---------------------------
-# Full Endpoint (Natal + Soulmate + Poetic)
+# Compatibility score
+# ---------------------------
+def calculate_compatibility_score(user_chart, crush_chart):
+    score = 50
+    pairs = [("Sun","Moon"),("Moon","Moon"),("Venus","Mars"),("Mars","Venus")]
+    for u, c in pairs:
+        if user_chart["planets"].get(u) and crush_chart["planets"].get(c):
+            diff = abs(user_chart["planets"][u]["longitude"] - crush_chart["planets"][c]["longitude"]) % 360
+            if diff > 180:
+                diff = 360 - diff
+            if diff < 15:
+                score += 15
+            elif abs(diff-120) < 10:
+                score += 12
+            elif abs(diff-60) < 8:
+                score += 8
+            elif abs(diff-90) < 8:
+                score -= 10
+            elif abs(diff-180) < 8:
+                score -= 12
+    return max(0, min(100, score))
+
+# ---------------------------
+# Full chart + soulmate + poetic endpoint
 # ---------------------------
 @app.post("/astro/full")
 def get_full_chart(data: NatalData):
@@ -147,121 +197,53 @@ def get_full_chart(data: NatalData):
 
     natal_prompt = f"""
 You are Sana, a master astrologer and a mirror of user soul.
-Generate 5 dynamic daily life reflections for {data.username}.
-Each item: "title" (short, emotional) + "content" (1 sentence, warm, simple).
-tell user why they are like, how they feel, their strength, fear etc using chart below..let user know someone is understanding and reading their soul
+Generate 5 daily life reflections for {data.username}.
+Each item: "title" + "content".
 Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
+
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
     soulmate_prompt = f"""
-You are Sana, the master astrologer of love and destiny.
-Generate 5 dynamic love reflections for {data.username}.
-Focus on love energy, cosmic match, partner style,  {data.username} cravings, rituals for love and grounding, challenges in love, cosmic timing, lucky color and lucky number from charts no guessing.
-Each item: "title" + "content".
-Output ONLY JSON: {{"love":[{{"title":"...","content":"..."}}]}}
+You are Sana, master astrologer of love.
+Generate 5 love reflections for {data.username}, with "title" and "content".
+Also include "lucky_color" (hex) and "lucky_number" (int).
+Output ONLY JSON.
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
     poetic_prompt = f"""
-You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading.
-Return ONLY JSON in this shape:
-{{
-  "poetic": {{
-    "opening": "...", 
-    "highlights": [
-      {{"title":"...","content":"..."}},
-      {{"title":"...","content":"..."}},
-      {{"color":"...","content":"..."}},
-      {{"number":"...","content":"..."}},
-      {{"title":"...","content":"..."}}
-    ],
-    "closing": "..."
-  }}
-}}
-Use the chart below as base.
+You are Sana, poetic astrologer.
+Transform natal chart into very short, soulful reading.
+Output ONLY JSON.
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
 
-    natal, soulmate, poetic = {}, {}, {}
+    def call_openai(prompt, system_msg):
+        try:
+            resp = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role":"system","content":system_msg},{"role":"user","content":prompt}],
+                temperature=0
+            )
+            text = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
+            return json.loads(text)
+        except Exception as e:
+            return {"error": str(e)}
 
-    try:
-        natal_resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role":"system","content":"You are Sana, soulful astrology AI, output pure JSON only."},
-                      {"role":"user","content":natal_prompt}],
-            temperature=0.5
-        )
-        nt = natal_resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        natal = json.loads(nt)
-    except Exception as e:
-        natal = {"error": f"Natal JSON parse error: {str(e)}"}
+    natal = call_openai(natal_prompt, "You are Sana, soulful astrology AI, output JSON only.")
+    soulmate = call_openai(soulmate_prompt, "You are Sana, soulful love astrologer, output JSON only.")
+    poetic = call_openai(poetic_prompt, "You are Sana, poetic astrologer, output JSON only.")
 
-    try:
-        sm_resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role":"system","content":"You are Sana, soulful love astrologer, output pure JSON only."},
-                      {"role":"user","content":soulmate_prompt}],
-            temperature=0.6
-        )
-        sm = sm_resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        soulmate = json.loads(sm)
-    except Exception as e:
-        soulmate = {"error": f"Soulmate JSON parse error: {str(e)}"}
-
-    try:
-        po_resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role":"system","content":"You are Sana, poetic astrologer, output pure JSON only."},
-                      {"role":"user","content":poetic_prompt}],
-            temperature=0.7
-        )
-        po = po_resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        poetic = json.loads(po)
-    except Exception as e:
-        poetic = {"error": f"Poetic JSON parse error: {str(e)}"}
-
-    return {
-        "natal": natal,
-        "soulmate": soulmate,
-        "poetic": poetic
-    }
-
+    return {"natal": natal, "soulmate": soulmate, "poetic": poetic}
 
 # ---------------------------
-# Match Compatibility Between Two People
+# Match compatibility
 # ---------------------------
-class MatchData(BaseModel):
-    username: str
-    year: int
-    month: int
-    day: int
-    hour: int
-    minute: int
-    place: str
-    crush_name: str
-    crush_year: int
-    crush_month: int
-    crush_day: int
-    crush_hour: int
-    crush_minute: int
-    crush_place: str
-
 @app.post("/astro/match")
 def match_compatibility(data: MatchData):
-    # User chart
-    user_chart = calculate_chart(NatalData(
-        username=data.username,
-        year=data.year,
-        month=data.month,
-        day=data.day,
-        hour=data.hour,
-        minute=data.minute,
-        place=data.place
-    ))
-
-    # Crush chart
+    user_chart = calculate_chart(data)
     crush_chart = calculate_chart(NatalData(
         username=data.crush_name,
         year=data.crush_year,
@@ -272,32 +254,109 @@ def match_compatibility(data: MatchData):
         place=data.crush_place
     ))
 
-    # Prompt for 10 reflections
+    score = calculate_compatibility_score(user_chart, crush_chart)
+
     match_prompt = f"""
-You are Sana, master astrologer of love and destiny.
-Generate 10 dynamic compatibility reflections between {data.username} and {data.crush_name}.
-Each item: "title" (short, emotional) + "content" (1 sentence, warm, insightful).
-Focus on emotional, mental, spiritual, and love connection using natal charts.
-Output ONLY JSON: {{"compatibility":[{{"title":"...","content":"..."}}]}}
+You are Sana, master astrologer of love.
+Generate 10 compatibility reflections between {data.username} and {data.crush_name}.
+Output ONLY JSON.
+Score: {score}
 User Chart:
 {json.dumps(user_chart, indent=2)}
 Crush Chart:
 {json.dumps(crush_chart, indent=2)}
 """
-
-    compatibility = {}
     try:
-        comp_resp = openai.ChatCompletion.create(
+        resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {"role":"system","content":"You are Sana, love compatibility astrology AI, output pure JSON only."},
-                {"role":"user","content":match_prompt}
-            ],
-            temperature=0.6
+            messages=[{"role":"system","content":"You are Sana, love astrology AI, output JSON only."},{"role":"user","content":match_prompt}],
+            temperature=0
         )
-        comp = comp_resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
+        comp = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
         compatibility = json.loads(comp)
     except Exception as e:
-        compatibility = {"error": f"Compatibility JSON parse error: {str(e)}"}
+        compatibility = {"error": str(e), "score": score}
 
     return {"compatibility": compatibility}
+
+# ---------------------------
+# Sana chat endpoint
+# ---------------------------
+@app.post("/sana/chat")
+def sana_chat(data: SanaChatMessage):
+    history_file = CHAT_HISTORY_DIR / f"{data.username}.json"
+    memory_file = MEMORY_DIR / f"{data.username}.json"
+    chart_file = USER_CHART_DIR / f"{data.username}.json"
+
+    conversation = []
+    if history_file.exists():
+        with open(history_file, "r") as f:
+            conversation = json.load(f)
+
+    # Load user's natal chart
+    user_chart = {}
+    if chart_file.exists():
+        with open(chart_file, "r") as f:
+            user_chart = json.load(f)
+
+    # Load memory summary
+    memory_summary = ""
+    if memory_file.exists():
+        with open(memory_file, "r") as f:
+            memory_summary = json.load(f).get("summary", "")
+
+    conversation.append({"role": "user", "content": data.message})
+
+    system_prompt = {
+        "role": "system",
+        "content": (
+            "You are Sana, Anlasana's soul AI. Speak poetically, warm, and human-like. "
+            "You have hidden astrology powers. Use memory and natal chart subtly. "
+            "Speak simply so anyone understands."
+        )
+    }
+
+    chart_context = ""
+    if user_chart:
+        chart_context = f"\n\nUser's natal chart:\n{json.dumps(user_chart, indent=2)}"
+
+    messages_to_send = [system_prompt]
+    if memory_summary:
+        messages_to_send.append({"role": "system", "content": f"User memory summary:\n{memory_summary}"})
+    messages_to_send += conversation[-15:]
+    if chart_context:
+        messages_to_send.append({"role": "system", "content": chart_context})
+
+    try:
+        resp = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages_to_send,
+            temperature=0.85
+        )
+        sana_reply = resp.choices[0].message["content"].strip()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Sana API error: {e}")
+
+    conversation.append({"role": "assistant", "content": sana_reply})
+
+    # Save full chat
+    with open(history_file, "w") as f:
+        json.dump(conversation, f, indent=2)
+
+    # Update memory summary
+    try:
+        summary_resp = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are Sana. Summarize user's chat and traits in short points."},
+                {"role": "user", "content": json.dumps(conversation[-20:])}
+            ],
+            temperature=0
+        )
+        new_summary = summary_resp.choices[0].message["content"].strip()
+        with open(memory_file, "w") as f:
+            json.dump({"summary": new_summary}, f, indent=2)
+    except:
+        pass
+
+    return {"reply": sana_reply}

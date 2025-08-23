@@ -1,0 +1,82 @@
+{
+  "username": "Ariana",
+  "place": "Mumbai, India",
+  "datetime_utc": "1998-11-02T14:15:00",
+  "julian_day": 2451120.09375,
+  "ascendant": {
+    "longitude": 67.91,
+    "sign": "Gemini",
+    "deg_in_sign": 7.91
+  },
+  "midheaven": {
+    "longitude": 326.02,
+    "sign": "Aquarius",
+    "deg_in_sign": 26.02
+  },
+  "houses": [
+    67.91,
+    93.67,
+    118.61,
+    146.02,
+    178.01,
+    213.47,
+    247.91,
+    273.67,
+    298.61,
+    326.02,
+    358.01,
+    33.47
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 219.95,
+      "sign": "Scorpio",
+      "deg_in_sign": 9.95
+    },
+    "Moon": {
+      "longitude": 16.7,
+      "sign": "Aries",
+      "deg_in_sign": 16.7
+    },
+    "Mercury": {
+      "longitude": 241.21,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.21
+    },
+    "Venus": {
+      "longitude": 220.82,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.82
+    },
+    "Mars": {
+      "longitude": 165.68,
+      "sign": "Virgo",
+      "deg_in_sign": 15.68
+    },
+    "Jupiter": {
+      "longitude": 348.37,
+      "sign": "Pisces",
+      "deg_in_sign": 18.37
+    },
+    "Saturn": {
+      "longitude": 29.38,
+      "sign": "Aries",
+      "deg_in_sign": 29.38
+    },
+    "Uranus": {
+      "longitude": 308.9,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.9
+    },
+    "Neptune": {
+      "longitude": 299.52,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.52
+    },
+    "Pluto": {
+      "longitude": 246.86,
+      "sign": "Sagittarius",
+      "deg_in_sign": 6.86
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "username": "Stella",
+  "place": "Kolkata, India",
+  "datetime_utc": "1998-04-21T11:05:00",
+  "julian_day": 2450924.9618055555,
+  "ascendant": {
+    "longitude": 192.85,
+    "sign": "Libra",
+    "deg_in_sign": 12.85
+  },
+  "midheaven": {
+    "longitude": 102.82,
+    "sign": "Cancer",
+    "deg_in_sign": 12.82
+  },
+  "houses": [
+    192.85,
+    221.98,
+    252.16,
+    282.82,
+    313.85,
+    344.41,
+    12.85,
+    41.98,
+    72.16,
+    102.82,
+    133.85,
+    164.41
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 31.14,
+      "sign": "Taurus",
+      "deg_in_sign": 1.14
+    },
+    "Moon": {
+      "longitude": 321.79,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.79
+    },
+    "Mercury": {
+      "longitude": 9.85,
+      "sign": "Aries",
+      "deg_in_sign": 9.85
+    },
+    "Venus": {
+      "longitude": 346.29,
+      "sign": "Pisces",
+      "deg_in_sign": 16.29
+    },
+    "Mars": {
+      "longitude": 36.26,
+      "sign": "Taurus",
+      "deg_in_sign": 6.26
+    },
+    "Jupiter": {
+      "longitude": 347.63,
+      "sign": "Pisces",
+      "deg_in_sign": 17.63
+    },
+    "Saturn": {
+      "longitude": 24.36,
+      "sign": "Aries",
+      "deg_in_sign": 24.36
+    },
+    "Uranus": {
+      "longitude": 312.46,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.46
+    },
+    "Neptune": {
+      "longitude": 302.12,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.12
+    },
+    "Pluto": {
+      "longitude": 247.61,
+      "sign": "Sagittarius",
+      "deg_in_sign": 7.61
+    }
+  }
+}

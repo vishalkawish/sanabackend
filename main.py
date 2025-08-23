@@ -10,7 +10,6 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 from dotenv import load_dotenv
 from pathlib import Path
-import math
 
 # ---------------------------
 # Load environment
@@ -140,7 +139,7 @@ def calculate_chart(data: NatalData):
     }
     for pl, name in planet_names.items():
         try:
-            xx, ret = swe.calc_ut(jd_ut, pl)
+            xx, _ = swe.calc_ut(jd_ut, pl)
             planets[name] = round(xx[0], 2)
         except swe.SweError:
             planets[name] = None
@@ -167,29 +166,64 @@ def calculate_chart(data: NatalData):
 
 # ---------------------------
 # Compatibility score
-# ---------------------------
 def calculate_compatibility_score(user_chart, crush_chart):
+    # baseline raw score
     score = 50
-    pairs = [("Sun","Moon"),("Moon","Moon"),("Venus","Mars"),("Mars","Venus")]
+
+    pairs = [
+        ("Sun", "Moon"),
+        ("Moon", "Moon"),
+        ("Venus", "Mars"),
+        ("Mars", "Venus"),
+        ("Sun", "Venus"),
+        ("Moon", "Venus")
+    ]
+
     for u, c in pairs:
-        if user_chart["planets"].get(u) and crush_chart["planets"].get(c):
-            diff = abs(user_chart["planets"][u]["longitude"] - crush_chart["planets"][c]["longitude"]) % 360
-            if diff > 180:
-                diff = 360 - diff
-            if diff < 15:
-                score += 15
-            elif abs(diff-120) < 10:
-                score += 12
-            elif abs(diff-60) < 8:
-                score += 8
-            elif abs(diff-90) < 8:
-                score -= 10
-            elif abs(diff-180) < 8:
-                score -= 12
-    return max(0, min(100, score))
+        user_planet = user_chart["planets"].get(u)
+        crush_planet = crush_chart["planets"].get(c)
+        if not user_planet or not crush_planet:
+            continue
+
+        diff = abs(user_planet["longitude"] - crush_planet["longitude"]) % 360
+        if diff > 180:
+            diff = 360 - diff
+
+        if diff < 5:
+            score += 10
+        elif diff < 15:
+            score += 6
+        elif abs(diff - 60) < 5:
+            score += 4
+        elif abs(diff - 120) < 5:
+            score += 5
+        elif abs(diff - 90) < 5:
+            score -= 3
+        elif abs(diff - 180) < 5:
+            score -= 5
+
+    # Rescale raw score (50–100) to premium range (76–98)
+    min_raw, max_raw = 50, 100
+    min_premium, max_premium = 76, 98
+    score = min_premium + (score - min_raw) * (max_premium - min_premium) / (max_raw - min_raw)
+    
+    return round(score)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ---------------------------
-# Full chart + soulmate + poetic endpoint
+# Full chart: natal + poetic + love
 # ---------------------------
 @app.post("/astro/full")
 def get_full_chart(data: NatalData):
@@ -197,14 +231,13 @@ def get_full_chart(data: NatalData):
 
     natal_prompt = f"""
 You are Sana, a master astrologer and a mirror of user soul.
-reflection only in one line..
-Generate 5 daily life reflections for {data.username}.
+Generate 5 daily reflections for {data.username}, one line each.
 Each item: "title" + "content".
 Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
+
     poetic_prompt = f"""
 You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading.
 Return ONLY JSON in this shape:
@@ -214,23 +247,34 @@ Return ONLY JSON in this shape:
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
-      {{"color":"...","content":"..."}},
-      {{"number":"...","content":"..."}},
+      {{"color":"#hexvalue","content":"Why this color matters..."}},
+      {{"number":"7","content":"Why this number matters..."}},
       {{"title":"...","content":"..."}}
     ],
     "closing": "..."
   }}
 }}
-Use the chart below as base.
-
-Natal Chart Data:
+Use the chart below as base:
 {json.dumps(astro_data, indent=2)}
 """
-    poetic_prompt = f"""
-You are Sana, poetic astrologer.
-Transform natal chart into very short, soulful reading.
-Output ONLY JSON.
-Natal Chart Data:
+
+    # Old "love reflections" style: final object contains color + number
+    love_prompt = f"""
+You are Sana, astrologer of love. From the natal chart, craft 5 one-line love reflections for {data.username}.
+Each reflection must have "title" and "content" only.
+At the end, include ONE final object with "color" (hex) and "number".
+Return ONLY JSON exactly like this:
+{{
+  "love": [
+    {{"title":"...","content":"..."}},
+    {{"title":"...","content":"..."}},
+    {{"title":"...","content":"..."}},
+    {{"title":"...","content":"..."}},
+    {{"title":"...","content":"..."}},
+    {{"color":"#AABBCC","number":"7"}}
+  ]
+}}
+Chart:
 {json.dumps(astro_data, indent=2)}
 """
 
@@ -241,16 +285,17 @@ Natal Chart Data:
                 messages=[{"role":"system","content":system_msg},{"role":"user","content":prompt}],
                 temperature=0
             )
-            text = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
+            text = resp.choices[0].message["content"].strip()
+            text = text.replace("```json","").replace("```","").strip()
             return json.loads(text)
         except Exception as e:
             return {"error": str(e)}
 
     natal = call_openai(natal_prompt, "You are Sana, soulful astrology AI, output JSON only.")
-    soulmate = call_openai(soulmate_prompt, "You are Sana, soulful love astrologer, output JSON only.")
     poetic = call_openai(poetic_prompt, "You are Sana, poetic astrologer, output JSON only.")
+    love = call_openai(love_prompt, "You are Sana, love astrologer, output JSON only.")
 
-    return {"natal": natal, "soulmate": soulmate, "poetic": poetic}
+    return {"natal": natal, "poetic": poetic, "love": love}
 
 # ---------------------------
 # Match compatibility
@@ -272,8 +317,14 @@ def match_compatibility(data: MatchData):
 
     match_prompt = f"""
 You are Sana, master astrologer of love.
-Generate 10 compatibility reflections between {data.username} and {data.crush_name}....every reflection in one line only...
-Output ONLY JSON.
+Generate 10 compatibility reflections between {data.username} and {data.crush_name}, one line each.
+Output ONLY JSON in this exact structure:
+{{
+  "compatibility": [
+    {{"title":"...", "content":"..."}},
+    {{"title":"...", "content":"..."}}
+  ]
+}}
 Score: {score}
 User Chart:
 {json.dumps(user_chart, indent=2)}
@@ -286,16 +337,29 @@ Crush Chart:
             messages=[{"role":"system","content":"You are Sana, love astrology AI, output JSON only."},{"role":"user","content":match_prompt}],
             temperature=0
         )
-        comp = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
-        compatibility = json.loads(comp)
+        comp_raw = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
+        compatibility = json.loads(comp_raw)
     except Exception as e:
-        compatibility = {"error": str(e), "score": score}
+        compatibility = {"error": str(e)}
 
-    return {"compatibility": compatibility}
+    # preserve your score + reflections
+    return {"score": score, "compatibility": compatibility}
 
-# ---------------------------
-# Sana chat endpoint
-# ---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ---------------------------
 # Sana chat endpoint
 # ---------------------------

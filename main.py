@@ -240,7 +240,7 @@ Natal Chart Data:
 
     poetic_prompt = f"""
 You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading .
-and also calculate lucky number and lucky color(#hex) using the technical chart..no guessing..
+and also calculate lucky number and lucky color(#hex) using the  {data.username} birth details..{datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)}....
 Return ONLY JSON in this shape:
 {{
   "poetic": {{
@@ -262,7 +262,6 @@ Use the chart below as base:
     love_prompt = f"""
 You are Sana, astrologer of love. From the natal chart, craft 5 one-line love reflections for {data.username}.
 Each reflection must have "title" and "content" only.
-At the end, include ONE final object with "color" (hex) and "number".
 Return ONLY JSON exactly like this:
 {{
   "love": [

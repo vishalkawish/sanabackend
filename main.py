@@ -247,8 +247,8 @@ Return ONLY JSON in this shape:
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
-      {{"color":"#hexvalue","content":"Why this color matters..."}},
-      {{"number":"7","content":"Why this number matters..."}},
+      {{"color":"#hex...","content":""}},
+      {{"number":"...","content":""}},
       {{"title":"...","content":"..."}}
     ],
     "closing": "..."

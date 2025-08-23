@@ -205,23 +205,23 @@ Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}
 """
-soulmate_prompt = f"""
-You are Sana, master astrologer of love. Generate 5 love reflections for {data.username}.
-Generate 8 refelctions...
-Each reflection should be only **one line** and include:
-- "title"
-- "content"
-
-At the end, include a single object with:
-- "lucky_color" (in hex)
-- "number"
-
-Output ONLY JSON in the following format:
-{{"love":[
-{{"title":"...","content":"..."}},
-{{"color":"...","number":"..."}}
-]}}
-"""
+    poetic_prompt = f"""
+You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading.
+Return ONLY JSON in this shape:
+{{
+  "poetic": {{
+    "opening": "...", 
+    "highlights": [
+      {{"title":"...","content":"..."}},
+      {{"title":"...","content":"..."}},
+      {{"color":"...","content":"..."}},
+      {{"number":"...","content":"..."}},
+      {{"title":"...","content":"..."}}
+    ],
+    "closing": "..."
+  }}
+}}
+Use the chart below as base.
 
 Natal Chart Data:
 {json.dumps(astro_data, indent=2)}

@@ -239,7 +239,8 @@ Natal Chart Data:
 """
 
     poetic_prompt = f"""
-You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading.
+You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading .
+and also calculate lucky number and lucky olor using the technical chart..no guessing..
 Return ONLY JSON in this shape:
 {{
   "poetic": {{
@@ -247,8 +248,7 @@ Return ONLY JSON in this shape:
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
-      {{"color":"#hex...","content":""}},
-      {{"number":"...","content":""}},
+      {{"color":"...","number":"..."}},
       {{"title":"...","content":"..."}}
     ],
     "closing": "..."
@@ -267,11 +267,6 @@ Return ONLY JSON exactly like this:
 {{
   "love": [
     {{"title":"...","content":"..."}},
-    {{"title":"...","content":"..."}},
-    {{"title":"...","content":"..."}},
-    {{"title":"...","content":"..."}},
-    {{"title":"...","content":"..."}},
-    {{"color":"#AABBCC","number":"7"}}
   ]
 }}
 Chart:

@@ -324,25 +324,28 @@ def match_compatibility(data: MatchData):
     score = calculate_compatibility_score(user_chart, crush_chart)
 
     match_prompt = f"""
-You are Sana, master astrologer of love.
-Generate 8 compatibility reflections between {data.username} and {data.crush_name}, one line each.
-Output ONLY JSON in this exact structure:
+You are Sana, a gentle love guide.
+Write 8 short compatibility reflections between {data.username} and {data.crush_name}.
+Use clear, everyday language — no astrology jargon (no planets, signs, or technical terms).
+Each item must have "title" and "content".
+Make it warm, human, and easy to read.
+Return ONLY JSON in this exact structure:
 {{
   "compatibility": [
     {{"title":"...", "content":"..."}},
     {{"title":"...", "content":"..."}}
   ]
 }}
-Score: {score}
-User Chart:
-{json.dumps(user_chart, indent=2)}
-Crush Chart:
-{json.dumps(crush_chart, indent=2)}
+Also include the overall score: {score}
 """
+
     try:
         resp = openai.ChatCompletion.create(
-             model="gpt-5-nano",
-            messages=[{"role":"system","content":"You are Sana, love astrology AI, output JSON only."},{"role":"user","content":match_prompt}],
+            model="gpt-5-nano",
+            messages=[
+                {"role":"system","content":"You are Sana, a love guide AI. Output JSON only."},
+                {"role":"user","content":match_prompt}
+            ],
             temperature=1
         )
         comp_raw = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
@@ -350,9 +353,7 @@ Crush Chart:
     except Exception as e:
         compatibility = {"error": str(e)}
 
-    # preserve your score + reflections
     return {"score": score, "compatibility": compatibility}
-
 
 
 

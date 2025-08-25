@@ -248,7 +248,6 @@ Return ONLY JSON in this shape:
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
-      {{"color":"...","number":"..."}},
       {{"title":"...","content":"..."}}
     ],
     "closing": "..."
@@ -275,7 +274,7 @@ Chart:
     def call_openai(prompt, system_msg):
         try:
             resp = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-5-nano",
                 messages=[{"role":"system","content":system_msg},{"role":"user","content":prompt}],
                 temperature=0
             )
@@ -311,7 +310,7 @@ def match_compatibility(data: MatchData):
 
     match_prompt = f"""
 You are Sana, master astrologer of love.
-Generate 10 compatibility reflections between {data.username} and {data.crush_name}, one line each.
+Generate 8 compatibility reflections between {data.username} and {data.crush_name}, one line each.
 Output ONLY JSON in this exact structure:
 {{
   "compatibility": [
@@ -327,7 +326,7 @@ Crush Chart:
 """
     try:
         resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+             model="gpt-5-nano",
             messages=[{"role":"system","content":"You are Sana, love astrology AI, output JSON only."},{"role":"user","content":match_prompt}],
             temperature=0
         )
@@ -406,7 +405,7 @@ def sana_chat(data: SanaChatMessage):
 
     try:
         resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-5-nano",
             messages=messages_to_send,
             temperature=0.85
         )
@@ -423,7 +422,7 @@ def sana_chat(data: SanaChatMessage):
     # Update memory summary
     try:
         summary_resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-5-nano",
             messages=[
                 {"role": "system", "content": "You are Sana. Summarize user's chat and traits in short points."},
                 {"role": "user", "content": json.dumps(conversation[-20:])}

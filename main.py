@@ -276,7 +276,7 @@ Chart:
             resp = openai.ChatCompletion.create(
                 model="gpt-5-nano",
                 messages=[{"role":"system","content":system_msg},{"role":"user","content":prompt}],
-                temperature=0
+                temperature=1
             )
             text = resp.choices[0].message["content"].strip()
             text = text.replace("```json","").replace("```","").strip()
@@ -328,7 +328,7 @@ Crush Chart:
         resp = openai.ChatCompletion.create(
              model="gpt-5-nano",
             messages=[{"role":"system","content":"You are Sana, love astrology AI, output JSON only."},{"role":"user","content":match_prompt}],
-            temperature=0
+            temperature=1
         )
         comp_raw = resp.choices[0].message["content"].strip().replace("```json","").replace("```","").strip()
         compatibility = json.loads(comp_raw)
@@ -407,7 +407,7 @@ def sana_chat(data: SanaChatMessage):
         resp = openai.ChatCompletion.create(
             model="gpt-5-nano",
             messages=messages_to_send,
-            temperature=0.85
+            temperature=1
         )
         sana_reply = resp.choices[0].message["content"].strip()
     except Exception as e:

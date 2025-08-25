@@ -1,0 +1,82 @@
+{
+  "username": "kaw",
+  "place": "New York",
+  "datetime_utc": "1995-07-15T14:30:00",
+  "julian_day": 2449914.1041666665,
+  "ascendant": {
+    "longitude": 169.27,
+    "sign": "Virgo",
+    "deg_in_sign": 19.27
+  },
+  "midheaven": {
+    "longitude": 77.55,
+    "sign": "Gemini",
+    "deg_in_sign": 17.55
+  },
+  "houses": [
+    169.27,
+    194.35,
+    224.14,
+    257.55,
+    291.42,
+    322.4,
+    349.27,
+    14.35,
+    44.14,
+    77.55,
+    111.42,
+    142.4
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 112.64,
+      "sign": "Cancer",
+      "deg_in_sign": 22.64
+    },
+    "Moon": {
+      "longitude": 335.8,
+      "sign": "Pisces",
+      "deg_in_sign": 5.8
+    },
+    "Mercury": {
+      "longitude": 98.73,
+      "sign": "Cancer",
+      "deg_in_sign": 8.73
+    },
+    "Venus": {
+      "longitude": 102.64,
+      "sign": "Cancer",
+      "deg_in_sign": 12.64
+    },
+    "Mars": {
+      "longitude": 176.62,
+      "sign": "Virgo",
+      "deg_in_sign": 26.62
+    },
+    "Jupiter": {
+      "longitude": 246.03,
+      "sign": "Sagittarius",
+      "deg_in_sign": 6.03
+    },
+    "Saturn": {
+      "longitude": 354.68,
+      "sign": "Pisces",
+      "deg_in_sign": 24.68
+    },
+    "Uranus": {
+      "longitude": 298.74,
+      "sign": "Capricorn",
+      "deg_in_sign": 28.74
+    },
+    "Neptune": {
+      "longitude": 294.21,
+      "sign": "Capricorn",
+      "deg_in_sign": 24.21
+    },
+    "Pluto": {
+      "longitude": 237.97,
+      "sign": "Scorpio",
+      "deg_in_sign": 27.97
+    }
+  }
+}

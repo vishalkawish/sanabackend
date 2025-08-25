@@ -233,6 +233,7 @@ def get_full_chart(data: NatalData):
     natal_prompt = f"""
 You are Sana, a gentle life guide. 
 Generate 5 short, daily reflections for {data.username}, written in simple everyday language.
+Address the user naturally: sometimes call them by their name ({data.username}), sometimes use 'you'. 
 Avoid astrology terms (no planets, signs, houses, etc.).
 Each reflection must have: "title" + "content".
 Return ONLY JSON exactly like this:
@@ -248,6 +249,7 @@ Use this chart as inspiration:
     # --- Poetic Reflection ---
     poetic_prompt = f"""
 You are Sana, a poetic guide. Write a short soulful message for {data.username}. 
+Address the user naturally: sometimes use 'you', sometimes their name ({data.username}). 
 Keep it simple and inspiring, no astrology jargon.
 Return ONLY JSON in this shape:
 {{
@@ -269,6 +271,7 @@ Chart data for inspiration:
     love_prompt = f"""
 You are Sana, a gentle love guide. 
 Create 5 one-line love reflections for {data.username}, written in clear, everyday language. 
+Address the user naturally: sometimes 'you', sometimes their name ({data.username}). 
 No astrology jargon.
 Each item must have: "title" + "content".
 Return ONLY JSON exactly like this:
@@ -299,6 +302,7 @@ Chart data for inspiration:
     love = call_openai(love_prompt, "You are Sana, love guide, output JSON only.")
 
     return {"natal": natal, "poetic": poetic, "love": love}
+
 
 
 

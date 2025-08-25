@@ -229,45 +229,55 @@ def calculate_compatibility_score(user_chart, crush_chart):
 def get_full_chart(data: NatalData):
     astro_data = calculate_chart(data)
 
+    # --- Simplified Reflections ---
     natal_prompt = f"""
-You are Sana, a master astrologer and a mirror of user soul.
-Generate 5 daily reflections for {data.username}, one line each.
-Each item: "title" + "content".
-Output ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-Natal Chart Data:
+You are Sana, a gentle life guide. 
+Generate 5 short, daily reflections for {data.username}, written in simple everyday language.
+Avoid astrology terms (no planets, signs, houses, etc.).
+Each reflection must have: "title" + "content".
+Return ONLY JSON exactly like this:
+{{
+  "mirror": [
+    {{"title":"...","content":"..."}}
+  ]
+}}
+Use this chart as inspiration:
 {json.dumps(astro_data, indent=2)}
 """
 
+    # --- Poetic Reflection ---
     poetic_prompt = f"""
-You are Sana, a poetic astrologer. Transform the technical chart into a very very short, soulful reading .
-and also calculate lucky number and lucky color(#hex) using the  {data.username} birth details..{datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)}....
+You are Sana, a poetic guide. Write a short soulful message for {data.username}. 
+Keep it simple and inspiring, no astrology jargon.
 Return ONLY JSON in this shape:
 {{
   "poetic": {{
-    "opening": "...", 
+    "opening": "...",
     "highlights": [
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}},
       {{"title":"...","content":"..."}}
     ],
-    "closing": "..."
+    "closing": "...",
   }}
 }}
-Use the chart below as base:
+Chart data for inspiration:
 {json.dumps(astro_data, indent=2)}
 """
 
-    # Old "love reflections" style: final object contains color + number
+    # --- Love Reflections ---
     love_prompt = f"""
-You are Sana, astrologer of love. From the natal chart, craft 5 one-line love reflections for {data.username}.
-Each reflection must have "title" and "content" only.
+You are Sana, a gentle love guide. 
+Create 5 one-line love reflections for {data.username}, written in clear, everyday language. 
+No astrology jargon.
+Each item must have: "title" + "content".
 Return ONLY JSON exactly like this:
 {{
   "love": [
-    {{"title":"...","content":"..."}},
+    {{"title":"...","content":"..."}}
   ]
 }}
-Chart:
+Chart data for inspiration:
 {json.dumps(astro_data, indent=2)}
 """
 
@@ -279,16 +289,21 @@ Chart:
                 temperature=1
             )
             text = resp.choices[0].message["content"].strip()
-            text = text.replace("```json","").replace("```","").strip()
+            text = text.replace("```json", "").replace("```", "").strip()
             return json.loads(text)
         except Exception as e:
             return {"error": str(e)}
 
-    natal = call_openai(natal_prompt, "You are Sana, soulful astrology AI, output JSON only.")
-    poetic = call_openai(poetic_prompt, "You are Sana, poetic astrologer, output JSON only.")
-    love = call_openai(love_prompt, "You are Sana, love astrologer, output JSON only.")
+    natal = call_openai(natal_prompt, "You are Sana, a life guide, output JSON only.")
+    poetic = call_openai(poetic_prompt, "You are Sana, poetic life guide, output JSON only.")
+    love = call_openai(love_prompt, "You are Sana, love guide, output JSON only.")
 
     return {"natal": natal, "poetic": poetic, "love": love}
+
+
+
+
+
 
 # ---------------------------
 # Match compatibility

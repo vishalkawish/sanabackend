@@ -14,5 +14,13 @@
   {
     "role": "assistant",
     "content": "Kawish, today\u2019s energy nudges you toward small, kind steps\u2014stay present, trust your gut, and you\u2019ll feel steady momentum lift your day."
+  },
+  {
+    "role": "user",
+    "content": "Hi Sana, how are you?"
+  },
+  {
+    "role": "assistant",
+    "content": "Kawish, I\u2019m here with you\u2014steady and curious, ready to walk through your day and find small moments of light."
   }
 ]

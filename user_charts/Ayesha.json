@@ -1,0 +1,82 @@
+{
+  "username": "Ayesha",
+  "place": "Mumbai",
+  "datetime_utc": "2000-05-21T09:15:00",
+  "julian_day": 2451685.8854166665,
+  "ascendant": {
+    "longitude": 180.89,
+    "sign": "Libra",
+    "deg_in_sign": 0.89
+  },
+  "midheaven": {
+    "longitude": 90.86,
+    "sign": "Cancer",
+    "deg_in_sign": 0.86
+  },
+  "houses": [
+    180.89,
+    210.34,
+    240.65,
+    270.86,
+    301.11,
+    331.47,
+    0.89,
+    30.34,
+    60.65,
+    90.86,
+    121.11,
+    151.47
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 60.62,
+      "sign": "Gemini",
+      "deg_in_sign": 0.62
+    },
+    "Moon": {
+      "longitude": 274.56,
+      "sign": "Capricorn",
+      "deg_in_sign": 4.56
+    },
+    "Mercury": {
+      "longitude": 74.64,
+      "sign": "Gemini",
+      "deg_in_sign": 14.64
+    },
+    "Venus": {
+      "longitude": 54.93,
+      "sign": "Taurus",
+      "deg_in_sign": 24.93
+    },
+    "Mars": {
+      "longitude": 72.23,
+      "sign": "Gemini",
+      "deg_in_sign": 12.23
+    },
+    "Jupiter": {
+      "longitude": 51.01,
+      "sign": "Taurus",
+      "deg_in_sign": 21.01
+    },
+    "Saturn": {
+      "longitude": 51.8,
+      "sign": "Taurus",
+      "deg_in_sign": 21.8
+    },
+    "Uranus": {
+      "longitude": 320.82,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.82
+    },
+    "Neptune": {
+      "longitude": 306.53,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.53
+    },
+    "Pluto": {
+      "longitude": 251.85,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.85
+    }
+  }
+}

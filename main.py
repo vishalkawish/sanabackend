@@ -216,7 +216,7 @@ async def get_full_chart(data: NatalData):
 
     natal_prompt = f"""
 You are Sana, a gentle life guide. 
-Generate 5 short, daily reflections for {data.username}, written in simple everyday language.
+Generate 5 short, daily reflections for {data.username}, written in simple language.
 Address the user naturally: sometimes call them by their name ({data.username}), sometimes use 'you'. 
 Avoid astrology terms (no planets, signs, houses, etc.).
 Each reflection must have: "title" + "content".
@@ -224,6 +224,7 @@ Return ONLY JSON exactly like this:
 {{"mirror":[{{"title":"...","content":"..."}}]}}
 Use this chart as inspiration:
 {json.dumps(astro_data, indent=2)}
+and tell user who is he.
 """
 
     poetic_prompt = f"""

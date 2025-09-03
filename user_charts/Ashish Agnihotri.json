@@ -1,0 +1,82 @@
+{
+  "username": "Ashish Agnihotri",
+  "place": "Lucknow",
+  "datetime_utc": "1998-05-14T15:30:00",
+  "julian_day": 2450948.1458333335,
+  "ascendant": {
+    "longitude": 263.6,
+    "sign": "Sagittarius",
+    "deg_in_sign": 23.6
+  },
+  "midheaven": {
+    "longitude": 186.11,
+    "sign": "Libra",
+    "deg_in_sign": 6.11
+  },
+  "houses": [
+    263.6,
+    296.17,
+    331.74,
+    6.11,
+    35.6,
+    60.58,
+    83.6,
+    116.17,
+    151.74,
+    186.11,
+    215.6,
+    240.58
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 53.63,
+      "sign": "Taurus",
+      "deg_in_sign": 23.63
+    },
+    "Moon": {
+      "longitude": 268.34,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.34
+    },
+    "Mercury": {
+      "longitude": 29.37,
+      "sign": "Aries",
+      "deg_in_sign": 29.37
+    },
+    "Venus": {
+      "longitude": 12.3,
+      "sign": "Aries",
+      "deg_in_sign": 12.3
+    },
+    "Mars": {
+      "longitude": 53.19,
+      "sign": "Taurus",
+      "deg_in_sign": 23.19
+    },
+    "Jupiter": {
+      "longitude": 352.02,
+      "sign": "Pisces",
+      "deg_in_sign": 22.02
+    },
+    "Saturn": {
+      "longitude": 27.2,
+      "sign": "Aries",
+      "deg_in_sign": 27.2
+    },
+    "Uranus": {
+      "longitude": 312.74,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.74
+    },
+    "Neptune": {
+      "longitude": 302.14,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.14
+    },
+    "Pluto": {
+      "longitude": 247.06,
+      "sign": "Sagittarius",
+      "deg_in_sign": 7.06
+    }
+  }
+}

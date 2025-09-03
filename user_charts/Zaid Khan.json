@@ -1,0 +1,82 @@
+{
+  "username": "Zaid Khan",
+  "place": "Sambhal",
+  "datetime_utc": "2011-02-22T09:46:00",
+  "julian_day": 2455614.9069444444,
+  "ascendant": {
+    "longitude": 116.84,
+    "sign": "Cancer",
+    "deg_in_sign": 26.84
+  },
+  "midheaven": {
+    "longitude": 18.45,
+    "sign": "Aries",
+    "deg_in_sign": 18.45
+  },
+  "houses": [
+    116.84,
+    140.08,
+    166.9,
+    198.45,
+    232.89,
+    266.37,
+    296.84,
+    320.08,
+    346.9,
+    18.45,
+    52.89,
+    86.37
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 333.42,
+      "sign": "Pisces",
+      "deg_in_sign": 3.42
+    },
+    "Moon": {
+      "longitude": 210.17,
+      "sign": "Scorpio",
+      "deg_in_sign": 0.17
+    },
+    "Mercury": {
+      "longitude": 330.97,
+      "sign": "Pisces",
+      "deg_in_sign": 0.97
+    },
+    "Venus": {
+      "longitude": 290.94,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.94
+    },
+    "Mars": {
+      "longitude": 329.5,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.5
+    },
+    "Jupiter": {
+      "longitude": 6.26,
+      "sign": "Aries",
+      "deg_in_sign": 6.26
+    },
+    "Saturn": {
+      "longitude": 196.59,
+      "sign": "Libra",
+      "deg_in_sign": 16.59
+    },
+    "Uranus": {
+      "longitude": 359.03,
+      "sign": "Pisces",
+      "deg_in_sign": 29.03
+    },
+    "Neptune": {
+      "longitude": 328.57,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.57
+    },
+    "Pluto": {
+      "longitude": 276.96,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.96
+    }
+  }
+}

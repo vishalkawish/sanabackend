@@ -1,0 +1,82 @@
+{
+  "username": "Kuldeep Kesri",
+  "place": "Moradabad",
+  "datetime_utc": "1996-01-28T02:45:00",
+  "julian_day": 2450110.6145833335,
+  "ascendant": {
+    "longitude": 327.63,
+    "sign": "Aquarius",
+    "deg_in_sign": 27.63
+  },
+  "midheaven": {
+    "longitude": 248.46,
+    "sign": "Sagittarius",
+    "deg_in_sign": 8.46
+  },
+  "houses": [
+    327.63,
+    8.7,
+    42.09,
+    68.46,
+    91.94,
+    116.62,
+    147.63,
+    188.7,
+    222.09,
+    248.46,
+    271.94,
+    296.62
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 307.46,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.46
+    },
+    "Moon": {
+      "longitude": 44.82,
+      "sign": "Taurus",
+      "deg_in_sign": 14.82
+    },
+    "Mercury": {
+      "longitude": 289.48,
+      "sign": "Capricorn",
+      "deg_in_sign": 19.48
+    },
+    "Venus": {
+      "longitude": 345.67,
+      "sign": "Pisces",
+      "deg_in_sign": 15.67
+    },
+    "Mars": {
+      "longitude": 315.47,
+      "sign": "Aquarius",
+      "deg_in_sign": 15.47
+    },
+    "Jupiter": {
+      "longitude": 275.45,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.45
+    },
+    "Saturn": {
+      "longitude": 351.7,
+      "sign": "Pisces",
+      "deg_in_sign": 21.7
+    },
+    "Uranus": {
+      "longitude": 300.93,
+      "sign": "Aquarius",
+      "deg_in_sign": 0.93
+    },
+    "Neptune": {
+      "longitude": 295.7,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.7
+    },
+    "Pluto": {
+      "longitude": 242.7,
+      "sign": "Sagittarius",
+      "deg_in_sign": 2.7
+    }
+  }
+}

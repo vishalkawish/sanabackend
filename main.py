@@ -1,28 +1,47 @@
-# main.py
-from fastapi import FastAPI, HTTPException, APIRouter
-from pydantic import BaseModel, validator
-import swisseph as swe
-import datetime
+# 1️⃣ Load env first
+from dotenv import load_dotenv
+load_dotenv()
+
+# 2️⃣ Standard imports
 import os
 import json
 import asyncio
+from pathlib import Path
+from fastapi import FastAPI, HTTPException, APIRouter
+from pydantic import BaseModel, validator
+import requests
+import swisseph as swe
 import openai
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
-from dotenv import load_dotenv
-from pathlib import Path
 
-# ---------------------------
-# Load environment
-# ---------------------------
-load_dotenv()
-openai.api_key = os.environ.get("OPENAI_API_KEY")  # no proxies
+# 3️⃣ Supabase import
+from supabase import create_client
+
+# 4️⃣ Local imports (after env loaded)
+from match import router as match_router, get_best_matches
+from charts import calculate_chart, NatalData
+from helpers import generate_chart_for_user
+from compatibility import calculate_compatibility_score
+
+# 5️⃣ Environment variables
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
+# 6️⃣ Supabase client
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+
 
 if not openai.api_key:
     raise RuntimeError("OpenAI API key not found. Set environment variable OPENAI_API_KEY")
 
 app = FastAPI()
 geolocator = Nominatim(user_agent="anlasana-astro-api")
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
 
 # ---------------------------
 # Directories
@@ -105,65 +124,6 @@ def home():
 
 # ---------------------------
 # Core chart calculation
-# ---------------------------
-def calculate_chart(data: NatalData):
-    # Geocode
-    try:
-        location = geolocator.geocode(data.place, timeout=10)
-        if not location:
-            raise HTTPException(status_code=404, detail=f"Place not found: {data.place}")
-        lat, lon = float(location.latitude), float(location.longitude)
-    except (GeocoderTimedOut, GeocoderServiceError) as e:
-        raise HTTPException(status_code=503, detail=f"Geocoding service unavailable: {e}")
-
-    # Time & Julian day
-    try:
-        birth_dt = datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)
-        jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day, birth_dt.hour + birth_dt.minute / 60)
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid date/time provided.")
-
-    # Houses / angles
-    try:
-        swe.set_ephe_path(".")
-        houses, ascmc = swe.houses(jd_ut, lat, lon, b"P")
-    except swe.SweError as e:
-        raise HTTPException(status_code=500, detail=f"Swisseph calculation failed: {e}")
-
-    # Planets
-    planets = {}
-    planet_names = {
-        swe.SUN: "Sun", swe.MOON: "Moon", swe.MERCURY: "Mercury",
-        swe.VENUS: "Venus", swe.MARS: "Mars", swe.JUPITER: "Jupiter",
-        swe.SATURN: "Saturn", swe.URANUS: "Uranus", swe.NEPTUNE: "Neptune",
-        swe.PLUTO: "Pluto"
-    }
-    for pl, name in planet_names.items():
-        try:
-            xx, _ = swe.calc_ut(jd_ut, pl)
-            planets[name] = round(xx[0], 2)
-        except swe.SweError:
-            planets[name] = None
-
-    # Enrich with zodiac signs
-    asc_sign, asc_deg = deg_to_sign(ascmc[0])
-    mc_sign, mc_deg   = deg_to_sign(ascmc[1])
-    planets_signed = planets_with_signs(planets)
-
-    astro_data = {
-        "username": data.username,
-        "place": data.place,
-        "datetime_utc": birth_dt.isoformat(),
-        "julian_day": jd_ut,
-        "ascendant": {"longitude": round(ascmc[0], 2), "sign": asc_sign, "deg_in_sign": asc_deg},
-        "midheaven": {"longitude": round(ascmc[1], 2), "sign": mc_sign, "deg_in_sign": mc_deg},
-        "houses": [round(h, 2) for h in houses],
-        "planets": planets_signed
-    }
-    # Save chart locally for chat
-    with open(USER_CHART_DIR / f"{data.username}.json", "w") as f:
-        json.dump(astro_data, f, indent=2)
-    return astro_data
 
 # ---------------------------
 # Compatibility score
@@ -212,6 +172,20 @@ router = APIRouter()
 
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
+
+    chart_file = USER_CHART_DIR / f"{data.username}.json"
+    
+    if not chart_file.exists():
+        # Try to fetch Supabase user ID by username
+        user = fetch_user_from_supabase_by_username(data.username)
+        if user:
+            generate_chart_for_user(user["id"])
+        else:
+            print(f"⚠️ User {data.username} not found in Supabase. Chart will be generated using provided data.")
+    
+    # --------------------------
+    # Now calculate chart (either existing or new)
+    # --------------------------
     astro_data = calculate_chart(data)
 
     natal_prompt = f"""
@@ -269,6 +243,34 @@ Chart data for inspiration:
         call_openai(love_prompt, "You are Sana, love guide, output JSON only."),
     )
     return {"natal": natal, "poetic": poetic, "love": love}
+
+
+
+
+
+
+def fetch_user_from_supabase_by_username(username: str):
+    """
+    Fetch a user from Supabase by username.
+    Returns the user dict if found, else None.
+    """
+    url = f"{SUPABASE_URL}/rest/v1/users?username=eq.{username}&select=*"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}"
+    }
+    try:
+        resp = requests.get(url, headers=headers)
+        if resp.status_code == 200 and resp.json():
+            return resp.json()[0]
+        return None
+    except Exception as e:
+        print(f"Error fetching user from Supabase: {e}")
+        return None
+
+
+
+
 
 # ---------------------------
 # Match compatibility
@@ -388,6 +390,77 @@ def sana_chat(data: SanaChatMessage):
         pass
 
     return {"reply": sana_reply}
+
+# ---------------------------
+# Match suggestions (find matches)
+# ---------------------------
+from fastapi import HTTPException
+
+@app.get("/astro/find_matches/{user_id}")
+def find_matches(user_id: str, top_n: int = 5):
+    # 🔹 1. Fetch current user from Supabase by ID
+    url = f"{SUPABASE_URL}/rest/v1/users?id=eq.{user_id}&select=*"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}"
+    }
+    resp = requests.get(url, headers=headers)
+
+    if resp.status_code != 200 or not resp.json():
+        raise HTTPException(status_code=404, detail="User not found in Supabase")
+
+    current_user = resp.json()[0]
+    username = current_user["name"]
+
+    # 🔹 2. Load current user’s chart
+    chart_file = USER_CHART_DIR / f"{username}.json"
+    if not chart_file.exists():
+        raise HTTPException(status_code=404, detail="User chart not found")
+
+    with open(chart_file, "r") as f:
+        user_chart = json.load(f)
+
+    # 🔹 3. Fetch all users
+    all_users_resp = requests.get(f"{SUPABASE_URL}/rest/v1/users?select=*", headers=headers)
+    if all_users_resp.status_code != 200:
+        raise HTTPException(status_code=500, detail="Failed to fetch users from Supabase")
+
+    users = all_users_resp.json()
+
+    # 🔹 4. Compatibility calculation
+    matches = []
+    for u in users:
+        if u["id"] == user_id:  # skip same user
+            continue
+        chart_path = USER_CHART_DIR / f"{u['name']}.json"
+        if not chart_path.exists():
+            continue
+        with open(chart_path, "r") as f:
+            crush_chart = json.load(f)
+        score = calculate_compatibility_score(user_chart, crush_chart)
+        matches.append({
+            "id": u["id"],
+            "username": u["name"],
+            "score": score
+        })
+
+    # 🔹 5. Sort & return
+    matches_sorted = sorted(matches, key=lambda x: x["score"], reverse=True)[:top_n]
+    return {"matches": matches_sorted}
+
+
+
+@app.get("/matches/{user_id}")
+def get_matches(user_id: str):
+    matches = get_best_matches(user_id)
+    if not matches:
+        raise HTTPException(status_code=404, detail="No matches found")
+    return {"user_id": user_id, "matches": matches}
+
+
+
+
+app.include_router(match_router)
 
 # Register router
 app.include_router(router)

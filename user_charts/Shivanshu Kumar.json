@@ -1,0 +1,82 @@
+{
+  "username": "Shivanshu Kumar",
+  "place": "moradabad",
+  "datetime_utc": "2004-02-26T09:09:00",
+  "julian_day": 2453061.88125,
+  "ascendant": {
+    "longitude": 112.43,
+    "sign": "Cancer",
+    "deg_in_sign": 22.43
+  },
+  "midheaven": {
+    "longitude": 12.64,
+    "sign": "Aries",
+    "deg_in_sign": 12.64
+  },
+  "houses": [
+    112.43,
+    135.33,
+    161.53,
+    192.64,
+    227.33,
+    261.48,
+    292.43,
+    315.33,
+    341.53,
+    12.64,
+    47.33,
+    81.48
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 337.11,
+      "sign": "Pisces",
+      "deg_in_sign": 7.11
+    },
+    "Moon": {
+      "longitude": 48.0,
+      "sign": "Taurus",
+      "deg_in_sign": 18.0
+    },
+    "Mercury": {
+      "longitude": 331.5,
+      "sign": "Pisces",
+      "deg_in_sign": 1.5
+    },
+    "Venus": {
+      "longitude": 20.57,
+      "sign": "Aries",
+      "deg_in_sign": 20.57
+    },
+    "Mars": {
+      "longitude": 44.66,
+      "sign": "Taurus",
+      "deg_in_sign": 14.66
+    },
+    "Jupiter": {
+      "longitude": 164.85,
+      "sign": "Virgo",
+      "deg_in_sign": 14.85
+    },
+    "Saturn": {
+      "longitude": 96.38,
+      "sign": "Cancer",
+      "deg_in_sign": 6.38
+    },
+    "Uranus": {
+      "longitude": 333.03,
+      "sign": "Pisces",
+      "deg_in_sign": 3.03
+    },
+    "Neptune": {
+      "longitude": 313.76,
+      "sign": "Aquarius",
+      "deg_in_sign": 13.76
+    },
+    "Pluto": {
+      "longitude": 262.04,
+      "sign": "Sagittarius",
+      "deg_in_sign": 22.04
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "username": "Radha Devi",
+  "place": "29 April",
+  "datetime_utc": "2010-04-29T06:00:00",
+  "julian_day": 2455315.75,
+  "ascendant": {
+    "longitude": 300.07,
+    "sign": "Aquarius",
+    "deg_in_sign": 0.07
+  },
+  "midheaven": {
+    "longitude": 228.52,
+    "sign": "Scorpio",
+    "deg_in_sign": 18.52
+  },
+  "houses": [
+    300.07,
+    341.45,
+    19.18,
+    48.52,
+    72.38,
+    94.76,
+    120.07,
+    161.45,
+    199.18,
+    228.52,
+    252.38,
+    274.76
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 38.83,
+      "sign": "Taurus",
+      "deg_in_sign": 8.83
+    },
+    "Moon": {
+      "longitude": 228.34,
+      "sign": "Scorpio",
+      "deg_in_sign": 18.34
+    },
+    "Mercury": {
+      "longitude": 37.92,
+      "sign": "Taurus",
+      "deg_in_sign": 7.92
+    },
+    "Venus": {
+      "longitude": 64.91,
+      "sign": "Gemini",
+      "deg_in_sign": 4.91
+    },
+    "Mars": {
+      "longitude": 131.8,
+      "sign": "Leo",
+      "deg_in_sign": 11.8
+    },
+    "Jupiter": {
+      "longitude": 353.43,
+      "sign": "Pisces",
+      "deg_in_sign": 23.43
+    },
+    "Saturn": {
+      "longitude": 178.65,
+      "sign": "Virgo",
+      "deg_in_sign": 28.65
+    },
+    "Uranus": {
+      "longitude": 358.88,
+      "sign": "Pisces",
+      "deg_in_sign": 28.88
+    },
+    "Neptune": {
+      "longitude": 328.42,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.42
+    },
+    "Pluto": {
+      "longitude": 275.29,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.29
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "username": "mukesh kumar",
+  "place": "Alampur",
+  "datetime_utc": "2011-08-20T09:15:00",
+  "julian_day": 2455793.8854166665,
+  "ascendant": {
+    "longitude": 268.32,
+    "sign": "Sagittarius",
+    "deg_in_sign": 28.32
+  },
+  "midheaven": {
+    "longitude": 185.72,
+    "sign": "Libra",
+    "deg_in_sign": 5.72
+  },
+  "houses": [
+    268.32,
+    299.08,
+    332.25,
+    5.72,
+    36.26,
+    63.16,
+    88.32,
+    119.08,
+    152.25,
+    185.72,
+    216.26,
+    243.16
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 147.03,
+      "sign": "Leo",
+      "deg_in_sign": 27.03
+    },
+    "Moon": {
+      "longitude": 40.2,
+      "sign": "Taurus",
+      "deg_in_sign": 10.2
+    },
+    "Mercury": {
+      "longitude": 141.2,
+      "sign": "Leo",
+      "deg_in_sign": 21.2
+    },
+    "Venus": {
+      "longitude": 148.1,
+      "sign": "Leo",
+      "deg_in_sign": 28.1
+    },
+    "Mars": {
+      "longitude": 101.23,
+      "sign": "Cancer",
+      "deg_in_sign": 11.23
+    },
+    "Jupiter": {
+      "longitude": 40.19,
+      "sign": "Taurus",
+      "deg_in_sign": 10.19
+    },
+    "Saturn": {
+      "longitude": 194.01,
+      "sign": "Libra",
+      "deg_in_sign": 14.01
+    },
+    "Uranus": {
+      "longitude": 3.92,
+      "sign": "Aries",
+      "deg_in_sign": 3.92
+    },
+    "Neptune": {
+      "longitude": 329.59,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.59
+    },
+    "Pluto": {
+      "longitude": 275.07,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.07
+    }
+  }
+}

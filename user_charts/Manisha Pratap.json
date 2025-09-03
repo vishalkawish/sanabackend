@@ -1,0 +1,82 @@
+{
+  "username": "Manisha Pratap",
+  "place": "Moradabad",
+  "datetime_utc": "1999-01-11T09:09:00",
+  "julian_day": 2451189.88125,
+  "ascendant": {
+    "longitude": 71.0,
+    "sign": "Gemini",
+    "deg_in_sign": 11.0
+  },
+  "midheaven": {
+    "longitude": 324.19,
+    "sign": "Aquarius",
+    "deg_in_sign": 24.19
+  },
+  "houses": [
+    71.0,
+    95.21,
+    118.35,
+    144.19,
+    175.85,
+    213.48,
+    251.0,
+    275.21,
+    298.35,
+    324.19,
+    355.85,
+    33.48
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 290.68,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.68
+    },
+    "Moon": {
+      "longitude": 220.05,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.05
+    },
+    "Mercury": {
+      "longitude": 276.39,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.39
+    },
+    "Venus": {
+      "longitude": 308.39,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.39
+    },
+    "Mars": {
+      "longitude": 203.38,
+      "sign": "Libra",
+      "deg_in_sign": 23.38
+    },
+    "Jupiter": {
+      "longitude": 353.58,
+      "sign": "Pisces",
+      "deg_in_sign": 23.58
+    },
+    "Saturn": {
+      "longitude": 26.92,
+      "sign": "Aries",
+      "deg_in_sign": 26.92
+    },
+    "Uranus": {
+      "longitude": 311.52,
+      "sign": "Aquarius",
+      "deg_in_sign": 11.52
+    },
+    "Neptune": {
+      "longitude": 301.44,
+      "sign": "Aquarius",
+      "deg_in_sign": 1.44
+    },
+    "Pluto": {
+      "longitude": 249.46,
+      "sign": "Sagittarius",
+      "deg_in_sign": 9.46
+    }
+  }
+}

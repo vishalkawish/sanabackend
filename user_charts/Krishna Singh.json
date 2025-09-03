@@ -1,0 +1,82 @@
+{
+  "username": "Krishna Singh",
+  "place": "up, Gorakhpur",
+  "datetime_utc": "2000-05-07T08:20:00",
+  "julian_day": 2451671.847222222,
+  "ascendant": {
+    "longitude": 165.57,
+    "sign": "Virgo",
+    "deg_in_sign": 15.57
+  },
+  "midheaven": {
+    "longitude": 75.12,
+    "sign": "Gemini",
+    "deg_in_sign": 15.12
+  },
+  "houses": [
+    165.57,
+    193.15,
+    223.56,
+    255.12,
+    286.45,
+    316.84,
+    345.57,
+    13.15,
+    43.56,
+    75.12,
+    106.45,
+    136.84
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 47.08,
+      "sign": "Taurus",
+      "deg_in_sign": 17.08
+    },
+    "Moon": {
+      "longitude": 90.68,
+      "sign": "Cancer",
+      "deg_in_sign": 0.68
+    },
+    "Mercury": {
+      "longitude": 44.92,
+      "sign": "Taurus",
+      "deg_in_sign": 14.92
+    },
+    "Venus": {
+      "longitude": 37.67,
+      "sign": "Taurus",
+      "deg_in_sign": 7.67
+    },
+    "Mars": {
+      "longitude": 62.48,
+      "sign": "Gemini",
+      "deg_in_sign": 2.48
+    },
+    "Jupiter": {
+      "longitude": 47.68,
+      "sign": "Taurus",
+      "deg_in_sign": 17.68
+    },
+    "Saturn": {
+      "longitude": 49.99,
+      "sign": "Taurus",
+      "deg_in_sign": 19.99
+    },
+    "Uranus": {
+      "longitude": 320.69,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.69
+    },
+    "Neptune": {
+      "longitude": 306.57,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.57
+    },
+    "Pluto": {
+      "longitude": 252.2,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.2
+    }
+  }
+}

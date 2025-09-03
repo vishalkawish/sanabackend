@@ -1,0 +1,82 @@
+{
+  "username": "Abhishek Jain",
+  "place": "Dei nainwa",
+  "datetime_utc": "1996-07-22T02:30:00",
+  "julian_day": 2450286.6041666665,
+  "ascendant": {
+    "longitude": 147.43,
+    "sign": "Leo",
+    "deg_in_sign": 27.43
+  },
+  "midheaven": {
+    "longitude": 55.9,
+    "sign": "Taurus",
+    "deg_in_sign": 25.9
+  },
+  "houses": [
+    147.43,
+    173.85,
+    203.85,
+    235.9,
+    267.78,
+    298.36,
+    327.43,
+    353.85,
+    23.85,
+    55.9,
+    87.78,
+    118.36
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 119.57,
+      "sign": "Cancer",
+      "deg_in_sign": 29.57
+    },
+    "Moon": {
+      "longitude": 190.39,
+      "sign": "Libra",
+      "deg_in_sign": 10.39
+    },
+    "Mercury": {
+      "longitude": 131.35,
+      "sign": "Leo",
+      "deg_in_sign": 11.35
+    },
+    "Venus": {
+      "longitude": 78.25,
+      "sign": "Gemini",
+      "deg_in_sign": 18.25
+    },
+    "Mars": {
+      "longitude": 87.52,
+      "sign": "Gemini",
+      "deg_in_sign": 27.52
+    },
+    "Jupiter": {
+      "longitude": 280.58,
+      "sign": "Capricorn",
+      "deg_in_sign": 10.58
+    },
+    "Saturn": {
+      "longitude": 7.39,
+      "sign": "Aries",
+      "deg_in_sign": 7.39
+    },
+    "Uranus": {
+      "longitude": 302.73,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.73
+    },
+    "Neptune": {
+      "longitude": 296.27,
+      "sign": "Capricorn",
+      "deg_in_sign": 26.27
+    },
+    "Pluto": {
+      "longitude": 240.44,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.44
+    }
+  }
+}

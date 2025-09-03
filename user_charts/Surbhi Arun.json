@@ -1,0 +1,82 @@
+{
+  "username": "Surbhi Arun",
+  "place": "Lucknow",
+  "datetime_utc": "1999-09-18T05:00:00",
+  "julian_day": 2451439.7083333335,
+  "ascendant": {
+    "longitude": 234.93,
+    "sign": "Scorpio",
+    "deg_in_sign": 24.93
+  },
+  "midheaven": {
+    "longitude": 150.55,
+    "sign": "Virgo",
+    "deg_in_sign": 0.55
+  },
+  "houses": [
+    234.93,
+    264.68,
+    296.88,
+    330.55,
+    2.65,
+    30.71,
+    54.93,
+    84.68,
+    116.88,
+    150.55,
+    182.65,
+    210.71
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 174.85,
+      "sign": "Virgo",
+      "deg_in_sign": 24.85
+    },
+    "Moon": {
+      "longitude": 268.9,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.9
+    },
+    "Mercury": {
+      "longitude": 182.92,
+      "sign": "Libra",
+      "deg_in_sign": 2.92
+    },
+    "Venus": {
+      "longitude": 139.75,
+      "sign": "Leo",
+      "deg_in_sign": 19.75
+    },
+    "Mars": {
+      "longitude": 249.94,
+      "sign": "Sagittarius",
+      "deg_in_sign": 9.94
+    },
+    "Jupiter": {
+      "longitude": 34.03,
+      "sign": "Taurus",
+      "deg_in_sign": 4.03
+    },
+    "Saturn": {
+      "longitude": 46.86,
+      "sign": "Taurus",
+      "deg_in_sign": 16.86
+    },
+    "Uranus": {
+      "longitude": 313.35,
+      "sign": "Aquarius",
+      "deg_in_sign": 13.35
+    },
+    "Neptune": {
+      "longitude": 301.77,
+      "sign": "Aquarius",
+      "deg_in_sign": 1.77
+    },
+    "Pluto": {
+      "longitude": 247.99,
+      "sign": "Sagittarius",
+      "deg_in_sign": 7.99
+    }
+  }
+}

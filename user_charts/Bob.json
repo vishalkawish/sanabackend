@@ -1,0 +1,82 @@
+{
+  "username": "Bob",
+  "place": "Los Angeles",
+  "datetime_utc": "1996-07-15T10:45:00",
+  "julian_day": 2450279.9479166665,
+  "ascendant": {
+    "longitude": 84.03,
+    "sign": "Gemini",
+    "deg_in_sign": 24.03
+  },
+  "midheaven": {
+    "longitude": 334.72,
+    "sign": "Pisces",
+    "deg_in_sign": 4.72
+  },
+  "houses": [
+    84.03,
+    106.04,
+    128.42,
+    154.72,
+    187.93,
+    226.94,
+    264.03,
+    286.04,
+    308.42,
+    334.72,
+    7.93,
+    46.94
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 113.22,
+      "sign": "Cancer",
+      "deg_in_sign": 23.22
+    },
+    "Moon": {
+      "longitude": 110.71,
+      "sign": "Cancer",
+      "deg_in_sign": 20.71
+    },
+    "Mercury": {
+      "longitude": 117.99,
+      "sign": "Cancer",
+      "deg_in_sign": 27.99
+    },
+    "Venus": {
+      "longitude": 74.82,
+      "sign": "Gemini",
+      "deg_in_sign": 14.82
+    },
+    "Mars": {
+      "longitude": 82.99,
+      "sign": "Gemini",
+      "deg_in_sign": 22.99
+    },
+    "Jupiter": {
+      "longitude": 281.37,
+      "sign": "Capricorn",
+      "deg_in_sign": 11.37
+    },
+    "Saturn": {
+      "longitude": 7.39,
+      "sign": "Aries",
+      "deg_in_sign": 7.39
+    },
+    "Uranus": {
+      "longitude": 303.0,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.0
+    },
+    "Neptune": {
+      "longitude": 296.45,
+      "sign": "Capricorn",
+      "deg_in_sign": 26.45
+    },
+    "Pluto": {
+      "longitude": 240.52,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.52
+    }
+  }
+}

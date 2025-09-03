@@ -1,0 +1,82 @@
+{
+  "username": "Vaishnavi",
+  "place": "Lucknow",
+  "datetime_utc": "1998-09-22T12:00:00",
+  "julian_day": 2451079.0,
+  "ascendant": {
+    "longitude": 348.98,
+    "sign": "Pisces",
+    "deg_in_sign": 18.98
+  },
+  "midheaven": {
+    "longitude": 262.73,
+    "sign": "Sagittarius",
+    "deg_in_sign": 22.73
+  },
+  "houses": [
+    348.98,
+    27.7,
+    57.82,
+    82.73,
+    106.66,
+    133.8,
+    168.98,
+    207.7,
+    237.82,
+    262.73,
+    286.66,
+    313.8
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 179.28,
+      "sign": "Virgo",
+      "deg_in_sign": 29.28
+    },
+    "Moon": {
+      "longitude": 198.95,
+      "sign": "Libra",
+      "deg_in_sign": 18.95
+    },
+    "Mercury": {
+      "longitude": 176.47,
+      "sign": "Virgo",
+      "deg_in_sign": 26.47
+    },
+    "Venus": {
+      "longitude": 169.46,
+      "sign": "Virgo",
+      "deg_in_sign": 19.46
+    },
+    "Mars": {
+      "longitude": 140.73,
+      "sign": "Leo",
+      "deg_in_sign": 20.73
+    },
+    "Jupiter": {
+      "longitude": 352.21,
+      "sign": "Pisces",
+      "deg_in_sign": 22.21
+    },
+    "Saturn": {
+      "longitude": 32.44,
+      "sign": "Taurus",
+      "deg_in_sign": 2.44
+    },
+    "Uranus": {
+      "longitude": 309.09,
+      "sign": "Aquarius",
+      "deg_in_sign": 9.09
+    },
+    "Neptune": {
+      "longitude": 299.48,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.48
+    },
+    "Pluto": {
+      "longitude": 245.68,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.68
+    }
+  }
+}

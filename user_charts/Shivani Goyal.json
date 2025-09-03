@@ -1,0 +1,82 @@
+{
+  "username": "Shivani Goyal",
+  "place": "Sangrur, Punjab",
+  "datetime_utc": "1997-03-07T14:30:00",
+  "julian_day": 2450515.1041666665,
+  "ascendant": {
+    "longitude": 187.57,
+    "sign": "Libra",
+    "deg_in_sign": 7.57
+  },
+  "midheaven": {
+    "longitude": 97.99,
+    "sign": "Cancer",
+    "deg_in_sign": 7.99
+  },
+  "houses": [
+    187.57,
+    215.7,
+    246.2,
+    277.99,
+    309.83,
+    340.2,
+    7.57,
+    35.7,
+    66.2,
+    97.99,
+    129.83,
+    160.2
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 347.06,
+      "sign": "Pisces",
+      "deg_in_sign": 17.06
+    },
+    "Moon": {
+      "longitude": 326.56,
+      "sign": "Aquarius",
+      "deg_in_sign": 26.56
+    },
+    "Mercury": {
+      "longitude": 343.41,
+      "sign": "Pisces",
+      "deg_in_sign": 13.41
+    },
+    "Venus": {
+      "longitude": 340.53,
+      "sign": "Pisces",
+      "deg_in_sign": 10.53
+    },
+    "Mars": {
+      "longitude": 180.43,
+      "sign": "Libra",
+      "deg_in_sign": 0.43
+    },
+    "Jupiter": {
+      "longitude": 310.22,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.22
+    },
+    "Saturn": {
+      "longitude": 7.36,
+      "sign": "Aries",
+      "deg_in_sign": 7.36
+    },
+    "Uranus": {
+      "longitude": 306.94,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.94
+    },
+    "Neptune": {
+      "longitude": 299.15,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.15
+    },
+    "Pluto": {
+      "longitude": 245.6,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.6
+    }
+  }
+}

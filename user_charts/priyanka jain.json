@@ -1,0 +1,82 @@
+{
+  "username": "priyanka jain",
+  "place": "deoband",
+  "datetime_utc": "1998-01-26T00:05:00",
+  "julian_day": 2450839.503472222,
+  "ascendant": {
+    "longitude": 279.1,
+    "sign": "Capricorn",
+    "deg_in_sign": 9.1
+  },
+  "midheaven": {
+    "longitude": 205.9,
+    "sign": "Libra",
+    "deg_in_sign": 25.9
+  },
+  "houses": [
+    279.1,
+    315.14,
+    352.89,
+    25.9,
+    52.75,
+    76.0,
+    99.1,
+    135.14,
+    172.89,
+    205.9,
+    232.75,
+    256.0
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 305.82,
+      "sign": "Aquarius",
+      "deg_in_sign": 5.82
+    },
+    "Moon": {
+      "longitude": 276.47,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.47
+    },
+    "Mercury": {
+      "longitude": 288.37,
+      "sign": "Capricorn",
+      "deg_in_sign": 18.37
+    },
+    "Venus": {
+      "longitude": 290.87,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.87
+    },
+    "Mars": {
+      "longitude": 330.48,
+      "sign": "Pisces",
+      "deg_in_sign": 0.48
+    },
+    "Jupiter": {
+      "longitude": 327.78,
+      "sign": "Aquarius",
+      "deg_in_sign": 27.78
+    },
+    "Saturn": {
+      "longitude": 15.0,
+      "sign": "Aries",
+      "deg_in_sign": 15.0
+    },
+    "Uranus": {
+      "longitude": 308.54,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.54
+    },
+    "Neptune": {
+      "longitude": 299.88,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.88
+    },
+    "Pluto": {
+      "longitude": 247.51,
+      "sign": "Sagittarius",
+      "deg_in_sign": 7.51
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "username": "Divya Dhama",
+  "place": "Delhi",
+  "datetime_utc": "1997-04-07T09:07:00",
+  "julian_day": 2450545.8798611113,
+  "ascendant": {
+    "longitude": 144.76,
+    "sign": "Leo",
+    "deg_in_sign": 24.76
+  },
+  "midheaven": {
+    "longitude": 52.06,
+    "sign": "Taurus",
+    "deg_in_sign": 22.06
+  },
+  "houses": [
+    144.76,
+    170.27,
+    199.75,
+    232.06,
+    264.67,
+    295.73,
+    324.76,
+    350.27,
+    19.75,
+    52.06,
+    84.67,
+    115.73
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 17.59,
+      "sign": "Aries",
+      "deg_in_sign": 17.59
+    },
+    "Moon": {
+      "longitude": 16.5,
+      "sign": "Aries",
+      "deg_in_sign": 16.5
+    },
+    "Mercury": {
+      "longitude": 36.52,
+      "sign": "Taurus",
+      "deg_in_sign": 6.52
+    },
+    "Venus": {
+      "longitude": 18.82,
+      "sign": "Aries",
+      "deg_in_sign": 18.82
+    },
+    "Mars": {
+      "longitude": 169.42,
+      "sign": "Virgo",
+      "deg_in_sign": 19.42
+    },
+    "Jupiter": {
+      "longitude": 316.12,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.12
+    },
+    "Saturn": {
+      "longitude": 11.18,
+      "sign": "Aries",
+      "deg_in_sign": 11.18
+    },
+    "Uranus": {
+      "longitude": 308.15,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.15
+    },
+    "Neptune": {
+      "longitude": 299.79,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.79
+    },
+    "Pluto": {
+      "longitude": 245.36,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.36
+    }
+  }
+}

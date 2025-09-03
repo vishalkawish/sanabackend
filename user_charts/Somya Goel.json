@@ -1,0 +1,82 @@
+{
+  "username": "Somya Goel",
+  "place": "shamli, Uttar Pradesh",
+  "datetime_utc": "1996-10-26T09:00:00",
+  "julian_day": 2450382.875,
+  "ascendant": {
+    "longitude": 328.17,
+    "sign": "Aquarius",
+    "deg_in_sign": 28.17
+  },
+  "midheaven": {
+    "longitude": 249.01,
+    "sign": "Sagittarius",
+    "deg_in_sign": 9.01
+  },
+  "houses": [
+    328.17,
+    9.5,
+    42.8,
+    69.01,
+    92.37,
+    117.01,
+    148.17,
+    189.5,
+    222.8,
+    249.01,
+    272.37,
+    297.01
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 213.23,
+      "sign": "Scorpio",
+      "deg_in_sign": 3.23
+    },
+    "Moon": {
+      "longitude": 30.47,
+      "sign": "Taurus",
+      "deg_in_sign": 0.47
+    },
+    "Mercury": {
+      "longitude": 208.88,
+      "sign": "Libra",
+      "deg_in_sign": 28.88
+    },
+    "Venus": {
+      "longitude": 176.24,
+      "sign": "Virgo",
+      "deg_in_sign": 26.24
+    },
+    "Mars": {
+      "longitude": 147.81,
+      "sign": "Leo",
+      "deg_in_sign": 27.81
+    },
+    "Jupiter": {
+      "longitude": 281.95,
+      "sign": "Capricorn",
+      "deg_in_sign": 11.95
+    },
+    "Saturn": {
+      "longitude": 1.84,
+      "sign": "Aries",
+      "deg_in_sign": 1.84
+    },
+    "Uranus": {
+      "longitude": 300.76,
+      "sign": "Aquarius",
+      "deg_in_sign": 0.76
+    },
+    "Neptune": {
+      "longitude": 295.09,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.09
+    },
+    "Pluto": {
+      "longitude": 241.86,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.86
+    }
+  }
+}

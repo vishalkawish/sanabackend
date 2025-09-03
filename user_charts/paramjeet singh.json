@@ -1,0 +1,82 @@
+{
+  "username": "paramjeet singh",
+  "place": "Moradabad",
+  "datetime_utc": "1995-02-13T04:30:00",
+  "julian_day": 2449761.6875,
+  "ascendant": {
+    "longitude": 26.75,
+    "sign": "Aries",
+    "deg_in_sign": 26.75
+  },
+  "midheaven": {
+    "longitude": 287.58,
+    "sign": "Capricorn",
+    "deg_in_sign": 17.58
+  },
+  "houses": [
+    26.75,
+    58.97,
+    84.16,
+    107.58,
+    133.39,
+    165.88,
+    206.75,
+    238.97,
+    264.16,
+    287.58,
+    313.39,
+    345.88
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 324.0,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.0
+    },
+    "Moon": {
+      "longitude": 116.3,
+      "sign": "Cancer",
+      "deg_in_sign": 26.3
+    },
+    "Mercury": {
+      "longitude": 306.19,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.19
+    },
+    "Venus": {
+      "longitude": 279.44,
+      "sign": "Capricorn",
+      "deg_in_sign": 9.44
+    },
+    "Mars": {
+      "longitude": 142.47,
+      "sign": "Leo",
+      "deg_in_sign": 22.47
+    },
+    "Jupiter": {
+      "longitude": 252.09,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.09
+    },
+    "Saturn": {
+      "longitude": 342.48,
+      "sign": "Pisces",
+      "deg_in_sign": 12.48
+    },
+    "Uranus": {
+      "longitude": 297.98,
+      "sign": "Capricorn",
+      "deg_in_sign": 27.98
+    },
+    "Neptune": {
+      "longitude": 294.16,
+      "sign": "Capricorn",
+      "deg_in_sign": 24.16
+    },
+    "Pluto": {
+      "longitude": 240.5,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.5
+    }
+  }
+}

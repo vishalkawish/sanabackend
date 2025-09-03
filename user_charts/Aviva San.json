@@ -1,0 +1,82 @@
+{
+  "username": "Aviva San",
+  "place": "Amravati",
+  "datetime_utc": "2005-05-05T12:40:00",
+  "julian_day": 2453496.027777778,
+  "ascendant": {
+    "longitude": 217.9,
+    "sign": "Scorpio",
+    "deg_in_sign": 7.9
+  },
+  "midheaven": {
+    "longitude": 128.7,
+    "sign": "Leo",
+    "deg_in_sign": 8.7
+  },
+  "houses": [
+    217.9,
+    247.11,
+    277.29,
+    308.7,
+    340.62,
+    10.89,
+    37.9,
+    67.11,
+    97.29,
+    128.7,
+    160.62,
+    190.89
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 45.11,
+      "sign": "Taurus",
+      "deg_in_sign": 15.11
+    },
+    "Moon": {
+      "longitude": 10.26,
+      "sign": "Aries",
+      "deg_in_sign": 10.26
+    },
+    "Mercury": {
+      "longitude": 19.88,
+      "sign": "Aries",
+      "deg_in_sign": 19.88
+    },
+    "Venus": {
+      "longitude": 54.28,
+      "sign": "Taurus",
+      "deg_in_sign": 24.28
+    },
+    "Mars": {
+      "longitude": 333.19,
+      "sign": "Pisces",
+      "deg_in_sign": 3.19
+    },
+    "Jupiter": {
+      "longitude": 190.32,
+      "sign": "Libra",
+      "deg_in_sign": 10.32
+    },
+    "Saturn": {
+      "longitude": 112.13,
+      "sign": "Cancer",
+      "deg_in_sign": 22.13
+    },
+    "Uranus": {
+      "longitude": 340.11,
+      "sign": "Pisces",
+      "deg_in_sign": 10.11
+    },
+    "Neptune": {
+      "longitude": 317.55,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.55
+    },
+    "Pluto": {
+      "longitude": 264.12,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.12
+    }
+  }
+}

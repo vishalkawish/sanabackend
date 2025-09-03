@@ -2,6 +2,7 @@
 import os
 import json
 import requests
+import shutil
 from datetime import datetime
 from main import calculate_chart, NatalData, USER_CHART_DIR
 from dotenv import load_dotenv
@@ -22,6 +23,15 @@ headers = {
 }
 
 # ---------------------------
+# Clean old charts
+# ---------------------------
+if USER_CHART_DIR.exists():
+    shutil.rmtree(USER_CHART_DIR)  # delete everything
+USER_CHART_DIR.mkdir(parents=True, exist_ok=True)  # recreate clean folder
+
+print("🧹 Old charts deleted, fresh start...")
+
+# ---------------------------
 # Fetch users from Supabase
 # ---------------------------
 resp = requests.get(f"{SUPABASE_URL}/rest/v1/users?select=*", headers=headers)
@@ -36,10 +46,19 @@ print(f"Found {len(users)} users.")
 # ---------------------------
 for user in users:
     try:
-        # Parse birthdate and birthtime
-        bdate = datetime.strptime(user["birthdate"], "%Y-%m-%d")
-        btime = datetime.strptime(user["birthtime"], "%H:%M:%S")
-        
+        # Skip if any required field is missing/null
+        if not user.get("name") or not user.get("birthdate") or not user.get("birthtime") or not user.get("birthplace"):
+            print(f"⏩ Skipping {user.get('id', 'unknown')} due to missing fields.")
+            continue
+
+        # Parse birthdate and birthtime safely
+        try:
+            bdate = datetime.strptime(user["birthdate"], "%Y-%m-%d")
+            btime = datetime.strptime(user["birthtime"], "%H:%M:%S")
+        except Exception:
+            print(f"⏩ Skipping {user.get('name','unknown')} due to invalid date/time format.")
+            continue
+
         natal_data = NatalData(
             username=user["name"],
             year=bdate.year,
@@ -55,6 +74,6 @@ for user in users:
         print(f"✅ Chart generated for {user['name']}")
 
     except Exception as e:
-        print(f"Failed for user {user.get('name','unknown')}: {e}")
+        print(f"❌ Failed for user {user.get('name','unknown')}: {e}")
 
-print("✅ All user charts generated successfully!")
+print("✅ All user charts regenerated successfully!")

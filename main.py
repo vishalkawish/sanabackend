@@ -10,6 +10,8 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel, validator
 import requests
+ # add local project dir to path
+
 import swisseph as swe
 import openai
 from geopy.geocoders import Nominatim

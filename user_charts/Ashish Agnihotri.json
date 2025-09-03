@@ -1,82 +1,82 @@
 {
   "username": "Ashish Agnihotri",
-  "place": "Lucknow",
-  "datetime_utc": "1998-05-14T15:30:00",
-  "julian_day": 2450948.1458333335,
+  "place": "shahjahanpur Uttar Pradesh",
+  "datetime_utc": "1996-05-03T18:30:00",
+  "julian_day": 2450207.2708333335,
   "ascendant": {
-    "longitude": 263.6,
-    "sign": "Sagittarius",
-    "deg_in_sign": 23.6
+    "longitude": 295.45,
+    "sign": "Capricorn",
+    "deg_in_sign": 25.45
   },
   "midheaven": {
-    "longitude": 186.11,
-    "sign": "Libra",
-    "deg_in_sign": 6.11
+    "longitude": 221.61,
+    "sign": "Scorpio",
+    "deg_in_sign": 11.61
   },
   "houses": [
-    263.6,
-    296.17,
-    331.74,
-    6.11,
-    35.6,
-    60.58,
-    83.6,
-    116.17,
-    151.74,
-    186.11,
-    215.6,
-    240.58
+    295.45,
+    333.63,
+    10.81,
+    41.61,
+    67.0,
+    90.3,
+    115.45,
+    153.63,
+    190.81,
+    221.61,
+    247.0,
+    270.3
   ],
   "planets": {
     "Sun": {
-      "longitude": 53.63,
+      "longitude": 43.59,
       "sign": "Taurus",
-      "deg_in_sign": 23.63
+      "deg_in_sign": 13.59
     },
     "Moon": {
-      "longitude": 268.34,
-      "sign": "Sagittarius",
-      "deg_in_sign": 28.34
+      "longitude": 227.24,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.24
     },
     "Mercury": {
-      "longitude": 29.37,
-      "sign": "Aries",
-      "deg_in_sign": 29.37
+      "longitude": 58.64,
+      "sign": "Taurus",
+      "deg_in_sign": 28.64
     },
     "Venus": {
-      "longitude": 12.3,
-      "sign": "Aries",
-      "deg_in_sign": 12.3
+      "longitude": 83.61,
+      "sign": "Gemini",
+      "deg_in_sign": 23.61
     },
     "Mars": {
-      "longitude": 53.19,
+      "longitude": 30.76,
       "sign": "Taurus",
-      "deg_in_sign": 23.19
+      "deg_in_sign": 0.76
     },
     "Jupiter": {
-      "longitude": 352.02,
-      "sign": "Pisces",
-      "deg_in_sign": 22.02
+      "longitude": 287.65,
+      "sign": "Capricorn",
+      "deg_in_sign": 17.65
     },
     "Saturn": {
-      "longitude": 27.2,
+      "longitude": 2.99,
       "sign": "Aries",
-      "deg_in_sign": 27.2
+      "deg_in_sign": 2.99
     },
     "Uranus": {
-      "longitude": 312.74,
+      "longitude": 304.57,
       "sign": "Aquarius",
-      "deg_in_sign": 12.74
+      "deg_in_sign": 4.57
     },
     "Neptune": {
-      "longitude": 302.14,
-      "sign": "Aquarius",
-      "deg_in_sign": 2.14
+      "longitude": 297.75,
+      "sign": "Capricorn",
+      "deg_in_sign": 27.75
     },
     "Pluto": {
-      "longitude": 247.06,
+      "longitude": 242.25,
       "sign": "Sagittarius",
-      "deg_in_sign": 7.06
+      "deg_in_sign": 2.25
     }
   }
 }

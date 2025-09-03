@@ -6,16 +6,23 @@ def calculate_compatibility_score(user_chart, crush_chart):
         ("Venus", "Mars"),
         ("Mars", "Venus"),
         ("Sun", "Venus"),
-        ("Moon", "Venus")
+        ("Moon", "Venus"),
     ]
+
+    # Safely extract planets dicts (default to empty)
+    user_planets = user_chart.get("planets", {}) if isinstance(user_chart, dict) else {}
+    crush_planets = crush_chart.get("planets", {}) if isinstance(crush_chart, dict) else {}
+
     for u, c in pairs:
-        user_planet = user_chart["planets"].get(u)
-        crush_planet = crush_chart["planets"].get(c)
+        user_planet = user_planets.get(u)
+        crush_planet = crush_planets.get(c)
         if not user_planet or not crush_planet:
             continue
-        diff = abs(user_planet["longitude"] - crush_planet["longitude"]) % 360
+
+        diff = abs(user_planet.get("longitude", 0) - crush_planet.get("longitude", 0)) % 360
         if diff > 180:
             diff = 360 - diff
+
         if diff < 5:
             score += 10
         elif diff < 15:

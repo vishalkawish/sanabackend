@@ -1,0 +1,82 @@
+{
+  "username": "Simran Mulani",
+  "place": "bhopal",
+  "datetime_utc": "2002-12-10T03:35:00",
+  "julian_day": 2452618.6493055555,
+  "ascendant": {
+    "longitude": 288.23,
+    "sign": "Capricorn",
+    "deg_in_sign": 18.23
+  },
+  "midheaven": {
+    "longitude": 212.02,
+    "sign": "Scorpio",
+    "deg_in_sign": 2.02
+  },
+  "houses": [
+    288.23,
+    323.52,
+    359.82,
+    32.02,
+    59.07,
+    83.34,
+    108.23,
+    143.52,
+    179.82,
+    212.02,
+    239.07,
+    263.34
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 257.89,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.89
+    },
+    "Moon": {
+      "longitude": 330.94,
+      "sign": "Pisces",
+      "deg_in_sign": 0.94
+    },
+    "Mercury": {
+      "longitude": 271.98,
+      "sign": "Capricorn",
+      "deg_in_sign": 1.98
+    },
+    "Venus": {
+      "longitude": 216.32,
+      "sign": "Scorpio",
+      "deg_in_sign": 6.32
+    },
+    "Mars": {
+      "longitude": 215.5,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.5
+    },
+    "Jupiter": {
+      "longitude": 138.05,
+      "sign": "Leo",
+      "deg_in_sign": 18.05
+    },
+    "Saturn": {
+      "longitude": 86.22,
+      "sign": "Gemini",
+      "deg_in_sign": 26.22
+    },
+    "Uranus": {
+      "longitude": 325.45,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.45
+    },
+    "Neptune": {
+      "longitude": 308.9,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.9
+    },
+    "Pluto": {
+      "longitude": 257.46,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.46
+    }
+  }
+}

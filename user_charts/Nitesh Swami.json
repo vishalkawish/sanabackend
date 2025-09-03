@@ -1,0 +1,82 @@
+{
+  "username": "Nitesh Swami",
+  "place": "Durgapur",
+  "datetime_utc": "2001-06-01T10:29:00",
+  "julian_day": 2452061.9368055556,
+  "ascendant": {
+    "longitude": 220.31,
+    "sign": "Scorpio",
+    "deg_in_sign": 10.31
+  },
+  "midheaven": {
+    "longitude": 132.1,
+    "sign": "Leo",
+    "deg_in_sign": 12.1
+  },
+  "houses": [
+    220.31,
+    249.52,
+    280.11,
+    312.1,
+    344.22,
+    14.07,
+    40.31,
+    69.52,
+    100.11,
+    132.1,
+    164.22,
+    194.07
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 70.99,
+      "sign": "Gemini",
+      "deg_in_sign": 10.99
+    },
+    "Moon": {
+      "longitude": 193.77,
+      "sign": "Libra",
+      "deg_in_sign": 13.77
+    },
+    "Mercury": {
+      "longitude": 89.67,
+      "sign": "Gemini",
+      "deg_in_sign": 29.67
+    },
+    "Venus": {
+      "longitude": 25.37,
+      "sign": "Aries",
+      "deg_in_sign": 25.37
+    },
+    "Mars": {
+      "longitude": 266.37,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.37
+    },
+    "Jupiter": {
+      "longitude": 80.5,
+      "sign": "Gemini",
+      "deg_in_sign": 20.5
+    },
+    "Saturn": {
+      "longitude": 65.26,
+      "sign": "Gemini",
+      "deg_in_sign": 5.26
+    },
+    "Uranus": {
+      "longitude": 324.83,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.83
+    },
+    "Neptune": {
+      "longitude": 308.66,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.66
+    },
+    "Pluto": {
+      "longitude": 254.0,
+      "sign": "Sagittarius",
+      "deg_in_sign": 14.0
+    }
+  }
+}

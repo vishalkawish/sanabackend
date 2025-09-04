@@ -76,7 +76,7 @@ def get_best_matches(user_id: str, top_n: int = 5):
                 "gender": u.get("gender"),
                 "age": age,
                 "profile_pic_url": u.get("profile_pic_url"),
-                "score": score,
+                "score": score
             })
         except Exception:
             continue
@@ -89,7 +89,15 @@ def get_best_matches(user_id: str, top_n: int = 5):
 def api_get_matches(user_id: str, top_n: int = 5):
     try:
         matches = get_best_matches(user_id, top_n)
-        return {"user_id": user_id, "matches": matches}
+
+        # Return JSON in exact format Unity expects
+        return {
+            "user_id": user_id,
+            "matches": matches  # matches is an array of objects like Soulmate[]
+        }
     except Exception as e:
-        # Always return JSON error instead of crashing
-        return {"error": str(e), "user_id": user_id, "matches": []}
+        return {
+            "error": str(e),
+            "user_id": user_id,
+            "matches": []
+        }

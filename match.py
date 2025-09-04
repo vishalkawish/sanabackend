@@ -2,14 +2,12 @@ from datetime import datetime, date
 from fastapi import APIRouter
 from supabase import create_client
 import os
-from compatibility import calculate_compatibility_score
 
 router = APIRouter()
 
 # Supabase config
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError("Supabase configuration missing!")
 
@@ -64,24 +62,21 @@ def get_best_matches(user_id: str, top_n: int = 5):
             if age is None:
                 continue
 
-            # Safe score calculation
-            try:
-                score = calculate_compatibility_score(current_user, u)
-            except Exception:
-                score = 76  # fallback minimum score
-
+            # Append only necessary public fields
             matches.append({
                 "id": u.get("id"),
                 "name": u.get("name"),
                 "gender": u.get("gender"),
                 "age": age,
-                "profile_pic_url": u.get("profile_pic_url"),
-                "score": score
+                "birthdate": u.get("birthdate"),
+                "birthtime": u.get("birthtime"),
+                "birthplace": u.get("birthplace"),
+                "profile_pic_url": u.get("profile_pic_url")
             })
+
         except Exception:
             continue
 
-    matches.sort(key=lambda x: x["score"], reverse=True)
     return matches[:top_n]
 
 
@@ -89,11 +84,9 @@ def get_best_matches(user_id: str, top_n: int = 5):
 def api_get_matches(user_id: str, top_n: int = 5):
     try:
         matches = get_best_matches(user_id, top_n)
-
-        # Return JSON in exact format Unity expects
         return {
             "user_id": user_id,
-            "matches": matches  # matches is an array of objects like Soulmate[]
+            "matches": matches  # Array of public match objects
         }
     except Exception as e:
         return {

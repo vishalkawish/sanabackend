@@ -3,7 +3,7 @@ uvicorn==0.23.2
 python-dotenv==1.0.1
 pyswisseph==2.08.00-1
 geopy==2.3.0
-openai==0.28.0
+openai>=1.0.0
 requests==2.31.0
 flatlib==0.2.3
 supabase==2.18.1

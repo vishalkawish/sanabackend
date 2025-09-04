@@ -14,8 +14,6 @@ import requests
 
 import swisseph as swe
 import openai
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 
 # 3️⃣ Supabase import
 from supabase import create_client
@@ -40,7 +38,7 @@ if not openai.api_key:
     raise RuntimeError("OpenAI API key not found. Set environment variable OPENAI_API_KEY")
 
 app = FastAPI()
-geolocator = Nominatim(user_agent="anlasana-astro-api")
+
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 

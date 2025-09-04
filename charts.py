@@ -3,14 +3,24 @@ import datetime
 import json
 from pathlib import Path
 from fastapi import HTTPException
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import swisseph as swe
+import openai
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+if not openai.api_key:
+    raise RuntimeError("OpenAI API key not found. Set OPENAI_API_KEY in .env")
 
 USER_CHART_DIR = Path("./user_charts")
 USER_CHART_DIR.mkdir(exist_ok=True)
 
-geolocator = Nominatim(user_agent="anlasana_app")
+GEO_CACHE_FILE = Path("./geo_cache.json")
+if not GEO_CACHE_FILE.exists():
+    GEO_CACHE_FILE.write_text("{}")
+
 
 class NatalData:
     def __init__(self, username, year, month, day, hour, minute, place):
@@ -22,12 +32,14 @@ class NatalData:
         self.minute = minute
         self.place = place
 
+
 def deg_to_sign(deg):
     signs = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo",
              "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"]
     sign_index = int(deg // 30)
     deg_in_sign = deg % 30
     return signs[sign_index], round(deg_in_sign, 2)
+
 
 def planets_with_signs(planets):
     signed = {}
@@ -39,15 +51,42 @@ def planets_with_signs(planets):
             signed[name] = {"longitude": None, "sign": None, "deg_in_sign": None}
     return signed
 
-def calculate_chart(data: NatalData):
-    # Geocode
+
+def geocode_with_openai(place: str):
+    """
+    Get latitude and longitude using OpenAI API.
+    Cache results in geo_cache.json
+    """
+    cache = json.loads(GEO_CACHE_FILE.read_text())
+    if place in cache:
+        return cache[place]["lat"], cache[place]["lon"]
+
+    prompt = f"""
+You are an assistant that provides exact geographic coordinates.
+Return only JSON with keys "lat" and "lon" for the place: {place}
+"""
     try:
-        location = geolocator.geocode(data.place, timeout=10)
-        if not location:
-            raise HTTPException(status_code=404, detail=f"Place not found: {data.place}")
-        lat, lon = float(location.latitude), float(location.longitude)
-    except (GeocoderTimedOut, GeocoderServiceError) as e:
-        raise HTTPException(status_code=503, detail=f"Geocoding service unavailable: {e}")
+        resp = openai.ChatCompletion.create(
+            model="gpt-5-nano",
+            messages=[
+                {"role": "system", "content": "You provide accurate latitude and longitude in JSON only."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0
+        )
+        text = resp.choices[0].message["content"].strip()
+        text = text.replace("```json", "").replace("```", "").strip()
+        data = json.loads(text)
+        cache[place] = {"lat": float(data["lat"]), "lon": float(data["lon"])}
+        GEO_CACHE_FILE.write_text(json.dumps(cache, indent=2))
+        return float(data["lat"]), float(data["lon"])
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"OpenAI geocoding failed: {e}")
+
+
+def calculate_chart(data: NatalData):
+    # Geocode using OpenAI + cache
+    lat, lon = geocode_with_openai(data.place)
 
     # Time & Julian day
     try:

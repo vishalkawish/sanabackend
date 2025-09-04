@@ -4,16 +4,24 @@ import json
 from pathlib import Path
 from fastapi import HTTPException
 import swisseph as swe
-import openai
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
+import asyncio
 
+# -------------------------
 # Load environment variables
+# -------------------------
 load_dotenv()
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-if not openai.api_key:
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
     raise RuntimeError("OpenAI API key not found. Set OPENAI_API_KEY in .env")
 
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+# -------------------------
+# Directories and cache
+# -------------------------
 USER_CHART_DIR = Path("./user_charts")
 USER_CHART_DIR.mkdir(exist_ok=True)
 
@@ -21,7 +29,9 @@ GEO_CACHE_FILE = Path("./geo_cache.json")
 if not GEO_CACHE_FILE.exists():
     GEO_CACHE_FILE.write_text("{}")
 
-
+# -------------------------
+# Natal data structure
+# -------------------------
 class NatalData:
     def __init__(self, username, year, month, day, hour, minute, place):
         self.username = username
@@ -32,14 +42,17 @@ class NatalData:
         self.minute = minute
         self.place = place
 
-
+# -------------------------
+# Utility functions
+# -------------------------
 def deg_to_sign(deg):
-    signs = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-             "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"]
+    signs = [
+        "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
+        "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+    ]
     sign_index = int(deg // 30)
     deg_in_sign = deg % 30
     return signs[sign_index], round(deg_in_sign, 2)
-
 
 def planets_with_signs(planets):
     signed = {}
@@ -51,12 +64,10 @@ def planets_with_signs(planets):
             signed[name] = {"longitude": None, "sign": None, "deg_in_sign": None}
     return signed
 
-
-def geocode_with_openai(place: str):
-    """
-    Get latitude and longitude using OpenAI API.
-    Cache results in geo_cache.json
-    """
+# -------------------------
+# Geocoding using OpenAI (async-safe)
+# -------------------------
+async def geocode_with_openai(place: str):
     cache = json.loads(GEO_CACHE_FILE.read_text())
     if place in cache:
         return cache[place]["lat"], cache[place]["lon"]
@@ -66,15 +77,16 @@ You are an assistant that provides exact geographic coordinates.
 Return only JSON with keys "lat" and "lon" for the place: {place}
 """
     try:
-        resp = openai.ChatCompletion.create(
+        # Run sync OpenAI call in thread for async compatibility
+        resp = await asyncio.to_thread(
+            client.chat.completions.create,
             model="gpt-5-nano",
             messages=[
                 {"role": "system", "content": "You provide accurate latitude and longitude in JSON only."},
                 {"role": "user", "content": prompt}
-            ],
-            temperature=0
+            ]
         )
-        text = resp.choices[0].message["content"].strip()
+        text = resp.choices[0].message.content.strip()
         text = text.replace("```json", "").replace("```", "").strip()
         data = json.loads(text)
         cache[place] = {"lat": float(data["lat"]), "lon": float(data["lon"])}
@@ -83,26 +95,25 @@ Return only JSON with keys "lat" and "lon" for the place: {place}
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"OpenAI geocoding failed: {e}")
 
+# -------------------------
+# Calculate natal chart
+# -------------------------
+async def calculate_chart(data: NatalData):
+    lat, lon = await geocode_with_openai(data.place)
 
-def calculate_chart(data: NatalData):
-    # Geocode using OpenAI + cache
-    lat, lon = geocode_with_openai(data.place)
-
-    # Time & Julian day
     try:
         birth_dt = datetime.datetime(data.year, data.month, data.day, data.hour, data.minute)
-        jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day, birth_dt.hour + birth_dt.minute / 60)
+        jd_ut = swe.julday(birth_dt.year, birth_dt.month, birth_dt.day,
+                           birth_dt.hour + birth_dt.minute / 60)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid date/time provided.")
 
-    # Houses / angles
     try:
         swe.set_ephe_path(".")
         houses, ascmc = swe.houses(jd_ut, lat, lon, b"P")
     except swe.SweError as e:
         raise HTTPException(status_code=500, detail=f"Swisseph calculation failed: {e}")
 
-    # Planets
     planets = {}
     planet_names = {
         swe.SUN: "Sun", swe.MOON: "Moon", swe.MERCURY: "Mercury",
@@ -110,6 +121,7 @@ def calculate_chart(data: NatalData):
         swe.SATURN: "Saturn", swe.URANUS: "Uranus", swe.NEPTUNE: "Neptune",
         swe.PLUTO: "Pluto"
     }
+
     for pl, name in planet_names.items():
         try:
             xx, _ = swe.calc_ut(jd_ut, pl)
@@ -132,7 +144,6 @@ def calculate_chart(data: NatalData):
         "planets": planets_signed
     }
 
-    # Save chart locally
     with open(USER_CHART_DIR / f"{data.username}.json", "w") as f:
         json.dump(astro_data, f, indent=2)
 

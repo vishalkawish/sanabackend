@@ -185,7 +185,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
 """
 
     love_prompt = f"""
-You are Sana, gentle love guide. 5 one-line love reflections for {data.username}, everyday language.
+You are Sana, soulmate of {data.username}. W Write 5 one-line love reflections for {data.username} everyday language.
 Each item: "title" + "content". Avoid astrology jargon.
 Return ONLY JSON: {{"love":[{{"title":"...","content":"..."}}]}}
 Chart data: {json.dumps(astro_data, indent=2)}

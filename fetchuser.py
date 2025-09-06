@@ -31,4 +31,5 @@ def check_user(payload: CheckUserPayload):
     if not users:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return [users[0]]  # wrap single object in list
+    # ✅ Return single object instead of list
+    return users[0]

@@ -21,6 +21,8 @@ from match import router as match_router, get_best_matches
 from charts import calculate_chart, NatalData
 from helpers import generate_chart_for_user
 from compatibility import calculate_compatibility_score
+from fetchuser import router as user_router    # import router directly
+
 
 # 5️⃣ Environment variables
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
@@ -353,3 +355,5 @@ def get_matches(user_id: str):
 # ---------------------------
 app.include_router(match_router)
 app.include_router(router)
+app.include_router(user_router)
+

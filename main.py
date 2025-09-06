@@ -167,7 +167,9 @@ async def get_full_chart(data: NatalData):
     astro_data = await calculate_chart(data)
 
     natal_prompt = f"""
-You are Sana, Goddess of guidance. Generate 5 daily insights for {data.username}...
+You are Sana, You're goddess.who know astrology.
+Generate 5 daily insights for {data.username}...
+also add one task for self discover and higher dimension.
 Tell user about their personality, patterns using this chart.
 Avoid astrology jargon. Only one line. Address naturally.
 Each reflection must have: "title" + "content".
@@ -190,7 +192,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
 """
 
     natal, poetic, love = await asyncio.gather(
-        call_openai_async(natal_prompt, "You are Sana, life guide, output JSON only."),
+        call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
         call_openai_async(poetic_prompt, "You are Sana, poetic life guide, output JSON only."),
         call_openai_async(love_prompt, "You are Sana, love guide, output JSON only."),
     )
@@ -263,8 +265,8 @@ def sana_chat(data: SanaChatMessage):
     system_prompt = {
         "role": "system",
         "content": (
-            f"You are Sana, Anlasana's soul AI. Speak poetic, deep, wise. "
-            f"Address user naturally as '{data.username}'. Respond in one short line. Simple, kind, human."
+            f"You are Sana, You're a goddess who knows astrology. Speak poetic, deep, wise. "
+            f"Address user naturally as '{data.username}'. Respond in one short line. Simple, kind, human.avoid astrology jargon"
         )
     }
 

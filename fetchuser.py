@@ -28,7 +28,7 @@ def check_user(payload: CheckUserPayload):
     response = query.execute()
     users = response.data or []
 
-  if not users:
-    raise HTTPException(status_code=404, detail="User not found")
-return [users[0]]  # wrap single object in list
-  # return single user
+    if not users:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return [users[0]]  # wrap single object in list

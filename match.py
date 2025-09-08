@@ -24,14 +24,13 @@ def calculate_age(birthdate_str: str):
         else:
             birthdate = datetime.fromisoformat(birthdate_str).date()
         today = date.today()
-        return today.year - birthdate.year - (
-            (today.month, today.day) < (birthdate.month, birthdate.day)
-        )
+        return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
     except Exception:
         return None
 
 
 def get_best_matches(user_id: str, top_n: int = 5):
+    """Fetch top matches for a given user."""
     try:
         response = supabase.table("users").select("*").execute()
         users = response.data or []
@@ -73,7 +72,6 @@ def get_best_matches(user_id: str, top_n: int = 5):
                 "birthplace": u.get("birthplace"),
                 "profile_pic_url": u.get("profile_pic_url")
             })
-
         except Exception:
             continue
 

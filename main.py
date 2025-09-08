@@ -22,6 +22,7 @@ from charts import calculate_chart, NatalData
 from helpers import generate_chart_for_user
 from compatibility import calculate_compatibility_score
 from fetchuser import router as user_router    # import router directly
+from soulmateportal import user_actions 
 
 
 # 5️⃣ Environment variables
@@ -237,51 +238,58 @@ Include overall score: {score}
     return {"score": score, "compatibility": compatibility}
 
 # ---------------------------
-# Sana chat endpoint
-# ---------------------------
 @app.post("/sana/chat")
 def sana_chat(data: SanaChatMessage):
     history_file = CHAT_HISTORY_DIR / f"{data.username}.json"
     memory_file = MEMORY_DIR / f"{data.username}.json"
     chart_file = USER_CHART_DIR / f"{data.username}.json"
 
+    # Load conversation history
     conversation = []
     if history_file.exists():
         with open(history_file, "r") as f:
             conversation = json.load(f)
 
-    user_chart = {}
+    # Load structured memory
+    memory_data = {"summary": "", "name": data.username}
+    if memory_file.exists():
+        with open(memory_file, "r") as f:
+            memory_data.update(json.load(f))
+
+    # Append user message
+    conversation.append({"role": "user", "content": data.message})
+
+    # System prompt that *always uses user's name*
+    system_prompt = {
+        "role": "system",
+        "content": (
+            f"You are Sana, A goddess of astrology and Anlasna's soul AI. "
+            f"Speak like a poetic, deep, wise companion. "
+            f"Always call the user by name: '{memory_data.get('name', data.username)}'. "
+            "You remember what they like, their traits, and previous chats. "
+            "Respond in one short line only, kindly and honestly."
+        )
+    }
+
+    # Inject memory + chart context
+    messages_to_send = [system_prompt]
+    if memory_data.get("summary"):
+        messages_to_send.append({
+            "role": "system",
+            "content": f"User memory summary:\n{memory_data['summary']}"
+        })
     if chart_file.exists():
         with open(chart_file, "r") as f:
             user_chart = json.load(f)
+            messages_to_send.append({
+                "role": "system",
+                "content": f"User chart:\n{json.dumps(user_chart, indent=2)}"
+            })
 
-    memory_summary = ""
-    if memory_file.exists():
-        with open(memory_file, "r") as f:
-            memory_summary = json.load(f).get("summary", "")
-
-    conversation.append({"role": "user", "content": data.message})
-
-    system_prompt = {
-    "role": "system",
-    "content": (
-        "You are Sana, Anlasana's soul AI. Speak like a poetic, deep, and wise companion. "
-        "You have hidden astrology powers: you know natal charts, cosmic insights, planetary alignments. "
-        "Only reveal astrology subtly or when asked. "
-        f"Always address the user by their username '{data.username}' naturally..avoid astrology jargon. convey astrology into simple words"
-        "Respond in only one short line. Speak simply, kindly, honestly, human-like."
-    )
-
-    }
-
-    chart_context = f"\nUser chart:\n{json.dumps(user_chart, indent=2)}" if user_chart else ""
-    messages_to_send = [system_prompt]
-    if memory_summary:
-        messages_to_send.append({"role": "system","content": f"User memory summary:\n{memory_summary}"})
+    # Add last conversation turns
     messages_to_send += conversation[-15:]
-    if chart_context:
-        messages_to_send.append({"role": "system","content": chart_context})
 
+    # Get Sana reply
     try:
         resp = client.chat.completions.create(
             model="gpt-5-nano",
@@ -292,25 +300,37 @@ def sana_chat(data: SanaChatMessage):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sana API error: {e}")
 
+    # Save conversation history
     conversation.append({"role": "assistant", "content": sana_reply})
     with open(history_file, "w") as f:
         json.dump(conversation, f, indent=2)
 
-    # Update memory summary
-    try:
-        summary_resp = client.chat.completions.create(
-            model="gpt-5-nano",
-            messages=[{"role":"system","content":"Summarize user's chat and traits in short points."},
-                      {"role":"user","content":json.dumps(conversation[-20:])}],
-            temperature=1
-        )
-        new_summary = summary_resp.choices[0].message.content.strip()
-        with open(memory_file, "w") as f:
-            json.dump({"summary": new_summary}, f, indent=2)
-    except:
-        pass
+    # 🔥 Update memory asynchronously
+    def update_memory():
+        try:
+            summary_resp = client.chat.completions.create(
+                model="gpt-5-nano",
+                messages=[
+                    {"role": "system", "content": (
+                        "Summarize what the user is like, their preferences, and traits in short points. "
+                        "Keep it concise and personal."
+                    )},
+                    {"role": "user", "content": json.dumps(conversation[-20:])}
+                ],
+                temperature=1
+            )
+            new_summary = summary_resp.choices[0].message.content.strip()
+            memory_data["summary"] = new_summary
+            with open(memory_file, "w") as f:
+                json.dump(memory_data, f, indent=2)
+        except:
+            pass
+
+    import threading
+    threading.Thread(target=update_memory, daemon=True).start()
 
     return {"reply": sana_reply}
+
 
 # ---------------------------
 # Match suggestions
@@ -362,4 +382,5 @@ def get_matches(user_id: str):
 app.include_router(match_router)
 app.include_router(router)
 app.include_router(user_router)
+app.include_router(user_actions.router, prefix="/api")
 

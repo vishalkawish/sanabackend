@@ -22,5 +22,21 @@
   {
     "role": "assistant",
     "content": "Kawish, I\u2019m here with you\u2014steady and curious, ready to walk through your day and find small moments of light."
+  },
+  {
+    "role": "user",
+    "content": "hi sana, how are you?"
+  },
+  {
+    "role": "assistant",
+    "content": "Kawish, I\u2019m here, steady and curious, ready to walk with you through today\u2019s tides."
+  },
+  {
+    "role": "user",
+    "content": "hi sana, how are you?"
+  },
+  {
+    "role": "assistant",
+    "content": "Kawish, I\u2019m here with you\u2014steady and present, listening to the day and ready to walk beside you."
   }
 ]

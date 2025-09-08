@@ -1,7 +1,8 @@
+import os
 from datetime import datetime, date
 from fastapi import APIRouter
 from supabase import create_client
-import os
+import random
 
 router = APIRouter()
 
@@ -29,8 +30,9 @@ def calculate_age(birthdate_str: str):
         return None
 
 
+
 def get_best_matches(user_id: str, top_n: int = 5):
-    """Fetch top matches for a given user."""
+    """Fetch top matches for a given user, only 18+ users, shuffled randomly."""
     try:
         response = supabase.table("users").select("*").execute()
         users = response.data or []
@@ -57,8 +59,9 @@ def get_best_matches(user_id: str, top_n: int = 5):
             if current_user.get("gender") == "Female" and u.get("gender") != "Male":
                 continue
 
+            # Calculate age and skip if under 18
             age = calculate_age(u.get("birthdate"))
-            if age is None:
+            if age is None or age < 18:
                 continue
 
             # Append only necessary public fields
@@ -75,7 +78,10 @@ def get_best_matches(user_id: str, top_n: int = 5):
         except Exception:
             continue
 
+    random.shuffle(matches)  # shuffle matches randomly
     return matches[:top_n]
+
+
 
 
 @router.get("/matches/{user_id}")

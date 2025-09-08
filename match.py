@@ -6,6 +6,8 @@ from fastapi import APIRouter
 from supabase import create_client
 from charts import calculate_chart
 from compatibility import calculate_compatibility_score
+from fetchuser import fetch_user_from_supabase_by_username
+from helpers import generate_chart_for_user
 
 router = APIRouter()
 
@@ -17,6 +19,9 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 USER_CHART_DIR = os.environ.get("USER_CHART_DIR", "./user_charts")
 
+# -----------------------------
+# Utility: calculate age
+# -----------------------------
 def calculate_age(birthdate_str: str):
     if not birthdate_str:
         return None
@@ -30,8 +35,10 @@ def calculate_age(birthdate_str: str):
     except Exception:
         return None
 
-def get_best_matches(user_id: str, top_n: int = 5):
-    """Fetch top 18+ matches with compatibility score and random shuffle."""
+# -----------------------------
+# Get best matches
+# -----------------------------
+def get_best_matches(user_id: str, top_n: int = None):
     try:
         response = supabase.table("users").select("*").execute()
         users = response.data or []
@@ -42,9 +49,12 @@ def get_best_matches(user_id: str, top_n: int = 5):
     if not current_user:
         return []
 
-    # Load current user's chart
+    # Ensure current user's chart exists
     user_chart_path = os.path.join(USER_CHART_DIR, f"{current_user['name']}.json")
     user_chart = None
+    if not os.path.exists(user_chart_path):
+        # Try to generate chart automatically
+        generate_chart_for_user(current_user["id"])
     if os.path.exists(user_chart_path):
         with open(user_chart_path, "r") as f:
             user_chart = json.load(f)
@@ -56,6 +66,7 @@ def get_best_matches(user_id: str, top_n: int = 5):
                 continue
             if not u.get("gender") or not u.get("birthdate"):
                 continue
+            # Simple opposite-gender filter
             if current_user.get("gender") == "Male" and u.get("gender") != "Female":
                 continue
             if current_user.get("gender") == "Female" and u.get("gender") != "Male":
@@ -68,10 +79,13 @@ def get_best_matches(user_id: str, top_n: int = 5):
             # Load crush chart
             crush_chart_path = os.path.join(USER_CHART_DIR, f"{u['name']}.json")
             crush_chart = None
+            if not os.path.exists(crush_chart_path):
+                generate_chart_for_user(u["id"])
             if os.path.exists(crush_chart_path):
                 with open(crush_chart_path, "r") as f:
                     crush_chart = json.load(f)
 
+            # Calculate compatibility score
             score = 0
             if user_chart and crush_chart:
                 try:
@@ -93,7 +107,11 @@ def get_best_matches(user_id: str, top_n: int = 5):
     random.shuffle(matches)
     return matches[:top_n]
 
-@router.get("/matches/{user_id}")
-def api_get_matches(user_id: str, top_n: int = 5):
-    matches = get_best_matches(user_id, top_n)
+# -----------------------------
+# API Endpoint
+# -----------------------------
+def api_get_matches(user_id: str):
+    matches = get_best_matches(user_id, top_n=None)  # top_n=None = all matches
+    if not matches:
+        raise HTTPException(status_code=404, detail="No matches found")
     return {"user_id": user_id, "matches": matches}

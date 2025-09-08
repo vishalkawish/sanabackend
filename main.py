@@ -23,6 +23,7 @@ from helpers import generate_chart_for_user
 from compatibility import calculate_compatibility_score
 from fetchuser import router as user_router    # import router directly
 from soulmateportal import user_actions 
+import json
 
 
 # 5️⃣ Environment variables
@@ -156,8 +157,11 @@ router = APIRouter()
 
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
-    chart_file = USER_CHART_DIR / f"{data.username}.json"
+    # 🔹 Normalize username for consistent file naming
+    username_safe = data.username.strip().lower()
+    chart_file = USER_CHART_DIR / f"{username_safe}.json"
 
+    # 🔹 If chart doesn't exist, try to fetch user from Supabase
     if not chart_file.exists():
         user = fetch_user_from_supabase_by_username(data.username)
         if user:
@@ -165,16 +169,26 @@ async def get_full_chart(data: NatalData):
         else:
             print(f"⚠️ User {data.username} not found in Supabase. Using provided data.")
 
+    # 🔹 Always calculate chart from provided NatalData
     astro_data = await calculate_chart(data)
 
+    # 🔹 Save the chart JSON if it doesn't exist
+    if not chart_file.exists():
+        with open(chart_file, "w") as f:
+            json.dump(astro_data, f, indent=2)
+
+    # -------------------------
+    # Prompts for OpenAI
+    # -------------------------
     natal_prompt = f"""
-You are Sana, You're goddess.who know astrology.
+You are Sana, goddess of astrology.
 Generate 5 daily insights for {data.username}...
-also add one task for self discover and higher dimension.
+also add one task for self-discovery and higher dimension.
 Tell user about their personality, patterns using this chart.
 Avoid astrology jargon. Only one line. Address naturally.
 Each reflection must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
+
 Chart data: {json.dumps(astro_data, indent=2)}
 """
 
@@ -186,12 +200,14 @@ Chart data: {json.dumps(astro_data, indent=2)}
 """
 
     love_prompt = f"""
-You are Sana, soulmate of {data.username}. W Write 5 one-line love reflections for {data.username} everyday language.
+You are Sana, soulmate of {data.username}. Write 5 one-line love reflections for {data.username}.
 Each item: "title" + "content". Avoid astrology jargon.
 Return ONLY JSON: {{"love":[{{"title":"...","content":"..."}}]}}
+
 Chart data: {json.dumps(astro_data, indent=2)}
 """
 
+    # 🔹 Call OpenAI concurrently
     natal, poetic, love = await asyncio.gather(
         call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
         call_openai_async(poetic_prompt, "You are Sana, poetic life guide, output JSON only."),
@@ -199,6 +215,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
     )
 
     return {"natal": natal, "poetic": poetic, "love": love}
+
 
 # ---------------------------
 # Match compatibility

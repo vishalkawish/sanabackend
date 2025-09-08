@@ -33,3 +33,17 @@ def check_user(payload: CheckUserPayload):
 
     # ✅ Return single object instead of list
     return users[0]
+
+
+# -----------------------------
+# Function needed for match.py
+# -----------------------------
+def fetch_user_from_supabase_by_username(username: str):
+    """Fetch a user by username from Supabase (used in match.py)."""
+    if not username:
+        return None
+
+    query = supabase.table("users").select("*").eq("username", username)
+    response = query.execute()
+    users = response.data or []
+    return users[0] if users else None

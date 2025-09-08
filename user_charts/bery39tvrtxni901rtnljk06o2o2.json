@@ -1,0 +1,82 @@
+{
+  "username": "beRY39tVRTXni901RTNlJK06o2o2",
+  "place": "Delhi, India",
+  "datetime_utc": "1999-01-11T10:00:00",
+  "julian_day": 2451189.9166666665,
+  "ascendant": {
+    "longitude": 81.91,
+    "sign": "Gemini",
+    "deg_in_sign": 21.91
+  },
+  "midheaven": {
+    "longitude": 335.89,
+    "sign": "Pisces",
+    "deg_in_sign": 5.89
+  },
+  "houses": [
+    81.91,
+    105.13,
+    128.68,
+    155.89,
+    189.07,
+    226.45,
+    261.91,
+    285.13,
+    308.68,
+    335.89,
+    9.07,
+    46.45
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 290.72,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.72
+    },
+    "Moon": {
+      "longitude": 220.47,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.47
+    },
+    "Mercury": {
+      "longitude": 276.45,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.45
+    },
+    "Venus": {
+      "longitude": 308.43,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.43
+    },
+    "Mars": {
+      "longitude": 203.39,
+      "sign": "Libra",
+      "deg_in_sign": 23.39
+    },
+    "Jupiter": {
+      "longitude": 353.59,
+      "sign": "Pisces",
+      "deg_in_sign": 23.59
+    },
+    "Saturn": {
+      "longitude": 26.92,
+      "sign": "Aries",
+      "deg_in_sign": 26.92
+    },
+    "Uranus": {
+      "longitude": 311.52,
+      "sign": "Aquarius",
+      "deg_in_sign": 11.52
+    },
+    "Neptune": {
+      "longitude": 301.44,
+      "sign": "Aquarius",
+      "deg_in_sign": 1.44
+    },
+    "Pluto": {
+      "longitude": 249.46,
+      "sign": "Sagittarius",
+      "deg_in_sign": 9.46
+    }
+  }
+}

@@ -1,26 +1,27 @@
 import os
+import random
+import json
 from datetime import datetime, date
 from fastapi import APIRouter
 from supabase import create_client
-import random
+from charts import calculate_chart
+from compatibility import calculate_compatibility_score
 
 router = APIRouter()
 
-# Supabase config
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError("Supabase configuration missing!")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-
+USER_CHART_DIR = os.environ.get("USER_CHART_DIR", "./user_charts")
 
 def calculate_age(birthdate_str: str):
-    """Calculate age from YYYY-MM-DD or ISO string."""
     if not birthdate_str:
         return None
     try:
-        if len(birthdate_str) == 10:  # "YYYY-MM-DD"
+        if len(birthdate_str) == 10:
             birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
         else:
             birthdate = datetime.fromisoformat(birthdate_str).date()
@@ -29,10 +30,8 @@ def calculate_age(birthdate_str: str):
     except Exception:
         return None
 
-
-
 def get_best_matches(user_id: str, top_n: int = 5):
-    """Fetch top matches for a given user, only 18+ users, shuffled randomly."""
+    """Fetch top 18+ matches with compatibility score and random shuffle."""
     try:
         response = supabase.table("users").select("*").execute()
         users = response.data or []
@@ -43,58 +42,58 @@ def get_best_matches(user_id: str, top_n: int = 5):
     if not current_user:
         return []
 
+    # Load current user's chart
+    user_chart_path = os.path.join(USER_CHART_DIR, f"{current_user['name']}.json")
+    user_chart = None
+    if os.path.exists(user_chart_path):
+        with open(user_chart_path, "r") as f:
+            user_chart = json.load(f)
+
     matches = []
     for u in users:
         try:
             if u.get("id") == user_id:
                 continue
-
-            # Ignore if critical data missing
             if not u.get("gender") or not u.get("birthdate"):
                 continue
-
-            # Gender filter (opposite only)
             if current_user.get("gender") == "Male" and u.get("gender") != "Female":
                 continue
             if current_user.get("gender") == "Female" and u.get("gender") != "Male":
                 continue
 
-            # Calculate age and skip if under 18
             age = calculate_age(u.get("birthdate"))
             if age is None or age < 18:
                 continue
 
-            # Append only necessary public fields
+            # Load crush chart
+            crush_chart_path = os.path.join(USER_CHART_DIR, f"{u['name']}.json")
+            crush_chart = None
+            if os.path.exists(crush_chart_path):
+                with open(crush_chart_path, "r") as f:
+                    crush_chart = json.load(f)
+
+            score = 0
+            if user_chart and crush_chart:
+                try:
+                    score = calculate_compatibility_score(user_chart, crush_chart)
+                except Exception:
+                    score = 0
+
             matches.append({
                 "id": u.get("id"),
                 "name": u.get("name"),
                 "gender": u.get("gender"),
                 "age": age,
-                "birthdate": u.get("birthdate"),
-                "birthtime": u.get("birthtime"),
-                "birthplace": u.get("birthplace"),
-                "profile_pic_url": u.get("profile_pic_url")
+                "profile_pic_url": u.get("profile_pic_url"),
+                "compatibility_score": score
             })
         except Exception:
             continue
 
-    random.shuffle(matches)  # shuffle matches randomly
+    random.shuffle(matches)
     return matches[:top_n]
-
-
-
 
 @router.get("/matches/{user_id}")
 def api_get_matches(user_id: str, top_n: int = 5):
-    try:
-        matches = get_best_matches(user_id, top_n)
-        return {
-            "user_id": user_id,
-            "matches": matches  # Array of public match objects
-        }
-    except Exception as e:
-        return {
-            "error": str(e),
-            "user_id": user_id,
-            "matches": []
-        }
+    matches = get_best_matches(user_id, top_n)
+    return {"user_id": user_id, "matches": matches}

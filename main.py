@@ -282,7 +282,7 @@ def sana_chat(data: SanaChatMessage):
             f"You are Sana, an emotional astrologer."
             f"Use the user's chart and past conversation to respond naturally and empathetically. "
             f"Always call the user by name: '{memory_data.get('name', data.username)}'. "
-            f"Speak in 1-2 lines, human style. Be emotional if user is emotional."
+            f"Speak in 1 line, human style. Be emotional if user is emotional."
         )
     }
 

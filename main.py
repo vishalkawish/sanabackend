@@ -276,7 +276,7 @@ def sana_chat(data: SanaChatMessage):
     conversation.append({"role": "user", "content": data.message})
 
     # Minimal system prompt
-     system_prompt = {
+    system_prompt = {
         "role": "system",
         "content": (
             "You are Sana.... Anlasana's soul AI. Speak like a poetic, deep, and wise companion. "
@@ -345,6 +345,7 @@ def sana_chat(data: SanaChatMessage):
     threading.Thread(target=update_memory, daemon=True).start()
 
     return {"reply": sana_reply}
+
 
 
 

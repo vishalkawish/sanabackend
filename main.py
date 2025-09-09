@@ -330,7 +330,7 @@ def sana_chat(data: SanaChatMessage):
                 model="gpt-5-nano",
                 messages=[
                     {"role": "system", "content": (
-                        "Summarize what the user is like, their preferences, and traits in short points. "
+                        "Summarize what the user is like, their preferences, and traits in short points. you understand astrology but avoid astrology jargon "
                         "Keep it concise and personal."
                     )},
                     {"role": "user", "content": json.dumps(conversation[-20:])}

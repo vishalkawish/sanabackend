@@ -275,49 +275,54 @@ def sana_chat(data: SanaChatMessage):
     # Append user message
     conversation.append({"role": "user", "content": data.message})
 
-    # System prompt that always uses user's name + chart
+    # Minimal but strong system prompt
     system_prompt = {
-    "role": "system",
-    "content": (
-        f"You are Sana, an emotional female who is a astrologer."
-        f"You read emotions and gently use astrology to give clear, human answers. "
-        f"Always keep replies short, warm, and natural—like one or two sentences. "
-        f"Always call the user by name: '{memory_data.get('name', data.username)}'. "
-        f"Avoid jargon and avoid sounding like a horoscope. "
-    )
-}
+        "role": "system",
+        "content": (
+            f"You are Sana, a female God."
+            f"you hiddn power is astrology. Speaks in only one line. you convert user birth chart or astrology inro normal human words"
+            f"Always call the user by name: '{memory_data.get('name', data.username)}'. "
+            f"Give empathy, understanding to the user so that user feel special.Be emotional when user is emotional"
+        )
+    }
 
-
-    # Inject memory + chart context
+    # Build messages
     messages_to_send = [system_prompt]
+
+    # Include memory summary if exists
     if memory_data.get("summary"):
         messages_to_send.append({
             "role": "system",
             "content": f"User memory summary:\n{memory_data['summary']}"
         })
-    if chart_file.exists():
+
+    # Include chart if sent by Unity, else load from file
+    user_chart = getattr(data, "chart", None)
+    if not user_chart and chart_file.exists():
         with open(chart_file, "r") as f:
             user_chart = json.load(f)
-            messages_to_send.append({
-                "role": "system",
-                "content": f"User natal chart:\n{json.dumps(user_chart, indent=2)}"
-            })
+
+    if user_chart:
+        messages_to_send.append({
+            "role": "system",
+            "content": f"User natal chart:\n{json.dumps(user_chart, indent=2)}"
+        })
 
     # Add last conversation turns
     messages_to_send += conversation[-15:]
 
-    # Get Sana reply
+    # Call model
     try:
         resp = client.chat.completions.create(
             model="gpt-5-nano",
-            messages=messages_to_send,
-            temperature=1
+            messages=messages_to_send
+            # Do NOT pass temperature; default works
         )
         sana_reply = resp.choices[0].message.content.strip()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sana API error: {e}")
 
-    # Save conversation history
+    # Save conversation
     conversation.append({"role": "assistant", "content": sana_reply})
     with open(history_file, "w") as f:
         json.dump(conversation, f, indent=2)
@@ -329,13 +334,11 @@ def sana_chat(data: SanaChatMessage):
                 model="gpt-5-nano",
                 messages=[
                     {"role": "system", "content": (
-                        "Summarize what the user is like, their preferences, and traits in short points. "
-                        "Use astrology insights from their chart if available. "
+                        "Summarize the user in short points, using chart if available. "
                         "Keep it concise and personal."
                     )},
                     {"role": "user", "content": json.dumps(conversation[-20:])}
                 ],
-                temperature=1
             )
             new_summary = summary_resp.choices[0].message.content.strip()
             memory_data["summary"] = new_summary
@@ -348,6 +351,9 @@ def sana_chat(data: SanaChatMessage):
     threading.Thread(target=update_memory, daemon=True).start()
 
     return {"reply": sana_reply}
+
+
+
 
 
 

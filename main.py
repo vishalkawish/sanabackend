@@ -398,6 +398,57 @@ def get_matches(user_id: str):
         raise HTTPException(status_code=404, detail="No matches found")
     return {"user_id": user_id, "matches": matches}
 
+
+# past life etc
+
+@router.post("/astro/personal") 
+async def get_personal_insights(data: NatalData):
+    username_safe = data.username.strip().lower()
+    chart_file = USER_CHART_DIR / f"{username_safe}.json"
+
+    # 🔹 Fetch chart from Supabase if not exists
+    if not chart_file.exists():
+        user = fetch_user_from_supabase_by_username(data.username)
+        if user:
+            generate_chart_for_user(user["id"])
+        else:
+            print(f"⚠️ User {data.username} not found in Supabase. Using provided data.")
+
+    # 🔹 Calculate chart
+    astro_data = await calculate_chart(data)
+
+    # 🔹 Save chart JSON if not exists
+    if not chart_file.exists():
+        with open(chart_file, "w") as f:
+            json.dump(astro_data, f, indent=2)
+
+    # 🔹 Prompt for OpenAI
+    prompt = f"""
+You are Sana, goddess of astrology.
+Generate personal insights for {data.username} in the following sections:
+- past_life
+- love_life
+- career
+- secret_message
+- higher_dimension
+- messagefrom_universe
+
+Each section must have "title" and "content", one line each. Avoid astrology jargon.
+Return ONLY JSON: {{"personal":[{{"title":"...","content":"..."}}]}}
+
+Chart data: {json.dumps(astro_data, indent=2)}
+"""
+
+    # 🔹 Call OpenAI
+    response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
+
+    return response
+
+
+
+
+
+
 # ---------------------------
 # Include routers
 # ---------------------------
@@ -406,3 +457,7 @@ app.include_router(router)
 app.include_router(user_router)
 app.include_router(user_actions.router, prefix="/api")
 
+
+print("Registered routes:")
+for r in app.routes:
+    print(r.path)

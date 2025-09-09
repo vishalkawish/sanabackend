@@ -1,62 +1,62 @@
 {
-  "username": "kawish",
-  "place": "India",
-  "datetime_utc": "1999-01-11T10:30:00",
-  "julian_day": 2451189.9375,
+  "username": "vishal",
+  "place": "moradabad",
+  "datetime_utc": "1999-01-11T09:09:00",
+  "julian_day": 2451189.88125,
   "ascendant": {
-    "longitude": 86.61,
+    "longitude": 70.94,
     "sign": "Gemini",
-    "deg_in_sign": 26.61
+    "deg_in_sign": 10.94
   },
   "midheaven": {
-    "longitude": 345.83,
-    "sign": "Pisces",
-    "deg_in_sign": 15.83
+    "longitude": 324.15,
+    "sign": "Aquarius",
+    "deg_in_sign": 24.15
   },
   "houses": [
-    86.61,
-    111.01,
-    136.55,
-    165.83,
-    199.41,
-    234.23,
-    266.61,
-    291.01,
-    316.55,
-    345.83,
-    19.41,
-    54.23
+    70.94,
+    95.16,
+    118.31,
+    144.15,
+    175.81,
+    213.42,
+    250.94,
+    275.16,
+    298.31,
+    324.15,
+    355.81,
+    33.42
   ],
   "planets": {
     "Sun": {
-      "longitude": 290.74,
+      "longitude": 290.68,
       "sign": "Capricorn",
-      "deg_in_sign": 20.74
+      "deg_in_sign": 20.68
     },
     "Moon": {
-      "longitude": 220.71,
+      "longitude": 220.05,
       "sign": "Scorpio",
-      "deg_in_sign": 10.71
+      "deg_in_sign": 10.05
     },
     "Mercury": {
-      "longitude": 276.48,
+      "longitude": 276.39,
       "sign": "Capricorn",
-      "deg_in_sign": 6.48
+      "deg_in_sign": 6.39
     },
     "Venus": {
-      "longitude": 308.46,
+      "longitude": 308.39,
       "sign": "Aquarius",
-      "deg_in_sign": 8.46
+      "deg_in_sign": 8.39
     },
     "Mars": {
-      "longitude": 203.4,
+      "longitude": 203.38,
       "sign": "Libra",
-      "deg_in_sign": 23.4
+      "deg_in_sign": 23.38
     },
     "Jupiter": {
-      "longitude": 353.59,
+      "longitude": 353.58,
       "sign": "Pisces",
-      "deg_in_sign": 23.59
+      "deg_in_sign": 23.58
     },
     "Saturn": {
       "longitude": 26.92,

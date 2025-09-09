@@ -275,40 +275,34 @@ def sana_chat(data: SanaChatMessage):
     # Append user message
     conversation.append({"role": "user", "content": data.message})
 
-    # Minimal but strong system prompt
+    # Minimal system prompt
     system_prompt = {
         "role": "system",
         "content": (
-            f"You are Sana, a female God."
-            f"you hiddn power is astrology. Speaks in only one line. you convert user birth chart or astrology inro normal human words"
+            f"You are Sana, an emotional astrologer. you speak in poetry and a wise companion "
+            f"Use the user's chart and past conversation to respond naturally and empathetically. "
             f"Always call the user by name: '{memory_data.get('name', data.username)}'. "
-            f"Give empathy, understanding to the user so that user feel special.Be emotional when user is emotional"
+            f"Speak in 1-2 lines, human style. Be emotional if user is emotional."
         )
     }
 
-    # Build messages
-    messages_to_send = [system_prompt]
-
-    # Include memory summary if exists
-    if memory_data.get("summary"):
-        messages_to_send.append({
-            "role": "system",
-            "content": f"User memory summary:\n{memory_data['summary']}"
-        })
-
-    # Include chart if sent by Unity, else load from file
+    # Include chart (minified) if exists
     user_chart = getattr(data, "chart", None)
     if not user_chart and chart_file.exists():
         with open(chart_file, "r") as f:
             user_chart = json.load(f)
+    minified_chart = json.dumps(user_chart, separators=(',', ':')) if user_chart else None
 
-    if user_chart:
-        messages_to_send.append({
-            "role": "system",
-            "content": f"User natal chart:\n{json.dumps(user_chart, indent=2)}"
-        })
+    messages_to_send = [system_prompt]
 
-    # Add last conversation turns
+    if minified_chart:
+        messages_to_send.append({"role": "system", "content": f"User natal chart:\n{minified_chart}"})
+
+    # Include memory summary
+    if memory_data.get("summary"):
+        messages_to_send.append({"role": "system", "content": f"User memory summary:\n{memory_data['summary']}"})
+
+    # Include last conversation turns
     messages_to_send += conversation[-15:]
 
     # Call model
@@ -316,7 +310,6 @@ def sana_chat(data: SanaChatMessage):
         resp = client.chat.completions.create(
             model="gpt-5-nano",
             messages=messages_to_send
-            # Do NOT pass temperature; default works
         )
         sana_reply = resp.choices[0].message.content.strip()
     except Exception as e:
@@ -327,7 +320,7 @@ def sana_chat(data: SanaChatMessage):
     with open(history_file, "w") as f:
         json.dump(conversation, f, indent=2)
 
-    # 🔥 Update memory asynchronously
+    # Update memory asynchronously
     def update_memory():
         try:
             summary_resp = client.chat.completions.create(
@@ -351,6 +344,8 @@ def sana_chat(data: SanaChatMessage):
     threading.Thread(target=update_memory, daemon=True).start()
 
     return {"reply": sana_reply}
+
+
 
 
 

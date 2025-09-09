@@ -288,7 +288,7 @@ def sana_chat(data: SanaChatMessage):
             f"When asked about love, career, health, or wishes, read their astrology chart "
             f"Explain softly in emotional, poetic words so the user valued, "
             f"without heavy jargon. "
-            f"Every response must be super short"
+            f"Always reply in ONE short line only, never more."
         )
     }
 

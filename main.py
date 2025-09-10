@@ -431,7 +431,7 @@ Generate personal insights for {data.username} in the following sections:
 - career
 - secret_message
 - higher_dimension
-- messagefrom_universe
+- message_from_universe
 
 Each section must have "title" and "content", one line each. Avoid astrology jargon.
 Return ONLY JSON: {{"personal":[{{"title":"...","content":"..."}}]}}

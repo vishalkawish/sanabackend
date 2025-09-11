@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from supabase import create_client, Client
 import os
 from datetime import datetime, timezone
-from typing import Dict, List
+from typing import Dict
 
 router = APIRouter()
 
@@ -14,7 +14,6 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError("Supabase configuration missing!")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
 
 # In-memory store of active connections
 active_connections: Dict[str, WebSocket] = {}
@@ -35,8 +34,7 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
 
     try:
         while True:
-            # Just keep alive (client might send pings or idle messages)
-            await websocket.receive_text()
+            await websocket.receive_text()  # keep alive
     except WebSocketDisconnect:
         print(f"❌ User {user_id} disconnected")
         active_connections.pop(user_id, None)
@@ -55,7 +53,7 @@ def record_action(data: UserAction):
         if action not in {"skip", "connect"}:
             raise HTTPException(status_code=400, detail="Invalid action")
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(timezone.utc).isoformat()  # ✅ convert to string
 
         # Check reciprocal connection
         reciprocal = (
@@ -106,7 +104,7 @@ def record_action(data: UserAction):
             "to": target_user_id,
         }
 
-        # 🔥 Notify the target user if they are online
+        # 🔥 Notify the target user if online
         if target_user_id in active_connections:
             import json
             ws = active_connections[target_user_id]

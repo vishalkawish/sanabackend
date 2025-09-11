@@ -4,12 +4,14 @@ from supabase import create_client, Client
 import os
 from datetime import datetime, timezone
 from typing import Dict
+import json
 
 router = APIRouter()
 
 # Supabase config
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError("Supabase configuration missing!")
 
@@ -25,12 +27,42 @@ class UserAction(BaseModel):
     action: str  # "skip" or "connect"
 
 
+async def notify_user(target_user_id: str, message: dict):
+    """Send message to target user if online."""
+    ws = active_connections.get(target_user_id)
+    if ws:
+        try:
+            await ws.send_text(json.dumps(message))
+            print(f"📩 Notified {target_user_id}: {message}")
+        except Exception as e:
+            print(f"⚠️ Failed to notify {target_user_id}: {e}")
+
+
 @router.websocket("/ws/{user_id}")
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     """Each user connects here and we keep their WebSocket reference."""
     await websocket.accept()
     active_connections[user_id] = websocket
     print(f"✅ User {user_id} connected")
+
+    # 🔥 Send all pending 'connect' requests
+    pending = (
+        supabase.table("user_actions")
+        .select("user_id")
+        .eq("target_user_id", user_id)
+        .eq("action", "connect")
+        .execute()
+    )
+    if pending.data:
+        for req in pending.data:
+            message = {
+                "status": "ok",
+                "action": "connect",
+                "matched": False,
+                "from": req["user_id"],
+                "to": user_id
+            }
+            await notify_user(user_id, message)
 
     try:
         while True:
@@ -41,80 +73,71 @@ async def websocket_endpoint(websocket: WebSocket, user_id: str):
 
 
 @router.post("/user_action/")
-def record_action(data: UserAction):
-    try:
-        user_id = data.user_id
-        target_user_id = data.target_user_id
-        action = data.action.lower()
+async def record_action(data: UserAction):
+    user_id = data.user_id
+    target_user_id = data.target_user_id
+    action = data.action.lower()
 
-        if user_id == target_user_id:
-            raise HTTPException(status_code=400, detail="User cannot act on themselves")
+    if user_id == target_user_id:
+        raise HTTPException(status_code=400, detail="User cannot act on themselves")
 
-        if action not in {"skip", "connect"}:
-            raise HTTPException(status_code=400, detail="Invalid action")
+    if action not in {"skip", "connect"}:
+        raise HTTPException(status_code=400, detail="Invalid action")
 
-        now = datetime.now(timezone.utc).isoformat()  # ✅ convert to string
+    now = datetime.now(timezone.utc).isoformat()
+    is_match = False
 
-        # Check reciprocal connection
-        reciprocal = (
-            supabase.table("user_actions")
-            .select("id, action")
-            .eq("user_id", target_user_id)
-            .eq("target_user_id", user_id)
-            .eq("action", "connect")
-            .execute()
-        )
+    # Check reciprocal connection
+    reciprocal = (
+        supabase.table("user_actions")
+        .select("id, action")
+        .eq("user_id", target_user_id)
+        .eq("target_user_id", user_id)
+        .eq("action", "connect")
+        .execute()
+    )
 
-        is_match = False
-        if reciprocal.data and action == "connect":
-            is_match = True
-            supabase.table("user_actions").update(
-                {"action": "matched", "updated_at": now}
-            ).eq("user_id", target_user_id).eq("target_user_id", user_id).execute()
+    if reciprocal.data and action == "connect":
+        is_match = True
+        supabase.table("user_actions").update(
+            {"action": "matched", "updated_at": now}
+        ).eq("user_id", target_user_id).eq("target_user_id", user_id).execute()
 
-        # Check if current record exists
-        existing = (
-            supabase.table("user_actions")
-            .select("id, action")
-            .eq("user_id", user_id)
-            .eq("target_user_id", target_user_id)
-            .execute()
-        )
+    # Upsert current action
+    existing = (
+        supabase.table("user_actions")
+        .select("id, action")
+        .eq("user_id", user_id)
+        .eq("target_user_id", target_user_id)
+        .execute()
+    )
 
-        if existing.data:
-            supabase.table("user_actions").update(
-                {"action": "matched" if is_match else action, "updated_at": now}
-            ).eq("user_id", user_id).eq("target_user_id", target_user_id).execute()
-        else:
-            supabase.table("user_actions").insert(
-                {
-                    "user_id": user_id,
-                    "target_user_id": target_user_id,
-                    "action": "matched" if is_match else action,
-                    "created_at": now,
-                    "updated_at": now,
-                }
-            ).execute()
+    record_action_value = "matched" if is_match else action
 
-        response = {
-            "status": "ok",
-            "action": "matched" if is_match else action,
-            "matched": is_match,
-            "from": user_id,
-            "to": target_user_id,
-        }
+    if existing.data:
+        supabase.table("user_actions").update(
+            {"action": record_action_value, "updated_at": now}
+        ).eq("user_id", user_id).eq("target_user_id", target_user_id).execute()
+    else:
+        supabase.table("user_actions").insert(
+            {
+                "user_id": user_id,
+                "target_user_id": target_user_id,
+                "action": record_action_value,
+                "created_at": now,
+                "updated_at": now,
+            }
+        ).execute()
 
-        # 🔥 Notify the target user if online
-        if target_user_id in active_connections:
-            import json
-            ws = active_connections[target_user_id]
-            try:
-                ws.send_text(json.dumps(response))
-                print(f"📩 Notified {target_user_id}: {response}")
-            except Exception as e:
-                print(f"⚠️ Failed to notify {target_user_id}: {e}")
+    response = {
+        "status": "ok",
+        "action": record_action_value,
+        "matched": is_match,
+        "from": user_id,
+        "to": target_user_id,
+    }
 
-        return response
+    # Notify target if online
+    await notify_user(target_user_id, response)
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
+    return response

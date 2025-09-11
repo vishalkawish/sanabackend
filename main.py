@@ -446,9 +446,6 @@ Chart data: {json.dumps(astro_data, indent=2)}
 
 
 
-
-
-
 # ---------------------------
 # Include routers
 # ---------------------------

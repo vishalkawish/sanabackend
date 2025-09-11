@@ -2,7 +2,7 @@ import os
 import random
 import json
 from datetime import datetime, date
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from supabase import create_client
 from charts import calculate_chart
 from compatibility import calculate_compatibility_score
@@ -19,6 +19,7 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 USER_CHART_DIR = os.environ.get("USER_CHART_DIR", "./user_charts")
 
+
 # -----------------------------
 # Utility: calculate age
 # -----------------------------
@@ -30,10 +31,14 @@ def calculate_age(birthdate_str: str):
             birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
         else:
             birthdate = datetime.fromisoformat(birthdate_str).date()
+
         today = date.today()
-        return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return today.year - birthdate.year - (
+            (today.month, today.day) < (birthdate.month, birthdate.day)
+        )
     except Exception:
         return None
+
 
 # -----------------------------
 # Get best matches
@@ -53,7 +58,6 @@ def get_best_matches(user_id: str, top_n: int = None):
     user_chart_path = os.path.join(USER_CHART_DIR, f"{current_user['name']}.json")
     user_chart = None
     if not os.path.exists(user_chart_path):
-        # Try to generate chart automatically
         generate_chart_for_user(current_user["id"])
     if os.path.exists(user_chart_path):
         with open(user_chart_path, "r") as f:
@@ -66,6 +70,7 @@ def get_best_matches(user_id: str, top_n: int = None):
                 continue
             if not u.get("gender") or not u.get("birthdate"):
                 continue
+
             # Simple opposite-gender filter
             if current_user.get("gender") == "Male" and u.get("gender") != "Female":
                 continue
@@ -99,13 +104,20 @@ def get_best_matches(user_id: str, top_n: int = None):
                 "gender": u.get("gender"),
                 "age": age,
                 "profile_pic_url": u.get("profile_pic_url"),
-                "compatibility_score": score
+                "compatibility_score": score,
+                "birthdate": u.get("birthdate"),
+                "birthtime": u.get("birthtime"),
+                "birthplace": u.get("birthplace"),
+                "email": u.get("email"),
+                "created_at": u.get("created_at"),
+                "updated_at": u.get("updated_at"),
             })
         except Exception:
             continue
 
     random.shuffle(matches)
     return matches[:top_n]
+
 
 # -----------------------------
 # API Endpoint

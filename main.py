@@ -403,7 +403,6 @@ def get_matches(user_id: str):
 
 
 # past life etc
-
 @router.post("/astro/personal") 
 async def get_personal_insights(data: NatalData):
     username_safe = data.username.strip().lower()
@@ -426,7 +425,7 @@ async def get_personal_insights(data: NatalData):
             json.dump(astro_data, f, indent=2)
 
     # 🔹 Prompt for OpenAI
- prompt = f"""
+    prompt = f"""
 You are Sana, goddess of astrology.
 Generate personal insights for {data.username} in the following sections:
 - third_eye
@@ -442,11 +441,11 @@ Return ONLY JSON: {{"personal":[{{"title":"...","content":"..."}}]}}
 Chart data: {json.dumps(astro_data, indent=2)}
 """
 
-
     # 🔹 Call OpenAI
     response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
 
     return response
+
 
 
 

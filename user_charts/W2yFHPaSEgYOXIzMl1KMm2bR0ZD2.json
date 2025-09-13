@@ -1,0 +1,106 @@
+{
+  "id": "W2yFHPaSEgYOXIzMl1KMm2bR0ZD2",
+  "name": "Aditi Sharma",
+  "place": "Delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "2008-06-28",
+  "birthtime": "05:58",
+  "julian_day": 2454645.748611111,
+  "ascendant": {
+    "longitude": 174.2,
+    "sign": "Virgo",
+    "deg_in_sign": 24.2
+  },
+  "midheaven": {
+    "longitude": 83.96,
+    "sign": "Gemini",
+    "deg_in_sign": 23.96
+  },
+  "houses": [
+    174.2,
+    201.94,
+    232.35,
+    263.96,
+    295.49,
+    325.94,
+    354.2,
+    21.94,
+    52.35,
+    83.96,
+    115.49,
+    145.94
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 96.91,
+      "sign": "Cancer",
+      "deg_in_sign": 6.91
+    },
+    "Moon": {
+      "longitude": 29.48,
+      "sign": "Aries",
+      "deg_in_sign": 29.48
+    },
+    "Mercury": {
+      "longitude": 75.88,
+      "sign": "Gemini",
+      "deg_in_sign": 15.88
+    },
+    "Venus": {
+      "longitude": 102.14,
+      "sign": "Cancer",
+      "deg_in_sign": 12.14
+    },
+    "Mars": {
+      "longitude": 147.96,
+      "sign": "Leo",
+      "deg_in_sign": 27.96
+    },
+    "Jupiter": {
+      "longitude": 288.87,
+      "sign": "Capricorn",
+      "deg_in_sign": 18.87
+    },
+    "Saturn": {
+      "longitude": 154.27,
+      "sign": "Virgo",
+      "deg_in_sign": 4.27
+    },
+    "Uranus": {
+      "longitude": 352.66,
+      "sign": "Pisces",
+      "deg_in_sign": 22.66
+    },
+    "Neptune": {
+      "longitude": 323.98,
+      "sign": "Aquarius",
+      "deg_in_sign": 23.98
+    },
+    "Pluto": {
+      "longitude": 269.64,
+      "sign": "Sagittarius",
+      "deg_in_sign": 29.64
+    },
+    "North Node": {
+      "longitude": 320.85,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.85
+    },
+    "South Node": {
+      "longitude": 140.85,
+      "sign": "Leo",
+      "deg_in_sign": 20.85
+    }
+  },
+  "north_node": {
+    "longitude": 320.85,
+    "sign": "Aquarius",
+    "deg_in_sign": 20.85
+  },
+  "south_node": {
+    "longitude": 140.85,
+    "sign": "Leo",
+    "deg_in_sign": 20.85
+  }
+}

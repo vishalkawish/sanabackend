@@ -1,0 +1,106 @@
+{
+  "id": "rSAEOJTZbQSA9BS09XNEYZtYHaF2",
+  "name": "Omkar Gaikwad",
+  "place": "Ichalkaranji Maharashtra India",
+  "lat": 16.69,
+  "lon": 74.56,
+  "birthdate": "2003-11-20",
+  "birthtime": "17:45",
+  "julian_day": 2452964.2395833335,
+  "ascendant": {
+    "longitude": 132.91,
+    "sign": "Leo",
+    "deg_in_sign": 12.91
+  },
+  "midheaven": {
+    "longitude": 42.58,
+    "sign": "Taurus",
+    "deg_in_sign": 12.58
+  },
+  "houses": [
+    132.91,
+    160.17,
+    190.57,
+    222.58,
+    253.88,
+    283.76,
+    312.91,
+    340.17,
+    10.57,
+    42.58,
+    73.88,
+    103.76
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 237.98,
+      "sign": "Scorpio",
+      "deg_in_sign": 27.98
+    },
+    "Moon": {
+      "longitude": 193.1,
+      "sign": "Libra",
+      "deg_in_sign": 13.1
+    },
+    "Mercury": {
+      "longitude": 252.72,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.72
+    },
+    "Venus": {
+      "longitude": 262.17,
+      "sign": "Sagittarius",
+      "deg_in_sign": 22.17
+    },
+    "Mars": {
+      "longitude": 346.01,
+      "sign": "Pisces",
+      "deg_in_sign": 16.01
+    },
+    "Jupiter": {
+      "longitude": 165.96,
+      "sign": "Virgo",
+      "deg_in_sign": 15.96
+    },
+    "Saturn": {
+      "longitude": 102.63,
+      "sign": "Cancer",
+      "deg_in_sign": 12.63
+    },
+    "Uranus": {
+      "longitude": 328.96,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.96
+    },
+    "Neptune": {
+      "longitude": 310.63,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.63
+    },
+    "Pluto": {
+      "longitude": 258.95,
+      "sign": "Sagittarius",
+      "deg_in_sign": 18.95
+    },
+    "North Node": {
+      "longitude": 49.89,
+      "sign": "Taurus",
+      "deg_in_sign": 19.89
+    },
+    "South Node": {
+      "longitude": 229.89,
+      "sign": "Scorpio",
+      "deg_in_sign": 19.89
+    }
+  },
+  "north_node": {
+    "longitude": 49.89,
+    "sign": "Taurus",
+    "deg_in_sign": 19.89
+  },
+  "south_node": {
+    "longitude": 229.89,
+    "sign": "Scorpio",
+    "deg_in_sign": 19.89
+  }
+}

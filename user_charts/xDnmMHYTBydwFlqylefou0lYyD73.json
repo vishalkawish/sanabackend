@@ -1,0 +1,106 @@
+{
+  "id": "xDnmMHYTBydwFlqylefou0lYyD73",
+  "name": "Jyoti rajput",
+  "place": "amroha",
+  "lat": 28.83,
+  "lon": 78.77,
+  "birthdate": "2025-03-25",
+  "birthtime": "04:00",
+  "julian_day": 2460759.6666666665,
+  "ascendant": {
+    "longitude": 65.92,
+    "sign": "Gemini",
+    "deg_in_sign": 5.92
+  },
+  "midheaven": {
+    "longitude": 319.22,
+    "sign": "Aquarius",
+    "deg_in_sign": 19.22
+  },
+  "houses": [
+    65.92,
+    90.78,
+    113.9,
+    139.22,
+    170.12,
+    207.56,
+    245.92,
+    270.78,
+    293.9,
+    319.22,
+    350.12,
+    27.56
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 4.75,
+      "sign": "Aries",
+      "deg_in_sign": 4.75
+    },
+    "Moon": {
+      "longitude": 307.05,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.05
+    },
+    "Mercury": {
+      "longitude": 4.12,
+      "sign": "Aries",
+      "deg_in_sign": 4.12
+    },
+    "Venus": {
+      "longitude": 1.33,
+      "sign": "Aries",
+      "deg_in_sign": 1.33
+    },
+    "Mars": {
+      "longitude": 111.52,
+      "sign": "Cancer",
+      "deg_in_sign": 21.52
+    },
+    "Jupiter": {
+      "longitude": 74.97,
+      "sign": "Gemini",
+      "deg_in_sign": 14.97
+    },
+    "Saturn": {
+      "longitude": 353.66,
+      "sign": "Pisces",
+      "deg_in_sign": 23.66
+    },
+    "Uranus": {
+      "longitude": 54.46,
+      "sign": "Taurus",
+      "deg_in_sign": 24.46
+    },
+    "Neptune": {
+      "longitude": 359.8,
+      "sign": "Pisces",
+      "deg_in_sign": 29.8
+    },
+    "Pluto": {
+      "longitude": 303.44,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.44
+    },
+    "North Node": {
+      "longitude": 357.09,
+      "sign": "Pisces",
+      "deg_in_sign": 27.09
+    },
+    "South Node": {
+      "longitude": 177.09,
+      "sign": "Virgo",
+      "deg_in_sign": 27.09
+    }
+  },
+  "north_node": {
+    "longitude": 357.09,
+    "sign": "Pisces",
+    "deg_in_sign": 27.09
+  },
+  "south_node": {
+    "longitude": 177.09,
+    "sign": "Virgo",
+    "deg_in_sign": 27.09
+  }
+}

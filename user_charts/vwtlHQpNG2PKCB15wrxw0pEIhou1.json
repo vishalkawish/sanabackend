@@ -1,0 +1,106 @@
+{
+  "id": "vwtlHQpNG2PKCB15wrxw0pEIhou1",
+  "name": "Aviva San",
+  "place": "Amravati",
+  "lat": 20.96,
+  "lon": 77.75,
+  "birthdate": "2005-05-05",
+  "birthtime": "12:40",
+  "julian_day": 2453496.027777778,
+  "ascendant": {
+    "longitude": 218.04,
+    "sign": "Scorpio",
+    "deg_in_sign": 8.04
+  },
+  "midheaven": {
+    "longitude": 128.8,
+    "sign": "Leo",
+    "deg_in_sign": 8.8
+  },
+  "houses": [
+    218.04,
+    247.25,
+    277.42,
+    308.8,
+    340.72,
+    11.01,
+    38.04,
+    67.25,
+    97.42,
+    128.8,
+    160.72,
+    191.01
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 45.11,
+      "sign": "Taurus",
+      "deg_in_sign": 15.11
+    },
+    "Moon": {
+      "longitude": 10.26,
+      "sign": "Aries",
+      "deg_in_sign": 10.26
+    },
+    "Mercury": {
+      "longitude": 19.88,
+      "sign": "Aries",
+      "deg_in_sign": 19.88
+    },
+    "Venus": {
+      "longitude": 54.28,
+      "sign": "Taurus",
+      "deg_in_sign": 24.28
+    },
+    "Mars": {
+      "longitude": 333.19,
+      "sign": "Pisces",
+      "deg_in_sign": 3.19
+    },
+    "Jupiter": {
+      "longitude": 190.32,
+      "sign": "Libra",
+      "deg_in_sign": 10.32
+    },
+    "Saturn": {
+      "longitude": 112.13,
+      "sign": "Cancer",
+      "deg_in_sign": 22.13
+    },
+    "Uranus": {
+      "longitude": 340.11,
+      "sign": "Pisces",
+      "deg_in_sign": 10.11
+    },
+    "Neptune": {
+      "longitude": 317.55,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.55
+    },
+    "Pluto": {
+      "longitude": 264.12,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.12
+    },
+    "North Node": {
+      "longitude": 21.73,
+      "sign": "Aries",
+      "deg_in_sign": 21.73
+    },
+    "South Node": {
+      "longitude": 201.73,
+      "sign": "Libra",
+      "deg_in_sign": 21.73
+    }
+  },
+  "north_node": {
+    "longitude": 21.73,
+    "sign": "Aries",
+    "deg_in_sign": 21.73
+  },
+  "south_node": {
+    "longitude": 201.73,
+    "sign": "Libra",
+    "deg_in_sign": 21.73
+  }
+}

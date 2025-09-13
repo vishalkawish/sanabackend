@@ -1,0 +1,106 @@
+{
+  "id": "iByNx0utc8aZxOcOxOpyYcONMrg2",
+  "name": "Komari Balraj",
+  "place": "allure",
+  "lat": 0.0,
+  "lon": 0.0,
+  "birthdate": "2000-01-16",
+  "birthtime": "05:38",
+  "julian_day": 2451559.734722222,
+  "ascendant": {
+    "longitude": 287.98,
+    "sign": "Capricorn",
+    "deg_in_sign": 17.98
+  },
+  "midheaven": {
+    "longitude": 201.08,
+    "sign": "Libra",
+    "deg_in_sign": 21.08
+  },
+  "houses": [
+    287.98,
+    317.03,
+    348.56,
+    21.08,
+    51.9,
+    80.33,
+    107.98,
+    137.03,
+    168.56,
+    201.08,
+    231.9,
+    260.33
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 295.39,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.39
+    },
+    "Moon": {
+      "longitude": 46.93,
+      "sign": "Taurus",
+      "deg_in_sign": 16.93
+    },
+    "Mercury": {
+      "longitude": 295.5,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.5
+    },
+    "Venus": {
+      "longitude": 259.48,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.48
+    },
+    "Mars": {
+      "longitude": 339.38,
+      "sign": "Pisces",
+      "deg_in_sign": 9.38
+    },
+    "Jupiter": {
+      "longitude": 26.21,
+      "sign": "Aries",
+      "deg_in_sign": 26.21
+    },
+    "Saturn": {
+      "longitude": 40.3,
+      "sign": "Taurus",
+      "deg_in_sign": 10.3
+    },
+    "Uranus": {
+      "longitude": 315.59,
+      "sign": "Aquarius",
+      "deg_in_sign": 15.59
+    },
+    "Neptune": {
+      "longitude": 303.73,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.73
+    },
+    "Pluto": {
+      "longitude": 251.94,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.94
+    },
+    "North Node": {
+      "longitude": 124.26,
+      "sign": "Leo",
+      "deg_in_sign": 4.26
+    },
+    "South Node": {
+      "longitude": 304.26,
+      "sign": "Aquarius",
+      "deg_in_sign": 4.26
+    }
+  },
+  "north_node": {
+    "longitude": 124.26,
+    "sign": "Leo",
+    "deg_in_sign": 4.26
+  },
+  "south_node": {
+    "longitude": 304.26,
+    "sign": "Aquarius",
+    "deg_in_sign": 4.26
+  }
+}

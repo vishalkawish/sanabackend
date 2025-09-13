@@ -1,0 +1,106 @@
+{
+  "id": "PB2KKM78lgNKJJN3Mhs3Y3Bw1ap1",
+  "name": "Tisha Ingle",
+  "place": "nagpur",
+  "lat": 21.15,
+  "lon": 79.08,
+  "birthdate": "2003-07-05",
+  "birthtime": "04:30",
+  "julian_day": 2452825.6875,
+  "ascendant": {
+    "longitude": 160.79,
+    "sign": "Virgo",
+    "deg_in_sign": 10.79
+  },
+  "midheaven": {
+    "longitude": 70.92,
+    "sign": "Gemini",
+    "deg_in_sign": 10.92
+  },
+  "houses": [
+    160.79,
+    189.15,
+    219.8,
+    250.92,
+    281.48,
+    311.51,
+    340.79,
+    9.15,
+    39.8,
+    70.92,
+    101.48,
+    131.51
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 102.77,
+      "sign": "Cancer",
+      "deg_in_sign": 12.77
+    },
+    "Moon": {
+      "longitude": 168.1,
+      "sign": "Virgo",
+      "deg_in_sign": 18.1
+    },
+    "Mercury": {
+      "longitude": 102.48,
+      "sign": "Cancer",
+      "deg_in_sign": 12.48
+    },
+    "Venus": {
+      "longitude": 90.55,
+      "sign": "Cancer",
+      "deg_in_sign": 0.55
+    },
+    "Mars": {
+      "longitude": 336.5,
+      "sign": "Pisces",
+      "deg_in_sign": 6.5
+    },
+    "Jupiter": {
+      "longitude": 138.75,
+      "sign": "Leo",
+      "deg_in_sign": 18.75
+    },
+    "Saturn": {
+      "longitude": 94.02,
+      "sign": "Cancer",
+      "deg_in_sign": 4.02
+    },
+    "Uranus": {
+      "longitude": 332.52,
+      "sign": "Pisces",
+      "deg_in_sign": 2.52
+    },
+    "Neptune": {
+      "longitude": 312.57,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.57
+    },
+    "Pluto": {
+      "longitude": 257.96,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.96
+    },
+    "North Node": {
+      "longitude": 57.22,
+      "sign": "Taurus",
+      "deg_in_sign": 27.22
+    },
+    "South Node": {
+      "longitude": 237.22,
+      "sign": "Scorpio",
+      "deg_in_sign": 27.22
+    }
+  },
+  "north_node": {
+    "longitude": 57.22,
+    "sign": "Taurus",
+    "deg_in_sign": 27.22
+  },
+  "south_node": {
+    "longitude": 237.22,
+    "sign": "Scorpio",
+    "deg_in_sign": 27.22
+  }
+}

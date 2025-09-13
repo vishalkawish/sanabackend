@@ -1,0 +1,106 @@
+{
+  "id": "jGssq0QRESOJhUbKDDxBoaMgIfy1",
+  "name": "VIVEK",
+  "place": "jaipur",
+  "lat": 26.9124,
+  "lon": 75.7873,
+  "birthdate": "2010-03-27",
+  "birthtime": "05:10",
+  "julian_day": 2455282.715277778,
+  "ascendant": {
+    "longitude": 81.13,
+    "sign": "Gemini",
+    "deg_in_sign": 21.13
+  },
+  "midheaven": {
+    "longitude": 336.04,
+    "sign": "Pisces",
+    "deg_in_sign": 6.04
+  },
+  "houses": [
+    81.13,
+    104.71,
+    128.58,
+    156.04,
+    189.18,
+    226.11,
+    261.13,
+    284.71,
+    308.58,
+    336.04,
+    9.18,
+    46.11
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 6.43,
+      "sign": "Aries",
+      "deg_in_sign": 6.43
+    },
+    "Moon": {
+      "longitude": 146.43,
+      "sign": "Leo",
+      "deg_in_sign": 26.43
+    },
+    "Mercury": {
+      "longitude": 18.92,
+      "sign": "Aries",
+      "deg_in_sign": 18.92
+    },
+    "Venus": {
+      "longitude": 24.43,
+      "sign": "Aries",
+      "deg_in_sign": 24.43
+    },
+    "Mars": {
+      "longitude": 121.85,
+      "sign": "Leo",
+      "deg_in_sign": 1.85
+    },
+    "Jupiter": {
+      "longitude": 346.14,
+      "sign": "Pisces",
+      "deg_in_sign": 16.14
+    },
+    "Saturn": {
+      "longitude": 180.88,
+      "sign": "Libra",
+      "deg_in_sign": 0.88
+    },
+    "Uranus": {
+      "longitude": 357.14,
+      "sign": "Pisces",
+      "deg_in_sign": 27.14
+    },
+    "Neptune": {
+      "longitude": 327.6,
+      "sign": "Aquarius",
+      "deg_in_sign": 27.6
+    },
+    "Pluto": {
+      "longitude": 275.39,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.39
+    },
+    "North Node": {
+      "longitude": 287.12,
+      "sign": "Capricorn",
+      "deg_in_sign": 17.12
+    },
+    "South Node": {
+      "longitude": 107.12,
+      "sign": "Cancer",
+      "deg_in_sign": 17.12
+    }
+  },
+  "north_node": {
+    "longitude": 287.12,
+    "sign": "Capricorn",
+    "deg_in_sign": 17.12
+  },
+  "south_node": {
+    "longitude": 107.12,
+    "sign": "Cancer",
+    "deg_in_sign": 17.12
+  }
+}

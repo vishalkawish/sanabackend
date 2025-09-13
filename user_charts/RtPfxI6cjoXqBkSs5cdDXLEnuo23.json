@@ -1,0 +1,108 @@
+{
+  "id": "RtPfxI6cjoXqBkSs5cdDXLEnuo23",
+  "name": "Kamali Marimuthu",
+  "place": "India",
+  "lat": 20.5937,
+  "lon": 78.9629,
+  "birthdate": "1978-01-01",
+  "birthtime": "06:30",
+  "julian_day": 2443509.7708333335,
+  "ascendant": {
+    "longitude": 9.12,
+    "sign": "Aries",
+    "deg_in_sign": 9.12
+  },
+  "midheaven": {
+    "longitude": 276.45,
+    "sign": "Capricorn",
+    "deg_in_sign": 6.45
+  },
+  "houses": [
+    9.12,
+    43.58,
+    71.49,
+    96.45,
+    122.18,
+    152.35,
+    189.12,
+    223.58,
+    251.49,
+    276.45,
+    302.18,
+    332.35
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 280.49,
+      "sign": "Capricorn",
+      "deg_in_sign": 10.49
+    },
+    "Moon": {
+      "longitude": 175.71,
+      "sign": "Virgo",
+      "deg_in_sign": 25.71
+    },
+    "Mercury": {
+      "longitude": 261.15,
+      "sign": "Sagittarius",
+      "deg_in_sign": 21.15
+    },
+    "Venus": {
+      "longitude": 275.47,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.47
+    },
+    "Mars": {
+      "longitude": 128.98,
+      "sign": "Leo",
+      "deg_in_sign": 8.98
+    },
+    "Jupiter": {
+      "longitude": 89.83,
+      "sign": "Gemini",
+      "deg_in_sign": 29.83
+    },
+    "Saturn": {
+      "longitude": 150.15,
+      "sign": "Virgo",
+      "deg_in_sign": 0.15
+    },
+    "Uranus": {
+      "longitude": 225.32,
+      "sign": "Scorpio",
+      "deg_in_sign": 15.32
+    },
+    "Neptune": {
+      "longitude": 256.75,
+      "sign": "Sagittarius",
+      "deg_in_sign": 16.75
+    },
+    "Pluto": {
+      "longitude": 196.6,
+      "sign": "Libra",
+      "deg_in_sign": 16.6
+    },
+    "North Node": {
+      "longitude": 190.54,
+      "sign": "Libra",
+      "deg_in_sign": 10.54
+    },
+    "South Node": {
+      "longitude": 10.54,
+      "sign": "Aries",
+      "deg_in_sign": 10.54
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 190.54,
+      "sign": "Libra",
+      "deg_in_sign": 10.54
+    },
+    "South Node": {
+      "longitude": 10.54,
+      "sign": "Aries",
+      "deg_in_sign": 10.54
+    }
+  }
+}

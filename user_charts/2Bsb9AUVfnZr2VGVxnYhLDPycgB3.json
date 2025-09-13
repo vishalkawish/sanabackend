@@ -1,0 +1,108 @@
+{
+  "id": "2Bsb9AUVfnZr2VGVxnYhLDPycgB3",
+  "name": "Simran Mulani",
+  "place": "bhopal",
+  "lat": 23.2599,
+  "lon": 77.4126,
+  "birthdate": "2002-12-10",
+  "birthtime": "03:35",
+  "julian_day": 2452618.6493055555,
+  "ascendant": {
+    "longitude": 288.24,
+    "sign": "Capricorn",
+    "deg_in_sign": 18.24
+  },
+  "midheaven": {
+    "longitude": 212.03,
+    "sign": "Scorpio",
+    "deg_in_sign": 2.03
+  },
+  "houses": [
+    288.24,
+    323.53,
+    359.84,
+    32.03,
+    59.08,
+    83.35,
+    108.24,
+    143.53,
+    179.84,
+    212.03,
+    239.08,
+    263.35
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 257.89,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.89
+    },
+    "Moon": {
+      "longitude": 330.94,
+      "sign": "Pisces",
+      "deg_in_sign": 0.94
+    },
+    "Mercury": {
+      "longitude": 271.98,
+      "sign": "Capricorn",
+      "deg_in_sign": 1.98
+    },
+    "Venus": {
+      "longitude": 216.32,
+      "sign": "Scorpio",
+      "deg_in_sign": 6.32
+    },
+    "Mars": {
+      "longitude": 215.5,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.5
+    },
+    "Jupiter": {
+      "longitude": 138.05,
+      "sign": "Leo",
+      "deg_in_sign": 18.05
+    },
+    "Saturn": {
+      "longitude": 86.22,
+      "sign": "Gemini",
+      "deg_in_sign": 26.22
+    },
+    "Uranus": {
+      "longitude": 325.45,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.45
+    },
+    "Neptune": {
+      "longitude": 308.9,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.9
+    },
+    "Pluto": {
+      "longitude": 257.46,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.46
+    },
+    "North Node": {
+      "longitude": 68.19,
+      "sign": "Gemini",
+      "deg_in_sign": 8.19
+    },
+    "South Node": {
+      "longitude": 248.19,
+      "sign": "Sagittarius",
+      "deg_in_sign": 8.19
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 68.19,
+      "sign": "Gemini",
+      "deg_in_sign": 8.19
+    },
+    "South Node": {
+      "longitude": 248.19,
+      "sign": "Sagittarius",
+      "deg_in_sign": 8.19
+    }
+  }
+}

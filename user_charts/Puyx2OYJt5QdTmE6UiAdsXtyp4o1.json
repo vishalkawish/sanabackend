@@ -1,0 +1,106 @@
+{
+  "id": "Puyx2OYJt5QdTmE6UiAdsXtyp4o1",
+  "name": "Divya Dhama",
+  "place": "Delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "1997-04-07",
+  "birthtime": "09:07",
+  "julian_day": 2450545.8798611113,
+  "ascendant": {
+    "longitude": 144.74,
+    "sign": "Leo",
+    "deg_in_sign": 24.74
+  },
+  "midheaven": {
+    "longitude": 52.05,
+    "sign": "Taurus",
+    "deg_in_sign": 22.05
+  },
+  "houses": [
+    144.74,
+    170.26,
+    199.74,
+    232.05,
+    264.65,
+    295.72,
+    324.74,
+    350.26,
+    19.74,
+    52.05,
+    84.65,
+    115.72
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 17.59,
+      "sign": "Aries",
+      "deg_in_sign": 17.59
+    },
+    "Moon": {
+      "longitude": 16.5,
+      "sign": "Aries",
+      "deg_in_sign": 16.5
+    },
+    "Mercury": {
+      "longitude": 36.52,
+      "sign": "Taurus",
+      "deg_in_sign": 6.52
+    },
+    "Venus": {
+      "longitude": 18.82,
+      "sign": "Aries",
+      "deg_in_sign": 18.82
+    },
+    "Mars": {
+      "longitude": 169.42,
+      "sign": "Virgo",
+      "deg_in_sign": 19.42
+    },
+    "Jupiter": {
+      "longitude": 316.12,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.12
+    },
+    "Saturn": {
+      "longitude": 11.18,
+      "sign": "Aries",
+      "deg_in_sign": 11.18
+    },
+    "Uranus": {
+      "longitude": 308.15,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.15
+    },
+    "Neptune": {
+      "longitude": 299.79,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.79
+    },
+    "Pluto": {
+      "longitude": 245.36,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.36
+    },
+    "North Node": {
+      "longitude": 177.95,
+      "sign": "Virgo",
+      "deg_in_sign": 27.95
+    },
+    "South Node": {
+      "longitude": 357.95,
+      "sign": "Pisces",
+      "deg_in_sign": 27.95
+    }
+  },
+  "north_node": {
+    "longitude": 177.95,
+    "sign": "Virgo",
+    "deg_in_sign": 27.95
+  },
+  "south_node": {
+    "longitude": 357.95,
+    "sign": "Pisces",
+    "deg_in_sign": 27.95
+  }
+}

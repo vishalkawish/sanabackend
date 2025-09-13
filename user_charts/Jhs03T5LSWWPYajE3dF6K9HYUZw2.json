@@ -1,0 +1,106 @@
+{
+  "id": "Jhs03T5LSWWPYajE3dF6K9HYUZw2",
+  "name": "Abhishek Jain",
+  "place": "Dei nainwa",
+  "lat": 25.66,
+  "lon": 75.77,
+  "birthdate": "1996-07-22",
+  "birthtime": "02:30",
+  "julian_day": 2450286.6041666665,
+  "ascendant": {
+    "longitude": 147.27,
+    "sign": "Leo",
+    "deg_in_sign": 27.27
+  },
+  "midheaven": {
+    "longitude": 55.73,
+    "sign": "Taurus",
+    "deg_in_sign": 25.73
+  },
+  "houses": [
+    147.27,
+    173.68,
+    203.67,
+    235.73,
+    267.61,
+    298.2,
+    327.27,
+    353.68,
+    23.67,
+    55.73,
+    87.61,
+    118.2
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 119.57,
+      "sign": "Cancer",
+      "deg_in_sign": 29.57
+    },
+    "Moon": {
+      "longitude": 190.39,
+      "sign": "Libra",
+      "deg_in_sign": 10.39
+    },
+    "Mercury": {
+      "longitude": 131.35,
+      "sign": "Leo",
+      "deg_in_sign": 11.35
+    },
+    "Venus": {
+      "longitude": 78.25,
+      "sign": "Gemini",
+      "deg_in_sign": 18.25
+    },
+    "Mars": {
+      "longitude": 87.52,
+      "sign": "Gemini",
+      "deg_in_sign": 27.52
+    },
+    "Jupiter": {
+      "longitude": 280.58,
+      "sign": "Capricorn",
+      "deg_in_sign": 10.58
+    },
+    "Saturn": {
+      "longitude": 7.39,
+      "sign": "Aries",
+      "deg_in_sign": 7.39
+    },
+    "Uranus": {
+      "longitude": 302.73,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.73
+    },
+    "Neptune": {
+      "longitude": 296.27,
+      "sign": "Capricorn",
+      "deg_in_sign": 26.27
+    },
+    "Pluto": {
+      "longitude": 240.44,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.44
+    },
+    "North Node": {
+      "longitude": 191.68,
+      "sign": "Libra",
+      "deg_in_sign": 11.68
+    },
+    "South Node": {
+      "longitude": 11.68,
+      "sign": "Aries",
+      "deg_in_sign": 11.68
+    }
+  },
+  "north_node": {
+    "longitude": 191.68,
+    "sign": "Libra",
+    "deg_in_sign": 11.68
+  },
+  "south_node": {
+    "longitude": 11.68,
+    "sign": "Aries",
+    "deg_in_sign": 11.68
+  }
+}

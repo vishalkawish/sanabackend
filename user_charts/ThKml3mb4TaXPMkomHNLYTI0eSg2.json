@@ -1,0 +1,106 @@
+{
+  "id": "ThKml3mb4TaXPMkomHNLYTI0eSg2",
+  "name": "chim chim",
+  "place": "new delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "1999-01-07",
+  "birthtime": "15:22",
+  "julian_day": 2451186.140277778,
+  "ascendant": {
+    "longitude": 148.9,
+    "sign": "Leo",
+    "deg_in_sign": 28.9
+  },
+  "midheaven": {
+    "longitude": 56.76,
+    "sign": "Taurus",
+    "deg_in_sign": 26.76
+  },
+  "houses": [
+    148.9,
+    174.78,
+    204.52,
+    236.76,
+    269.1,
+    299.98,
+    328.9,
+    354.78,
+    24.52,
+    56.76,
+    89.1,
+    119.98
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 286.87,
+      "sign": "Capricorn",
+      "deg_in_sign": 16.87
+    },
+    "Moon": {
+      "longitude": 175.13,
+      "sign": "Virgo",
+      "deg_in_sign": 25.13
+    },
+    "Mercury": {
+      "longitude": 270.82,
+      "sign": "Capricorn",
+      "deg_in_sign": 0.82
+    },
+    "Venus": {
+      "longitude": 303.7,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.7
+    },
+    "Mars": {
+      "longitude": 201.61,
+      "sign": "Libra",
+      "deg_in_sign": 21.61
+    },
+    "Jupiter": {
+      "longitude": 352.96,
+      "sign": "Pisces",
+      "deg_in_sign": 22.96
+    },
+    "Saturn": {
+      "longitude": 26.84,
+      "sign": "Aries",
+      "deg_in_sign": 26.84
+    },
+    "Uranus": {
+      "longitude": 311.31,
+      "sign": "Aquarius",
+      "deg_in_sign": 11.31
+    },
+    "Neptune": {
+      "longitude": 301.3,
+      "sign": "Aquarius",
+      "deg_in_sign": 1.3
+    },
+    "Pluto": {
+      "longitude": 249.34,
+      "sign": "Sagittarius",
+      "deg_in_sign": 9.34
+    },
+    "North Node": {
+      "longitude": 144.04,
+      "sign": "Leo",
+      "deg_in_sign": 24.04
+    },
+    "South Node": {
+      "longitude": 324.04,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.04
+    }
+  },
+  "north_node": {
+    "longitude": 144.04,
+    "sign": "Leo",
+    "deg_in_sign": 24.04
+  },
+  "south_node": {
+    "longitude": 324.04,
+    "sign": "Aquarius",
+    "deg_in_sign": 24.04
+  }
+}

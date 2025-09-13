@@ -1,0 +1,108 @@
+{
+  "id": "5YrNjEyoriV1SFQtBJvL9kD1Ir53",
+  "name": "Chhatrapal Singh",
+  "place": "Alampur",
+  "lat": 15.95,
+  "lon": 77.84,
+  "birthdate": "1977-01-11",
+  "birthtime": "09:56",
+  "julian_day": 2443154.913888889,
+  "ascendant": {
+    "longitude": 75.72,
+    "sign": "Gemini",
+    "deg_in_sign": 15.72
+  },
+  "midheaven": {
+    "longitude": 335.85,
+    "sign": "Pisces",
+    "deg_in_sign": 5.85
+  },
+  "houses": [
+    75.72,
+    101.29,
+    127.07,
+    155.85,
+    188.67,
+    223.18,
+    255.72,
+    281.29,
+    307.07,
+    335.85,
+    8.67,
+    43.18
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 291.07,
+      "sign": "Capricorn",
+      "deg_in_sign": 21.07
+    },
+    "Moon": {
+      "longitude": 182.93,
+      "sign": "Libra",
+      "deg_in_sign": 2.93
+    },
+    "Mercury": {
+      "longitude": 279.79,
+      "sign": "Capricorn",
+      "deg_in_sign": 9.79
+    },
+    "Venus": {
+      "longitude": 337.59,
+      "sign": "Pisces",
+      "deg_in_sign": 7.59
+    },
+    "Mars": {
+      "longitude": 277.8,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.8
+    },
+    "Jupiter": {
+      "longitude": 51.2,
+      "sign": "Taurus",
+      "deg_in_sign": 21.2
+    },
+    "Saturn": {
+      "longitude": 135.15,
+      "sign": "Leo",
+      "deg_in_sign": 15.15
+    },
+    "Uranus": {
+      "longitude": 221.25,
+      "sign": "Scorpio",
+      "deg_in_sign": 11.25
+    },
+    "Neptune": {
+      "longitude": 255.0,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.0
+    },
+    "Pluto": {
+      "longitude": 194.18,
+      "sign": "Libra",
+      "deg_in_sign": 14.18
+    },
+    "North Node": {
+      "longitude": 209.33,
+      "sign": "Libra",
+      "deg_in_sign": 29.33
+    },
+    "South Node": {
+      "longitude": 29.33,
+      "sign": "Aries",
+      "deg_in_sign": 29.33
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 209.33,
+      "sign": "Libra",
+      "deg_in_sign": 29.33
+    },
+    "South Node": {
+      "longitude": 29.33,
+      "sign": "Aries",
+      "deg_in_sign": 29.33
+    }
+  }
+}

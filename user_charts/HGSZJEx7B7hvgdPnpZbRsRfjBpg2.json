@@ -1,0 +1,106 @@
+{
+  "id": "HGSZJEx7B7hvgdPnpZbRsRfjBpg2",
+  "name": "Muskan Singh",
+  "place": "Shahabad",
+  "lat": 17.38,
+  "lon": 76.8,
+  "birthdate": "2000-12-17",
+  "birthtime": "10:00",
+  "julian_day": 2451895.9166666665,
+  "ascendant": {
+    "longitude": 51.44,
+    "sign": "Taurus",
+    "deg_in_sign": 21.44
+  },
+  "midheaven": {
+    "longitude": 310.68,
+    "sign": "Aquarius",
+    "deg_in_sign": 10.68
+  },
+  "houses": [
+    51.44,
+    79.17,
+    104.4,
+    130.68,
+    160.87,
+    195.66,
+    231.44,
+    259.17,
+    284.4,
+    310.68,
+    340.87,
+    15.66
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 265.77,
+      "sign": "Sagittarius",
+      "deg_in_sign": 25.77
+    },
+    "Moon": {
+      "longitude": 167.94,
+      "sign": "Virgo",
+      "deg_in_sign": 17.94
+    },
+    "Mercury": {
+      "longitude": 261.08,
+      "sign": "Sagittarius",
+      "deg_in_sign": 21.08
+    },
+    "Venus": {
+      "longitude": 310.5,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.5
+    },
+    "Mars": {
+      "longitude": 206.32,
+      "sign": "Libra",
+      "deg_in_sign": 26.32
+    },
+    "Jupiter": {
+      "longitude": 63.65,
+      "sign": "Gemini",
+      "deg_in_sign": 3.65
+    },
+    "Saturn": {
+      "longitude": 55.38,
+      "sign": "Taurus",
+      "deg_in_sign": 25.38
+    },
+    "Uranus": {
+      "longitude": 318.0,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.0
+    },
+    "Neptune": {
+      "longitude": 304.84,
+      "sign": "Aquarius",
+      "deg_in_sign": 4.84
+    },
+    "Pluto": {
+      "longitude": 253.23,
+      "sign": "Sagittarius",
+      "deg_in_sign": 13.23
+    },
+    "North Node": {
+      "longitude": 106.46,
+      "sign": "Cancer",
+      "deg_in_sign": 16.46
+    },
+    "South Node": {
+      "longitude": 286.46,
+      "sign": "Capricorn",
+      "deg_in_sign": 16.46
+    }
+  },
+  "north_node": {
+    "longitude": 106.46,
+    "sign": "Cancer",
+    "deg_in_sign": 16.46
+  },
+  "south_node": {
+    "longitude": 286.46,
+    "sign": "Capricorn",
+    "deg_in_sign": 16.46
+  }
+}

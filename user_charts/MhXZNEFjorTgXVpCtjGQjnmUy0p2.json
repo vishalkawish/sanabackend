@@ -1,0 +1,108 @@
+{
+  "id": "MhXZNEFjorTgXVpCtjGQjnmUy0p2",
+  "name": "Chanderkala Longani",
+  "place": "Delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "1991-12-04",
+  "birthtime": "11:15",
+  "julian_day": 2448594.96875,
+  "ascendant": {
+    "longitude": 62.69,
+    "sign": "Gemini",
+    "deg_in_sign": 2.69
+  },
+  "midheaven": {
+    "longitude": 316.28,
+    "sign": "Aquarius",
+    "deg_in_sign": 16.28
+  },
+  "houses": [
+    62.69,
+    88.03,
+    111.21,
+    136.28,
+    166.71,
+    203.92,
+    242.69,
+    268.03,
+    291.21,
+    316.28,
+    346.71,
+    23.92
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 251.8,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.8
+    },
+    "Moon": {
+      "longitude": 232.59,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.59
+    },
+    "Mercury": {
+      "longitude": 261.25,
+      "sign": "Sagittarius",
+      "deg_in_sign": 21.25
+    },
+    "Venus": {
+      "longitude": 207.88,
+      "sign": "Libra",
+      "deg_in_sign": 27.88
+    },
+    "Mars": {
+      "longitude": 243.83,
+      "sign": "Sagittarius",
+      "deg_in_sign": 3.83
+    },
+    "Jupiter": {
+      "longitude": 163.53,
+      "sign": "Virgo",
+      "deg_in_sign": 13.53
+    },
+    "Saturn": {
+      "longitude": 303.06,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.06
+    },
+    "Uranus": {
+      "longitude": 282.1,
+      "sign": "Capricorn",
+      "deg_in_sign": 12.1
+    },
+    "Neptune": {
+      "longitude": 285.23,
+      "sign": "Capricorn",
+      "deg_in_sign": 15.23
+    },
+    "Pluto": {
+      "longitude": 231.14,
+      "sign": "Scorpio",
+      "deg_in_sign": 21.14
+    },
+    "North Node": {
+      "longitude": 281.26,
+      "sign": "Capricorn",
+      "deg_in_sign": 11.26
+    },
+    "South Node": {
+      "longitude": 101.26,
+      "sign": "Cancer",
+      "deg_in_sign": 11.26
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 281.26,
+      "sign": "Capricorn",
+      "deg_in_sign": 11.26
+    },
+    "South Node": {
+      "longitude": 101.26,
+      "sign": "Cancer",
+      "deg_in_sign": 11.26
+    }
+  }
+}

@@ -14,5 +14,465 @@
   "moradabad": {
     "lat": 28.84,
     "lon": 78.77
+  },
+  "Ranchi": {
+    "lat": 23.3441,
+    "lon": 85.3096
+  },
+  "Amravati": {
+    "lat": 20.96,
+    "lon": 77.75
+  },
+  "AMROHA": {
+    "lat": 28.75,
+    "lon": 78.57
+  },
+  "village": {
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  "nagpur": {
+    "lat": 21.15,
+    "lon": 79.08
+  },
+  "Durgapur": {
+    "lat": 23.55,
+    "lon": 87.32
+  },
+  "Moradabad": {
+    "lat": 28.8,
+    "lon": 78.75
+  },
+  "lucknow": {
+    "lat": 26.8467,
+    "lon": 80.9462
+  },
+  "Ichalkaranji Maharashtra India": {
+    "lat": 16.69,
+    "lon": 74.56
+  },
+  "new delhi": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "Delhi ,(home)": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "Indi": {
+    "lat": 16.04,
+    "lon": 75.14
+  },
+  "Alampur": {
+    "lat": 15.95,
+    "lon": 77.84
+  },
+  "gajraula": {
+    "lat": 28.65,
+    "lon": 77.99
+  },
+  "jammu": {
+    "lat": 32.73,
+    "lon": 74.87
+  },
+  "anantnag kashmir": {
+    "lat": 33.72,
+    "lon": 75.15
+  },
+  "purulia": {
+    "lat": 23.5,
+    "lon": 86.6
+  },
+  "delhi ,india": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "Lucknow": {
+    "lat": 26.8467,
+    "lon": 80.9462
+  },
+  "delhi": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "Ayodhya": {
+    "lat": 26.8,
+    "lon": 82.2
+  },
+  "Farrukhabad, Uttar Pradesh, India": {
+    "lat": 27.5,
+    "lon": 79.6
+  },
+  "dehradun": {
+    "lat": 30.3165,
+    "lon": 78.0322
+  },
+  "kolkata, west bengal, india": {
+    "lat": 22.5726,
+    "lon": 88.3639
+  },
+  "Bhinder moga": {
+    "lat": 30.75,
+    "lon": 75.15
+  },
+  "allure": {
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  "haryana rohtak": {
+    "lat": 28.895,
+    "lon": 76.59
+  },
+  "bidar": {
+    "lat": 17.915,
+    "lon": 77.515
+  },
+  "banglore": {
+    "lat": 12.9716,
+    "lon": 77.5946
+  },
+  "Bareilly Uttar Pradesh": {
+    "lat": 28.3646,
+    "lon": 79.4194
+  },
+  "Madhya Pradesh": {
+    "lat": 23.2599,
+    "lon": 77.4126
+  },
+  "Ramnagar (uttrakhand )": {
+    "lat": 29.3,
+    "lon": 79.6
+  },
+  "nagpur maharastra": {
+    "lat": 21.1458,
+    "lon": 79.0889
+  },
+  "Rewalsar ,Mandi ,Himachal Pradesh , India": {
+    "lat": 31.83,
+    "lon": 76.56
+  },
+  "kaloor": {
+    "lat": 9.98,
+    "lon": 76.28
+  },
+  "New Delhi": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "Sangrur, Punjab": {
+    "lat": 30.24,
+    "lon": 75.38
+  },
+  "latur": {
+    "lat": 18.4,
+    "lon": 76.57
+  },
+  "ahmedabad": {
+    "lat": 23.0225,
+    "lon": 72.5714
+  },
+  "shahjahanpur Uttar Pradesh": {
+    "lat": 28.06,
+    "lon": 79.3
+  },
+  "bijnor up": {
+    "lat": 29.2,
+    "lon": 77.7
+  },
+  "up, Gorakhpur": {
+    "lat": 26.75,
+    "lon": 83.37
+  },
+  "Barkheda": {
+    "lat": 23.24,
+    "lon": 77.4
+  },
+  "Barbil": {
+    "lat": 22.0,
+    "lon": 85.3
+  },
+  "deoband": {
+    "lat": 29.55,
+    "lon": 77.45
+  },
+  "bhopal": {
+    "lat": 23.2599,
+    "lon": 77.4126
+  },
+  "agra": {
+    "lat": 27.1745,
+    "lon": 78.0367
+  },
+  "Uttar Pradesh ,India": {
+    "lat": 26.8467,
+    "lon": 80.9462
+  },
+  "15 years": {
+    "lat": 15.0,
+    "lon": 0.0
+  },
+  "gaya bihar": {
+    "lat": 24.8,
+    "lon": 85.0167
+  },
+  "Odisha": {
+    "lat": 20.2961,
+    "lon": 85.8247
+  },
+  "west bengal": {
+    "lat": 23.0,
+    "lon": 87.75
+  },
+  "Bihar": {
+    "lat": 25.86,
+    "lon": 85.75
+  },
+  "barra 8 kanpur nagar": {
+    "lat": 26.47,
+    "lon": 80.33
+  },
+  "unnao": {
+    "lat": 26.78,
+    "lon": 80.6
+  },
+  "india sankrail howrah 711304": {
+    "lat": 22.62,
+    "lon": 88.28
+  },
+  "mau": {
+    "lat": 25.93,
+    "lon": 83.52
+  },
+  "jaipur": {
+    "lat": 26.9124,
+    "lon": 75.7873
+  },
+  "kashmiri": {
+    "lat": 34.0833,
+    "lon": 74.8333
+  },
+  "bhojpur": {
+    "lat": 27.0,
+    "lon": 87.0
+  },
+  "WEST BENGAL": {
+    "lat": 23.0,
+    "lon": 87.0
+  },
+  "Varanasi": {
+    "lat": 25.3176,
+    "lon": 83.0088
+  },
+  "\u0939\u0930\u093f\u092f\u093e\u0923\u093e": {
+    "lat": 29.0,
+    "lon": 76.0
+  },
+  "Muzaffarpur Bihar": {
+    "lat": 26.12,
+    "lon": 85.38
+  },
+  "aamer": {
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  "Shahabad": {
+    "lat": 17.38,
+    "lon": 76.8
+  },
+  "Sambhal": {
+    "lat": 28.62,
+    "lon": 78.8
+  },
+  "Mayapuri (Abunasarpur)": {
+    "lat": 28.636,
+    "lon": 77.118
+  },
+  "shamli, Uttar Pradesh": {
+    "lat": 29.58,
+    "lon": 77.19
+  },
+  "Arrah": {
+    "lat": 25.57,
+    "lon": 84.66
+  },
+  "india": {
+    "lat": 20.5937,
+    "lon": 78.9629
+  },
+  "Shillong,Meghalaya India": {
+    "lat": 25.57,
+    "lon": 91.88
+  },
+  "Aurangabad Maharashtra": {
+    "lat": 19.876,
+    "lon": 75.343
+  },
+  "Kolkata": {
+    "lat": 22.5726,
+    "lon": 88.3639
+  },
+  "Kerala": {
+    "lat": 8.524,
+    "lon": 76.936
+  },
+  "siwan, Bihar": {
+    "lat": 26.23,
+    "lon": 84.35
+  },
+  "Bangalore": {
+    "lat": 12.9716,
+    "lon": 77.5946
+  },
+  "kottayam, kerala": {
+    "lat": 9.58,
+    "lon": 76.52
+  },
+  "up basti": {
+    "lat": 26.83,
+    "lon": 83.31
+  },
+  "mangalore": {
+    "lat": 12.9141,
+    "lon": 74.856
+  },
+  "panipat , haryana": {
+    "lat": 29.39,
+    "lon": 76.97
+  },
+  "ARUPPAKOTTAI": {
+    "lat": 9.46,
+    "lon": 77.85
+  },
+  "chitrkoot": {
+    "lat": 25.132,
+    "lon": 80.812
+  },
+  "Patna, Bihar, India": {
+    "lat": 25.5941,
+    "lon": 85.1376
+  },
+  "sinnar nasshik": {
+    "lat": 20.0,
+    "lon": 74.0
+  },
+  "jagtpur": {
+    "lat": 20.46,
+    "lon": 86.3
+  },
+  "DELHI": {
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  "assam guwahati": {
+    "lat": 26.1445,
+    "lon": 91.7362
+  },
+  "Sangrur Punjab India": {
+    "lat": 30.25,
+    "lon": 75.46
+  },
+  "anjar": {
+    "lat": 34.0,
+    "lon": 36.2
+  },
+  "bhusawal": {
+    "lat": 21.0,
+    "lon": 75.28
+  },
+  "karimnagar Telangana": {
+    "lat": 18.46,
+    "lon": 78.75
+  },
+  "gorakhpur": {
+    "lat": 26.75,
+    "lon": 83.37
+  },
+  "Belgaum, India": {
+    "lat": 15.87,
+    "lon": 74.52
+  },
+  "shimla himachal": {
+    "lat": 31.1048,
+    "lon": 77.1734
+  },
+  "dimapur": {
+    "lat": 25.9,
+    "lon": 93.73
+  },
+  "Prayagraj": {
+    "lat": 25.4358,
+    "lon": 81.8463
+  },
+  "amroha": {
+    "lat": 28.83,
+    "lon": 78.77
+  },
+  "Bijapur": {
+    "lat": 16.83,
+    "lon": 75.72
+  },
+  "TEHRI GAHRWAL": {
+    "lat": 30.21,
+    "lon": 78.76
+  },
+  "maharashtra": {
+    "lat": 19.076,
+    "lon": 72.8777
+  },
+  "Bhagalpur": {
+    "lat": 25.25,
+    "lon": 86.98
+  },
+  "alampur": {
+    "lat": 16.69,
+    "lon": 77.95
+  },
+  "Bhawanipur": {
+    "lat": 22.542,
+    "lon": 88.345
+  },
+  "Vrindavan MATHURA Uttar Pradesh": {
+    "lat": 27.5667,
+    "lon": 77.65
+  },
+  "uttar pradesh": {
+    "lat": 26.8467,
+    "lon": 80.9462
+  },
+  "hathtas": {
+    "lat": 27.6,
+    "lon": 78.0
+  },
+  "bahadrabad": {
+    "lat": 24.87,
+    "lon": 67.04
+  },
+  "firozpur,punjab india": {
+    "lat": 30.93,
+    "lon": 74.6
+  },
+  "Ratlam": {
+    "lat": 23.3167,
+    "lon": 74.517
+  },
+  "Badaun, uttarpradesh": {
+    "lat": 28.6,
+    "lon": 79.42
+  },
+  "ranchi jharkhand india": {
+    "lat": 23.3441,
+    "lon": 85.3096
+  },
+  "village barkheda rajput amroha": {
+    "lat": 28.88,
+    "lon": 79.22
+  },
+  "mehmoodpur": {
+    "lat": 0.0,
+    "lon": 0.0
+  },
+  "29 April": {
+    "lat": 10.7765,
+    "lon": 106.6986
   }
 }

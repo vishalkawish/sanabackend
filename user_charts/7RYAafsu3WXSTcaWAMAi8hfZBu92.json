@@ -1,0 +1,106 @@
+{
+  "id": "7RYAafsu3WXSTcaWAMAi8hfZBu92",
+  "name": "Roven 221B",
+  "place": "Kerala",
+  "lat": 8.524,
+  "lon": 76.936,
+  "birthdate": "2002-10-11",
+  "birthtime": "23:55",
+  "julian_day": 2452559.496527778,
+  "ascendant": {
+    "longitude": 186.22,
+    "sign": "Libra",
+    "deg_in_sign": 6.22
+  },
+  "midheaven": {
+    "longitude": 95.58,
+    "sign": "Cancer",
+    "deg_in_sign": 5.58
+  },
+  "houses": [
+    186.22,
+    217.01,
+    246.79,
+    275.58,
+    304.73,
+    335.22,
+    6.22,
+    37.01,
+    66.79,
+    95.58,
+    124.73,
+    155.22
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 198.49,
+      "sign": "Libra",
+      "deg_in_sign": 18.49
+    },
+    "Moon": {
+      "longitude": 273.46,
+      "sign": "Capricorn",
+      "deg_in_sign": 3.46
+    },
+    "Mercury": {
+      "longitude": 180.59,
+      "sign": "Libra",
+      "deg_in_sign": 0.59
+    },
+    "Venus": {
+      "longitude": 225.58,
+      "sign": "Scorpio",
+      "deg_in_sign": 15.58
+    },
+    "Mars": {
+      "longitude": 177.62,
+      "sign": "Virgo",
+      "deg_in_sign": 27.62
+    },
+    "Jupiter": {
+      "longitude": 133.85,
+      "sign": "Leo",
+      "deg_in_sign": 13.85
+    },
+    "Saturn": {
+      "longitude": 89.08,
+      "sign": "Gemini",
+      "deg_in_sign": 29.08
+    },
+    "Uranus": {
+      "longitude": 325.13,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.13
+    },
+    "Neptune": {
+      "longitude": 308.22,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.22
+    },
+    "Pluto": {
+      "longitude": 255.48,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.48
+    },
+    "North Node": {
+      "longitude": 71.32,
+      "sign": "Gemini",
+      "deg_in_sign": 11.32
+    },
+    "South Node": {
+      "longitude": 251.32,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.32
+    }
+  },
+  "north_node": {
+    "longitude": 71.32,
+    "sign": "Gemini",
+    "deg_in_sign": 11.32
+  },
+  "south_node": {
+    "longitude": 251.32,
+    "sign": "Sagittarius",
+    "deg_in_sign": 11.32
+  }
+}

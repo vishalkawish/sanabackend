@@ -1,0 +1,106 @@
+{
+  "id": "VfalNuWcpVSfLTY9N0JQEZyxrXa2",
+  "name": "Sumit Sonwane",
+  "place": "Aurangabad Maharashtra",
+  "lat": 19.876,
+  "lon": 75.343,
+  "birthdate": "2007-10-22",
+  "birthtime": "07:57",
+  "julian_day": 2454395.83125,
+  "ascendant": {
+    "longitude": 305.5,
+    "sign": "Aquarius",
+    "deg_in_sign": 5.5
+  },
+  "midheaven": {
+    "longitude": 227.43,
+    "sign": "Scorpio",
+    "deg_in_sign": 17.43
+  },
+  "houses": [
+    305.5,
+    341.83,
+    17.12,
+    47.43,
+    73.5,
+    98.3,
+    125.5,
+    161.83,
+    197.12,
+    227.43,
+    253.5,
+    278.3
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 208.54,
+      "sign": "Libra",
+      "deg_in_sign": 28.54
+    },
+    "Moon": {
+      "longitude": 335.16,
+      "sign": "Pisces",
+      "deg_in_sign": 5.16
+    },
+    "Mercury": {
+      "longitude": 212.28,
+      "sign": "Scorpio",
+      "deg_in_sign": 2.28
+    },
+    "Venus": {
+      "longitude": 162.22,
+      "sign": "Virgo",
+      "deg_in_sign": 12.22
+    },
+    "Mars": {
+      "longitude": 98.81,
+      "sign": "Cancer",
+      "deg_in_sign": 8.81
+    },
+    "Jupiter": {
+      "longitude": 257.77,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.77
+    },
+    "Saturn": {
+      "longitude": 155.64,
+      "sign": "Virgo",
+      "deg_in_sign": 5.64
+    },
+    "Uranus": {
+      "longitude": 345.22,
+      "sign": "Pisces",
+      "deg_in_sign": 15.22
+    },
+    "Neptune": {
+      "longitude": 319.27,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.27
+    },
+    "Pluto": {
+      "longitude": 266.82,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.82
+    },
+    "North Node": {
+      "longitude": 334.08,
+      "sign": "Pisces",
+      "deg_in_sign": 4.08
+    },
+    "South Node": {
+      "longitude": 154.08,
+      "sign": "Virgo",
+      "deg_in_sign": 4.08
+    }
+  },
+  "north_node": {
+    "longitude": 334.08,
+    "sign": "Pisces",
+    "deg_in_sign": 4.08
+  },
+  "south_node": {
+    "longitude": 154.08,
+    "sign": "Virgo",
+    "deg_in_sign": 4.08
+  }
+}

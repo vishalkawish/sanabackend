@@ -1,0 +1,108 @@
+{
+  "id": "8nkoiwoj9gXP7aCs5IFArnDesOA3",
+  "name": "Shining star",
+  "place": "delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "1997-09-22",
+  "birthtime": "03:05",
+  "julian_day": 2450713.628472222,
+  "ascendant": {
+    "longitude": 210.18,
+    "sign": "Scorpio",
+    "deg_in_sign": 0.18
+  },
+  "midheaven": {
+    "longitude": 122.21,
+    "sign": "Leo",
+    "deg_in_sign": 2.21
+  },
+  "houses": [
+    210.18,
+    239.08,
+    269.93,
+    302.21,
+    334.43,
+    4.22,
+    30.18,
+    59.08,
+    89.93,
+    122.21,
+    154.43,
+    184.22
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 179.15,
+      "sign": "Virgo",
+      "deg_in_sign": 29.15
+    },
+    "Moon": {
+      "longitude": 71.64,
+      "sign": "Gemini",
+      "deg_in_sign": 11.64
+    },
+    "Mercury": {
+      "longitude": 162.77,
+      "sign": "Virgo",
+      "deg_in_sign": 12.77
+    },
+    "Venus": {
+      "longitude": 221.6,
+      "sign": "Scorpio",
+      "deg_in_sign": 11.6
+    },
+    "Mars": {
+      "longitude": 235.29,
+      "sign": "Scorpio",
+      "deg_in_sign": 25.29
+    },
+    "Jupiter": {
+      "longitude": 312.52,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.52
+    },
+    "Saturn": {
+      "longitude": 18.29,
+      "sign": "Aries",
+      "deg_in_sign": 18.29
+    },
+    "Uranus": {
+      "longitude": 304.94,
+      "sign": "Aquarius",
+      "deg_in_sign": 4.94
+    },
+    "Neptune": {
+      "longitude": 297.26,
+      "sign": "Capricorn",
+      "deg_in_sign": 27.26
+    },
+    "Pluto": {
+      "longitude": 243.26,
+      "sign": "Sagittarius",
+      "deg_in_sign": 3.26
+    },
+    "North Node": {
+      "longitude": 169.07,
+      "sign": "Virgo",
+      "deg_in_sign": 19.07
+    },
+    "South Node": {
+      "longitude": 349.07,
+      "sign": "Pisces",
+      "deg_in_sign": 19.07
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 169.07,
+      "sign": "Virgo",
+      "deg_in_sign": 19.07
+    },
+    "South Node": {
+      "longitude": 349.07,
+      "sign": "Pisces",
+      "deg_in_sign": 19.07
+    }
+  }
+}

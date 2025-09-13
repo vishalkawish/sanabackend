@@ -1,0 +1,108 @@
+{
+  "id": "jKKeV37Bdpd7ZbP1eHdyGs3nUCm1",
+  "name": "Somya Goel",
+  "place": "shamli, Uttar Pradesh",
+  "lat": 29.58,
+  "lon": 77.19,
+  "birthdate": "1996-10-26",
+  "birthtime": "09:00",
+  "julian_day": 2450382.875,
+  "ascendant": {
+    "longitude": 328.0,
+    "sign": "Aquarius",
+    "deg_in_sign": 28.0
+  },
+  "midheaven": {
+    "longitude": 248.91,
+    "sign": "Sagittarius",
+    "deg_in_sign": 8.91
+  },
+  "houses": [
+    328.0,
+    9.37,
+    42.7,
+    68.91,
+    92.26,
+    116.87,
+    148.0,
+    189.37,
+    222.7,
+    248.91,
+    272.26,
+    296.87
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 213.23,
+      "sign": "Scorpio",
+      "deg_in_sign": 3.23
+    },
+    "Moon": {
+      "longitude": 30.47,
+      "sign": "Taurus",
+      "deg_in_sign": 0.47
+    },
+    "Mercury": {
+      "longitude": 208.88,
+      "sign": "Libra",
+      "deg_in_sign": 28.88
+    },
+    "Venus": {
+      "longitude": 176.24,
+      "sign": "Virgo",
+      "deg_in_sign": 26.24
+    },
+    "Mars": {
+      "longitude": 147.81,
+      "sign": "Leo",
+      "deg_in_sign": 27.81
+    },
+    "Jupiter": {
+      "longitude": 281.95,
+      "sign": "Capricorn",
+      "deg_in_sign": 11.95
+    },
+    "Saturn": {
+      "longitude": 1.84,
+      "sign": "Aries",
+      "deg_in_sign": 1.84
+    },
+    "Uranus": {
+      "longitude": 300.76,
+      "sign": "Aquarius",
+      "deg_in_sign": 0.76
+    },
+    "Neptune": {
+      "longitude": 295.09,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.09
+    },
+    "Pluto": {
+      "longitude": 241.86,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.86
+    },
+    "North Node": {
+      "longitude": 186.58,
+      "sign": "Libra",
+      "deg_in_sign": 6.58
+    },
+    "South Node": {
+      "longitude": 6.58,
+      "sign": "Aries",
+      "deg_in_sign": 6.58
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 186.58,
+      "sign": "Libra",
+      "deg_in_sign": 6.58
+    },
+    "South Node": {
+      "longitude": 6.58,
+      "sign": "Aries",
+      "deg_in_sign": 6.58
+    }
+  }
+}

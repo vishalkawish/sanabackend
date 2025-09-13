@@ -1,0 +1,108 @@
+{
+  "id": "IucMC3aknWdDZ3FF1b4JaqhEPEo2",
+  "name": "Sakshi Sharma",
+  "place": "haryana rohtak",
+  "lat": 28.895,
+  "lon": 76.59,
+  "birthdate": "2006-03-31",
+  "birthtime": "07:30",
+  "julian_day": 2453825.8125,
+  "ascendant": {
+    "longitude": 117.56,
+    "sign": "Cancer",
+    "deg_in_sign": 27.56
+  },
+  "midheaven": {
+    "longitude": 19.1,
+    "sign": "Aries",
+    "deg_in_sign": 19.1
+  },
+  "houses": [
+    117.56,
+    140.74,
+    167.54,
+    199.1,
+    233.6,
+    267.1,
+    297.56,
+    320.74,
+    347.54,
+    19.1,
+    53.6,
+    87.1
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 10.45,
+      "sign": "Aries",
+      "deg_in_sign": 10.45
+    },
+    "Moon": {
+      "longitude": 36.34,
+      "sign": "Taurus",
+      "deg_in_sign": 6.34
+    },
+    "Mercury": {
+      "longitude": 344.65,
+      "sign": "Pisces",
+      "deg_in_sign": 14.65
+    },
+    "Venus": {
+      "longitude": 324.04,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.04
+    },
+    "Mars": {
+      "longitude": 82.16,
+      "sign": "Gemini",
+      "deg_in_sign": 22.16
+    },
+    "Jupiter": {
+      "longitude": 227.78,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.78
+    },
+    "Saturn": {
+      "longitude": 124.4,
+      "sign": "Leo",
+      "deg_in_sign": 4.4
+    },
+    "Uranus": {
+      "longitude": 342.38,
+      "sign": "Pisces",
+      "deg_in_sign": 12.38
+    },
+    "Neptune": {
+      "longitude": 319.09,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.09
+    },
+    "Pluto": {
+      "longitude": 266.75,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.75
+    },
+    "North Node": {
+      "longitude": 4.27,
+      "sign": "Aries",
+      "deg_in_sign": 4.27
+    },
+    "South Node": {
+      "longitude": 184.27,
+      "sign": "Libra",
+      "deg_in_sign": 4.27
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 4.27,
+      "sign": "Aries",
+      "deg_in_sign": 4.27
+    },
+    "South Node": {
+      "longitude": 184.27,
+      "sign": "Libra",
+      "deg_in_sign": 4.27
+    }
+  }
+}

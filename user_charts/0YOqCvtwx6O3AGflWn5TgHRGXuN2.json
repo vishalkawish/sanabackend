@@ -1,0 +1,108 @@
+{
+  "id": "0YOqCvtwx6O3AGflWn5TgHRGXuN2",
+  "name": "Khushi Gautam",
+  "place": "moradabad",
+  "lat": 28.84,
+  "lon": 78.77,
+  "birthdate": "2007-08-13",
+  "birthtime": "05:13",
+  "julian_day": 2454325.717361111,
+  "ascendant": {
+    "longitude": 204.77,
+    "sign": "Libra",
+    "deg_in_sign": 24.77
+  },
+  "midheaven": {
+    "longitude": 116.28,
+    "sign": "Cancer",
+    "deg_in_sign": 26.28
+  },
+  "houses": [
+    204.77,
+    233.53,
+    264.23,
+    296.28,
+    328.38,
+    358.39,
+    24.77,
+    53.53,
+    84.23,
+    116.28,
+    148.38,
+    178.39
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 140.1,
+      "sign": "Leo",
+      "deg_in_sign": 20.1
+    },
+    "Moon": {
+      "longitude": 143.17,
+      "sign": "Leo",
+      "deg_in_sign": 23.17
+    },
+    "Mercury": {
+      "longitude": 137.29,
+      "sign": "Leo",
+      "deg_in_sign": 17.29
+    },
+    "Venus": {
+      "longitude": 147.83,
+      "sign": "Leo",
+      "deg_in_sign": 27.83
+    },
+    "Mars": {
+      "longitude": 63.84,
+      "sign": "Gemini",
+      "deg_in_sign": 3.84
+    },
+    "Jupiter": {
+      "longitude": 249.99,
+      "sign": "Sagittarius",
+      "deg_in_sign": 9.99
+    },
+    "Saturn": {
+      "longitude": 147.42,
+      "sign": "Leo",
+      "deg_in_sign": 27.42
+    },
+    "Uranus": {
+      "longitude": 347.76,
+      "sign": "Pisces",
+      "deg_in_sign": 17.76
+    },
+    "Neptune": {
+      "longitude": 320.65,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.65
+    },
+    "Pluto": {
+      "longitude": 266.47,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.47
+    },
+    "North Node": {
+      "longitude": 337.8,
+      "sign": "Pisces",
+      "deg_in_sign": 7.8
+    },
+    "South Node": {
+      "longitude": 157.8,
+      "sign": "Virgo",
+      "deg_in_sign": 7.8
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 337.8,
+      "sign": "Pisces",
+      "deg_in_sign": 7.8
+    },
+    "South Node": {
+      "longitude": 157.8,
+      "sign": "Virgo",
+      "deg_in_sign": 7.8
+    }
+  }
+}

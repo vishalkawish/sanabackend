@@ -1,0 +1,108 @@
+{
+  "id": "Ao56KUNOYIdi6EKlIeKDThFMKa53",
+  "name": "Piyush Saini",
+  "place": "chitrkoot",
+  "lat": 25.132,
+  "lon": 80.812,
+  "birthdate": "2007-01-19",
+  "birthtime": "07:10",
+  "julian_day": 2454119.798611111,
+  "ascendant": {
+    "longitude": 47.33,
+    "sign": "Taurus",
+    "deg_in_sign": 17.33
+  },
+  "midheaven": {
+    "longitude": 304.29,
+    "sign": "Aquarius",
+    "deg_in_sign": 4.29
+  },
+  "houses": [
+    47.33,
+    75.39,
+    99.62,
+    124.29,
+    153.03,
+    188.33,
+    227.33,
+    255.39,
+    279.62,
+    304.29,
+    333.03,
+    8.33
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 298.82,
+      "sign": "Capricorn",
+      "deg_in_sign": 28.82
+    },
+    "Moon": {
+      "longitude": 300.53,
+      "sign": "Aquarius",
+      "deg_in_sign": 0.53
+    },
+    "Mercury": {
+      "longitude": 306.62,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.62
+    },
+    "Venus": {
+      "longitude": 318.96,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.96
+    },
+    "Mars": {
+      "longitude": 271.79,
+      "sign": "Capricorn",
+      "deg_in_sign": 1.79
+    },
+    "Jupiter": {
+      "longitude": 251.78,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.78
+    },
+    "Saturn": {
+      "longitude": 143.39,
+      "sign": "Leo",
+      "deg_in_sign": 23.39
+    },
+    "Uranus": {
+      "longitude": 342.27,
+      "sign": "Pisces",
+      "deg_in_sign": 12.27
+    },
+    "Neptune": {
+      "longitude": 318.74,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.74
+    },
+    "Pluto": {
+      "longitude": 267.67,
+      "sign": "Sagittarius",
+      "deg_in_sign": 27.67
+    },
+    "North Node": {
+      "longitude": 348.7,
+      "sign": "Pisces",
+      "deg_in_sign": 18.7
+    },
+    "South Node": {
+      "longitude": 168.7,
+      "sign": "Virgo",
+      "deg_in_sign": 18.7
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 348.7,
+      "sign": "Pisces",
+      "deg_in_sign": 18.7
+    },
+    "South Node": {
+      "longitude": 168.7,
+      "sign": "Virgo",
+      "deg_in_sign": 18.7
+    }
+  }
+}

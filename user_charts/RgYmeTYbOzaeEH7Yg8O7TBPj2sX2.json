@@ -1,0 +1,106 @@
+{
+  "id": "RgYmeTYbOzaeEH7Yg8O7TBPj2sX2",
+  "name": "Harsh Yadav",
+  "place": "Delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "2003-10-20",
+  "birthtime": "04:30",
+  "julian_day": 2452932.6875,
+  "ascendant": {
+    "longitude": 251.62,
+    "sign": "Sagittarius",
+    "deg_in_sign": 11.62
+  },
+  "midheaven": {
+    "longitude": 172.31,
+    "sign": "Virgo",
+    "deg_in_sign": 22.31
+  },
+  "houses": [
+    251.62,
+    282.97,
+    317.58,
+    352.31,
+    23.02,
+    48.82,
+    71.62,
+    102.97,
+    137.58,
+    172.31,
+    203.02,
+    228.82
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 206.37,
+      "sign": "Libra",
+      "deg_in_sign": 26.37
+    },
+    "Moon": {
+      "longitude": 135.89,
+      "sign": "Leo",
+      "deg_in_sign": 15.89
+    },
+    "Mercury": {
+      "longitude": 202.76,
+      "sign": "Libra",
+      "deg_in_sign": 22.76
+    },
+    "Venus": {
+      "longitude": 222.94,
+      "sign": "Scorpio",
+      "deg_in_sign": 12.94
+    },
+    "Mars": {
+      "longitude": 333.43,
+      "sign": "Pisces",
+      "deg_in_sign": 3.43
+    },
+    "Jupiter": {
+      "longitude": 161.04,
+      "sign": "Virgo",
+      "deg_in_sign": 11.04
+    },
+    "Saturn": {
+      "longitude": 103.21,
+      "sign": "Cancer",
+      "deg_in_sign": 13.21
+    },
+    "Uranus": {
+      "longitude": 329.05,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.05
+    },
+    "Neptune": {
+      "longitude": 310.4,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.4
+    },
+    "Pluto": {
+      "longitude": 257.95,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.95
+    },
+    "North Node": {
+      "longitude": 51.56,
+      "sign": "Taurus",
+      "deg_in_sign": 21.56
+    },
+    "South Node": {
+      "longitude": 231.56,
+      "sign": "Scorpio",
+      "deg_in_sign": 21.56
+    }
+  },
+  "north_node": {
+    "longitude": 51.56,
+    "sign": "Taurus",
+    "deg_in_sign": 21.56
+  },
+  "south_node": {
+    "longitude": 231.56,
+    "sign": "Scorpio",
+    "deg_in_sign": 21.56
+  }
+}

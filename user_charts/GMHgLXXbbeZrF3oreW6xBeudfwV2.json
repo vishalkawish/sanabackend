@@ -1,0 +1,106 @@
+{
+  "id": "GMHgLXXbbeZrF3oreW6xBeudfwV2",
+  "name": "Conscious_jr",
+  "place": "Vrindavan MATHURA Uttar Pradesh",
+  "lat": 27.5667,
+  "lon": 77.65,
+  "birthdate": "2006-08-20",
+  "birthtime": "18:22",
+  "julian_day": 2453968.265277778,
+  "ascendant": {
+    "longitude": 65.72,
+    "sign": "Gemini",
+    "deg_in_sign": 5.72
+  },
+  "midheaven": {
+    "longitude": 319.68,
+    "sign": "Aquarius",
+    "deg_in_sign": 19.68
+  },
+  "houses": [
+    65.72,
+    90.75,
+    114.12,
+    139.68,
+    170.7,
+    207.86,
+    245.72,
+    270.75,
+    294.12,
+    319.68,
+    350.7,
+    27.86
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 147.59,
+      "sign": "Leo",
+      "deg_in_sign": 27.59
+    },
+    "Moon": {
+      "longitude": 113.74,
+      "sign": "Cancer",
+      "deg_in_sign": 23.74
+    },
+    "Mercury": {
+      "longitude": 136.07,
+      "sign": "Leo",
+      "deg_in_sign": 16.07
+    },
+    "Venus": {
+      "longitude": 129.69,
+      "sign": "Leo",
+      "deg_in_sign": 9.69
+    },
+    "Mars": {
+      "longitude": 168.21,
+      "sign": "Virgo",
+      "deg_in_sign": 18.21
+    },
+    "Jupiter": {
+      "longitude": 221.9,
+      "sign": "Scorpio",
+      "deg_in_sign": 11.9
+    },
+    "Saturn": {
+      "longitude": 136.55,
+      "sign": "Leo",
+      "deg_in_sign": 16.55
+    },
+    "Uranus": {
+      "longitude": 343.36,
+      "sign": "Pisces",
+      "deg_in_sign": 13.36
+    },
+    "Neptune": {
+      "longitude": 318.16,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.16
+    },
+    "Pluto": {
+      "longitude": 264.14,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.14
+    },
+    "North Node": {
+      "longitude": 356.72,
+      "sign": "Pisces",
+      "deg_in_sign": 26.72
+    },
+    "South Node": {
+      "longitude": 176.72,
+      "sign": "Virgo",
+      "deg_in_sign": 26.72
+    }
+  },
+  "north_node": {
+    "longitude": 356.72,
+    "sign": "Pisces",
+    "deg_in_sign": 26.72
+  },
+  "south_node": {
+    "longitude": 176.72,
+    "sign": "Virgo",
+    "deg_in_sign": 26.72
+  }
+}

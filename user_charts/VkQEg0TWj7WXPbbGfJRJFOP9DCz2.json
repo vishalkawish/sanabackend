@@ -1,0 +1,106 @@
+{
+  "id": "VkQEg0TWj7WXPbbGfJRJFOP9DCz2",
+  "name": "Aryan Sharma",
+  "place": "jaipur",
+  "lat": 26.9124,
+  "lon": 75.7873,
+  "birthdate": "2006-02-18",
+  "birthtime": "02:33",
+  "julian_day": 2453784.60625,
+  "ascendant": {
+    "longitude": 348.8,
+    "sign": "Pisces",
+    "deg_in_sign": 18.8
+  },
+  "midheaven": {
+    "longitude": 262.62,
+    "sign": "Sagittarius",
+    "deg_in_sign": 22.62
+  },
+  "houses": [
+    348.8,
+    27.57,
+    57.71,
+    82.62,
+    106.53,
+    133.64,
+    168.8,
+    207.57,
+    237.71,
+    262.62,
+    286.53,
+    313.64
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 329.29,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.29
+    },
+    "Moon": {
+      "longitude": 202.6,
+      "sign": "Libra",
+      "deg_in_sign": 22.6
+    },
+    "Mercury": {
+      "longitude": 345.55,
+      "sign": "Pisces",
+      "deg_in_sign": 15.55
+    },
+    "Venus": {
+      "longitude": 289.93,
+      "sign": "Capricorn",
+      "deg_in_sign": 19.93
+    },
+    "Mars": {
+      "longitude": 60.08,
+      "sign": "Gemini",
+      "deg_in_sign": 0.08
+    },
+    "Jupiter": {
+      "longitude": 228.53,
+      "sign": "Scorpio",
+      "deg_in_sign": 18.53
+    },
+    "Saturn": {
+      "longitude": 126.2,
+      "sign": "Leo",
+      "deg_in_sign": 6.2
+    },
+    "Uranus": {
+      "longitude": 340.07,
+      "sign": "Pisces",
+      "deg_in_sign": 10.07
+    },
+    "Neptune": {
+      "longitude": 317.73,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.73
+    },
+    "Pluto": {
+      "longitude": 266.33,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.33
+    },
+    "North Node": {
+      "longitude": 6.45,
+      "sign": "Aries",
+      "deg_in_sign": 6.45
+    },
+    "South Node": {
+      "longitude": 186.45,
+      "sign": "Libra",
+      "deg_in_sign": 6.45
+    }
+  },
+  "north_node": {
+    "longitude": 6.45,
+    "sign": "Aries",
+    "deg_in_sign": 6.45
+  },
+  "south_node": {
+    "longitude": 186.45,
+    "sign": "Libra",
+    "deg_in_sign": 6.45
+  }
+}

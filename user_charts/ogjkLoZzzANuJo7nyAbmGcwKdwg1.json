@@ -1,0 +1,106 @@
+{
+  "id": "ogjkLoZzzANuJo7nyAbmGcwKdwg1",
+  "name": "Nandini Nandini kaushal",
+  "place": "bahadrabad",
+  "lat": 24.87,
+  "lon": 67.04,
+  "birthdate": "2007-06-19",
+  "birthtime": "10:30",
+  "julian_day": 2454270.9375,
+  "ascendant": {
+    "longitude": 217.52,
+    "sign": "Scorpio",
+    "deg_in_sign": 7.52
+  },
+  "midheaven": {
+    "longitude": 129.38,
+    "sign": "Leo",
+    "deg_in_sign": 9.38
+  },
+  "houses": [
+    217.52,
+    246.68,
+    277.34,
+    309.38,
+    341.51,
+    11.34,
+    37.52,
+    66.68,
+    97.34,
+    129.38,
+    161.51,
+    191.34
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 87.79,
+      "sign": "Gemini",
+      "deg_in_sign": 27.79
+    },
+    "Moon": {
+      "longitude": 142.47,
+      "sign": "Leo",
+      "deg_in_sign": 22.47
+    },
+    "Mercury": {
+      "longitude": 101.16,
+      "sign": "Cancer",
+      "deg_in_sign": 11.16
+    },
+    "Venus": {
+      "longitude": 132.72,
+      "sign": "Leo",
+      "deg_in_sign": 12.72
+    },
+    "Mars": {
+      "longitude": 26.03,
+      "sign": "Aries",
+      "deg_in_sign": 26.03
+    },
+    "Jupiter": {
+      "longitude": 253.23,
+      "sign": "Sagittarius",
+      "deg_in_sign": 13.23
+    },
+    "Saturn": {
+      "longitude": 141.18,
+      "sign": "Leo",
+      "deg_in_sign": 21.18
+    },
+    "Uranus": {
+      "longitude": 348.69,
+      "sign": "Pisces",
+      "deg_in_sign": 18.69
+    },
+    "Neptune": {
+      "longitude": 321.87,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.87
+    },
+    "Pluto": {
+      "longitude": 267.64,
+      "sign": "Sagittarius",
+      "deg_in_sign": 27.64
+    },
+    "North Node": {
+      "longitude": 340.7,
+      "sign": "Pisces",
+      "deg_in_sign": 10.7
+    },
+    "South Node": {
+      "longitude": 160.7,
+      "sign": "Virgo",
+      "deg_in_sign": 10.7
+    }
+  },
+  "north_node": {
+    "longitude": 340.7,
+    "sign": "Pisces",
+    "deg_in_sign": 10.7
+  },
+  "south_node": {
+    "longitude": 160.7,
+    "sign": "Virgo",
+    "deg_in_sign": 10.7
+  }
+}

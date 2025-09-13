@@ -1,0 +1,106 @@
+{
+  "id": "wCcsVhZ7SLTE7Dbon93t4k5BwAq2",
+  "name": "Aaleyah Bhardwaj",
+  "place": "ranchi jharkhand india",
+  "lat": 23.3441,
+  "lon": 85.3096,
+  "birthdate": "2008-10-20",
+  "birthtime": "05:00",
+  "julian_day": 2454759.7083333335,
+  "ascendant": {
+    "longitude": 268.68,
+    "sign": "Sagittarius",
+    "deg_in_sign": 28.68
+  },
+  "midheaven": {
+    "longitude": 190.17,
+    "sign": "Libra",
+    "deg_in_sign": 10.17
+  },
+  "houses": [
+    268.68,
+    301.12,
+    336.24,
+    10.17,
+    39.58,
+    64.89,
+    88.68,
+    121.12,
+    156.24,
+    190.17,
+    219.58,
+    244.89
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 207.18,
+      "sign": "Libra",
+      "deg_in_sign": 27.18
+    },
+    "Moon": {
+      "longitude": 100.35,
+      "sign": "Cancer",
+      "deg_in_sign": 10.35
+    },
+    "Mercury": {
+      "longitude": 189.22,
+      "sign": "Libra",
+      "deg_in_sign": 9.22
+    },
+    "Venus": {
+      "longitude": 241.74,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.74
+    },
+    "Mars": {
+      "longitude": 220.94,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.94
+    },
+    "Jupiter": {
+      "longitude": 285.23,
+      "sign": "Capricorn",
+      "deg_in_sign": 15.23
+    },
+    "Saturn": {
+      "longitude": 167.44,
+      "sign": "Virgo",
+      "deg_in_sign": 17.44
+    },
+    "Uranus": {
+      "longitude": 349.33,
+      "sign": "Pisces",
+      "deg_in_sign": 19.33
+    },
+    "Neptune": {
+      "longitude": 321.52,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.52
+    },
+    "Pluto": {
+      "longitude": 268.93,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.93
+    },
+    "North Node": {
+      "longitude": 314.82,
+      "sign": "Aquarius",
+      "deg_in_sign": 14.82
+    },
+    "South Node": {
+      "longitude": 134.82,
+      "sign": "Leo",
+      "deg_in_sign": 14.82
+    }
+  },
+  "north_node": {
+    "longitude": 314.82,
+    "sign": "Aquarius",
+    "deg_in_sign": 14.82
+  },
+  "south_node": {
+    "longitude": 134.82,
+    "sign": "Leo",
+    "deg_in_sign": 14.82
+  }
+}

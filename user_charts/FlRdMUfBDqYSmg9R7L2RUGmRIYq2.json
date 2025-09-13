@@ -1,0 +1,108 @@
+{
+  "id": "FlRdMUfBDqYSmg9R7L2RUGmRIYq2",
+  "name": "Anu K Vijayan",
+  "place": "kottayam, kerala",
+  "lat": 9.58,
+  "lon": 76.52,
+  "birthdate": "1996-10-28",
+  "birthtime": "11:12",
+  "julian_day": 2450384.966666667,
+  "ascendant": {
+    "longitude": 13.59,
+    "sign": "Aries",
+    "deg_in_sign": 13.59
+  },
+  "midheaven": {
+    "longitude": 280.66,
+    "sign": "Capricorn",
+    "deg_in_sign": 10.66
+  },
+  "houses": [
+    13.59,
+    45.99,
+    74.27,
+    100.66,
+    128.12,
+    159.08,
+    193.59,
+    225.99,
+    254.27,
+    280.66,
+    308.12,
+    339.08
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 215.31,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.31
+    },
+    "Moon": {
+      "longitude": 58.7,
+      "sign": "Taurus",
+      "deg_in_sign": 28.7
+    },
+    "Mercury": {
+      "longitude": 212.38,
+      "sign": "Scorpio",
+      "deg_in_sign": 2.38
+    },
+    "Venus": {
+      "longitude": 178.75,
+      "sign": "Virgo",
+      "deg_in_sign": 28.75
+    },
+    "Mars": {
+      "longitude": 148.98,
+      "sign": "Leo",
+      "deg_in_sign": 28.98
+    },
+    "Jupiter": {
+      "longitude": 282.26,
+      "sign": "Capricorn",
+      "deg_in_sign": 12.26
+    },
+    "Saturn": {
+      "longitude": 1.71,
+      "sign": "Aries",
+      "deg_in_sign": 1.71
+    },
+    "Uranus": {
+      "longitude": 300.79,
+      "sign": "Aquarius",
+      "deg_in_sign": 0.79
+    },
+    "Neptune": {
+      "longitude": 295.11,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.11
+    },
+    "Pluto": {
+      "longitude": 241.94,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.94
+    },
+    "North Node": {
+      "longitude": 186.47,
+      "sign": "Libra",
+      "deg_in_sign": 6.47
+    },
+    "South Node": {
+      "longitude": 6.47,
+      "sign": "Aries",
+      "deg_in_sign": 6.47
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 186.47,
+      "sign": "Libra",
+      "deg_in_sign": 6.47
+    },
+    "South Node": {
+      "longitude": 6.47,
+      "sign": "Aries",
+      "deg_in_sign": 6.47
+    }
+  }
+}

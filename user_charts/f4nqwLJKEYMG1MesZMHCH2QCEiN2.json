@@ -1,0 +1,108 @@
+{
+  "id": "f4nqwLJKEYMG1MesZMHCH2QCEiN2",
+  "name": "Wibonewmai Sanwi",
+  "place": "dimapur",
+  "lat": 25.9,
+  "lon": 93.73,
+  "birthdate": "1997-12-12",
+  "birthtime": "01:30",
+  "julian_day": 2450794.5625,
+  "ascendant": {
+    "longitude": 274.51,
+    "sign": "Capricorn",
+    "deg_in_sign": 4.51
+  },
+  "midheaven": {
+    "longitude": 198.45,
+    "sign": "Libra",
+    "deg_in_sign": 18.45
+  },
+  "houses": [
+    274.51,
+    308.5,
+    344.85,
+    18.45,
+    46.67,
+    71.01,
+    94.51,
+    128.5,
+    164.85,
+    198.45,
+    226.67,
+    251.01
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 260.05,
+      "sign": "Sagittarius",
+      "deg_in_sign": 20.05
+    },
+    "Moon": {
+      "longitude": 53.46,
+      "sign": "Taurus",
+      "deg_in_sign": 23.46
+    },
+    "Mercury": {
+      "longitude": 271.62,
+      "sign": "Capricorn",
+      "deg_in_sign": 1.62
+    },
+    "Venus": {
+      "longitude": 299.93,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.93
+    },
+    "Mars": {
+      "longitude": 295.15,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.15
+    },
+    "Jupiter": {
+      "longitude": 318.39,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.39
+    },
+    "Saturn": {
+      "longitude": 13.55,
+      "sign": "Aries",
+      "deg_in_sign": 13.55
+    },
+    "Uranus": {
+      "longitude": 306.13,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.13
+    },
+    "Neptune": {
+      "longitude": 298.26,
+      "sign": "Capricorn",
+      "deg_in_sign": 28.26
+    },
+    "Pluto": {
+      "longitude": 246.03,
+      "sign": "Sagittarius",
+      "deg_in_sign": 6.03
+    },
+    "North Node": {
+      "longitude": 164.78,
+      "sign": "Virgo",
+      "deg_in_sign": 14.78
+    },
+    "South Node": {
+      "longitude": 344.78,
+      "sign": "Pisces",
+      "deg_in_sign": 14.78
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 164.78,
+      "sign": "Virgo",
+      "deg_in_sign": 14.78
+    },
+    "South Node": {
+      "longitude": 344.78,
+      "sign": "Pisces",
+      "deg_in_sign": 14.78
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "systueq9Mab5IztAGy2pqfhlVUR2",
+  "name": "Mr faizan Saifi",
+  "place": "Sambhal",
+  "lat": 28.62,
+  "lon": 78.8,
+  "birthdate": "2007-04-01",
+  "birthtime": "02:26",
+  "julian_day": 2454191.601388889,
+  "ascendant": {
+    "longitude": 46.27,
+    "sign": "Taurus",
+    "deg_in_sign": 16.27
+  },
+  "midheaven": {
+    "longitude": 302.12,
+    "sign": "Aquarius",
+    "deg_in_sign": 2.12
+  },
+  "houses": [
+    46.27,
+    74.42,
+    98.16,
+    122.12,
+    150.19,
+    185.66,
+    226.27,
+    254.42,
+    278.16,
+    302.12,
+    330.19,
+    5.66
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 10.99,
+      "sign": "Aries",
+      "deg_in_sign": 10.99
+    },
+    "Moon": {
+      "longitude": 173.43,
+      "sign": "Virgo",
+      "deg_in_sign": 23.43
+    },
+    "Mercury": {
+      "longitude": 345.28,
+      "sign": "Pisces",
+      "deg_in_sign": 15.28
+    },
+    "Venus": {
+      "longitude": 47.02,
+      "sign": "Taurus",
+      "deg_in_sign": 17.02
+    },
+    "Mars": {
+      "longitude": 325.96,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.96
+    },
+    "Jupiter": {
+      "longitude": 259.74,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.74
+    },
+    "Saturn": {
+      "longitude": 138.47,
+      "sign": "Leo",
+      "deg_in_sign": 18.47
+    },
+    "Uranus": {
+      "longitude": 346.16,
+      "sign": "Pisces",
+      "deg_in_sign": 16.16
+    },
+    "Neptune": {
+      "longitude": 321.26,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.26
+    },
+    "Pluto": {
+      "longitude": 268.97,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.97
+    },
+    "North Node": {
+      "longitude": 344.9,
+      "sign": "Pisces",
+      "deg_in_sign": 14.9
+    },
+    "South Node": {
+      "longitude": 164.9,
+      "sign": "Virgo",
+      "deg_in_sign": 14.9
+    }
+  },
+  "north_node": {
+    "longitude": 344.9,
+    "sign": "Pisces",
+    "deg_in_sign": 14.9
+  },
+  "south_node": {
+    "longitude": 164.9,
+    "sign": "Virgo",
+    "deg_in_sign": 14.9
+  }
+}

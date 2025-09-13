@@ -1,0 +1,108 @@
+{
+  "id": "1ZkXqssYM9SiuOAsrFG9y2AEhR02",
+  "name": "Rohan Barot",
+  "place": "anjar",
+  "lat": 34.0,
+  "lon": 36.2,
+  "birthdate": "2002-09-11",
+  "birthtime": "12:35",
+  "julian_day": 2452529.0243055555,
+  "ascendant": {
+    "longitude": 287.8,
+    "sign": "Capricorn",
+    "deg_in_sign": 17.8
+  },
+  "midheaven": {
+    "longitude": 217.67,
+    "sign": "Scorpio",
+    "deg_in_sign": 7.67
+  },
+  "houses": [
+    287.8,
+    327.45,
+    6.4,
+    37.67,
+    62.47,
+    84.52,
+    107.8,
+    147.45,
+    186.4,
+    217.67,
+    242.47,
+    264.52
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 168.61,
+      "sign": "Virgo",
+      "deg_in_sign": 18.61
+    },
+    "Moon": {
+      "longitude": 229.89,
+      "sign": "Scorpio",
+      "deg_in_sign": 19.89
+    },
+    "Mercury": {
+      "longitude": 192.71,
+      "sign": "Libra",
+      "deg_in_sign": 12.71
+    },
+    "Venus": {
+      "longitude": 212.66,
+      "sign": "Scorpio",
+      "deg_in_sign": 2.66
+    },
+    "Mars": {
+      "longitude": 158.22,
+      "sign": "Virgo",
+      "deg_in_sign": 8.22
+    },
+    "Jupiter": {
+      "longitude": 128.6,
+      "sign": "Leo",
+      "deg_in_sign": 8.6
+    },
+    "Saturn": {
+      "longitude": 88.27,
+      "sign": "Gemini",
+      "deg_in_sign": 28.27
+    },
+    "Uranus": {
+      "longitude": 325.99,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.99
+    },
+    "Neptune": {
+      "longitude": 308.59,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.59
+    },
+    "Pluto": {
+      "longitude": 254.97,
+      "sign": "Sagittarius",
+      "deg_in_sign": 14.97
+    },
+    "North Node": {
+      "longitude": 72.93,
+      "sign": "Gemini",
+      "deg_in_sign": 12.93
+    },
+    "South Node": {
+      "longitude": 252.93,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.93
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 72.93,
+      "sign": "Gemini",
+      "deg_in_sign": 12.93
+    },
+    "South Node": {
+      "longitude": 252.93,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.93
+    }
+  }
+}

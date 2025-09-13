@@ -1,0 +1,106 @@
+{
+  "id": "xPMchQgEgxci04DoImEeS2Fm5yO2",
+  "name": "kallepelli pranaya",
+  "place": "karimnagar Telangana",
+  "lat": 18.46,
+  "lon": 78.75,
+  "birthdate": "1992-02-26",
+  "birthtime": "05:30",
+  "julian_day": 2448678.7291666665,
+  "ascendant": {
+    "longitude": 55.58,
+    "sign": "Taurus",
+    "deg_in_sign": 25.58
+  },
+  "midheaven": {
+    "longitude": 314.12,
+    "sign": "Aquarius",
+    "deg_in_sign": 14.12
+  },
+  "houses": [
+    55.58,
+    82.72,
+    107.72,
+    134.12,
+    164.7,
+    199.85,
+    235.58,
+    262.72,
+    287.72,
+    314.12,
+    344.7,
+    19.85
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 336.87,
+      "sign": "Pisces",
+      "deg_in_sign": 6.87
+    },
+    "Moon": {
+      "longitude": 256.97,
+      "sign": "Sagittarius",
+      "deg_in_sign": 16.97
+    },
+    "Mercury": {
+      "longitude": 348.46,
+      "sign": "Pisces",
+      "deg_in_sign": 18.46
+    },
+    "Venus": {
+      "longitude": 309.29,
+      "sign": "Aquarius",
+      "deg_in_sign": 9.29
+    },
+    "Mars": {
+      "longitude": 306.16,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.16
+    },
+    "Jupiter": {
+      "longitude": 160.05,
+      "sign": "Virgo",
+      "deg_in_sign": 10.05
+    },
+    "Saturn": {
+      "longitude": 312.44,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.44
+    },
+    "Uranus": {
+      "longitude": 286.75,
+      "sign": "Capricorn",
+      "deg_in_sign": 16.75
+    },
+    "Neptune": {
+      "longitude": 288.17,
+      "sign": "Capricorn",
+      "deg_in_sign": 18.17
+    },
+    "Pluto": {
+      "longitude": 232.96,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.96
+    },
+    "North Node": {
+      "longitude": 276.83,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.83
+    },
+    "South Node": {
+      "longitude": 96.83,
+      "sign": "Cancer",
+      "deg_in_sign": 6.83
+    }
+  },
+  "north_node": {
+    "longitude": 276.83,
+    "sign": "Capricorn",
+    "deg_in_sign": 6.83
+  },
+  "south_node": {
+    "longitude": 96.83,
+    "sign": "Cancer",
+    "deg_in_sign": 6.83
+  }
+}

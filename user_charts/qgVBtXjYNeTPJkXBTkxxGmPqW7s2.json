@@ -1,0 +1,106 @@
+{
+  "id": "qgVBtXjYNeTPJkXBTkxxGmPqW7s2",
+  "name": "Renu Devi",
+  "place": "Delhi ,(home)",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "2007-07-09",
+  "birthtime": "05:00",
+  "julian_day": 2454290.7083333335,
+  "ascendant": {
+    "longitude": 170.29,
+    "sign": "Virgo",
+    "deg_in_sign": 20.29
+  },
+  "midheaven": {
+    "longitude": 79.86,
+    "sign": "Gemini",
+    "deg_in_sign": 19.86
+  },
+  "houses": [
+    170.29,
+    197.8,
+    228.18,
+    259.86,
+    291.43,
+    321.9,
+    350.29,
+    17.8,
+    48.18,
+    79.86,
+    111.43,
+    141.9
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 106.64,
+      "sign": "Cancer",
+      "deg_in_sign": 16.64
+    },
+    "Moon": {
+      "longitude": 36.6,
+      "sign": "Taurus",
+      "deg_in_sign": 6.6
+    },
+    "Mercury": {
+      "longitude": 92.51,
+      "sign": "Cancer",
+      "deg_in_sign": 2.51
+    },
+    "Venus": {
+      "longitude": 147.23,
+      "sign": "Leo",
+      "deg_in_sign": 27.23
+    },
+    "Mars": {
+      "longitude": 40.24,
+      "sign": "Taurus",
+      "deg_in_sign": 10.24
+    },
+    "Jupiter": {
+      "longitude": 251.18,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.18
+    },
+    "Saturn": {
+      "longitude": 143.2,
+      "sign": "Leo",
+      "deg_in_sign": 23.2
+    },
+    "Uranus": {
+      "longitude": 348.6,
+      "sign": "Pisces",
+      "deg_in_sign": 18.6
+    },
+    "Neptune": {
+      "longitude": 321.53,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.53
+    },
+    "Pluto": {
+      "longitude": 267.14,
+      "sign": "Sagittarius",
+      "deg_in_sign": 27.14
+    },
+    "North Node": {
+      "longitude": 339.65,
+      "sign": "Pisces",
+      "deg_in_sign": 9.65
+    },
+    "South Node": {
+      "longitude": 159.65,
+      "sign": "Virgo",
+      "deg_in_sign": 9.65
+    }
+  },
+  "north_node": {
+    "longitude": 339.65,
+    "sign": "Pisces",
+    "deg_in_sign": 9.65
+  },
+  "south_node": {
+    "longitude": 159.65,
+    "sign": "Virgo",
+    "deg_in_sign": 9.65
+  }
+}

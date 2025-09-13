@@ -1,0 +1,108 @@
+{
+  "id": "HBWoQPfTtkVm9vjA2f0wrcEHIWF3",
+  "name": "Kavita Thakur",
+  "place": "Rewalsar ,Mandi ,Himachal Pradesh , India",
+  "lat": 31.83,
+  "lon": 76.56,
+  "birthdate": "2001-06-22",
+  "birthtime": "11:45",
+  "julian_day": 2452082.9895833335,
+  "ascendant": {
+    "longitude": 242.14,
+    "sign": "Sagittarius",
+    "deg_in_sign": 2.14
+  },
+  "midheaven": {
+    "longitude": 162.14,
+    "sign": "Virgo",
+    "deg_in_sign": 12.14
+  },
+  "houses": [
+    242.14,
+    272.88,
+    307.14,
+    342.14,
+    13.51,
+    39.68,
+    62.14,
+    92.88,
+    127.14,
+    162.14,
+    193.51,
+    219.68
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 91.12,
+      "sign": "Cancer",
+      "deg_in_sign": 1.12
+    },
+    "Moon": {
+      "longitude": 104.6,
+      "sign": "Cancer",
+      "deg_in_sign": 14.6
+    },
+    "Mercury": {
+      "longitude": 82.46,
+      "sign": "Gemini",
+      "deg_in_sign": 22.46
+    },
+    "Venus": {
+      "longitude": 45.98,
+      "sign": "Taurus",
+      "deg_in_sign": 15.98
+    },
+    "Mars": {
+      "longitude": 259.94,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.94
+    },
+    "Jupiter": {
+      "longitude": 85.35,
+      "sign": "Gemini",
+      "deg_in_sign": 25.35
+    },
+    "Saturn": {
+      "longitude": 67.92,
+      "sign": "Gemini",
+      "deg_in_sign": 7.92
+    },
+    "Uranus": {
+      "longitude": 324.61,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.61
+    },
+    "Neptune": {
+      "longitude": 308.32,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.32
+    },
+    "Pluto": {
+      "longitude": 253.45,
+      "sign": "Sagittarius",
+      "deg_in_sign": 13.45
+    },
+    "North Node": {
+      "longitude": 96.55,
+      "sign": "Cancer",
+      "deg_in_sign": 6.55
+    },
+    "South Node": {
+      "longitude": 276.55,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.55
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 96.55,
+      "sign": "Cancer",
+      "deg_in_sign": 6.55
+    },
+    "South Node": {
+      "longitude": 276.55,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.55
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "opPbabkV1sf7maHo4oCMq55cPGa2",
+  "name": "Anwar Turki",
+  "place": "Sambhal",
+  "lat": 28.62,
+  "lon": 78.8,
+  "birthdate": "2006-04-29",
+  "birthtime": "11:00",
+  "julian_day": 2453854.9583333335,
+  "ascendant": {
+    "longitude": 189.74,
+    "sign": "Libra",
+    "deg_in_sign": 9.74
+  },
+  "midheaven": {
+    "longitude": 100.17,
+    "sign": "Cancer",
+    "deg_in_sign": 10.17
+  },
+  "houses": [
+    189.74,
+    218.14,
+    248.6,
+    280.17,
+    311.85,
+    342.23,
+    9.74,
+    38.14,
+    68.6,
+    100.17,
+    131.85,
+    162.23
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 38.99,
+      "sign": "Taurus",
+      "deg_in_sign": 8.99
+    },
+    "Moon": {
+      "longitude": 60.6,
+      "sign": "Gemini",
+      "deg_in_sign": 0.6
+    },
+    "Mercury": {
+      "longitude": 19.47,
+      "sign": "Aries",
+      "deg_in_sign": 19.47
+    },
+    "Venus": {
+      "longitude": 355.52,
+      "sign": "Pisces",
+      "deg_in_sign": 25.52
+    },
+    "Mars": {
+      "longitude": 98.97,
+      "sign": "Cancer",
+      "deg_in_sign": 8.97
+    },
+    "Jupiter": {
+      "longitude": 224.65,
+      "sign": "Scorpio",
+      "deg_in_sign": 14.65
+    },
+    "Saturn": {
+      "longitude": 124.89,
+      "sign": "Leo",
+      "deg_in_sign": 4.89
+    },
+    "Uranus": {
+      "longitude": 343.72,
+      "sign": "Pisces",
+      "deg_in_sign": 13.72
+    },
+    "Neptune": {
+      "longitude": 319.67,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.67
+    },
+    "Pluto": {
+      "longitude": 266.51,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.51
+    },
+    "North Node": {
+      "longitude": 2.72,
+      "sign": "Aries",
+      "deg_in_sign": 2.72
+    },
+    "South Node": {
+      "longitude": 182.72,
+      "sign": "Libra",
+      "deg_in_sign": 2.72
+    }
+  },
+  "north_node": {
+    "longitude": 2.72,
+    "sign": "Aries",
+    "deg_in_sign": 2.72
+  },
+  "south_node": {
+    "longitude": 182.72,
+    "sign": "Libra",
+    "deg_in_sign": 2.72
+  }
+}

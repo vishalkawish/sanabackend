@@ -1,0 +1,106 @@
+{
+  "id": "WZoOWXnz3cSBBF0RjGTuLpBjRBm2",
+  "name": "Jyoti Shukla",
+  "place": "gorakhpur",
+  "lat": 26.75,
+  "lon": 83.37,
+  "birthdate": "2007-09-03",
+  "birthtime": "02:30",
+  "julian_day": 2454346.6041666665,
+  "ascendant": {
+    "longitude": 191.37,
+    "sign": "Libra",
+    "deg_in_sign": 11.37
+  },
+  "midheaven": {
+    "longitude": 101.71,
+    "sign": "Cancer",
+    "deg_in_sign": 11.71
+  },
+  "houses": [
+    191.37,
+    220.03,
+    250.42,
+    281.71,
+    313.19,
+    343.61,
+    11.37,
+    40.03,
+    70.42,
+    101.71,
+    133.19,
+    163.61
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 160.23,
+      "sign": "Virgo",
+      "deg_in_sign": 10.23
+    },
+    "Moon": {
+      "longitude": 57.04,
+      "sign": "Taurus",
+      "deg_in_sign": 27.04
+    },
+    "Mercury": {
+      "longitude": 176.13,
+      "sign": "Virgo",
+      "deg_in_sign": 26.13
+    },
+    "Venus": {
+      "longitude": 137.21,
+      "sign": "Leo",
+      "deg_in_sign": 17.21
+    },
+    "Mars": {
+      "longitude": 76.53,
+      "sign": "Gemini",
+      "deg_in_sign": 16.53
+    },
+    "Jupiter": {
+      "longitude": 251.03,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.03
+    },
+    "Saturn": {
+      "longitude": 150.07,
+      "sign": "Virgo",
+      "deg_in_sign": 0.07
+    },
+    "Uranus": {
+      "longitude": 346.98,
+      "sign": "Pisces",
+      "deg_in_sign": 16.98
+    },
+    "Neptune": {
+      "longitude": 320.09,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.09
+    },
+    "Pluto": {
+      "longitude": 266.31,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.31
+    },
+    "North Node": {
+      "longitude": 336.69,
+      "sign": "Pisces",
+      "deg_in_sign": 6.69
+    },
+    "South Node": {
+      "longitude": 156.69,
+      "sign": "Virgo",
+      "deg_in_sign": 6.69
+    }
+  },
+  "north_node": {
+    "longitude": 336.69,
+    "sign": "Pisces",
+    "deg_in_sign": 6.69
+  },
+  "south_node": {
+    "longitude": 156.69,
+    "sign": "Virgo",
+    "deg_in_sign": 6.69
+  }
+}

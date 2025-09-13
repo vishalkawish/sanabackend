@@ -1,0 +1,108 @@
+{
+  "id": "eQA5eogebUWcLjrZ816jiYHg21k1",
+  "name": "Zaid Khan",
+  "place": "Sambhal",
+  "lat": 28.62,
+  "lon": 78.8,
+  "birthdate": "2011-02-22",
+  "birthtime": "09:46",
+  "julian_day": 2455614.9069444444,
+  "ascendant": {
+    "longitude": 117.13,
+    "sign": "Cancer",
+    "deg_in_sign": 27.13
+  },
+  "midheaven": {
+    "longitude": 18.71,
+    "sign": "Aries",
+    "deg_in_sign": 18.71
+  },
+  "houses": [
+    117.13,
+    140.34,
+    167.16,
+    198.71,
+    233.17,
+    266.66,
+    297.13,
+    320.34,
+    347.16,
+    18.71,
+    53.17,
+    86.66
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 333.42,
+      "sign": "Pisces",
+      "deg_in_sign": 3.42
+    },
+    "Moon": {
+      "longitude": 210.17,
+      "sign": "Scorpio",
+      "deg_in_sign": 0.17
+    },
+    "Mercury": {
+      "longitude": 330.97,
+      "sign": "Pisces",
+      "deg_in_sign": 0.97
+    },
+    "Venus": {
+      "longitude": 290.94,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.94
+    },
+    "Mars": {
+      "longitude": 329.5,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.5
+    },
+    "Jupiter": {
+      "longitude": 6.26,
+      "sign": "Aries",
+      "deg_in_sign": 6.26
+    },
+    "Saturn": {
+      "longitude": 196.59,
+      "sign": "Libra",
+      "deg_in_sign": 16.59
+    },
+    "Uranus": {
+      "longitude": 359.03,
+      "sign": "Pisces",
+      "deg_in_sign": 29.03
+    },
+    "Neptune": {
+      "longitude": 328.57,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.57
+    },
+    "Pluto": {
+      "longitude": 276.96,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.96
+    },
+    "North Node": {
+      "longitude": 269.53,
+      "sign": "Sagittarius",
+      "deg_in_sign": 29.53
+    },
+    "South Node": {
+      "longitude": 89.53,
+      "sign": "Gemini",
+      "deg_in_sign": 29.53
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 269.53,
+      "sign": "Sagittarius",
+      "deg_in_sign": 29.53
+    },
+    "South Node": {
+      "longitude": 89.53,
+      "sign": "Gemini",
+      "deg_in_sign": 29.53
+    }
+  }
+}

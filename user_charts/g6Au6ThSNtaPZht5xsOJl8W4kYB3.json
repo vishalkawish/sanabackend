@@ -1,0 +1,106 @@
+{
+  "id": "g6Au6ThSNtaPZht5xsOJl8W4kYB3",
+  "name": "Kapil Mahapatra",
+  "place": "Odisha",
+  "lat": 20.2961,
+  "lon": 85.8247,
+  "birthdate": "1991-05-29",
+  "birthtime": "05:42",
+  "julian_day": 2448405.7375,
+  "ascendant": {
+    "longitude": 149.82,
+    "sign": "Leo",
+    "deg_in_sign": 29.82
+  },
+  "midheaven": {
+    "longitude": 59.77,
+    "sign": "Taurus",
+    "deg_in_sign": 29.77
+  },
+  "houses": [
+    149.82,
+    177.62,
+    208.24,
+    239.77,
+    270.6,
+    300.55,
+    329.82,
+    357.62,
+    28.24,
+    59.77,
+    90.6,
+    120.55
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 67.38,
+      "sign": "Gemini",
+      "deg_in_sign": 7.38
+    },
+    "Moon": {
+      "longitude": 255.67,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.67
+    },
+    "Mercury": {
+      "longitude": 47.57,
+      "sign": "Taurus",
+      "deg_in_sign": 17.57
+    },
+    "Venus": {
+      "longitude": 111.96,
+      "sign": "Cancer",
+      "deg_in_sign": 21.96
+    },
+    "Mars": {
+      "longitude": 121.59,
+      "sign": "Leo",
+      "deg_in_sign": 1.59
+    },
+    "Jupiter": {
+      "longitude": 128.57,
+      "sign": "Leo",
+      "deg_in_sign": 8.57
+    },
+    "Saturn": {
+      "longitude": 306.72,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.72
+    },
+    "Uranus": {
+      "longitude": 283.16,
+      "sign": "Capricorn",
+      "deg_in_sign": 13.16
+    },
+    "Neptune": {
+      "longitude": 286.35,
+      "sign": "Capricorn",
+      "deg_in_sign": 16.35
+    },
+    "Pluto": {
+      "longitude": 228.47,
+      "sign": "Scorpio",
+      "deg_in_sign": 18.47
+    },
+    "North Node": {
+      "longitude": 291.28,
+      "sign": "Capricorn",
+      "deg_in_sign": 21.28
+    },
+    "South Node": {
+      "longitude": 111.28,
+      "sign": "Cancer",
+      "deg_in_sign": 21.28
+    }
+  },
+  "north_node": {
+    "longitude": 291.28,
+    "sign": "Capricorn",
+    "deg_in_sign": 21.28
+  },
+  "south_node": {
+    "longitude": 111.28,
+    "sign": "Cancer",
+    "deg_in_sign": 21.28
+  }
+}

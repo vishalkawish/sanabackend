@@ -1,0 +1,106 @@
+{
+  "id": "RFdLJfoWiPgO5yNzQf4B6CrjeYS2",
+  "name": "gibinder singh",
+  "place": "\u0939\u0930\u093f\u092f\u093e\u0923\u093e",
+  "lat": 29.0,
+  "lon": 76.0,
+  "birthdate": "1980-06-04",
+  "birthtime": "02:30",
+  "julian_day": 2444394.6041666665,
+  "ascendant": {
+    "longitude": 107.81,
+    "sign": "Cancer",
+    "deg_in_sign": 17.81
+  },
+  "midheaven": {
+    "longitude": 6.74,
+    "sign": "Aries",
+    "deg_in_sign": 6.74
+  },
+  "houses": [
+    107.81,
+    130.49,
+    156.14,
+    186.74,
+    221.53,
+    256.32,
+    287.81,
+    310.49,
+    336.14,
+    6.74,
+    41.53,
+    76.32
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 73.62,
+      "sign": "Gemini",
+      "deg_in_sign": 13.62
+    },
+    "Moon": {
+      "longitude": 317.56,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.56
+    },
+    "Mercury": {
+      "longitude": 95.06,
+      "sign": "Cancer",
+      "deg_in_sign": 5.06
+    },
+    "Venus": {
+      "longitude": 90.48,
+      "sign": "Cancer",
+      "deg_in_sign": 0.48
+    },
+    "Mars": {
+      "longitude": 161.44,
+      "sign": "Virgo",
+      "deg_in_sign": 11.44
+    },
+    "Jupiter": {
+      "longitude": 152.42,
+      "sign": "Virgo",
+      "deg_in_sign": 2.42
+    },
+    "Saturn": {
+      "longitude": 170.33,
+      "sign": "Virgo",
+      "deg_in_sign": 20.33
+    },
+    "Uranus": {
+      "longitude": 232.71,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.71
+    },
+    "Neptune": {
+      "longitude": 261.52,
+      "sign": "Sagittarius",
+      "deg_in_sign": 21.52
+    },
+    "Pluto": {
+      "longitude": 199.14,
+      "sign": "Libra",
+      "deg_in_sign": 19.14
+    },
+    "North Node": {
+      "longitude": 143.68,
+      "sign": "Leo",
+      "deg_in_sign": 23.68
+    },
+    "South Node": {
+      "longitude": 323.68,
+      "sign": "Aquarius",
+      "deg_in_sign": 23.68
+    }
+  },
+  "north_node": {
+    "longitude": 143.68,
+    "sign": "Leo",
+    "deg_in_sign": 23.68
+  },
+  "south_node": {
+    "longitude": 323.68,
+    "sign": "Aquarius",
+    "deg_in_sign": 23.68
+  }
+}

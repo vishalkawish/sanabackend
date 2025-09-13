@@ -1,0 +1,108 @@
+{
+  "id": "7RMI8aPzvDfdIZgBQZRRQ0tC3Bo1",
+  "name": "Muskan Bharti",
+  "place": "Muzaffarpur Bihar",
+  "lat": 26.12,
+  "lon": 85.38,
+  "birthdate": "2006-08-09",
+  "birthtime": "01:00",
+  "julian_day": 2453956.5416666665,
+  "ascendant": {
+    "longitude": 151.23,
+    "sign": "Virgo",
+    "deg_in_sign": 1.23
+  },
+  "midheaven": {
+    "longitude": 59.95,
+    "sign": "Taurus",
+    "deg_in_sign": 29.95
+  },
+  "houses": [
+    151.23,
+    177.87,
+    207.98,
+    239.95,
+    271.71,
+    302.23,
+    331.23,
+    357.87,
+    27.98,
+    59.95,
+    91.71,
+    122.23
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 136.33,
+      "sign": "Leo",
+      "deg_in_sign": 16.33
+    },
+    "Moon": {
+      "longitude": 310.58,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.58
+    },
+    "Mercury": {
+      "longitude": 117.36,
+      "sign": "Cancer",
+      "deg_in_sign": 27.36
+    },
+    "Venus": {
+      "longitude": 115.36,
+      "sign": "Cancer",
+      "deg_in_sign": 25.36
+    },
+    "Mars": {
+      "longitude": 160.8,
+      "sign": "Virgo",
+      "deg_in_sign": 10.8
+    },
+    "Jupiter": {
+      "longitude": 220.63,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.63
+    },
+    "Saturn": {
+      "longitude": 135.05,
+      "sign": "Leo",
+      "deg_in_sign": 15.05
+    },
+    "Uranus": {
+      "longitude": 343.79,
+      "sign": "Pisces",
+      "deg_in_sign": 13.79
+    },
+    "Neptune": {
+      "longitude": 318.48,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.48
+    },
+    "Pluto": {
+      "longitude": 264.26,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.26
+    },
+    "North Node": {
+      "longitude": 357.34,
+      "sign": "Pisces",
+      "deg_in_sign": 27.34
+    },
+    "South Node": {
+      "longitude": 177.34,
+      "sign": "Virgo",
+      "deg_in_sign": 27.34
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 357.34,
+      "sign": "Pisces",
+      "deg_in_sign": 27.34
+    },
+    "South Node": {
+      "longitude": 177.34,
+      "sign": "Virgo",
+      "deg_in_sign": 27.34
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "id": "HzjKa2DRZmNKLVF5ihwVd50zhOj2",
+  "name": "Wajahat Badroo",
+  "place": "kashmiri",
+  "lat": 34.0833,
+  "lon": 74.8333,
+  "birthdate": "2000-05-26",
+  "birthtime": "06:30",
+  "julian_day": 2451690.7708333335,
+  "ascendant": {
+    "longitude": 151.89,
+    "sign": "Virgo",
+    "deg_in_sign": 1.89
+  },
+  "midheaven": {
+    "longitude": 58.7,
+    "sign": "Taurus",
+    "deg_in_sign": 28.7
+  },
+  "houses": [
+    151.89,
+    176.78,
+    206.06,
+    238.7,
+    271.97,
+    303.36,
+    331.89,
+    356.78,
+    26.06,
+    58.7,
+    91.97,
+    123.36
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 65.31,
+      "sign": "Gemini",
+      "deg_in_sign": 5.31
+    },
+    "Moon": {
+      "longitude": 332.75,
+      "sign": "Pisces",
+      "deg_in_sign": 2.75
+    },
+    "Mercury": {
+      "longitude": 83.62,
+      "sign": "Gemini",
+      "deg_in_sign": 23.62
+    },
+    "Venus": {
+      "longitude": 60.93,
+      "sign": "Gemini",
+      "deg_in_sign": 0.93
+    },
+    "Mars": {
+      "longitude": 75.58,
+      "sign": "Gemini",
+      "deg_in_sign": 15.58
+    },
+    "Jupiter": {
+      "longitude": 52.16,
+      "sign": "Taurus",
+      "deg_in_sign": 22.16
+    },
+    "Saturn": {
+      "longitude": 52.42,
+      "sign": "Taurus",
+      "deg_in_sign": 22.42
+    },
+    "Uranus": {
+      "longitude": 320.82,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.82
+    },
+    "Neptune": {
+      "longitude": 306.49,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.49
+    },
+    "Pluto": {
+      "longitude": 251.72,
+      "sign": "Sagittarius",
+      "deg_in_sign": 11.72
+    },
+    "North Node": {
+      "longitude": 117.32,
+      "sign": "Cancer",
+      "deg_in_sign": 27.32
+    },
+    "South Node": {
+      "longitude": 297.32,
+      "sign": "Capricorn",
+      "deg_in_sign": 27.32
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 117.32,
+      "sign": "Cancer",
+      "deg_in_sign": 27.32
+    },
+    "South Node": {
+      "longitude": 297.32,
+      "sign": "Capricorn",
+      "deg_in_sign": 27.32
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "DAVJMUqb99SNvZ7qZtzi1RE8me52",
+  "name": "Radha Devi",
+  "place": "29 April",
+  "lat": 10.7765,
+  "lon": 106.6986,
+  "birthdate": "2010-04-29",
+  "birthtime": "06:00",
+  "julian_day": 2455315.75,
+  "ascendant": {
+    "longitude": 144.1,
+    "sign": "Leo",
+    "deg_in_sign": 24.1
+  },
+  "midheaven": {
+    "longitude": 56.11,
+    "sign": "Taurus",
+    "deg_in_sign": 26.11
+  },
+  "houses": [
+    144.1,
+    173.59,
+    205.01,
+    236.11,
+    265.75,
+    294.69,
+    324.1,
+    353.59,
+    25.01,
+    56.11,
+    85.75,
+    114.69
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 38.83,
+      "sign": "Taurus",
+      "deg_in_sign": 8.83
+    },
+    "Moon": {
+      "longitude": 228.34,
+      "sign": "Scorpio",
+      "deg_in_sign": 18.34
+    },
+    "Mercury": {
+      "longitude": 37.92,
+      "sign": "Taurus",
+      "deg_in_sign": 7.92
+    },
+    "Venus": {
+      "longitude": 64.91,
+      "sign": "Gemini",
+      "deg_in_sign": 4.91
+    },
+    "Mars": {
+      "longitude": 131.8,
+      "sign": "Leo",
+      "deg_in_sign": 11.8
+    },
+    "Jupiter": {
+      "longitude": 353.43,
+      "sign": "Pisces",
+      "deg_in_sign": 23.43
+    },
+    "Saturn": {
+      "longitude": 178.65,
+      "sign": "Virgo",
+      "deg_in_sign": 28.65
+    },
+    "Uranus": {
+      "longitude": 358.88,
+      "sign": "Pisces",
+      "deg_in_sign": 28.88
+    },
+    "Neptune": {
+      "longitude": 328.42,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.42
+    },
+    "Pluto": {
+      "longitude": 275.29,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.29
+    },
+    "North Node": {
+      "longitude": 285.37,
+      "sign": "Capricorn",
+      "deg_in_sign": 15.37
+    },
+    "South Node": {
+      "longitude": 105.37,
+      "sign": "Cancer",
+      "deg_in_sign": 15.37
+    }
+  },
+  "north_node": {
+    "longitude": 285.37,
+    "sign": "Capricorn",
+    "deg_in_sign": 15.37
+  },
+  "south_node": {
+    "longitude": 105.37,
+    "sign": "Cancer",
+    "deg_in_sign": 15.37
+  }
+}

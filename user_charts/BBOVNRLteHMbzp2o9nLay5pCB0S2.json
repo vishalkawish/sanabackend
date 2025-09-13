@@ -1,0 +1,106 @@
+{
+  "id": "BBOVNRLteHMbzp2o9nLay5pCB0S2",
+  "name": "Vishal Rajput",
+  "place": "mehmoodpur",
+  "lat": 0.0,
+  "lon": 0.0,
+  "birthdate": "2009-04-01",
+  "birthtime": "07:00",
+  "julian_day": 2454922.7916666665,
+  "ascendant": {
+    "longitude": 26.71,
+    "sign": "Aries",
+    "deg_in_sign": 26.71
+  },
+  "midheaven": {
+    "longitude": 292.95,
+    "sign": "Capricorn",
+    "deg_in_sign": 22.95
+  },
+  "houses": [
+    26.71,
+    57.06,
+    85.2,
+    112.95,
+    142.42,
+    174.31,
+    206.71,
+    237.06,
+    265.2,
+    292.95,
+    322.42,
+    354.31
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 11.69,
+      "sign": "Aries",
+      "deg_in_sign": 11.69
+    },
+    "Moon": {
+      "longitude": 84.4,
+      "sign": "Gemini",
+      "deg_in_sign": 24.4
+    },
+    "Mercury": {
+      "longitude": 12.9,
+      "sign": "Aries",
+      "deg_in_sign": 12.9
+    },
+    "Venus": {
+      "longitude": 4.51,
+      "sign": "Aries",
+      "deg_in_sign": 4.51
+    },
+    "Mars": {
+      "longitude": 343.43,
+      "sign": "Pisces",
+      "deg_in_sign": 13.43
+    },
+    "Jupiter": {
+      "longitude": 319.16,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.16
+    },
+    "Saturn": {
+      "longitude": 166.6,
+      "sign": "Virgo",
+      "deg_in_sign": 16.6
+    },
+    "Uranus": {
+      "longitude": 353.69,
+      "sign": "Pisces",
+      "deg_in_sign": 23.69
+    },
+    "Neptune": {
+      "longitude": 325.6,
+      "sign": "Aquarius",
+      "deg_in_sign": 25.6
+    },
+    "Pluto": {
+      "longitude": 273.3,
+      "sign": "Capricorn",
+      "deg_in_sign": 3.3
+    },
+    "North Node": {
+      "longitude": 306.18,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.18
+    },
+    "South Node": {
+      "longitude": 126.18,
+      "sign": "Leo",
+      "deg_in_sign": 6.18
+    }
+  },
+  "north_node": {
+    "longitude": 306.18,
+    "sign": "Aquarius",
+    "deg_in_sign": 6.18
+  },
+  "south_node": {
+    "longitude": 126.18,
+    "sign": "Leo",
+    "deg_in_sign": 6.18
+  }
+}

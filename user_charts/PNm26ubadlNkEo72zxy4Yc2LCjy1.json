@@ -1,0 +1,106 @@
+{
+  "id": "PNm26ubadlNkEo72zxy4Yc2LCjy1",
+  "name": "Saroj Vimal Sagar",
+  "place": "Barkheda",
+  "lat": 23.24,
+  "lon": 77.4,
+  "birthdate": "1982-01-01",
+  "birthtime": "12:00",
+  "julian_day": 2444971.0,
+  "ascendant": {
+    "longitude": 98.1,
+    "sign": "Cancer",
+    "deg_in_sign": 8.1
+  },
+  "midheaven": {
+    "longitude": 358.05,
+    "sign": "Pisces",
+    "deg_in_sign": 28.05
+  },
+  "houses": [
+    98.1,
+    121.87,
+    147.81,
+    178.05,
+    212.17,
+    246.53,
+    278.1,
+    301.87,
+    327.81,
+    358.05,
+    32.17,
+    66.53
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 280.75,
+      "sign": "Capricorn",
+      "deg_in_sign": 10.75
+    },
+    "Moon": {
+      "longitude": 349.8,
+      "sign": "Pisces",
+      "deg_in_sign": 19.8
+    },
+    "Mercury": {
+      "longitude": 293.33,
+      "sign": "Capricorn",
+      "deg_in_sign": 23.33
+    },
+    "Venus": {
+      "longitude": 308.89,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.89
+    },
+    "Mars": {
+      "longitude": 187.26,
+      "sign": "Libra",
+      "deg_in_sign": 7.26
+    },
+    "Jupiter": {
+      "longitude": 216.15,
+      "sign": "Scorpio",
+      "deg_in_sign": 6.15
+    },
+    "Saturn": {
+      "longitude": 201.47,
+      "sign": "Libra",
+      "deg_in_sign": 21.47
+    },
+    "Uranus": {
+      "longitude": 242.72,
+      "sign": "Sagittarius",
+      "deg_in_sign": 2.72
+    },
+    "Neptune": {
+      "longitude": 265.17,
+      "sign": "Sagittarius",
+      "deg_in_sign": 25.17
+    },
+    "Pluto": {
+      "longitude": 206.7,
+      "sign": "Libra",
+      "deg_in_sign": 26.7
+    },
+    "North Node": {
+      "longitude": 113.16,
+      "sign": "Cancer",
+      "deg_in_sign": 23.16
+    },
+    "South Node": {
+      "longitude": 293.16,
+      "sign": "Capricorn",
+      "deg_in_sign": 23.16
+    }
+  },
+  "north_node": {
+    "longitude": 113.16,
+    "sign": "Cancer",
+    "deg_in_sign": 23.16
+  },
+  "south_node": {
+    "longitude": 293.16,
+    "sign": "Capricorn",
+    "deg_in_sign": 23.16
+  }
+}

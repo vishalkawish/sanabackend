@@ -1,0 +1,108 @@
+{
+  "id": "JYIFdxUwtnaXSDPAl74KYCdwQJd2",
+  "name": "Derisha",
+  "place": "ARUPPAKOTTAI",
+  "lat": 9.46,
+  "lon": 77.85,
+  "birthdate": "2003-03-15",
+  "birthtime": "17:45",
+  "julian_day": 2452714.2395833335,
+  "ascendant": {
+    "longitude": 245.24,
+    "sign": "Sagittarius",
+    "deg_in_sign": 5.24
+  },
+  "midheaven": {
+    "longitude": 155.19,
+    "sign": "Virgo",
+    "deg_in_sign": 5.19
+  },
+  "houses": [
+    245.24,
+    273.91,
+    303.59,
+    335.19,
+    7.46,
+    37.78,
+    65.24,
+    93.91,
+    123.59,
+    155.19,
+    187.46,
+    217.78
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 354.73,
+      "sign": "Pisces",
+      "deg_in_sign": 24.73
+    },
+    "Moon": {
+      "longitude": 138.08,
+      "sign": "Leo",
+      "deg_in_sign": 18.08
+    },
+    "Mercury": {
+      "longitude": 348.88,
+      "sign": "Pisces",
+      "deg_in_sign": 18.88
+    },
+    "Venus": {
+      "longitude": 315.64,
+      "sign": "Aquarius",
+      "deg_in_sign": 15.64
+    },
+    "Mars": {
+      "longitude": 276.89,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.89
+    },
+    "Jupiter": {
+      "longitude": 128.66,
+      "sign": "Leo",
+      "deg_in_sign": 8.66
+    },
+    "Saturn": {
+      "longitude": 82.56,
+      "sign": "Gemini",
+      "deg_in_sign": 22.56
+    },
+    "Uranus": {
+      "longitude": 330.27,
+      "sign": "Pisces",
+      "deg_in_sign": 0.27
+    },
+    "Neptune": {
+      "longitude": 312.21,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.21
+    },
+    "Pluto": {
+      "longitude": 259.94,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.94
+    },
+    "North Node": {
+      "longitude": 63.12,
+      "sign": "Gemini",
+      "deg_in_sign": 3.12
+    },
+    "South Node": {
+      "longitude": 243.12,
+      "sign": "Sagittarius",
+      "deg_in_sign": 3.12
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 63.12,
+      "sign": "Gemini",
+      "deg_in_sign": 3.12
+    },
+    "South Node": {
+      "longitude": 243.12,
+      "sign": "Sagittarius",
+      "deg_in_sign": 3.12
+    }
+  }
+}

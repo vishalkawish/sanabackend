@@ -1,0 +1,106 @@
+{
+  "id": "d9r5pVvJEYhgDkiAzCYiwxPChuP2",
+  "name": "Lucky Singh",
+  "place": "Mayapuri (Abunasarpur)",
+  "lat": 28.636,
+  "lon": 77.118,
+  "birthdate": "2006-06-18",
+  "birthtime": "06:00",
+  "julian_day": 2453904.75,
+  "ascendant": {
+    "longitude": 165.45,
+    "sign": "Virgo",
+    "deg_in_sign": 15.45
+  },
+  "midheaven": {
+    "longitude": 74.76,
+    "sign": "Gemini",
+    "deg_in_sign": 14.76
+  },
+  "houses": [
+    165.45,
+    192.65,
+    222.96,
+    254.76,
+    286.42,
+    316.92,
+    345.45,
+    12.65,
+    42.96,
+    74.76,
+    106.42,
+    136.92
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 86.88,
+      "sign": "Gemini",
+      "deg_in_sign": 26.88
+    },
+    "Moon": {
+      "longitude": 352.42,
+      "sign": "Pisces",
+      "deg_in_sign": 22.42
+    },
+    "Mercury": {
+      "longitude": 111.61,
+      "sign": "Cancer",
+      "deg_in_sign": 21.61
+    },
+    "Venus": {
+      "longitude": 53.16,
+      "sign": "Taurus",
+      "deg_in_sign": 23.16
+    },
+    "Mars": {
+      "longitude": 128.76,
+      "sign": "Leo",
+      "deg_in_sign": 8.76
+    },
+    "Jupiter": {
+      "longitude": 219.47,
+      "sign": "Scorpio",
+      "deg_in_sign": 9.47
+    },
+    "Saturn": {
+      "longitude": 128.76,
+      "sign": "Leo",
+      "deg_in_sign": 8.76
+    },
+    "Uranus": {
+      "longitude": 344.73,
+      "sign": "Pisces",
+      "deg_in_sign": 14.73
+    },
+    "Neptune": {
+      "longitude": 319.63,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.63
+    },
+    "Pluto": {
+      "longitude": 265.38,
+      "sign": "Sagittarius",
+      "deg_in_sign": 25.38
+    },
+    "North Node": {
+      "longitude": 0.09,
+      "sign": "Aries",
+      "deg_in_sign": 0.09
+    },
+    "South Node": {
+      "longitude": 180.09,
+      "sign": "Libra",
+      "deg_in_sign": 0.09
+    }
+  },
+  "north_node": {
+    "longitude": 0.09,
+    "sign": "Aries",
+    "deg_in_sign": 0.09
+  },
+  "south_node": {
+    "longitude": 180.09,
+    "sign": "Libra",
+    "deg_in_sign": 0.09
+  }
+}

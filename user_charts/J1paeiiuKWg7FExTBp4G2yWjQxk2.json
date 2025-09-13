@@ -1,0 +1,108 @@
+{
+  "id": "J1paeiiuKWg7FExTBp4G2yWjQxk2",
+  "name": "GAURAV KUMAR",
+  "place": "India",
+  "lat": 20.5937,
+  "lon": 78.9629,
+  "birthdate": "2007-02-06",
+  "birthtime": "02:30",
+  "julian_day": 2454137.6041666665,
+  "ascendant": {
+    "longitude": 337.26,
+    "sign": "Pisces",
+    "deg_in_sign": 7.26
+  },
+  "midheaven": {
+    "longitude": 253.7,
+    "sign": "Sagittarius",
+    "deg_in_sign": 13.7
+  },
+  "houses": [
+    337.26,
+    14.99,
+    46.97,
+    73.7,
+    98.48,
+    125.01,
+    157.26,
+    194.99,
+    226.97,
+    253.7,
+    278.48,
+    305.01
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 316.91,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.91
+    },
+    "Moon": {
+      "longitude": 180.12,
+      "sign": "Libra",
+      "deg_in_sign": 0.12
+    },
+    "Mercury": {
+      "longitude": 334.99,
+      "sign": "Pisces",
+      "deg_in_sign": 4.99
+    },
+    "Venus": {
+      "longitude": 341.14,
+      "sign": "Pisces",
+      "deg_in_sign": 11.14
+    },
+    "Mars": {
+      "longitude": 284.99,
+      "sign": "Capricorn",
+      "deg_in_sign": 14.99
+    },
+    "Jupiter": {
+      "longitude": 254.81,
+      "sign": "Sagittarius",
+      "deg_in_sign": 14.81
+    },
+    "Saturn": {
+      "longitude": 142.02,
+      "sign": "Leo",
+      "deg_in_sign": 22.02
+    },
+    "Uranus": {
+      "longitude": 343.14,
+      "sign": "Pisces",
+      "deg_in_sign": 13.14
+    },
+    "Neptune": {
+      "longitude": 319.4,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.4
+    },
+    "Pluto": {
+      "longitude": 268.2,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.2
+    },
+    "North Node": {
+      "longitude": 347.76,
+      "sign": "Pisces",
+      "deg_in_sign": 17.76
+    },
+    "South Node": {
+      "longitude": 167.76,
+      "sign": "Virgo",
+      "deg_in_sign": 17.76
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 347.76,
+      "sign": "Pisces",
+      "deg_in_sign": 17.76
+    },
+    "South Node": {
+      "longitude": 167.76,
+      "sign": "Virgo",
+      "deg_in_sign": 17.76
+    }
+  }
+}

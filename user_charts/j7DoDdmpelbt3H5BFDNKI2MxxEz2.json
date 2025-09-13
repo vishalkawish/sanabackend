@@ -1,52 +1,56 @@
 {
-  "username": "Kawish",
-  "place": "India",
-  "datetime_utc": "1999-01-11T09:30:00",
-  "julian_day": 2451189.8958333335,
+  "id": "j7DoDdmpelbt3H5BFDNKI2MxxEz2",
+  "name": "Vishal Kawish",
+  "place": "moradabad",
+  "lat": 28.84,
+  "lon": 78.77,
+  "birthdate": "1999-01-11",
+  "birthtime": "09:09",
+  "julian_day": 2451189.88125,
   "ascendant": {
-    "longitude": 72.24,
+    "longitude": 70.94,
     "sign": "Gemini",
-    "deg_in_sign": 12.24
+    "deg_in_sign": 10.94
   },
   "midheaven": {
-    "longitude": 329.82,
+    "longitude": 324.15,
     "sign": "Aquarius",
-    "deg_in_sign": 29.82
+    "deg_in_sign": 24.15
   },
   "houses": [
-    72.24,
-    97.44,
-    122.22,
-    149.82,
-    182.21,
-    217.9,
-    252.24,
-    277.44,
-    302.22,
-    329.82,
-    2.21,
-    37.9
+    70.94,
+    95.16,
+    118.31,
+    144.15,
+    175.81,
+    213.42,
+    250.94,
+    275.16,
+    298.31,
+    324.15,
+    355.81,
+    33.42
   ],
   "planets": {
     "Sun": {
-      "longitude": 290.7,
+      "longitude": 290.68,
       "sign": "Capricorn",
-      "deg_in_sign": 20.7
+      "deg_in_sign": 20.68
     },
     "Moon": {
-      "longitude": 220.22,
+      "longitude": 220.05,
       "sign": "Scorpio",
-      "deg_in_sign": 10.22
+      "deg_in_sign": 10.05
     },
     "Mercury": {
-      "longitude": 276.41,
+      "longitude": 276.39,
       "sign": "Capricorn",
-      "deg_in_sign": 6.41
+      "deg_in_sign": 6.39
     },
     "Venus": {
-      "longitude": 308.41,
+      "longitude": 308.39,
       "sign": "Aquarius",
-      "deg_in_sign": 8.41
+      "deg_in_sign": 8.39
     },
     "Mars": {
       "longitude": 203.38,
@@ -77,6 +81,28 @@
       "longitude": 249.46,
       "sign": "Sagittarius",
       "deg_in_sign": 9.46
+    },
+    "North Node": {
+      "longitude": 143.85,
+      "sign": "Leo",
+      "deg_in_sign": 23.85
+    },
+    "South Node": {
+      "longitude": 323.85,
+      "sign": "Aquarius",
+      "deg_in_sign": 23.85
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 143.85,
+      "sign": "Leo",
+      "deg_in_sign": 23.85
+    },
+    "South Node": {
+      "longitude": 323.85,
+      "sign": "Aquarius",
+      "deg_in_sign": 23.85
     }
   }
 }

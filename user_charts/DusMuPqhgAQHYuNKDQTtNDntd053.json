@@ -1,0 +1,108 @@
+{
+  "id": "DusMuPqhgAQHYuNKDQTtNDntd053",
+  "name": "manoj deshmukh",
+  "place": "nagpur maharastra",
+  "lat": 21.1458,
+  "lon": 79.0889,
+  "birthdate": "1981-04-06",
+  "birthtime": "14:36",
+  "julian_day": 2444701.1083333334,
+  "ascendant": {
+    "longitude": 219.48,
+    "sign": "Scorpio",
+    "deg_in_sign": 9.48
+  },
+  "midheaven": {
+    "longitude": 130.43,
+    "sign": "Leo",
+    "deg_in_sign": 10.43
+  },
+  "houses": [
+    219.48,
+    248.69,
+    278.92,
+    310.43,
+    342.4,
+    12.61,
+    39.48,
+    68.69,
+    98.92,
+    130.43,
+    162.4,
+    192.61
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 16.7,
+      "sign": "Aries",
+      "deg_in_sign": 16.7
+    },
+    "Moon": {
+      "longitude": 41.73,
+      "sign": "Taurus",
+      "deg_in_sign": 11.73
+    },
+    "Mercury": {
+      "longitude": 357.04,
+      "sign": "Pisces",
+      "deg_in_sign": 27.04
+    },
+    "Venus": {
+      "longitude": 16.5,
+      "sign": "Aries",
+      "deg_in_sign": 16.5
+    },
+    "Mars": {
+      "longitude": 15.83,
+      "sign": "Aries",
+      "deg_in_sign": 15.83
+    },
+    "Jupiter": {
+      "longitude": 184.04,
+      "sign": "Libra",
+      "deg_in_sign": 4.04
+    },
+    "Saturn": {
+      "longitude": 185.63,
+      "sign": "Libra",
+      "deg_in_sign": 5.63
+    },
+    "Uranus": {
+      "longitude": 239.66,
+      "sign": "Scorpio",
+      "deg_in_sign": 29.66
+    },
+    "Neptune": {
+      "longitude": 264.83,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.83
+    },
+    "Pluto": {
+      "longitude": 203.14,
+      "sign": "Libra",
+      "deg_in_sign": 23.14
+    },
+    "North Node": {
+      "longitude": 127.45,
+      "sign": "Leo",
+      "deg_in_sign": 7.45
+    },
+    "South Node": {
+      "longitude": 307.45,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.45
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 127.45,
+      "sign": "Leo",
+      "deg_in_sign": 7.45
+    },
+    "South Node": {
+      "longitude": 307.45,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.45
+    }
+  }
+}

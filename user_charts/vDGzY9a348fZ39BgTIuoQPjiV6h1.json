@@ -1,0 +1,106 @@
+{
+  "id": "vDGzY9a348fZ39BgTIuoQPjiV6h1",
+  "name": "Krishna Singh",
+  "place": "up, Gorakhpur",
+  "lat": 26.75,
+  "lon": 83.37,
+  "birthdate": "2000-05-07",
+  "birthtime": "08:20",
+  "julian_day": 2451671.847222222,
+  "ascendant": {
+    "longitude": 165.58,
+    "sign": "Virgo",
+    "deg_in_sign": 15.58
+  },
+  "midheaven": {
+    "longitude": 75.12,
+    "sign": "Gemini",
+    "deg_in_sign": 15.12
+  },
+  "houses": [
+    165.58,
+    193.15,
+    223.56,
+    255.12,
+    286.46,
+    316.86,
+    345.58,
+    13.15,
+    43.56,
+    75.12,
+    106.46,
+    136.86
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 47.08,
+      "sign": "Taurus",
+      "deg_in_sign": 17.08
+    },
+    "Moon": {
+      "longitude": 90.68,
+      "sign": "Cancer",
+      "deg_in_sign": 0.68
+    },
+    "Mercury": {
+      "longitude": 44.92,
+      "sign": "Taurus",
+      "deg_in_sign": 14.92
+    },
+    "Venus": {
+      "longitude": 37.67,
+      "sign": "Taurus",
+      "deg_in_sign": 7.67
+    },
+    "Mars": {
+      "longitude": 62.48,
+      "sign": "Gemini",
+      "deg_in_sign": 2.48
+    },
+    "Jupiter": {
+      "longitude": 47.68,
+      "sign": "Taurus",
+      "deg_in_sign": 17.68
+    },
+    "Saturn": {
+      "longitude": 49.99,
+      "sign": "Taurus",
+      "deg_in_sign": 19.99
+    },
+    "Uranus": {
+      "longitude": 320.69,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.69
+    },
+    "Neptune": {
+      "longitude": 306.57,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.57
+    },
+    "Pluto": {
+      "longitude": 252.2,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.2
+    },
+    "North Node": {
+      "longitude": 118.32,
+      "sign": "Cancer",
+      "deg_in_sign": 28.32
+    },
+    "South Node": {
+      "longitude": 298.32,
+      "sign": "Capricorn",
+      "deg_in_sign": 28.32
+    }
+  },
+  "north_node": {
+    "longitude": 118.32,
+    "sign": "Cancer",
+    "deg_in_sign": 28.32
+  },
+  "south_node": {
+    "longitude": 298.32,
+    "sign": "Capricorn",
+    "deg_in_sign": 28.32
+  }
+}

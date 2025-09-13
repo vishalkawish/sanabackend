@@ -1,0 +1,106 @@
+{
+  "id": "ZrfZPSb8iBc8KOb5tSmbp3W0aLh2",
+  "name": "Guddu",
+  "place": "moradabad",
+  "lat": 28.84,
+  "lon": 78.77,
+  "birthdate": "2008-03-03",
+  "birthtime": "06:30",
+  "julian_day": 2454528.7708333335,
+  "ascendant": {
+    "longitude": 82.04,
+    "sign": "Gemini",
+    "deg_in_sign": 22.04
+  },
+  "midheaven": {
+    "longitude": 335.89,
+    "sign": "Pisces",
+    "deg_in_sign": 5.89
+  },
+  "houses": [
+    82.04,
+    105.21,
+    128.7,
+    155.89,
+    189.08,
+    226.52,
+    262.04,
+    285.21,
+    308.7,
+    335.89,
+    9.08,
+    46.52
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 343.06,
+      "sign": "Pisces",
+      "deg_in_sign": 13.06
+    },
+    "Moon": {
+      "longitude": 288.44,
+      "sign": "Capricorn",
+      "deg_in_sign": 18.44
+    },
+    "Mercury": {
+      "longitude": 315.92,
+      "sign": "Aquarius",
+      "deg_in_sign": 15.92
+    },
+    "Venus": {
+      "longitude": 318.03,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.03
+    },
+    "Mars": {
+      "longitude": 89.64,
+      "sign": "Gemini",
+      "deg_in_sign": 29.64
+    },
+    "Jupiter": {
+      "longitude": 285.99,
+      "sign": "Capricorn",
+      "deg_in_sign": 15.99
+    },
+    "Saturn": {
+      "longitude": 154.53,
+      "sign": "Virgo",
+      "deg_in_sign": 4.53
+    },
+    "Uranus": {
+      "longitude": 348.32,
+      "sign": "Pisces",
+      "deg_in_sign": 18.32
+    },
+    "Neptune": {
+      "longitude": 322.51,
+      "sign": "Aquarius",
+      "deg_in_sign": 22.51
+    },
+    "Pluto": {
+      "longitude": 270.91,
+      "sign": "Capricorn",
+      "deg_in_sign": 0.91
+    },
+    "North Node": {
+      "longitude": 327.05,
+      "sign": "Aquarius",
+      "deg_in_sign": 27.05
+    },
+    "South Node": {
+      "longitude": 147.05,
+      "sign": "Leo",
+      "deg_in_sign": 27.05
+    }
+  },
+  "north_node": {
+    "longitude": 327.05,
+    "sign": "Aquarius",
+    "deg_in_sign": 27.05
+  },
+  "south_node": {
+    "longitude": 147.05,
+    "sign": "Leo",
+    "deg_in_sign": 27.05
+  }
+}

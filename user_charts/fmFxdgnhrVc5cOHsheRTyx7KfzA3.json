@@ -1,0 +1,106 @@
+{
+  "id": "fmFxdgnhrVc5cOHsheRTyx7KfzA3",
+  "name": "Shirin Fariya",
+  "place": "peddavaduguru",
+  "lat": 14.5,
+  "lon": 79.0,
+  "birthdate": "1994-06-12",
+  "birthtime": "05:05",
+  "julian_day": 2449515.7118055555,
+  "ascendant": {
+    "longitude": 146.65,
+    "sign": "Leo",
+    "deg_in_sign": 26.65
+  },
+  "midheaven": {
+    "longitude": 57.82,
+    "sign": "Taurus",
+    "deg_in_sign": 27.82
+  },
+  "houses": [
+    146.65,
+    175.49,
+    206.58,
+    237.82,
+    267.89,
+    297.24,
+    326.65,
+    355.49,
+    26.58,
+    57.82,
+    87.89,
+    117.24
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 81.02,
+      "sign": "Gemini",
+      "deg_in_sign": 21.02
+    },
+    "Moon": {
+      "longitude": 113.92,
+      "sign": "Cancer",
+      "deg_in_sign": 23.92
+    },
+    "Mercury": {
+      "longitude": 98.4,
+      "sign": "Cancer",
+      "deg_in_sign": 8.4
+    },
+    "Venus": {
+      "longitude": 116.36,
+      "sign": "Cancer",
+      "deg_in_sign": 26.36
+    },
+    "Mars": {
+      "longitude": 44.31,
+      "sign": "Taurus",
+      "deg_in_sign": 14.31
+    },
+    "Jupiter": {
+      "longitude": 215.36,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.36
+    },
+    "Saturn": {
+      "longitude": 342.3,
+      "sign": "Pisces",
+      "deg_in_sign": 12.3
+    },
+    "Uranus": {
+      "longitude": 295.65,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.65
+    },
+    "Neptune": {
+      "longitude": 292.78,
+      "sign": "Capricorn",
+      "deg_in_sign": 22.78
+    },
+    "Pluto": {
+      "longitude": 236.02,
+      "sign": "Scorpio",
+      "deg_in_sign": 26.02
+    },
+    "North Node": {
+      "longitude": 232.51,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.51
+    },
+    "South Node": {
+      "longitude": 52.51,
+      "sign": "Taurus",
+      "deg_in_sign": 22.51
+    }
+  },
+  "north_node": {
+    "longitude": 232.51,
+    "sign": "Scorpio",
+    "deg_in_sign": 22.51
+  },
+  "south_node": {
+    "longitude": 52.51,
+    "sign": "Taurus",
+    "deg_in_sign": 22.51
+  }
+}

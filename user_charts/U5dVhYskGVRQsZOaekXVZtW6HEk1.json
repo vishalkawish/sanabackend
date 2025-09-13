@@ -1,0 +1,108 @@
+{
+  "id": "U5dVhYskGVRQsZOaekXVZtW6HEk1",
+  "name": "Uttam Investments",
+  "place": "AMROHA",
+  "lat": 28.75,
+  "lon": 78.57,
+  "birthdate": "1987-11-15",
+  "birthtime": "04:10",
+  "julian_day": 2447114.673611111,
+  "ascendant": {
+    "longitude": 270.95,
+    "sign": "Capricorn",
+    "deg_in_sign": 0.95
+  },
+  "midheaven": {
+    "longitude": 196.06,
+    "sign": "Libra",
+    "deg_in_sign": 16.06
+  },
+  "houses": [
+    270.95,
+    305.19,
+    342.11,
+    16.06,
+    44.21,
+    68.15,
+    90.95,
+    125.19,
+    162.11,
+    196.06,
+    224.21,
+    248.15
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 232.25,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.25
+    },
+    "Moon": {
+      "longitude": 159.31,
+      "sign": "Virgo",
+      "deg_in_sign": 9.31
+    },
+    "Mercury": {
+      "longitude": 213.32,
+      "sign": "Scorpio",
+      "deg_in_sign": 3.32
+    },
+    "Venus": {
+      "longitude": 253.95,
+      "sign": "Sagittarius",
+      "deg_in_sign": 13.95
+    },
+    "Mars": {
+      "longitude": 204.15,
+      "sign": "Libra",
+      "deg_in_sign": 24.15
+    },
+    "Jupiter": {
+      "longitude": 21.31,
+      "sign": "Aries",
+      "deg_in_sign": 21.31
+    },
+    "Saturn": {
+      "longitude": 260.03,
+      "sign": "Sagittarius",
+      "deg_in_sign": 20.03
+    },
+    "Uranus": {
+      "longitude": 264.91,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.91
+    },
+    "Neptune": {
+      "longitude": 276.14,
+      "sign": "Capricorn",
+      "deg_in_sign": 6.14
+    },
+    "Pluto": {
+      "longitude": 220.4,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.4
+    },
+    "North Node": {
+      "longitude": 359.65,
+      "sign": "Pisces",
+      "deg_in_sign": 29.65
+    },
+    "South Node": {
+      "longitude": 179.65,
+      "sign": "Virgo",
+      "deg_in_sign": 29.65
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 359.65,
+      "sign": "Pisces",
+      "deg_in_sign": 29.65
+    },
+    "South Node": {
+      "longitude": 179.65,
+      "sign": "Virgo",
+      "deg_in_sign": 29.65
+    }
+  }
+}

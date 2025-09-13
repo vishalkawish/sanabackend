@@ -1,0 +1,106 @@
+{
+  "id": "Omirrq7P0dhNQDmOtBDp81jCTvs2",
+  "name": "Smriti",
+  "place": "gaya bihar",
+  "lat": 24.8,
+  "lon": 85.0167,
+  "birthdate": "2005-08-01",
+  "birthtime": "15:03",
+  "julian_day": 2453584.127083333,
+  "ascendant": {
+    "longitude": 347.9,
+    "sign": "Pisces",
+    "deg_in_sign": 17.9
+  },
+  "midheaven": {
+    "longitude": 261.81,
+    "sign": "Sagittarius",
+    "deg_in_sign": 21.81
+  },
+  "houses": [
+    347.9,
+    26.13,
+    56.51,
+    81.81,
+    106.05,
+    133.26,
+    167.9,
+    206.13,
+    236.51,
+    261.81,
+    286.05,
+    313.26
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 129.45,
+      "sign": "Leo",
+      "deg_in_sign": 9.45
+    },
+    "Moon": {
+      "longitude": 91.09,
+      "sign": "Cancer",
+      "deg_in_sign": 1.09
+    },
+    "Mercury": {
+      "longitude": 136.9,
+      "sign": "Leo",
+      "deg_in_sign": 16.9
+    },
+    "Venus": {
+      "longitude": 161.51,
+      "sign": "Virgo",
+      "deg_in_sign": 11.51
+    },
+    "Mars": {
+      "longitude": 32.54,
+      "sign": "Taurus",
+      "deg_in_sign": 2.54
+    },
+    "Jupiter": {
+      "longitude": 193.4,
+      "sign": "Libra",
+      "deg_in_sign": 13.4
+    },
+    "Saturn": {
+      "longitude": 122.08,
+      "sign": "Leo",
+      "deg_in_sign": 2.08
+    },
+    "Uranus": {
+      "longitude": 339.92,
+      "sign": "Pisces",
+      "deg_in_sign": 9.92
+    },
+    "Neptune": {
+      "longitude": 316.39,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.39
+    },
+    "Pluto": {
+      "longitude": 262.08,
+      "sign": "Sagittarius",
+      "deg_in_sign": 22.08
+    },
+    "North Node": {
+      "longitude": 17.06,
+      "sign": "Aries",
+      "deg_in_sign": 17.06
+    },
+    "South Node": {
+      "longitude": 197.06,
+      "sign": "Libra",
+      "deg_in_sign": 17.06
+    }
+  },
+  "north_node": {
+    "longitude": 17.06,
+    "sign": "Aries",
+    "deg_in_sign": 17.06
+  },
+  "south_node": {
+    "longitude": 197.06,
+    "sign": "Libra",
+    "deg_in_sign": 17.06
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "Jv0vJ2BXwcc1vXzjcvxS9nnPdT43",
+  "name": "Veerpal Kaur",
+  "place": "firozpur,punjab india",
+  "lat": 30.93,
+  "lon": 74.6,
+  "birthdate": "2005-04-03",
+  "birthtime": "18:00",
+  "julian_day": 2453464.25,
+  "ascendant": {
+    "longitude": 253.79,
+    "sign": "Sagittarius",
+    "deg_in_sign": 13.79
+  },
+  "midheaven": {
+    "longitude": 176.47,
+    "sign": "Virgo",
+    "deg_in_sign": 26.47
+  },
+  "houses": [
+    253.79,
+    285.84,
+    321.44,
+    356.47,
+    26.61,
+    51.62,
+    73.79,
+    105.84,
+    141.44,
+    176.47,
+    206.61,
+    231.62
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 14.07,
+      "sign": "Aries",
+      "deg_in_sign": 14.07
+    },
+    "Moon": {
+      "longitude": 306.85,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.85
+    },
+    "Mercury": {
+      "longitude": 4.96,
+      "sign": "Aries",
+      "deg_in_sign": 4.96
+    },
+    "Venus": {
+      "longitude": 14.99,
+      "sign": "Aries",
+      "deg_in_sign": 14.99
+    },
+    "Mars": {
+      "longitude": 310.13,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.13
+    },
+    "Jupiter": {
+      "longitude": 193.96,
+      "sign": "Libra",
+      "deg_in_sign": 13.96
+    },
+    "Saturn": {
+      "longitude": 110.54,
+      "sign": "Cancer",
+      "deg_in_sign": 20.54
+    },
+    "Uranus": {
+      "longitude": 338.81,
+      "sign": "Pisces",
+      "deg_in_sign": 8.81
+    },
+    "Neptune": {
+      "longitude": 317.03,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.03
+    },
+    "Pluto": {
+      "longitude": 264.5,
+      "sign": "Sagittarius",
+      "deg_in_sign": 24.5
+    },
+    "North Node": {
+      "longitude": 23.41,
+      "sign": "Aries",
+      "deg_in_sign": 23.41
+    },
+    "South Node": {
+      "longitude": 203.41,
+      "sign": "Libra",
+      "deg_in_sign": 23.41
+    }
+  },
+  "north_node": {
+    "longitude": 23.41,
+    "sign": "Aries",
+    "deg_in_sign": 23.41
+  },
+  "south_node": {
+    "longitude": 203.41,
+    "sign": "Libra",
+    "deg_in_sign": 23.41
+  }
+}

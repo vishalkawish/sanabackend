@@ -1,0 +1,106 @@
+{
+  "id": "ke9iB5WAZLfMx2dSmzTluJ6tQth2",
+  "name": "Jaiteg Dandass",
+  "place": "Sangrur Punjab India",
+  "lat": 30.25,
+  "lon": 75.46,
+  "birthdate": "1999-04-21",
+  "birthtime": "06:08",
+  "julian_day": 2451289.7555555557,
+  "ascendant": {
+    "longitude": 117.05,
+    "sign": "Cancer",
+    "deg_in_sign": 27.05
+  },
+  "midheaven": {
+    "longitude": 17.72,
+    "sign": "Aries",
+    "deg_in_sign": 17.72
+  },
+  "houses": [
+    117.05,
+    139.86,
+    166.3,
+    197.72,
+    232.47,
+    266.4,
+    297.05,
+    319.86,
+    346.3,
+    17.72,
+    52.47,
+    86.4
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 30.71,
+      "sign": "Taurus",
+      "deg_in_sign": 0.71
+    },
+    "Moon": {
+      "longitude": 101.08,
+      "sign": "Cancer",
+      "deg_in_sign": 11.08
+    },
+    "Mercury": {
+      "longitude": 3.72,
+      "sign": "Aries",
+      "deg_in_sign": 3.72
+    },
+    "Venus": {
+      "longitude": 70.16,
+      "sign": "Gemini",
+      "deg_in_sign": 10.16
+    },
+    "Mars": {
+      "longitude": 215.38,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.38
+    },
+    "Jupiter": {
+      "longitude": 15.89,
+      "sign": "Aries",
+      "deg_in_sign": 15.89
+    },
+    "Saturn": {
+      "longitude": 35.96,
+      "sign": "Taurus",
+      "deg_in_sign": 5.96
+    },
+    "Uranus": {
+      "longitude": 316.41,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.41
+    },
+    "Neptune": {
+      "longitude": 304.3,
+      "sign": "Aquarius",
+      "deg_in_sign": 4.3
+    },
+    "Pluto": {
+      "longitude": 250.11,
+      "sign": "Sagittarius",
+      "deg_in_sign": 10.11
+    },
+    "North Node": {
+      "longitude": 138.56,
+      "sign": "Leo",
+      "deg_in_sign": 18.56
+    },
+    "South Node": {
+      "longitude": 318.56,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.56
+    }
+  },
+  "north_node": {
+    "longitude": 138.56,
+    "sign": "Leo",
+    "deg_in_sign": 18.56
+  },
+  "south_node": {
+    "longitude": 318.56,
+    "sign": "Aquarius",
+    "deg_in_sign": 18.56
+  }
+}

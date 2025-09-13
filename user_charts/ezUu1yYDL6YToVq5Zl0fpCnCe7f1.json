@@ -1,0 +1,106 @@
+{
+  "id": "ezUu1yYDL6YToVq5Zl0fpCnCe7f1",
+  "name": "Simmi Tiwari",
+  "place": "dehradun",
+  "lat": 30.3165,
+  "lon": 78.0322,
+  "birthdate": "2010-05-13",
+  "birthtime": "13:00",
+  "julian_day": 2455330.0416666665,
+  "ascendant": {
+    "longitude": 226.53,
+    "sign": "Scorpio",
+    "deg_in_sign": 16.53
+  },
+  "midheaven": {
+    "longitude": 141.84,
+    "sign": "Leo",
+    "deg_in_sign": 21.84
+  },
+  "houses": [
+    226.53,
+    255.98,
+    288.1,
+    321.84,
+    354.19,
+    22.46,
+    46.53,
+    75.98,
+    108.1,
+    141.84,
+    174.19,
+    202.46
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 52.67,
+      "sign": "Taurus",
+      "deg_in_sign": 22.67
+    },
+    "Moon": {
+      "longitude": 46.45,
+      "sign": "Taurus",
+      "deg_in_sign": 16.45
+    },
+    "Mercury": {
+      "longitude": 32.76,
+      "sign": "Taurus",
+      "deg_in_sign": 2.76
+    },
+    "Venus": {
+      "longitude": 82.19,
+      "sign": "Gemini",
+      "deg_in_sign": 22.19
+    },
+    "Mars": {
+      "longitude": 137.9,
+      "sign": "Leo",
+      "deg_in_sign": 17.9
+    },
+    "Jupiter": {
+      "longitude": 356.19,
+      "sign": "Pisces",
+      "deg_in_sign": 26.19
+    },
+    "Saturn": {
+      "longitude": 178.08,
+      "sign": "Virgo",
+      "deg_in_sign": 28.08
+    },
+    "Uranus": {
+      "longitude": 359.5,
+      "sign": "Pisces",
+      "deg_in_sign": 29.5
+    },
+    "Neptune": {
+      "longitude": 328.61,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.61
+    },
+    "Pluto": {
+      "longitude": 275.09,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.09
+    },
+    "North Node": {
+      "longitude": 284.62,
+      "sign": "Capricorn",
+      "deg_in_sign": 14.62
+    },
+    "South Node": {
+      "longitude": 104.62,
+      "sign": "Cancer",
+      "deg_in_sign": 14.62
+    }
+  },
+  "north_node": {
+    "longitude": 284.62,
+    "sign": "Capricorn",
+    "deg_in_sign": 14.62
+  },
+  "south_node": {
+    "longitude": 104.62,
+    "sign": "Cancer",
+    "deg_in_sign": 14.62
+  }
+}

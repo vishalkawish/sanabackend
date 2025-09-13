@@ -1,0 +1,106 @@
+{
+  "id": "iJp2lAl3UzMQhewlcLhWxzDMiWo1",
+  "name": "Sunny Kawish",
+  "place": "moradabad",
+  "lat": 28.84,
+  "lon": 78.77,
+  "birthdate": "2005-01-15",
+  "birthtime": "09:11",
+  "julian_day": 2453385.882638889,
+  "ascendant": {
+    "longitude": 75.96,
+    "sign": "Gemini",
+    "deg_in_sign": 15.96
+  },
+  "midheaven": {
+    "longitude": 329.32,
+    "sign": "Aquarius",
+    "deg_in_sign": 29.32
+  },
+  "houses": [
+    75.96,
+    99.64,
+    122.9,
+    149.32,
+    181.71,
+    219.34,
+    255.96,
+    279.64,
+    302.9,
+    329.32,
+    1.71,
+    39.34
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 295.33,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.33
+    },
+    "Moon": {
+      "longitude": 2.13,
+      "sign": "Aries",
+      "deg_in_sign": 2.13
+    },
+    "Mercury": {
+      "longitude": 277.35,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.35
+    },
+    "Venus": {
+      "longitude": 277.11,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.11
+    },
+    "Mars": {
+      "longitude": 254.31,
+      "sign": "Sagittarius",
+      "deg_in_sign": 14.31
+    },
+    "Jupiter": {
+      "longitude": 198.37,
+      "sign": "Libra",
+      "deg_in_sign": 18.37
+    },
+    "Saturn": {
+      "longitude": 113.76,
+      "sign": "Cancer",
+      "deg_in_sign": 23.76
+    },
+    "Uranus": {
+      "longitude": 334.54,
+      "sign": "Pisces",
+      "deg_in_sign": 4.54
+    },
+    "Neptune": {
+      "longitude": 314.35,
+      "sign": "Aquarius",
+      "deg_in_sign": 14.35
+    },
+    "Pluto": {
+      "longitude": 263.23,
+      "sign": "Sagittarius",
+      "deg_in_sign": 23.23
+    },
+    "North Node": {
+      "longitude": 27.56,
+      "sign": "Aries",
+      "deg_in_sign": 27.56
+    },
+    "South Node": {
+      "longitude": 207.56,
+      "sign": "Libra",
+      "deg_in_sign": 27.56
+    }
+  },
+  "north_node": {
+    "longitude": 27.56,
+    "sign": "Aries",
+    "deg_in_sign": 27.56
+  },
+  "south_node": {
+    "longitude": 207.56,
+    "sign": "Libra",
+    "deg_in_sign": 27.56
+  }
+}

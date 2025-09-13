@@ -1,0 +1,106 @@
+{
+  "id": "NjXKsv0oZZdQIkrfYh4KWreVGz03",
+  "name": "Aarna",
+  "place": "Delhi",
+  "lat": 28.6139,
+  "lon": 77.209,
+  "birthdate": "2012-05-28",
+  "birthtime": "09:18",
+  "julian_day": 2456075.8875,
+  "ascendant": {
+    "longitude": 191.47,
+    "sign": "Libra",
+    "deg_in_sign": 11.47
+  },
+  "midheaven": {
+    "longitude": 101.99,
+    "sign": "Cancer",
+    "deg_in_sign": 11.99
+  },
+  "houses": [
+    191.47,
+    219.92,
+    250.4,
+    281.99,
+    313.71,
+    344.07,
+    11.47,
+    39.92,
+    70.4,
+    101.99,
+    133.71,
+    164.07
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 67.45,
+      "sign": "Gemini",
+      "deg_in_sign": 7.45
+    },
+    "Moon": {
+      "longitude": 151.77,
+      "sign": "Virgo",
+      "deg_in_sign": 1.77
+    },
+    "Mercury": {
+      "longitude": 68.59,
+      "sign": "Gemini",
+      "deg_in_sign": 8.59
+    },
+    "Venus": {
+      "longitude": 80.78,
+      "sign": "Gemini",
+      "deg_in_sign": 20.78
+    },
+    "Mars": {
+      "longitude": 163.32,
+      "sign": "Virgo",
+      "deg_in_sign": 13.32
+    },
+    "Jupiter": {
+      "longitude": 56.68,
+      "sign": "Taurus",
+      "deg_in_sign": 26.68
+    },
+    "Saturn": {
+      "longitude": 203.39,
+      "sign": "Libra",
+      "deg_in_sign": 23.39
+    },
+    "Uranus": {
+      "longitude": 7.71,
+      "sign": "Aries",
+      "deg_in_sign": 7.71
+    },
+    "Neptune": {
+      "longitude": 333.14,
+      "sign": "Pisces",
+      "deg_in_sign": 3.14
+    },
+    "Pluto": {
+      "longitude": 279.03,
+      "sign": "Capricorn",
+      "deg_in_sign": 9.03
+    },
+    "North Node": {
+      "longitude": 245.12,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.12
+    },
+    "South Node": {
+      "longitude": 65.12,
+      "sign": "Gemini",
+      "deg_in_sign": 5.12
+    }
+  },
+  "north_node": {
+    "longitude": 245.12,
+    "sign": "Sagittarius",
+    "deg_in_sign": 5.12
+  },
+  "south_node": {
+    "longitude": 65.12,
+    "sign": "Gemini",
+    "deg_in_sign": 5.12
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "xTrpOET38AXkKanM8cZLY5qXQZZ2",
+  "name": "Anp Pandey",
+  "place": "uttar pradesh",
+  "lat": 26.8467,
+  "lon": 80.9462,
+  "birthdate": "1990-03-15",
+  "birthtime": "04:20",
+  "julian_day": 2447965.6805555555,
+  "ascendant": {
+    "longitude": 61.47,
+    "sign": "Gemini",
+    "deg_in_sign": 1.47
+  },
+  "midheaven": {
+    "longitude": 316.0,
+    "sign": "Aquarius",
+    "deg_in_sign": 16.0
+  },
+  "houses": [
+    61.47,
+    87.16,
+    110.68,
+    136.0,
+    166.48,
+    203.28,
+    241.47,
+    267.16,
+    290.68,
+    316.0,
+    346.48,
+    23.28
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 354.32,
+      "sign": "Pisces",
+      "deg_in_sign": 24.32
+    },
+    "Moon": {
+      "longitude": 215.94,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.94
+    },
+    "Mercury": {
+      "longitude": 350.61,
+      "sign": "Pisces",
+      "deg_in_sign": 20.61
+    },
+    "Venus": {
+      "longitude": 308.86,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.86
+    },
+    "Mars": {
+      "longitude": 302.6,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.6
+    },
+    "Jupiter": {
+      "longitude": 91.36,
+      "sign": "Cancer",
+      "deg_in_sign": 1.36
+    },
+    "Saturn": {
+      "longitude": 293.31,
+      "sign": "Capricorn",
+      "deg_in_sign": 23.31
+    },
+    "Uranus": {
+      "longitude": 279.21,
+      "sign": "Capricorn",
+      "deg_in_sign": 9.21
+    },
+    "Neptune": {
+      "longitude": 284.29,
+      "sign": "Capricorn",
+      "deg_in_sign": 14.29
+    },
+    "Pluto": {
+      "longitude": 227.62,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.62
+    },
+    "North Node": {
+      "longitude": 314.59,
+      "sign": "Aquarius",
+      "deg_in_sign": 14.59
+    },
+    "South Node": {
+      "longitude": 134.59,
+      "sign": "Leo",
+      "deg_in_sign": 14.59
+    }
+  },
+  "north_node": {
+    "longitude": 314.59,
+    "sign": "Aquarius",
+    "deg_in_sign": 14.59
+  },
+  "south_node": {
+    "longitude": 134.59,
+    "sign": "Leo",
+    "deg_in_sign": 14.59
+  }
+}

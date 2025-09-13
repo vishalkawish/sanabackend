@@ -1,0 +1,106 @@
+{
+  "id": "NUukZjKb5VOHiKhdyAulCDonGJI2",
+  "name": "Keshu Soni",
+  "place": "aamer",
+  "lat": 0.0,
+  "lon": 0.0,
+  "birthdate": "2011-11-15",
+  "birthtime": "06:30",
+  "julian_day": 2455880.7708333335,
+  "ascendant": {
+    "longitude": 243.52,
+    "sign": "Sagittarius",
+    "deg_in_sign": 3.52
+  },
+  "midheaven": {
+    "longitude": 149.39,
+    "sign": "Leo",
+    "deg_in_sign": 29.39
+  },
+  "houses": [
+    243.52,
+    271.38,
+    299.35,
+    329.39,
+    1.64,
+    33.74,
+    63.52,
+    91.38,
+    119.35,
+    149.39,
+    181.64,
+    213.74
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 232.53,
+      "sign": "Scorpio",
+      "deg_in_sign": 22.53
+    },
+    "Moon": {
+      "longitude": 102.05,
+      "sign": "Cancer",
+      "deg_in_sign": 12.05
+    },
+    "Mercury": {
+      "longitude": 255.11,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.11
+    },
+    "Venus": {
+      "longitude": 256.03,
+      "sign": "Sagittarius",
+      "deg_in_sign": 16.03
+    },
+    "Mars": {
+      "longitude": 152.04,
+      "sign": "Virgo",
+      "deg_in_sign": 2.04
+    },
+    "Jupiter": {
+      "longitude": 33.04,
+      "sign": "Taurus",
+      "deg_in_sign": 3.04
+    },
+    "Saturn": {
+      "longitude": 204.04,
+      "sign": "Libra",
+      "deg_in_sign": 24.04
+    },
+    "Uranus": {
+      "longitude": 0.9,
+      "sign": "Aries",
+      "deg_in_sign": 0.9
+    },
+    "Neptune": {
+      "longitude": 328.15,
+      "sign": "Aquarius",
+      "deg_in_sign": 28.15
+    },
+    "Pluto": {
+      "longitude": 275.77,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.77
+    },
+    "North Node": {
+      "longitude": 255.45,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.45
+    },
+    "South Node": {
+      "longitude": 75.45,
+      "sign": "Gemini",
+      "deg_in_sign": 15.45
+    }
+  },
+  "north_node": {
+    "longitude": 255.45,
+    "sign": "Sagittarius",
+    "deg_in_sign": 15.45
+  },
+  "south_node": {
+    "longitude": 75.45,
+    "sign": "Gemini",
+    "deg_in_sign": 15.45
+  }
+}

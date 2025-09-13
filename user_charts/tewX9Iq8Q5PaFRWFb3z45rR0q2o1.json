@@ -1,0 +1,106 @@
+{
+  "id": "tewX9Iq8Q5PaFRWFb3z45rR0q2o1",
+  "name": "Thakur Nomi",
+  "place": "shimla himachal",
+  "lat": 31.1048,
+  "lon": 77.1734,
+  "birthdate": "1998-10-02",
+  "birthtime": "11:00",
+  "julian_day": 2451088.9583333335,
+  "ascendant": {
+    "longitude": 335.55,
+    "sign": "Pisces",
+    "deg_in_sign": 5.55
+  },
+  "midheaven": {
+    "longitude": 254.46,
+    "sign": "Sagittarius",
+    "deg_in_sign": 14.46
+  },
+  "houses": [
+    335.55,
+    17.22,
+    49.25,
+    74.46,
+    97.47,
+    122.6,
+    155.55,
+    197.22,
+    229.25,
+    254.46,
+    277.47,
+    302.6
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 189.05,
+      "sign": "Libra",
+      "deg_in_sign": 9.05
+    },
+    "Moon": {
+      "longitude": 322.72,
+      "sign": "Aquarius",
+      "deg_in_sign": 22.72
+    },
+    "Mercury": {
+      "longitude": 194.17,
+      "sign": "Libra",
+      "deg_in_sign": 14.17
+    },
+    "Venus": {
+      "longitude": 181.86,
+      "sign": "Libra",
+      "deg_in_sign": 1.86
+    },
+    "Mars": {
+      "longitude": 146.89,
+      "sign": "Leo",
+      "deg_in_sign": 26.89
+    },
+    "Jupiter": {
+      "longitude": 350.95,
+      "sign": "Pisces",
+      "deg_in_sign": 20.95
+    },
+    "Saturn": {
+      "longitude": 31.79,
+      "sign": "Taurus",
+      "deg_in_sign": 1.79
+    },
+    "Uranus": {
+      "longitude": 308.92,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.92
+    },
+    "Neptune": {
+      "longitude": 299.41,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.41
+    },
+    "Pluto": {
+      "longitude": 245.9,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.9
+    },
+    "North Node": {
+      "longitude": 149.19,
+      "sign": "Leo",
+      "deg_in_sign": 29.19
+    },
+    "South Node": {
+      "longitude": 329.19,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.19
+    }
+  },
+  "north_node": {
+    "longitude": 149.19,
+    "sign": "Leo",
+    "deg_in_sign": 29.19
+  },
+  "south_node": {
+    "longitude": 329.19,
+    "sign": "Aquarius",
+    "deg_in_sign": 29.19
+  }
+}

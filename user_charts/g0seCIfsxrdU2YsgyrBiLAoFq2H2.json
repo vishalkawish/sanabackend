@@ -1,0 +1,108 @@
+{
+  "id": "g0seCIfsxrdU2YsgyrBiLAoFq2H2",
+  "name": "Milind Dhabadkar",
+  "place": "bhusawal",
+  "lat": 21.0,
+  "lon": 75.28,
+  "birthdate": "2011-03-07",
+  "birthtime": "12:00",
+  "julian_day": 2455628.0,
+  "ascendant": {
+    "longitude": 152.3,
+    "sign": "Virgo",
+    "deg_in_sign": 2.3
+  },
+  "midheaven": {
+    "longitude": 62.23,
+    "sign": "Gemini",
+    "deg_in_sign": 2.23
+  },
+  "houses": [
+    152.3,
+    180.14,
+    210.74,
+    242.23,
+    273.06,
+    303.05,
+    332.3,
+    0.14,
+    30.74,
+    62.23,
+    93.06,
+    123.05
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 346.57,
+      "sign": "Pisces",
+      "deg_in_sign": 16.57
+    },
+    "Moon": {
+      "longitude": 15.21,
+      "sign": "Aries",
+      "deg_in_sign": 15.21
+    },
+    "Mercury": {
+      "longitude": 355.72,
+      "sign": "Pisces",
+      "deg_in_sign": 25.72
+    },
+    "Venus": {
+      "longitude": 306.38,
+      "sign": "Aquarius",
+      "deg_in_sign": 6.38
+    },
+    "Mars": {
+      "longitude": 339.83,
+      "sign": "Pisces",
+      "deg_in_sign": 9.83
+    },
+    "Jupiter": {
+      "longitude": 9.25,
+      "sign": "Aries",
+      "deg_in_sign": 9.25
+    },
+    "Saturn": {
+      "longitude": 195.88,
+      "sign": "Libra",
+      "deg_in_sign": 15.88
+    },
+    "Uranus": {
+      "longitude": 359.74,
+      "sign": "Pisces",
+      "deg_in_sign": 29.74
+    },
+    "Neptune": {
+      "longitude": 329.06,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.06
+    },
+    "Pluto": {
+      "longitude": 277.23,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.23
+    },
+    "North Node": {
+      "longitude": 268.84,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.84
+    },
+    "South Node": {
+      "longitude": 88.84,
+      "sign": "Gemini",
+      "deg_in_sign": 28.84
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 268.84,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.84
+    },
+    "South Node": {
+      "longitude": 88.84,
+      "sign": "Gemini",
+      "deg_in_sign": 28.84
+    }
+  }
+}

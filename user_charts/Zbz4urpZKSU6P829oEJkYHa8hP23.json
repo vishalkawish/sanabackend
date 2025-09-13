@@ -1,0 +1,106 @@
+{
+  "id": "Zbz4urpZKSU6P829oEJkYHa8hP23",
+  "name": "pri Jos",
+  "place": "Farrukhabad, Uttar Pradesh, India",
+  "lat": 27.5,
+  "lon": 79.6,
+  "birthdate": "1999-02-15",
+  "birthtime": "14:16",
+  "julian_day": 2451225.0944444444,
+  "ascendant": {
+    "longitude": 170.0,
+    "sign": "Virgo",
+    "deg_in_sign": 20.0
+  },
+  "midheaven": {
+    "longitude": 79.65,
+    "sign": "Gemini",
+    "deg_in_sign": 19.65
+  },
+  "houses": [
+    170.0,
+    197.7,
+    228.11,
+    259.65,
+    291.04,
+    321.47,
+    350.0,
+    17.7,
+    48.11,
+    79.65,
+    111.04,
+    141.47
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 326.44,
+      "sign": "Aquarius",
+      "deg_in_sign": 26.44
+    },
+    "Moon": {
+      "longitude": 317.86,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.86
+    },
+    "Mercury": {
+      "longitude": 335.41,
+      "sign": "Pisces",
+      "deg_in_sign": 5.41
+    },
+    "Venus": {
+      "longitude": 352.25,
+      "sign": "Pisces",
+      "deg_in_sign": 22.25
+    },
+    "Mars": {
+      "longitude": 217.17,
+      "sign": "Scorpio",
+      "deg_in_sign": 7.17
+    },
+    "Jupiter": {
+      "longitude": 0.56,
+      "sign": "Aries",
+      "deg_in_sign": 0.56
+    },
+    "Saturn": {
+      "longitude": 28.8,
+      "sign": "Aries",
+      "deg_in_sign": 28.8
+    },
+    "Uranus": {
+      "longitude": 313.54,
+      "sign": "Aquarius",
+      "deg_in_sign": 13.54
+    },
+    "Neptune": {
+      "longitude": 302.76,
+      "sign": "Aquarius",
+      "deg_in_sign": 2.76
+    },
+    "Pluto": {
+      "longitude": 250.3,
+      "sign": "Sagittarius",
+      "deg_in_sign": 10.3
+    },
+    "North Node": {
+      "longitude": 141.98,
+      "sign": "Leo",
+      "deg_in_sign": 21.98
+    },
+    "South Node": {
+      "longitude": 321.98,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.98
+    }
+  },
+  "north_node": {
+    "longitude": 141.98,
+    "sign": "Leo",
+    "deg_in_sign": 21.98
+  },
+  "south_node": {
+    "longitude": 321.98,
+    "sign": "Aquarius",
+    "deg_in_sign": 21.98
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "WAXVe7DLCMdSYdEYyMBnYyGf4CU2",
+  "name": "Shyam More",
+  "place": "latur",
+  "lat": 18.4,
+  "lon": 76.57,
+  "birthdate": "2000-07-06",
+  "birthtime": "07:10",
+  "julian_day": 2451731.798611111,
+  "ascendant": {
+    "longitude": 197.7,
+    "sign": "Libra",
+    "deg_in_sign": 17.7
+  },
+  "midheaven": {
+    "longitude": 107.2,
+    "sign": "Cancer",
+    "deg_in_sign": 17.2
+  },
+  "houses": [
+    197.7,
+    227.22,
+    257.08,
+    287.2,
+    317.96,
+    348.73,
+    17.7,
+    47.22,
+    77.08,
+    107.2,
+    137.96,
+    168.73
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 104.52,
+      "sign": "Cancer",
+      "deg_in_sign": 14.52
+    },
+    "Moon": {
+      "longitude": 166.48,
+      "sign": "Virgo",
+      "deg_in_sign": 16.48
+    },
+    "Mercury": {
+      "longitude": 104.81,
+      "sign": "Cancer",
+      "deg_in_sign": 14.81
+    },
+    "Venus": {
+      "longitude": 111.35,
+      "sign": "Cancer",
+      "deg_in_sign": 21.35
+    },
+    "Mars": {
+      "longitude": 103.16,
+      "sign": "Cancer",
+      "deg_in_sign": 13.16
+    },
+    "Jupiter": {
+      "longitude": 61.23,
+      "sign": "Gemini",
+      "deg_in_sign": 1.23
+    },
+    "Saturn": {
+      "longitude": 57.19,
+      "sign": "Taurus",
+      "deg_in_sign": 27.19
+    },
+    "Uranus": {
+      "longitude": 320.16,
+      "sign": "Aquarius",
+      "deg_in_sign": 20.16
+    },
+    "Neptune": {
+      "longitude": 305.75,
+      "sign": "Aquarius",
+      "deg_in_sign": 5.75
+    },
+    "Pluto": {
+      "longitude": 250.67,
+      "sign": "Sagittarius",
+      "deg_in_sign": 10.67
+    },
+    "North Node": {
+      "longitude": 115.15,
+      "sign": "Cancer",
+      "deg_in_sign": 25.15
+    },
+    "South Node": {
+      "longitude": 295.15,
+      "sign": "Capricorn",
+      "deg_in_sign": 25.15
+    }
+  },
+  "north_node": {
+    "longitude": 115.15,
+    "sign": "Cancer",
+    "deg_in_sign": 25.15
+  },
+  "south_node": {
+    "longitude": 295.15,
+    "sign": "Capricorn",
+    "deg_in_sign": 25.15
+  }
+}

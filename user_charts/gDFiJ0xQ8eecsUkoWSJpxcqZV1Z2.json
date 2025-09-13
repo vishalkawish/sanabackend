@@ -1,0 +1,108 @@
+{
+  "id": "gDFiJ0xQ8eecsUkoWSJpxcqZV1Z2",
+  "name": "Archna Goutam",
+  "place": "village",
+  "lat": 0.0,
+  "lon": 0.0,
+  "birthdate": "2012-08-12",
+  "birthtime": "12:48",
+  "julian_day": 2456152.033333333,
+  "ascendant": {
+    "longitude": 245.3,
+    "sign": "Sagittarius",
+    "deg_in_sign": 5.3
+  },
+  "midheaven": {
+    "longitude": 151.35,
+    "sign": "Virgo",
+    "deg_in_sign": 1.35
+  },
+  "houses": [
+    245.3,
+    273.1,
+    301.15,
+    331.35,
+    3.68,
+    35.68,
+    65.3,
+    93.1,
+    121.15,
+    151.35,
+    183.68,
+    215.68
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 140.21,
+      "sign": "Leo",
+      "deg_in_sign": 20.21
+    },
+    "Moon": {
+      "longitude": 80.11,
+      "sign": "Gemini",
+      "deg_in_sign": 20.11
+    },
+    "Mercury": {
+      "longitude": 122.48,
+      "sign": "Leo",
+      "deg_in_sign": 2.48
+    },
+    "Venus": {
+      "longitude": 94.54,
+      "sign": "Cancer",
+      "deg_in_sign": 4.54
+    },
+    "Mars": {
+      "longitude": 203.02,
+      "sign": "Libra",
+      "deg_in_sign": 23.02
+    },
+    "Jupiter": {
+      "longitude": 72.12,
+      "sign": "Gemini",
+      "deg_in_sign": 12.12
+    },
+    "Saturn": {
+      "longitude": 204.6,
+      "sign": "Libra",
+      "deg_in_sign": 24.6
+    },
+    "Uranus": {
+      "longitude": 8.19,
+      "sign": "Aries",
+      "deg_in_sign": 8.19
+    },
+    "Neptune": {
+      "longitude": 332.07,
+      "sign": "Pisces",
+      "deg_in_sign": 2.07
+    },
+    "Pluto": {
+      "longitude": 277.28,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.28
+    },
+    "North Node": {
+      "longitude": 241.09,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.09
+    },
+    "South Node": {
+      "longitude": 61.09,
+      "sign": "Gemini",
+      "deg_in_sign": 1.09
+    }
+  },
+  "nodes": {
+    "North Node": {
+      "longitude": 241.09,
+      "sign": "Sagittarius",
+      "deg_in_sign": 1.09
+    },
+    "South Node": {
+      "longitude": 61.09,
+      "sign": "Gemini",
+      "deg_in_sign": 1.09
+    }
+  }
+}

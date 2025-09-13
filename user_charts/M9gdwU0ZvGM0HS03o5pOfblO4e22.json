@@ -1,0 +1,106 @@
+{
+  "id": "M9gdwU0ZvGM0HS03o5pOfblO4e22",
+  "name": "Prasanna M",
+  "place": "Bijapur",
+  "lat": 16.83,
+  "lon": 75.72,
+  "birthdate": "1998-11-02",
+  "birthtime": "08:15",
+  "julian_day": 2451119.84375,
+  "ascendant": {
+    "longitude": 324.45,
+    "sign": "Aquarius",
+    "deg_in_sign": 24.45
+  },
+  "midheaven": {
+    "longitude": 242.92,
+    "sign": "Sagittarius",
+    "deg_in_sign": 2.92
+  },
+  "houses": [
+    324.45,
+    1.04,
+    34.47,
+    62.92,
+    88.5,
+    114.46,
+    144.45,
+    181.04,
+    214.47,
+    242.92,
+    268.5,
+    294.46
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 219.7,
+      "sign": "Scorpio",
+      "deg_in_sign": 9.7
+    },
+    "Moon": {
+      "longitude": 12.92,
+      "sign": "Aries",
+      "deg_in_sign": 12.92
+    },
+    "Mercury": {
+      "longitude": 240.89,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.89
+    },
+    "Venus": {
+      "longitude": 220.51,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.51
+    },
+    "Mars": {
+      "longitude": 165.54,
+      "sign": "Virgo",
+      "deg_in_sign": 15.54
+    },
+    "Jupiter": {
+      "longitude": 348.38,
+      "sign": "Pisces",
+      "deg_in_sign": 18.38
+    },
+    "Saturn": {
+      "longitude": 29.4,
+      "sign": "Aries",
+      "deg_in_sign": 29.4
+    },
+    "Uranus": {
+      "longitude": 308.9,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.9
+    },
+    "Neptune": {
+      "longitude": 299.52,
+      "sign": "Capricorn",
+      "deg_in_sign": 29.52
+    },
+    "Pluto": {
+      "longitude": 246.85,
+      "sign": "Sagittarius",
+      "deg_in_sign": 6.85
+    },
+    "North Node": {
+      "longitude": 147.56,
+      "sign": "Leo",
+      "deg_in_sign": 27.56
+    },
+    "South Node": {
+      "longitude": 327.56,
+      "sign": "Aquarius",
+      "deg_in_sign": 27.56
+    }
+  },
+  "north_node": {
+    "longitude": 147.56,
+    "sign": "Leo",
+    "deg_in_sign": 27.56
+  },
+  "south_node": {
+    "longitude": 327.56,
+    "sign": "Aquarius",
+    "deg_in_sign": 27.56
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "SiywKMdISpTTp9c23gWE0MpcM193",
+  "name": "Vimla",
+  "place": "moradabad",
+  "lat": 28.84,
+  "lon": 78.77,
+  "birthdate": "1998-06-01",
+  "birthtime": "09:09",
+  "julian_day": 2450965.88125,
+  "ascendant": {
+    "longitude": 193.77,
+    "sign": "Libra",
+    "deg_in_sign": 13.77
+  },
+  "midheaven": {
+    "longitude": 104.44,
+    "sign": "Cancer",
+    "deg_in_sign": 14.44
+  },
+  "houses": [
+    193.77,
+    222.25,
+    252.76,
+    284.44,
+    316.24,
+    346.55,
+    13.77,
+    42.25,
+    72.76,
+    104.44,
+    136.24,
+    166.55
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 70.69,
+      "sign": "Gemini",
+      "deg_in_sign": 10.69
+    },
+    "Moon": {
+      "longitude": 152.96,
+      "sign": "Virgo",
+      "deg_in_sign": 2.96
+    },
+    "Mercury": {
+      "longitude": 60.09,
+      "sign": "Gemini",
+      "deg_in_sign": 0.09
+    },
+    "Venus": {
+      "longitude": 32.79,
+      "sign": "Taurus",
+      "deg_in_sign": 2.79
+    },
+    "Mars": {
+      "longitude": 65.83,
+      "sign": "Gemini",
+      "deg_in_sign": 5.83
+    },
+    "Jupiter": {
+      "longitude": 354.74,
+      "sign": "Pisces",
+      "deg_in_sign": 24.74
+    },
+    "Saturn": {
+      "longitude": 29.2,
+      "sign": "Aries",
+      "deg_in_sign": 29.2
+    },
+    "Uranus": {
+      "longitude": 312.65,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.65
+    },
+    "Neptune": {
+      "longitude": 301.96,
+      "sign": "Aquarius",
+      "deg_in_sign": 1.96
+    },
+    "Pluto": {
+      "longitude": 246.58,
+      "sign": "Sagittarius",
+      "deg_in_sign": 6.58
+    },
+    "North Node": {
+      "longitude": 155.71,
+      "sign": "Virgo",
+      "deg_in_sign": 5.71
+    },
+    "South Node": {
+      "longitude": 335.71,
+      "sign": "Pisces",
+      "deg_in_sign": 5.71
+    }
+  },
+  "north_node": {
+    "longitude": 155.71,
+    "sign": "Virgo",
+    "deg_in_sign": 5.71
+  },
+  "south_node": {
+    "longitude": 335.71,
+    "sign": "Pisces",
+    "deg_in_sign": 5.71
+  }
+}

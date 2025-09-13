@@ -23,6 +23,7 @@ from compatibility import calculate_compatibility_score
 from fetchuser import router as user_router
 from sana_chat import router as sana_router
 from soul_of_anlasana_2_1 import router as soul_router
+from demo_matches import router as random_match_router
 # ---------------------------
 # Environment variables
 # ---------------------------
@@ -225,6 +226,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
 app.include_router(router)
 app.include_router(user_router)
 app.include_router(sana_router)
+app.include_router(random_match_router)
 app.include_router(soul_router, prefix="/api")
 
 print("Registered routes:")

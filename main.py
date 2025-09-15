@@ -26,6 +26,7 @@ from soul_of_anlasana_2_1 import router as soul_router
 from demo_matches import router as random_match_router
 from premium import premium_activate
 from routes import profile_image
+from routes import save_phone_number
 
 # ---------------------------
 # Environment variables
@@ -231,6 +232,7 @@ app.include_router(user_router)
 app.include_router(sana_router)
 app.include_router(profile_image.router)
 app.include_router(random_match_router)
+app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router, prefix="/api")
 

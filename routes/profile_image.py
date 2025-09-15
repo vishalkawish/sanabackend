@@ -20,17 +20,14 @@ def ensure_bucket_exists():
         if BUCKET not in bucket_names:
             supabase.storage.create_bucket(
                 BUCKET,
-                {
-                    "public": True,
-                    "fileSizeLimit": "10MB",  # increased
-                    "allowedMimeTypes": ["image/*"],  # allow all image types
-                },
+                {"public": True}
             )
             print(f"✅ Created bucket: {BUCKET}")
         else:
             print(f"✅ Bucket exists: {BUCKET}")
     except Exception as e:
         print("⚠ Bucket check failed:", e)
+
 
 
 @router.post("/uploadProfileImage")

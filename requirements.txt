@@ -7,3 +7,4 @@ openai>=1.0.0
 requests==2.31.0
 flatlib==0.2.3
 supabase==2.18.1
+python-multipart

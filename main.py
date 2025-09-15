@@ -25,6 +25,8 @@ from sana_chat import router as sana_router
 from soul_of_anlasana_2_1 import router as soul_router
 from demo_matches import router as random_match_router
 from premium import premium_activate
+from routes import profile_image
+
 # ---------------------------
 # Environment variables
 # ---------------------------
@@ -227,6 +229,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
 app.include_router(router)
 app.include_router(user_router)
 app.include_router(sana_router)
+app.include_router(profile_image.router)
 app.include_router(random_match_router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router, prefix="/api")

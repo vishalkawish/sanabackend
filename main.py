@@ -244,8 +244,8 @@ Chart data: {json.dumps(astro_data, indent=2)}
         call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
     )
 
-    # --- 7. Return single response ---
-   return natal[0]["mirror"]
+# --- 7. Return single response ---
+return natal[0]["mirror"]
 
 
 

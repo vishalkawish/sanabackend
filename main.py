@@ -245,7 +245,8 @@ Chart data: {json.dumps(astro_data, indent=2)}
     )
 
     # --- 7. Return single response ---
-    return {"natal": natal}
+   return natal[0]["mirror"]
+
 
 
 

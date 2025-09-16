@@ -155,40 +155,99 @@ router = APIRouter()
 # ---------------------------
 # Full Chart Endpoint
 # ---------------------------
+from fastapi import HTTPException
+
+
+
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
     chart_file = USER_CHART_DIR / f"{data.id}.json"
 
-    if not chart_file.exists():
-        user = fetch_user_from_supabase_by_id(data.id)
-        if user:
-            generate_chart_for_user(user["id"])
+    # --- 1. Fetch user from Supabase ---
+    try:
+        resp = supabase.table("users").select("*").eq("id", data.id).single().execute()
+        user = resp.data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Supabase fetch error: {e}")
+
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User {data.id} not found")
+
+    # --- 2. Ensure birth info exists ---
+    birth = user.get("birth")
+    if not birth:
+        bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
+        if bd and bt and bp:
+            try:
+                from datetime import datetime
+                dt = datetime.fromisoformat(bd)
+                hour, minute, *_ = map(int, bt.split(":"))
+                birth = {
+                    "year": dt.year,
+                    "month": dt.month,
+                    "day": dt.day,
+                    "hour": hour,
+                    "minute": minute,
+                    "place": bp
+                }
+                supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
+                print(f"✅ Migrated birth data for {user['name']}")
+            except Exception as e:
+                print(f"⚠️ Birth migration failed for {user.get('name')}: {e}")
         else:
-            print(f"⚠️ User ID {data.id} not found in Supabase. Using provided data.")
+            # fallback birth: use default or approximate
+            birth = {
+                "year": 2000,
+                "month": 1,
+                "day": 1,
+                "hour": 12,
+                "minute": 0,
+                "place": "Unknown"
+            }
+            print(f"⚠️ Using fallback birth data for {user['name']}")
 
-    astro_data = await calculate_chart(data)
-
+    # --- 3. Generate chart if missing ---
     if not chart_file.exists():
+        try:
+            await generate_chart_for_user(user["id"], birth=birth)
+        except Exception as e:
+            print(f"⚠️ Chart generation failed, using fallback: {e}")
+            # fallback to calculate_chart if generate_chart_for_user fails
+            astro_data = await calculate_chart(NatalData(**birth, id=data.id, name=data.name))
+            with open(chart_file, "w") as f:
+                json.dump(astro_data, f, indent=2)
+    # --- 4. Load chart ---
+    if chart_file.exists():
+        with open(chart_file, "r") as f:
+            astro_data = json.load(f)
+    else:
+        # fallback again if file missing
+        astro_data = await calculate_chart(NatalData(**birth, id=data.id, name=data.name))
         with open(chart_file, "w") as f:
             json.dump(astro_data, f, indent=2)
 
-    # OpenAI prompts for only two sections
+    # --- 5. Build Sana prompt ---
     natal_prompt = f"""
 You are Sana, goddess of astrology.
-Generate 5 daily insights for {data.name}...
-also add one task for self-discovery and higher dimension.
-Tell user about their personality, patterns, secret and so on using this chart.
-Avoid astrology jargon. Only one line. Address naturally, human like and everyday words..User must feel you are real.
+Generate 5 daily insights for {data.name}.
+Also add one task for self-discovery and higher dimension.
+Tell user about their personality, patterns, secrets and so on using this chart.
+Avoid astrology jargon. Only one line each. Address naturally, human-like and in everyday words. User must feel you are real.
 Each reflection must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
+
 Chart data: {json.dumps(astro_data, indent=2)}
 """
 
-    natal = await asyncio.gather(
+    # --- 6. Call OpenAI ---
+    [natal] = await asyncio.gather(
         call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
     )
 
-    return {"natal": natal}  # only two returned
+    # --- 7. Return single response ---
+    return {"natal": natal}
+
+
 
 # ---------------------------
 # Personal insights

@@ -173,15 +173,15 @@ async def get_full_chart(data: NatalData):
     if not user:
         raise HTTPException(status_code=404, detail=f"User {data.id} not found")
 
-    # --- 2. Ensure birth info exists ---
-    birth = user.get("birth")
-    if not birth:
+    # --- 2. Migrate birth if missing ---
+    if not user.get("birth"):
         bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
         if bd and bt and bp:
             try:
                 from datetime import datetime
                 dt = datetime.fromisoformat(bd)
                 hour, minute, *_ = map(int, bt.split(":"))
+
                 birth = {
                     "year": dt.year,
                     "month": dt.month,
@@ -190,39 +190,28 @@ async def get_full_chart(data: NatalData):
                     "minute": minute,
                     "place": bp
                 }
+
                 supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
+                user["birth"] = birth
                 print(f"✅ Migrated birth data for {user['name']}")
             except Exception as e:
                 print(f"⚠️ Birth migration failed for {user.get('name')}: {e}")
         else:
-            # fallback birth: use default or approximate
-            birth = {
-                "year": 2000,
-                "month": 1,
-                "day": 1,
-                "hour": 12,
-                "minute": 0,
-                "place": "Unknown"
-            }
-            print(f"⚠️ Using fallback birth data for {user['name']}")
+            print(f"⚠️ Insufficient birth info for {user['name']}")
 
     # --- 3. Generate chart if missing ---
     if not chart_file.exists():
         try:
-            await generate_chart_for_user(user["id"], birth=birth)
+            generate_chart_for_user(user["id"])
         except Exception as e:
-            print(f"⚠️ Chart generation failed, using fallback: {e}")
-            # fallback to calculate_chart if generate_chart_for_user fails
-            astro_data = await calculate_chart(NatalData(**birth, id=data.id, name=data.name))
-            with open(chart_file, "w") as f:
-                json.dump(astro_data, f, indent=2)
-    # --- 4. Load chart ---
+            raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
+
+    # --- 4. Load existing or fallback ---
     if chart_file.exists():
         with open(chart_file, "r") as f:
             astro_data = json.load(f)
     else:
-        # fallback again if file missing
-        astro_data = await calculate_chart(NatalData(**birth, id=data.id, name=data.name))
+        astro_data = await calculate_chart(data)
         with open(chart_file, "w") as f:
             json.dump(astro_data, f, indent=2)
 
@@ -244,8 +233,9 @@ Chart data: {json.dumps(astro_data, indent=2)}
         call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
     )
 
-# --- 7. Return single response ---
-return natal[0]["mirror"]
+    # --- 7. Return only the mirror array for Unity ---
+    return natal["mirror"]
+
 
 
 

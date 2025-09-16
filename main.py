@@ -234,7 +234,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
     )
 
     # --- 7. Return only the mirror array for Unity ---
-    return natal["mirror"]
+    return {"mirror": natal["mirror"]}
 
 
 

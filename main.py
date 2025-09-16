@@ -159,6 +159,14 @@ from fastapi import HTTPException
 
 
 
+from fastapi import APIRouter, HTTPException
+from pathlib import Path
+import json, asyncio
+from datetime import datetime
+
+router = APIRouter()
+USER_CHART_DIR = Path("user_charts")  # make sure this folder exists
+
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
     chart_file = USER_CHART_DIR / f"{data.id}.json"
@@ -178,10 +186,8 @@ async def get_full_chart(data: NatalData):
         bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
         if bd and bt and bp:
             try:
-                from datetime import datetime
                 dt = datetime.fromisoformat(bd)
                 hour, minute, *_ = map(int, bt.split(":"))
-
                 birth = {
                     "year": dt.year,
                     "month": dt.month,
@@ -190,7 +196,6 @@ async def get_full_chart(data: NatalData):
                     "minute": minute,
                     "place": bp
                 }
-
                 supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
                 user["birth"] = birth
                 print(f"✅ Migrated birth data for {user['name']}")
@@ -202,7 +207,8 @@ async def get_full_chart(data: NatalData):
     # --- 3. Generate chart if missing ---
     if not chart_file.exists():
         try:
-            generate_chart_for_user(user["id"])
+            # Pass user object, not dict
+            await generate_chart_for_user(user)
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
 
@@ -211,14 +217,14 @@ async def get_full_chart(data: NatalData):
         with open(chart_file, "r") as f:
             astro_data = json.load(f)
     else:
-        astro_data = await calculate_chart(data)
+        astro_data = await calculate_chart(user)
         with open(chart_file, "w") as f:
             json.dump(astro_data, f, indent=2)
 
     # --- 5. Build Sana prompt ---
     natal_prompt = f"""
 You are Sana, goddess of astrology.
-Generate 5 daily insights for {data.name}.
+Generate 5 daily insights for {user['name']}.
 Also add one task for self-discovery and higher dimension.
 Tell user about their personality, patterns, secrets and so on using this chart.
 Avoid astrology jargon. Only one line each. Address naturally, human-like and in everyday words. User must feel you are real.
@@ -229,12 +235,20 @@ Chart data: {json.dumps(astro_data, indent=2)}
 """
 
     # --- 6. Call OpenAI ---
-    [natal] = await asyncio.gather(
+    [natal_response] = await asyncio.gather(
         call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
     )
 
-    # --- 7. Return only the mirror array for Unity ---
-    return {"mirror": natal["mirror"]}
+    # --- 7. Wrap into Unity-compatible object ---
+    sana_mirror_json = {
+        "natal": [
+            {"mirror": natal_response["mirror"]}
+        ]
+    }
+
+    return sana_mirror_json
+
+
 
 
 

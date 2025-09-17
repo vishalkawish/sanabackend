@@ -270,7 +270,7 @@ async def get_personal_insights(data: NatalData):
     if not chart_file.exists():
         user = fetch_user_from_supabase_by_id(data.id)
         if user:
-            generate_chart_for_user(user["id"])
+           await generate_chart_for_user(user)
         else:
             print(f"⚠️ User ID {data.id} not found. Using provided data.")
 

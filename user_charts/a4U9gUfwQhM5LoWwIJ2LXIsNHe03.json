@@ -1,71 +1,71 @@
 {
   "id": "a4U9gUfwQhM5LoWwIJ2LXIsNHe03",
   "name": "Vinay Kawish",
-  "place": "kolkata",
+  "place": "Kolkata",
   "lat": 22.5726,
   "lon": 88.3639,
   "birthdate": "2008-11-17",
-  "birthtime": "11:56",
-  "julian_day": 2454787.9972222224,
+  "birthtime": "10:45",
+  "julian_day": 2454787.9479166665,
   "ascendant": {
-    "longitude": 65.48,
-    "sign": "Gemini",
-    "deg_in_sign": 5.48
+    "longitude": 46.09,
+    "sign": "Taurus",
+    "deg_in_sign": 16.09
   },
   "midheaven": {
-    "longitude": 321.91,
+    "longitude": 304.15,
     "sign": "Aquarius",
-    "deg_in_sign": 21.91
+    "deg_in_sign": 4.15
   },
   "houses": [
-    65.48,
-    91.1,
-    115.39,
-    141.91,
-    173.37,
-    209.53,
-    245.48,
-    271.1,
-    295.39,
-    321.91,
-    353.37,
-    29.53
+    46.09,
+    74.42,
+    99.09,
+    124.15,
+    153.09,
+    188.02,
+    226.09,
+    254.42,
+    279.09,
+    304.15,
+    333.09,
+    8.02
   ],
   "planets": {
     "Sun": {
-      "longitude": 235.51,
+      "longitude": 235.46,
       "sign": "Scorpio",
-      "deg_in_sign": 25.51
+      "deg_in_sign": 25.46
     },
     "Moon": {
-      "longitude": 114.52,
+      "longitude": 113.81,
       "sign": "Cancer",
-      "deg_in_sign": 24.52
+      "deg_in_sign": 23.81
     },
     "Mercury": {
-      "longitude": 230.77,
+      "longitude": 230.69,
       "sign": "Scorpio",
-      "deg_in_sign": 20.77
+      "deg_in_sign": 20.69
     },
     "Venus": {
-      "longitude": 275.8,
+      "longitude": 275.75,
       "sign": "Capricorn",
-      "deg_in_sign": 5.8
+      "deg_in_sign": 5.75
     },
     "Mars": {
-      "longitude": 240.82,
+      "longitude": 240.78,
       "sign": "Sagittarius",
-      "deg_in_sign": 0.82
+      "deg_in_sign": 0.78
     },
     "Jupiter": {
-      "longitude": 289.58,
+      "longitude": 289.57,
       "sign": "Capricorn",
-      "deg_in_sign": 19.58
+      "deg_in_sign": 19.57
     },
     "Saturn": {
-      "longitude": 170.04,
+      "longitude": 170.03,
       "sign": "Virgo",
-      "deg_in_sign": 20.04
+      "deg_in_sign": 20.03
     },
     "Uranus": {
       "longitude": 348.78,

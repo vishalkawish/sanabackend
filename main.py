@@ -202,24 +202,30 @@ async def get_full_chart(data: NatalData):
             except Exception as e:
                 print(f"⚠️ Birth migration failed for {user.get('name')}: {e}")
         else:
-            print(f"⚠️ Insufficient birth info for {user['name']}")
+            raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
 
-    # --- 3. Generate chart if missing ---
+    # --- 3. Prepare NatalData object ---
+    birth = user["birth"]
+    natal_data = NatalData(
+        id=user["id"],
+        name=user.get("name", "Unknown"),
+        year=birth["year"],
+        month=birth["month"],
+        day=birth["day"],
+        hour=birth.get("hour", 0),
+        minute=birth.get("minute", 0),
+        place=birth["place"]
+    )
+
+    # --- 4. Generate chart if missing ---
     if not chart_file.exists():
         try:
-            # Pass user object, not dict
-            await generate_chart_for_user(user)
+            astro_data = await calculate_chart(natal_data)
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
-
-    # --- 4. Load existing or fallback ---
-    if chart_file.exists():
+    else:
         with open(chart_file, "r") as f:
             astro_data = json.load(f)
-    else:
-        astro_data = await calculate_chart(user)
-        with open(chart_file, "w") as f:
-            json.dump(astro_data, f, indent=2)
 
     # --- 5. Build Sana prompt ---
     natal_prompt = f"""
@@ -247,6 +253,7 @@ Chart data: {json.dumps(astro_data, indent=2)}
     }
 
     return sana_mirror_json
+
 
 
 

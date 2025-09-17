@@ -1,0 +1,106 @@
+{
+  "id": "a4U9gUfwQhM5LoWwIJ2LXIsNHe03",
+  "name": "Vinay Kawish",
+  "place": "kolkata",
+  "lat": 22.5726,
+  "lon": 88.3639,
+  "birthdate": "2008-11-17",
+  "birthtime": "11:56",
+  "julian_day": 2454787.9972222224,
+  "ascendant": {
+    "longitude": 65.48,
+    "sign": "Gemini",
+    "deg_in_sign": 5.48
+  },
+  "midheaven": {
+    "longitude": 321.91,
+    "sign": "Aquarius",
+    "deg_in_sign": 21.91
+  },
+  "houses": [
+    65.48,
+    91.1,
+    115.39,
+    141.91,
+    173.37,
+    209.53,
+    245.48,
+    271.1,
+    295.39,
+    321.91,
+    353.37,
+    29.53
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 235.51,
+      "sign": "Scorpio",
+      "deg_in_sign": 25.51
+    },
+    "Moon": {
+      "longitude": 114.52,
+      "sign": "Cancer",
+      "deg_in_sign": 24.52
+    },
+    "Mercury": {
+      "longitude": 230.77,
+      "sign": "Scorpio",
+      "deg_in_sign": 20.77
+    },
+    "Venus": {
+      "longitude": 275.8,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.8
+    },
+    "Mars": {
+      "longitude": 240.82,
+      "sign": "Sagittarius",
+      "deg_in_sign": 0.82
+    },
+    "Jupiter": {
+      "longitude": 289.58,
+      "sign": "Capricorn",
+      "deg_in_sign": 19.58
+    },
+    "Saturn": {
+      "longitude": 170.04,
+      "sign": "Virgo",
+      "deg_in_sign": 20.04
+    },
+    "Uranus": {
+      "longitude": 348.78,
+      "sign": "Pisces",
+      "deg_in_sign": 18.78
+    },
+    "Neptune": {
+      "longitude": 321.53,
+      "sign": "Aquarius",
+      "deg_in_sign": 21.53
+    },
+    "Pluto": {
+      "longitude": 269.69,
+      "sign": "Sagittarius",
+      "deg_in_sign": 29.69
+    },
+    "North Node": {
+      "longitude": 313.32,
+      "sign": "Aquarius",
+      "deg_in_sign": 13.32
+    },
+    "South Node": {
+      "longitude": 133.32,
+      "sign": "Leo",
+      "deg_in_sign": 13.32
+    }
+  },
+  "north_node": {
+    "longitude": 313.32,
+    "sign": "Aquarius",
+    "deg_in_sign": 13.32
+  },
+  "south_node": {
+    "longitude": 133.32,
+    "sign": "Leo",
+    "deg_in_sign": 13.32
+  }
+}

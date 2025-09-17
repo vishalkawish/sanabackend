@@ -1,4 +1,4 @@
-import json, os, requests, asyncio
+import json, os, requests
 from charts import calculate_chart, NatalData
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
@@ -27,11 +27,11 @@ def save_chart_to_supabase(user_chart: dict, user_id: str):
     else:
         print(f"💾 Chart saved for {user_id}")
 
-def generate_chart_for_user(user_id: str):
+# ✅ FIXED: Now async
+async def generate_chart_for_user(user: dict):
     """Generate chart for a user if missing"""
-    user = fetch_user_from_supabase(user_id)
     if not user:
-        print(f"⚠️ User {user_id} not found.")
+        print("⚠️ User not found.")
         return None
 
     # Skip if chart already exists
@@ -47,9 +47,8 @@ def generate_chart_for_user(user_id: str):
     year, month, day = map(int, user["birthdate"].split("-"))
     hour, minute, *_ = map(int, user["birthtime"].split(":"))
 
-    # Use 'name' instead of 'username'
     natal_data = NatalData(
-        id=user_id,
+        id=user["id"],
         name=user.get("name", "Unknown"),
         year=year,
         month=month,
@@ -59,10 +58,10 @@ def generate_chart_for_user(user_id: str):
         place=user["birthplace"]
     )
 
-    # Generate chart asynchronously
-    chart = asyncio.run(calculate_chart(natal_data))
+    # ✅ Await calculate_chart directly (no asyncio.run)
+    chart = await calculate_chart(natal_data)
     print(f"✅ Chart generated for {user.get('name')}")
 
     # Save chart back to Supabase
-    save_chart_to_supabase(chart, user_id)
+    save_chart_to_supabase(chart, user["id"])
     return chart

@@ -22,6 +22,19 @@ def fetch_all_users():
     return res.data or []
 
 # -------------------------
+# Safe JSON/dict parser
+# -------------------------
+def parse_chart(chart):
+    if isinstance(chart, str):
+        try:
+            return json.loads(chart)
+        except json.JSONDecodeError:
+            return {}
+    elif isinstance(chart, dict):
+        return chart
+    return {}
+
+# -------------------------
 # Compatibility calculation
 # -------------------------
 def calculate_compatibility_score(user_chart, crush_chart):
@@ -77,7 +90,7 @@ def random_match(user_id: str, count: int = 3):
         return {"user_id": user_id, "matches": []}
 
     user_gender = (user.get("gender") or "").strip().lower()
-    target_chart = json.loads(user.get("chart") or "{}")
+    target_chart = parse_chart(user.get("chart"))
     all_users = fetch_all_users()
 
     # Filter opposite gender only and exclude self
@@ -99,7 +112,7 @@ def random_match(user_id: str, count: int = 3):
 
     result = []
     for match in matches:
-        crush_chart = json.loads(match.get("chart") or "{}")
+        crush_chart = parse_chart(match.get("chart"))
         match_percent = calculate_compatibility_score(target_chart, crush_chart)
         result.append({
             "id": match.get("id"),

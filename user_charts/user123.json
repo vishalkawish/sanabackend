@@ -1,0 +1,106 @@
+{
+  "id": "user123",
+  "name": "Ayush",
+  "place": "Unnao",
+  "lat": 26.83,
+  "lon": 80.5,
+  "birthdate": "2001-07-15",
+  "birthtime": "06:00",
+  "julian_day": 2452105.75,
+  "ascendant": {
+    "longitude": 192.19,
+    "sign": "Libra",
+    "deg_in_sign": 12.19
+  },
+  "midheaven": {
+    "longitude": 102.57,
+    "sign": "Cancer",
+    "deg_in_sign": 12.57
+  },
+  "houses": [
+    192.19,
+    220.86,
+    251.26,
+    282.57,
+    314.08,
+    344.5,
+    12.19,
+    40.86,
+    71.26,
+    102.57,
+    134.08,
+    164.5
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 112.82,
+      "sign": "Cancer",
+      "deg_in_sign": 22.82
+    },
+    "Moon": {
+      "longitude": 39.98,
+      "sign": "Taurus",
+      "deg_in_sign": 9.98
+    },
+    "Mercury": {
+      "longitude": 92.89,
+      "sign": "Cancer",
+      "deg_in_sign": 2.89
+    },
+    "Venus": {
+      "longitude": 70.49,
+      "sign": "Gemini",
+      "deg_in_sign": 10.49
+    },
+    "Mars": {
+      "longitude": 255.26,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.26
+    },
+    "Jupiter": {
+      "longitude": 90.5,
+      "sign": "Cancer",
+      "deg_in_sign": 0.5
+    },
+    "Saturn": {
+      "longitude": 70.55,
+      "sign": "Gemini",
+      "deg_in_sign": 10.55
+    },
+    "Uranus": {
+      "longitude": 324.03,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.03
+    },
+    "Neptune": {
+      "longitude": 307.79,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.79
+    },
+    "Pluto": {
+      "longitude": 252.93,
+      "sign": "Sagittarius",
+      "deg_in_sign": 12.93
+    },
+    "North Node": {
+      "longitude": 95.35,
+      "sign": "Cancer",
+      "deg_in_sign": 5.35
+    },
+    "South Node": {
+      "longitude": 275.35,
+      "sign": "Capricorn",
+      "deg_in_sign": 5.35
+    }
+  },
+  "north_node": {
+    "longitude": 95.35,
+    "sign": "Cancer",
+    "deg_in_sign": 5.35
+  },
+  "south_node": {
+    "longitude": 275.35,
+    "sign": "Capricorn",
+    "deg_in_sign": 5.35
+  }
+}

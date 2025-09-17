@@ -165,16 +165,17 @@ import json, asyncio
 from datetime import datetime
 
 router = APIRouter()
-USER_CHART_DIR = Path("user_charts")  # make sure this folder exists
+USER_CHART_DIR = Path("user_charts")
 
+# make sure this folder exists
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
     chart_file = USER_CHART_DIR / f"{data.id}.json"
 
-    # --- 1. Fetch user from Supabase ---
+    # --- 1. Fetch user from Supabase safely ---
     try:
         resp = supabase.table("users").select("*").eq("id", data.id).single().execute()
-        user = resp.data
+        user = resp.data if resp and resp.data else None
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Supabase fetch error: {e}")
 
@@ -204,7 +205,7 @@ async def get_full_chart(data: NatalData):
         else:
             raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
 
-    # --- 3. Prepare NatalData object ---
+    # --- 3. Prepare NatalData ---
     birth = user["birth"]
     natal_data = NatalData(
         id=user["id"],
@@ -217,15 +218,19 @@ async def get_full_chart(data: NatalData):
         place=birth["place"]
     )
 
-    # --- 4. Generate chart if missing ---
-    if not chart_file.exists():
-        try:
-            astro_data = await calculate_chart(natal_data)
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
-    else:
+    # --- 4. Generate or load cached chart ---
+    if chart_file.exists():
         with open(chart_file, "r") as f:
             astro_data = json.load(f)
+        print(f"📂 Loaded cached chart for {user['name']}")
+    else:
+        try:
+            astro_data = await calculate_chart(natal_data)
+            with open(chart_file, "w") as f:
+                json.dump(astro_data, f)
+            print(f"🪐 Generated and cached chart for {user['name']}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
 
     # --- 5. Build Sana prompt ---
     natal_prompt = f"""
@@ -253,6 +258,8 @@ Chart data: {json.dumps(astro_data, indent=2)}
     }
 
     return sana_mirror_json
+
+
 
 
 

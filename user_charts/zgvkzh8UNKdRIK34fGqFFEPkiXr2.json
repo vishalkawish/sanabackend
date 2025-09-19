@@ -1,0 +1,106 @@
+{
+  "id": "zgvkzh8UNKdRIK34fGqFFEPkiXr2",
+  "name": "Mamidwar Vikram",
+  "place": "degloor",
+  "lat": 19.29,
+  "lon": 78.14,
+  "birthdate": "2004-01-03",
+  "birthtime": "17:00",
+  "julian_day": 2453008.2083333335,
+  "ascendant": {
+    "longitude": 166.59,
+    "sign": "Virgo",
+    "deg_in_sign": 16.59
+  },
+  "midheaven": {
+    "longitude": 76.93,
+    "sign": "Gemini",
+    "deg_in_sign": 16.93
+  },
+  "houses": [
+    166.59,
+    195.6,
+    226.26,
+    256.93,
+    287.12,
+    317.12,
+    346.59,
+    15.6,
+    46.26,
+    76.93,
+    107.12,
+    137.12
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 282.65,
+      "sign": "Capricorn",
+      "deg_in_sign": 12.65
+    },
+    "Moon": {
+      "longitude": 59.52,
+      "sign": "Taurus",
+      "deg_in_sign": 29.52
+    },
+    "Mercury": {
+      "longitude": 266.92,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.92
+    },
+    "Venus": {
+      "longitude": 316.54,
+      "sign": "Aquarius",
+      "deg_in_sign": 16.54
+    },
+    "Mars": {
+      "longitude": 10.81,
+      "sign": "Aries",
+      "deg_in_sign": 10.81
+    },
+    "Jupiter": {
+      "longitude": 168.9,
+      "sign": "Virgo",
+      "deg_in_sign": 18.9
+    },
+    "Saturn": {
+      "longitude": 99.53,
+      "sign": "Cancer",
+      "deg_in_sign": 9.53
+    },
+    "Uranus": {
+      "longitude": 330.18,
+      "sign": "Pisces",
+      "deg_in_sign": 0.18
+    },
+    "Neptune": {
+      "longitude": 311.78,
+      "sign": "Aquarius",
+      "deg_in_sign": 11.78
+    },
+    "Pluto": {
+      "longitude": 260.59,
+      "sign": "Sagittarius",
+      "deg_in_sign": 20.59
+    },
+    "North Node": {
+      "longitude": 47.56,
+      "sign": "Taurus",
+      "deg_in_sign": 17.56
+    },
+    "South Node": {
+      "longitude": 227.56,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.56
+    }
+  },
+  "north_node": {
+    "longitude": 47.56,
+    "sign": "Taurus",
+    "deg_in_sign": 17.56
+  },
+  "south_node": {
+    "longitude": 227.56,
+    "sign": "Scorpio",
+    "deg_in_sign": 17.56
+  }
+}

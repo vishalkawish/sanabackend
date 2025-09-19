@@ -1,0 +1,106 @@
+{
+  "id": "liwFiHxVFCRBHfsx1TinVy445152",
+  "name": "dhruv patel",
+  "place": "visnagar",
+  "lat": 23.73,
+  "lon": 72.42,
+  "birthdate": "2006-03-24",
+  "birthtime": "10:45",
+  "julian_day": 2453818.9479166665,
+  "ascendant": {
+    "longitude": 148.63,
+    "sign": "Leo",
+    "deg_in_sign": 28.63
+  },
+  "midheaven": {
+    "longitude": 57.71,
+    "sign": "Taurus",
+    "deg_in_sign": 27.71
+  },
+  "houses": [
+    148.63,
+    175.59,
+    205.85,
+    237.71,
+    269.18,
+    299.5,
+    328.63,
+    355.59,
+    25.85,
+    57.71,
+    89.18,
+    119.5
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 3.65,
+      "sign": "Aries",
+      "deg_in_sign": 3.65
+    },
+    "Moon": {
+      "longitude": 294.89,
+      "sign": "Capricorn",
+      "deg_in_sign": 24.89
+    },
+    "Mercury": {
+      "longitude": 343.24,
+      "sign": "Pisces",
+      "deg_in_sign": 13.24
+    },
+    "Venus": {
+      "longitude": 317.15,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.15
+    },
+    "Mars": {
+      "longitude": 78.31,
+      "sign": "Gemini",
+      "deg_in_sign": 18.31
+    },
+    "Jupiter": {
+      "longitude": 228.26,
+      "sign": "Scorpio",
+      "deg_in_sign": 18.26
+    },
+    "Saturn": {
+      "longitude": 124.51,
+      "sign": "Leo",
+      "deg_in_sign": 4.51
+    },
+    "Uranus": {
+      "longitude": 342.02,
+      "sign": "Pisces",
+      "deg_in_sign": 12.02
+    },
+    "Neptune": {
+      "longitude": 318.9,
+      "sign": "Aquarius",
+      "deg_in_sign": 18.9
+    },
+    "Pluto": {
+      "longitude": 266.75,
+      "sign": "Sagittarius",
+      "deg_in_sign": 26.75
+    },
+    "North Node": {
+      "longitude": 4.63,
+      "sign": "Aries",
+      "deg_in_sign": 4.63
+    },
+    "South Node": {
+      "longitude": 184.63,
+      "sign": "Libra",
+      "deg_in_sign": 4.63
+    }
+  },
+  "north_node": {
+    "longitude": 4.63,
+    "sign": "Aries",
+    "deg_in_sign": 4.63
+  },
+  "south_node": {
+    "longitude": 184.63,
+    "sign": "Libra",
+    "deg_in_sign": 4.63
+  }
+}

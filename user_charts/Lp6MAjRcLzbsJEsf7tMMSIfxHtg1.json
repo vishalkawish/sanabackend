@@ -1,0 +1,106 @@
+{
+  "id": "Lp6MAjRcLzbsJEsf7tMMSIfxHtg1",
+  "name": "Martin Robert",
+  "place": "kerala",
+  "lat": 10.0,
+  "lon": 76.5,
+  "birthdate": "1994-09-14",
+  "birthtime": "11:11",
+  "julian_day": 2449609.9659722224,
+  "ascendant": {
+    "longitude": 322.58,
+    "sign": "Aquarius",
+    "deg_in_sign": 22.58
+  },
+  "midheaven": {
+    "longitude": 239.65,
+    "sign": "Scorpio",
+    "deg_in_sign": 29.65
+  },
+  "houses": [
+    322.58,
+    357.08,
+    30.24,
+    59.65,
+    86.32,
+    112.97,
+    142.58,
+    177.08,
+    210.24,
+    239.65,
+    266.32,
+    292.97
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 171.41,
+      "sign": "Virgo",
+      "deg_in_sign": 21.41
+    },
+    "Moon": {
+      "longitude": 286.8,
+      "sign": "Capricorn",
+      "deg_in_sign": 16.8
+    },
+    "Mercury": {
+      "longitude": 194.94,
+      "sign": "Libra",
+      "deg_in_sign": 14.94
+    },
+    "Venus": {
+      "longitude": 215.39,
+      "sign": "Scorpio",
+      "deg_in_sign": 5.39
+    },
+    "Mars": {
+      "longitude": 108.13,
+      "sign": "Cancer",
+      "deg_in_sign": 18.13
+    },
+    "Jupiter": {
+      "longitude": 222.01,
+      "sign": "Scorpio",
+      "deg_in_sign": 12.01
+    },
+    "Saturn": {
+      "longitude": 338.05,
+      "sign": "Pisces",
+      "deg_in_sign": 8.05
+    },
+    "Uranus": {
+      "longitude": 292.52,
+      "sign": "Capricorn",
+      "deg_in_sign": 22.52
+    },
+    "Neptune": {
+      "longitude": 290.66,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.66
+    },
+    "Pluto": {
+      "longitude": 235.72,
+      "sign": "Scorpio",
+      "deg_in_sign": 25.72
+    },
+    "North Node": {
+      "longitude": 227.52,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.52
+    },
+    "South Node": {
+      "longitude": 47.52,
+      "sign": "Taurus",
+      "deg_in_sign": 17.52
+    }
+  },
+  "north_node": {
+    "longitude": 227.52,
+    "sign": "Scorpio",
+    "deg_in_sign": 17.52
+  },
+  "south_node": {
+    "longitude": 47.52,
+    "sign": "Taurus",
+    "deg_in_sign": 17.52
+  }
+}

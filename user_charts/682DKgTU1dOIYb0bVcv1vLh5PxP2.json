@@ -1,0 +1,106 @@
+{
+  "id": "682DKgTU1dOIYb0bVcv1vLh5PxP2",
+  "name": "Laxmi Sharma",
+  "place": "jaitpur",
+  "lat": 25.8,
+  "lon": 81.7,
+  "birthdate": "2003-01-24",
+  "birthtime": "07:30",
+  "julian_day": 2452663.8125,
+  "ascendant": {
+    "longitude": 59.79,
+    "sign": "Taurus",
+    "deg_in_sign": 29.79
+  },
+  "midheaven": {
+    "longitude": 314.95,
+    "sign": "Aquarius",
+    "deg_in_sign": 14.95
+  },
+  "houses": [
+    59.79,
+    85.83,
+    109.56,
+    134.95,
+    165.31,
+    201.83,
+    239.79,
+    265.83,
+    289.56,
+    314.95,
+    345.31,
+    21.83
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 303.88,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.88
+    },
+    "Moon": {
+      "longitude": 200.19,
+      "sign": "Libra",
+      "deg_in_sign": 20.19
+    },
+    "Mercury": {
+      "longitude": 282.4,
+      "sign": "Capricorn",
+      "deg_in_sign": 12.4
+    },
+    "Venus": {
+      "longitude": 257.52,
+      "sign": "Sagittarius",
+      "deg_in_sign": 17.52
+    },
+    "Mars": {
+      "longitude": 244.6,
+      "sign": "Sagittarius",
+      "deg_in_sign": 4.6
+    },
+    "Jupiter": {
+      "longitude": 134.3,
+      "sign": "Leo",
+      "deg_in_sign": 14.3
+    },
+    "Saturn": {
+      "longitude": 82.9,
+      "sign": "Gemini",
+      "deg_in_sign": 22.9
+    },
+    "Uranus": {
+      "longitude": 327.42,
+      "sign": "Aquarius",
+      "deg_in_sign": 27.42
+    },
+    "Neptune": {
+      "longitude": 310.41,
+      "sign": "Aquarius",
+      "deg_in_sign": 10.41
+    },
+    "Pluto": {
+      "longitude": 259.05,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.05
+    },
+    "North Node": {
+      "longitude": 65.8,
+      "sign": "Gemini",
+      "deg_in_sign": 5.8
+    },
+    "South Node": {
+      "longitude": 245.8,
+      "sign": "Sagittarius",
+      "deg_in_sign": 5.8
+    }
+  },
+  "north_node": {
+    "longitude": 65.8,
+    "sign": "Gemini",
+    "deg_in_sign": 5.8
+  },
+  "south_node": {
+    "longitude": 245.8,
+    "sign": "Sagittarius",
+    "deg_in_sign": 5.8
+  }
+}

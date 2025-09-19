@@ -17,9 +17,15 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 # Astrology constants
 # -------------------------
 PLANET_WEIGHTS = {
-    "Sun": 1.0, "Moon": 1.5, "Venus": 2.0, "Mars": 1.8,
-    "Mercury": 1.0, "Jupiter": 1.2, "Saturn": 1.5,
-    "North Node": 2.0, "South Node": 2.0
+    "Sun": 1.0,
+    "Moon": 1.5,
+    "Venus": 2.0,
+    "Mars": 1.8,
+    "Mercury": 1.0,
+    "Jupiter": 1.2,
+    "Saturn": 1.5,
+    "North Node": 2.0,
+    "South Node": 2.0
 }
 
 HOUSE_IMPORTANCE = {5: 1.5, 7: 2.0, 8: 1.8}
@@ -42,7 +48,7 @@ SIGN_ELEMENTS = {
 ELEMENT_SCORE = {"Fire": 5, "Earth": 5, "Air": 5, "Water": 5}
 
 # -------------------------
-# Helpers
+# Helper functions
 # -------------------------
 def angle_diff(deg1, deg2):
     diff = abs(deg1 - deg2) % 360
@@ -57,7 +63,8 @@ def get_aspect_score(diff):
 def moon_phase_bonus(u_chart, c_chart):
     u = u_chart.get("planets", {}).get("Moon")
     c = c_chart.get("planets", {}).get("Moon")
-    if not u or not c: return 0
+    if not u or not c:
+        return 0
     diff = angle_diff(u.get("longitude", 0), c.get("longitude", 0))
     return 5 if diff <= 60 else (3 if diff <= 120 else 0)
 
@@ -67,8 +74,10 @@ def venus_mars_bonus(u_chart, c_chart):
     c_v = c_chart.get("planets", {}).get("Venus")
     c_m = c_chart.get("planets", {}).get("Mars")
     bonus = 0
-    if u_v and c_m and angle_diff(u_v["longitude"], c_m["longitude"]) <= 30: bonus += 5
-    if c_v and u_m and angle_diff(c_v["longitude"], u_m["longitude"]) <= 30: bonus += 5
+    if u_v and c_m and angle_diff(u_v["longitude"], c_m["longitude"]) <= 30:
+        bonus += 5
+    if c_v and u_m and angle_diff(c_v["longitude"], u_m["longitude"]) <= 30:
+        bonus += 5
     return bonus
 
 def nodal_bonus(u_chart, c_chart):
@@ -77,8 +86,10 @@ def nodal_bonus(u_chart, c_chart):
     c_n = c_chart.get("planets", {}).get("North Node")
     c_s = c_chart.get("planets", {}).get("South Node")
     bonus = 0
-    if u_n and c_s and angle_diff(u_n["longitude"], c_s["longitude"]) <= 15: bonus += 7
-    if c_n and u_s and angle_diff(c_n["longitude"], u_s["longitude"]) <= 15: bonus += 7
+    if u_n and c_s and angle_diff(u_n["longitude"], c_s["longitude"]) <= 15:
+        bonus += 7
+    if c_n and u_s and angle_diff(c_n["longitude"], u_s["longitude"]) <= 15:
+        bonus += 7
     return bonus
 
 def calc_life_path(birthdate_str):
@@ -94,59 +105,64 @@ def calc_life_path(birthdate_str):
 def life_path_bonus(u_chart, c_chart):
     u_lp = calc_life_path(u_chart.get("birthdate"))
     c_lp = calc_life_path(c_chart.get("birthdate"))
-    if u_lp is None or c_lp is None: return 0
+    if u_lp is None or c_lp is None:
+        return 0
     diff = abs(u_lp - c_lp)
     return 5 if diff == 0 else (3 if diff == 1 else (2 if diff == 2 else 0))
 
 # -------------------------
-# Core Compatibility
+# Core compatibility
 # -------------------------
 def deep_compatibility(user_chart, crush_chart):
-    if isinstance(user_chart, str): user_chart = json.loads(user_chart)
-    if isinstance(crush_chart, str): crush_chart = json.loads(crush_chart)
+    if isinstance(user_chart, str):
+        user_chart = json.loads(user_chart)
+    if isinstance(crush_chart, str):
+        crush_chart = json.loads(crush_chart)
 
     u_planets = user_chart.get("planets", {})
     c_planets = crush_chart.get("planets", {})
-
     total_score = 0
     total_weight = 0
 
     for planet, weight in PLANET_WEIGHTS.items():
         u = u_planets.get(planet)
         c = c_planets.get(planet)
-        if not u or not c: continue
-
+        if not u or not c:
+            continue
         diff = angle_diff(u["longitude"], c["longitude"])
         aspect_score = get_aspect_score(diff)
-
         house_multiplier = HOUSE_IMPORTANCE.get(u.get("house"), 1.0)
         total_score += aspect_score * weight * house_multiplier
         total_weight += weight * house_multiplier
 
-        # Elemental match bonus
-        if u.get("sign") and c.get("sign"):
-            ue = SIGN_ELEMENTS.get(u["sign"])
-            ce = SIGN_ELEMENTS.get(c["sign"])
-            if ue and ce and ue == ce:
-                total_score += ELEMENT_SCORE[ue]
+    # Elemental match bonus
+    if u.get("sign") and c.get("sign"):
+        ue = SIGN_ELEMENTS.get(u["sign"])
+        ce = SIGN_ELEMENTS.get(c["sign"])
+        if ue and ce and ue == ce:
+            total_score += ELEMENT_SCORE[ue]
 
-    # One-time bonuses (not per planet)
+    # One-time bonuses
     total_score += moon_phase_bonus(user_chart, crush_chart)
     total_score += venus_mars_bonus(user_chart, crush_chart)
     total_score += nodal_bonus(user_chart, crush_chart)
     total_score += life_path_bonus(user_chart, crush_chart)
 
-    if total_weight == 0: return 0
+    if total_weight == 0:
+        return 0
+
     match_percent = max(0, min(100, round((total_score / (total_weight * 10)) * 100)))
     return match_percent
 
 def classify_connection(score):
-    if score >= 85: return "soulmate"
-    if score >= 70: return "twin_flame"
+    if score >= 85:
+        return "soulmate"
+    if score >= 70:
+        return "twin_flame"
     return "karmic"
 
 # -------------------------
-# Supabase
+# Supabase helpers
 # -------------------------
 def fetch_user(uid: str):
     res = supabase.table("users").select("*").eq("id", uid).maybe_single().execute()
@@ -159,36 +175,54 @@ def fetch_all_users():
 # -------------------------
 # API Route
 # -------------------------
+# -------------------------
+# API Route with age filtering
+# -------------------------
 @router.get("/soul_of_anlasana_2_1/{user_id}")
 def soul_of_anlasana(user_id: str):
     user = fetch_user(user_id)
-    if not user: 
+    if not user:
         return {"user_id": user_id, "matches": []}
 
     target_chart = user.get("chart")
     target_gender = user.get("gender")
-    if not target_chart or not target_gender:
+    target_age = user.get("age")  # fetch age from Supabase
+
+    if not target_chart or not target_gender or target_age is None:
         return {"user_id": user_id, "matches": []}
 
     all_users = fetch_all_users()
     matches, seen = [], set()
 
     for other in all_users:
-        if other.get("id") == user_id: continue
-        if other.get("gender") == target_gender: continue
-        if not other.get("chart"): continue
-        if other.get("name") in seen: continue
+        if other.get("id") == user_id:
+            continue
+        if other.get("gender") == target_gender:
+            continue
+        if not other.get("chart"):
+            continue
+        if not other.get("age") or other.get("age") < 18:  # ✅ 18+ check
+            continue
+        if not other.get("phone_number"):  
+            continue
+        if other.get("name") in seen:
+            continue
+
+        # ✅ Age range ±7
+        if abs(other.get("age") - target_age) > 7:
+            continue
+
         seen.add(other.get("name"))
 
         score = deep_compatibility(target_chart, other.get("chart"))
         ctype = classify_connection(score)
-
         matches.append({
             "user_id": other.get("id"),
             "name": other.get("name"),
             "url": other.get("profile_pic_url"),
             "type": ctype,
-            "match_percent": score
+            "match_percent": score,
+            "age": other.get("age")  # include age in response
         })
 
     matches.sort(key=lambda x: x["match_percent"], reverse=True)
@@ -202,3 +236,4 @@ def soul_of_anlasana(user_id: str):
     }
 
     return {"user_id": user_id, "summary": summary, "matches": matches}
+

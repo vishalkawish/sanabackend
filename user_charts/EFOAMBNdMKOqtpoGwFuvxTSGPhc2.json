@@ -1,0 +1,106 @@
+{
+  "id": "EFOAMBNdMKOqtpoGwFuvxTSGPhc2",
+  "name": "Mukesh Patole",
+  "place": "surat",
+  "lat": 21.1702,
+  "lon": 72.8311,
+  "birthdate": "1990-04-06",
+  "birthtime": "07:45",
+  "julian_day": 2447987.8229166665,
+  "ascendant": {
+    "longitude": 119.48,
+    "sign": "Cancer",
+    "deg_in_sign": 29.48
+  },
+  "midheaven": {
+    "longitude": 25.28,
+    "sign": "Aries",
+    "deg_in_sign": 25.28
+  },
+  "houses": [
+    119.48,
+    144.63,
+    173.22,
+    205.28,
+    238.34,
+    269.88,
+    299.48,
+    324.63,
+    353.22,
+    25.28,
+    58.34,
+    89.88
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 16.25,
+      "sign": "Aries",
+      "deg_in_sign": 16.25
+    },
+    "Moon": {
+      "longitude": 153.18,
+      "sign": "Virgo",
+      "deg_in_sign": 3.18
+    },
+    "Mercury": {
+      "longitude": 33.35,
+      "sign": "Taurus",
+      "deg_in_sign": 3.35
+    },
+    "Venus": {
+      "longitude": 329.94,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.94
+    },
+    "Mars": {
+      "longitude": 319.09,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.09
+    },
+    "Jupiter": {
+      "longitude": 93.36,
+      "sign": "Cancer",
+      "deg_in_sign": 3.36
+    },
+    "Saturn": {
+      "longitude": 294.67,
+      "sign": "Capricorn",
+      "deg_in_sign": 24.67
+    },
+    "Uranus": {
+      "longitude": 279.56,
+      "sign": "Capricorn",
+      "deg_in_sign": 9.56
+    },
+    "Neptune": {
+      "longitude": 284.55,
+      "sign": "Capricorn",
+      "deg_in_sign": 14.55
+    },
+    "Pluto": {
+      "longitude": 227.21,
+      "sign": "Scorpio",
+      "deg_in_sign": 17.21
+    },
+    "North Node": {
+      "longitude": 313.41,
+      "sign": "Aquarius",
+      "deg_in_sign": 13.41
+    },
+    "South Node": {
+      "longitude": 133.41,
+      "sign": "Leo",
+      "deg_in_sign": 13.41
+    }
+  },
+  "north_node": {
+    "longitude": 313.41,
+    "sign": "Aquarius",
+    "deg_in_sign": 13.41
+  },
+  "south_node": {
+    "longitude": 133.41,
+    "sign": "Leo",
+    "deg_in_sign": 13.41
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "Qt7BowR6ildiDNwyZ2M9Fdlk4AE2",
+  "name": "Miral",
+  "place": "Mau,Uttar Pradesh, India.",
+  "lat": 26.0,
+  "lon": 83.3,
+  "birthdate": "1999-07-14",
+  "birthtime": "21:15",
+  "julian_day": 2451374.3854166665,
+  "ascendant": {
+    "longitude": 77.29,
+    "sign": "Gemini",
+    "deg_in_sign": 17.29
+  },
+  "midheaven": {
+    "longitude": 332.37,
+    "sign": "Pisces",
+    "deg_in_sign": 2.37
+  },
+  "houses": [
+    77.29,
+    101.3,
+    125.2,
+    152.37,
+    185.09,
+    221.93,
+    257.29,
+    281.3,
+    305.2,
+    332.37,
+    5.09,
+    41.93
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 111.99,
+      "sign": "Cancer",
+      "deg_in_sign": 21.99
+    },
+    "Moon": {
+      "longitude": 135.93,
+      "sign": "Leo",
+      "deg_in_sign": 15.93
+    },
+    "Mercury": {
+      "longitude": 129.35,
+      "sign": "Leo",
+      "deg_in_sign": 9.35
+    },
+    "Venus": {
+      "longitude": 151.15,
+      "sign": "Virgo",
+      "deg_in_sign": 1.15
+    },
+    "Mars": {
+      "longitude": 213.58,
+      "sign": "Scorpio",
+      "deg_in_sign": 3.58
+    },
+    "Jupiter": {
+      "longitude": 32.33,
+      "sign": "Taurus",
+      "deg_in_sign": 2.33
+    },
+    "Saturn": {
+      "longitude": 45.38,
+      "sign": "Taurus",
+      "deg_in_sign": 15.38
+    },
+    "Uranus": {
+      "longitude": 315.73,
+      "sign": "Aquarius",
+      "deg_in_sign": 15.73
+    },
+    "Neptune": {
+      "longitude": 303.29,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.29
+    },
+    "Pluto": {
+      "longitude": 248.06,
+      "sign": "Sagittarius",
+      "deg_in_sign": 8.06
+    },
+    "North Node": {
+      "longitude": 134.08,
+      "sign": "Leo",
+      "deg_in_sign": 14.08
+    },
+    "South Node": {
+      "longitude": 314.08,
+      "sign": "Aquarius",
+      "deg_in_sign": 14.08
+    }
+  },
+  "north_node": {
+    "longitude": 134.08,
+    "sign": "Leo",
+    "deg_in_sign": 14.08
+  },
+  "south_node": {
+    "longitude": 314.08,
+    "sign": "Aquarius",
+    "deg_in_sign": 14.08
+  }
+}

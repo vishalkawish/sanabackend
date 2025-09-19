@@ -1,0 +1,106 @@
+{
+  "id": "MtbYN5TcI7dvH4xWoMYTZ9BCtzf1",
+  "name": "Anitha Chinnaponnu",
+  "place": "puthukandanur",
+  "lat": 9.85,
+  "lon": 78.56,
+  "birthdate": "2004-09-28",
+  "birthtime": "12:00",
+  "julian_day": 2453277.0,
+  "ascendant": {
+    "longitude": 355.47,
+    "sign": "Pisces",
+    "deg_in_sign": 25.47
+  },
+  "midheaven": {
+    "longitude": 266.48,
+    "sign": "Sagittarius",
+    "deg_in_sign": 26.48
+  },
+  "houses": [
+    355.47,
+    29.56,
+    59.57,
+    86.48,
+    113.02,
+    142.12,
+    175.47,
+    209.56,
+    239.57,
+    266.48,
+    293.02,
+    322.12
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 185.7,
+      "sign": "Libra",
+      "deg_in_sign": 5.7
+    },
+    "Moon": {
+      "longitude": 5.1,
+      "sign": "Aries",
+      "deg_in_sign": 5.1
+    },
+    "Mercury": {
+      "longitude": 179.83,
+      "sign": "Virgo",
+      "deg_in_sign": 29.83
+    },
+    "Venus": {
+      "longitude": 143.98,
+      "sign": "Leo",
+      "deg_in_sign": 23.98
+    },
+    "Mars": {
+      "longitude": 181.37,
+      "sign": "Libra",
+      "deg_in_sign": 1.37
+    },
+    "Jupiter": {
+      "longitude": 180.73,
+      "sign": "Libra",
+      "deg_in_sign": 0.73
+    },
+    "Saturn": {
+      "longitude": 115.85,
+      "sign": "Cancer",
+      "deg_in_sign": 25.85
+    },
+    "Uranus": {
+      "longitude": 333.63,
+      "sign": "Pisces",
+      "deg_in_sign": 3.63
+    },
+    "Neptune": {
+      "longitude": 312.79,
+      "sign": "Aquarius",
+      "deg_in_sign": 12.79
+    },
+    "Pluto": {
+      "longitude": 259.77,
+      "sign": "Sagittarius",
+      "deg_in_sign": 19.77
+    },
+    "North Node": {
+      "longitude": 33.33,
+      "sign": "Taurus",
+      "deg_in_sign": 3.33
+    },
+    "South Node": {
+      "longitude": 213.33,
+      "sign": "Scorpio",
+      "deg_in_sign": 3.33
+    }
+  },
+  "north_node": {
+    "longitude": 33.33,
+    "sign": "Taurus",
+    "deg_in_sign": 3.33
+  },
+  "south_node": {
+    "longitude": 213.33,
+    "sign": "Scorpio",
+    "deg_in_sign": 3.33
+  }
+}

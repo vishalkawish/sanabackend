@@ -1,0 +1,106 @@
+{
+  "id": "VTDWFMnruFcv7sQgWmbZXBys34y2",
+  "name": "Owen Moeti",
+  "place": "sefhare",
+  "lat": -24.3,
+  "lon": 25.6,
+  "birthdate": "2001-05-23",
+  "birthtime": "11:43",
+  "julian_day": 2452052.988194444,
+  "ascendant": {
+    "longitude": 169.87,
+    "sign": "Virgo",
+    "deg_in_sign": 19.87
+  },
+  "midheaven": {
+    "longitude": 83.12,
+    "sign": "Gemini",
+    "deg_in_sign": 23.12
+  },
+  "houses": [
+    169.87,
+    207.74,
+    237.86,
+    263.12,
+    287.48,
+    314.97,
+    349.87,
+    27.74,
+    57.86,
+    83.12,
+    107.48,
+    134.97
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 62.4,
+      "sign": "Gemini",
+      "deg_in_sign": 2.4
+    },
+    "Moon": {
+      "longitude": 67.2,
+      "sign": "Gemini",
+      "deg_in_sign": 7.2
+    },
+    "Mercury": {
+      "longitude": 84.71,
+      "sign": "Gemini",
+      "deg_in_sign": 24.71
+    },
+    "Venus": {
+      "longitude": 17.66,
+      "sign": "Aries",
+      "deg_in_sign": 17.66
+    },
+    "Mars": {
+      "longitude": 268.17,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.17
+    },
+    "Jupiter": {
+      "longitude": 78.45,
+      "sign": "Gemini",
+      "deg_in_sign": 18.45
+    },
+    "Saturn": {
+      "longitude": 64.1,
+      "sign": "Gemini",
+      "deg_in_sign": 4.1
+    },
+    "Uranus": {
+      "longitude": 324.82,
+      "sign": "Aquarius",
+      "deg_in_sign": 24.82
+    },
+    "Neptune": {
+      "longitude": 308.74,
+      "sign": "Aquarius",
+      "deg_in_sign": 8.74
+    },
+    "Pluto": {
+      "longitude": 254.24,
+      "sign": "Sagittarius",
+      "deg_in_sign": 14.24
+    },
+    "North Node": {
+      "longitude": 98.14,
+      "sign": "Cancer",
+      "deg_in_sign": 8.14
+    },
+    "South Node": {
+      "longitude": 278.14,
+      "sign": "Capricorn",
+      "deg_in_sign": 8.14
+    }
+  },
+  "north_node": {
+    "longitude": 98.14,
+    "sign": "Cancer",
+    "deg_in_sign": 8.14
+  },
+  "south_node": {
+    "longitude": 278.14,
+    "sign": "Capricorn",
+    "deg_in_sign": 8.14
+  }
+}

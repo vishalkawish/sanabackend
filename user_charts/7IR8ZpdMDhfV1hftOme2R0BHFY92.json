@@ -1,0 +1,106 @@
+{
+  "id": "7IR8ZpdMDhfV1hftOme2R0BHFY92",
+  "name": "Rashmi Kumari",
+  "place": "ara",
+  "lat": 25.57,
+  "lon": 84.66,
+  "birthdate": "1994-11-02",
+  "birthtime": "12:01",
+  "julian_day": 2449659.0006944444,
+  "ascendant": {
+    "longitude": 47.32,
+    "sign": "Taurus",
+    "deg_in_sign": 17.32
+  },
+  "midheaven": {
+    "longitude": 304.12,
+    "sign": "Aquarius",
+    "deg_in_sign": 4.12
+  },
+  "houses": [
+    47.32,
+    75.37,
+    99.53,
+    124.12,
+    152.8,
+    188.14,
+    227.32,
+    255.37,
+    279.53,
+    304.12,
+    332.8,
+    8.14
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 219.84,
+      "sign": "Scorpio",
+      "deg_in_sign": 9.84
+    },
+    "Moon": {
+      "longitude": 204.79,
+      "sign": "Libra",
+      "deg_in_sign": 24.79
+    },
+    "Mercury": {
+      "longitude": 201.8,
+      "sign": "Libra",
+      "deg_in_sign": 21.8
+    },
+    "Venus": {
+      "longitude": 220.59,
+      "sign": "Scorpio",
+      "deg_in_sign": 10.59
+    },
+    "Mars": {
+      "longitude": 135.13,
+      "sign": "Leo",
+      "deg_in_sign": 15.13
+    },
+    "Jupiter": {
+      "longitude": 231.86,
+      "sign": "Scorpio",
+      "deg_in_sign": 21.86
+    },
+    "Saturn": {
+      "longitude": 335.72,
+      "sign": "Pisces",
+      "deg_in_sign": 5.72
+    },
+    "Uranus": {
+      "longitude": 292.81,
+      "sign": "Capricorn",
+      "deg_in_sign": 22.81
+    },
+    "Neptune": {
+      "longitude": 290.84,
+      "sign": "Capricorn",
+      "deg_in_sign": 20.84
+    },
+    "Pluto": {
+      "longitude": 237.26,
+      "sign": "Scorpio",
+      "deg_in_sign": 27.26
+    },
+    "North Node": {
+      "longitude": 224.92,
+      "sign": "Scorpio",
+      "deg_in_sign": 14.92
+    },
+    "South Node": {
+      "longitude": 44.92,
+      "sign": "Taurus",
+      "deg_in_sign": 14.92
+    }
+  },
+  "north_node": {
+    "longitude": 224.92,
+    "sign": "Scorpio",
+    "deg_in_sign": 14.92
+  },
+  "south_node": {
+    "longitude": 44.92,
+    "sign": "Taurus",
+    "deg_in_sign": 14.92
+  }
+}

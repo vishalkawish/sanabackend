@@ -1,0 +1,106 @@
+{
+  "id": "DCeGJloJtBdZm8UnDuwFh4Ll1rG3",
+  "name": "Shreetama Chakraborty",
+  "place": "Kolkata",
+  "lat": 22.5726,
+  "lon": 88.3639,
+  "birthdate": "2009-05-28",
+  "birthtime": "08:03",
+  "julian_day": 2454979.8354166667,
+  "ascendant": {
+    "longitude": 184.72,
+    "sign": "Libra",
+    "deg_in_sign": 4.72
+  },
+  "midheaven": {
+    "longitude": 94.69,
+    "sign": "Cancer",
+    "deg_in_sign": 4.69
+  },
+  "houses": [
+    184.72,
+    213.75,
+    244.05,
+    274.69,
+    305.48,
+    335.94,
+    4.72,
+    33.75,
+    64.05,
+    94.69,
+    125.48,
+    155.94
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 67.14,
+      "sign": "Gemini",
+      "deg_in_sign": 7.14
+    },
+    "Moon": {
+      "longitude": 120.19,
+      "sign": "Leo",
+      "deg_in_sign": 0.19
+    },
+    "Mercury": {
+      "longitude": 53.14,
+      "sign": "Taurus",
+      "deg_in_sign": 23.14
+    },
+    "Venus": {
+      "longitude": 21.6,
+      "sign": "Aries",
+      "deg_in_sign": 21.6
+    },
+    "Mars": {
+      "longitude": 27.34,
+      "sign": "Aries",
+      "deg_in_sign": 27.34
+    },
+    "Jupiter": {
+      "longitude": 326.51,
+      "sign": "Aquarius",
+      "deg_in_sign": 26.51
+    },
+    "Saturn": {
+      "longitude": 165.02,
+      "sign": "Virgo",
+      "deg_in_sign": 15.02
+    },
+    "Uranus": {
+      "longitude": 356.16,
+      "sign": "Pisces",
+      "deg_in_sign": 26.16
+    },
+    "Neptune": {
+      "longitude": 326.48,
+      "sign": "Aquarius",
+      "deg_in_sign": 26.48
+    },
+    "Pluto": {
+      "longitude": 272.63,
+      "sign": "Capricorn",
+      "deg_in_sign": 2.63
+    },
+    "North Node": {
+      "longitude": 303.16,
+      "sign": "Aquarius",
+      "deg_in_sign": 3.16
+    },
+    "South Node": {
+      "longitude": 123.16,
+      "sign": "Leo",
+      "deg_in_sign": 3.16
+    }
+  },
+  "north_node": {
+    "longitude": 303.16,
+    "sign": "Aquarius",
+    "deg_in_sign": 3.16
+  },
+  "south_node": {
+    "longitude": 123.16,
+    "sign": "Leo",
+    "deg_in_sign": 3.16
+  }
+}

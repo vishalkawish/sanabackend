@@ -1,0 +1,106 @@
+{
+  "id": "sbvHEXpd6DQpTABmxgSuCbLgRLd2",
+  "name": "Vaishnavi Dev",
+  "place": "raipur, chattisgarh, india",
+  "lat": 21.2375,
+  "lon": 81.6296,
+  "birthdate": "2011-03-11",
+  "birthtime": "19:29",
+  "julian_day": 2455632.3118055556,
+  "ascendant": {
+    "longitude": 263.9,
+    "sign": "Sagittarius",
+    "deg_in_sign": 23.9
+  },
+  "midheaven": {
+    "longitude": 183.26,
+    "sign": "Libra",
+    "deg_in_sign": 3.26
+  },
+  "houses": [
+    263.9,
+    295.29,
+    329.34,
+    3.26,
+    33.55,
+    59.74,
+    83.9,
+    115.29,
+    149.34,
+    183.26,
+    213.55,
+    239.74
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 350.88,
+      "sign": "Pisces",
+      "deg_in_sign": 20.88
+    },
+    "Moon": {
+      "longitude": 67.19,
+      "sign": "Gemini",
+      "deg_in_sign": 7.19
+    },
+    "Mercury": {
+      "longitude": 3.87,
+      "sign": "Aries",
+      "deg_in_sign": 3.87
+    },
+    "Venus": {
+      "longitude": 311.5,
+      "sign": "Aquarius",
+      "deg_in_sign": 11.5
+    },
+    "Mars": {
+      "longitude": 343.23,
+      "sign": "Pisces",
+      "deg_in_sign": 13.23
+    },
+    "Jupiter": {
+      "longitude": 10.27,
+      "sign": "Aries",
+      "deg_in_sign": 10.27
+    },
+    "Saturn": {
+      "longitude": 195.6,
+      "sign": "Libra",
+      "deg_in_sign": 15.6
+    },
+    "Uranus": {
+      "longitude": 359.99,
+      "sign": "Pisces",
+      "deg_in_sign": 29.99
+    },
+    "Neptune": {
+      "longitude": 329.22,
+      "sign": "Aquarius",
+      "deg_in_sign": 29.22
+    },
+    "Pluto": {
+      "longitude": 277.29,
+      "sign": "Capricorn",
+      "deg_in_sign": 7.29
+    },
+    "North Node": {
+      "longitude": 268.61,
+      "sign": "Sagittarius",
+      "deg_in_sign": 28.61
+    },
+    "South Node": {
+      "longitude": 88.61,
+      "sign": "Gemini",
+      "deg_in_sign": 28.61
+    }
+  },
+  "north_node": {
+    "longitude": 268.61,
+    "sign": "Sagittarius",
+    "deg_in_sign": 28.61
+  },
+  "south_node": {
+    "longitude": 88.61,
+    "sign": "Gemini",
+    "deg_in_sign": 28.61
+  }
+}

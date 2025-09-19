@@ -118,7 +118,7 @@ def random_match(user_id: str, count: int = 3):
             "id": match.get("id"),
             "name": match.get("name"),
             "match_percent": match_percent,
-            "profile_pic_url": match.get("profile_pic_url")
+            "url": match.get("profile_pic_url")
         })
 
     return {"user_id": user_id, "matches": result}

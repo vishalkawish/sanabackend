@@ -186,6 +186,7 @@ def soul_of_anlasana(user_id: str):
         matches.append({
             "user_id": other.get("id"),
             "name": other.get("name"),
+            "url": other.get("profile_pic_url"),
             "type": ctype,
             "match_percent": score
         })

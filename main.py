@@ -312,7 +312,7 @@ app.include_router(profile_image.router)
 app.include_router(random_match_router)
 app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
-app.include_router(soul_router, prefix="/api")
+app.include_router(soul_router)
 
 print("Registered routes:")
 for r in app.routes:

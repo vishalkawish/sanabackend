@@ -168,6 +168,10 @@ router = APIRouter()
 USER_CHART_DIR = Path("user_charts")
 
 # make sure this folder exists
+from fastapi import HTTPException
+from datetime import datetime, date
+import asyncio, json, os
+
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
     chart_file = USER_CHART_DIR / f"{data.id}.json"
@@ -187,7 +191,7 @@ async def get_full_chart(data: NatalData):
         bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
         if bd and bt and bp:
             try:
-                dt = datetime.fromisoformat(bd)
+                dt = datetime.fromisoformat(bd)  # expects YYYY-MM-DD
                 hour, minute, *_ = map(int, bt.split(":"))
                 birth = {
                     "year": dt.year,
@@ -205,8 +209,23 @@ async def get_full_chart(data: NatalData):
         else:
             raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
 
-    # --- 3. Prepare NatalData ---
+    # --- 3. Calculate age ---
+    def calculate_age(year, month, day):
+        try:
+            today = date.today()
+            return today.year - year - ((today.month, today.day) < (month, day))
+        except Exception as e:
+            print(f"[WARN] Failed age calc: {e}")
+            return None
+
     birth = user["birth"]
+    age = calculate_age(birth["year"], birth["month"], birth["day"])
+    if age and user.get("age") != age:  # update only if new or changed
+        supabase.table("users").update({"age": age}).eq("id", user["id"]).execute()
+        user["age"] = age
+        print(f"🎂 Age calculated for {user['name']} => {age}")
+
+    # --- 4. Prepare NatalData ---
     natal_data = NatalData(
         id=user["id"],
         name=user.get("name", "Unknown"),
@@ -218,11 +237,17 @@ async def get_full_chart(data: NatalData):
         place=birth["place"]
     )
 
-    # --- 4. Generate or load cached chart ---
+    # --- 5. Generate or load cached chart ---
     if chart_file.exists():
-        with open(chart_file, "r") as f:
-            astro_data = json.load(f)
-        print(f"📂 Loaded cached chart for {user['name']}")
+        try:
+            with open(chart_file, "r") as f:
+                astro_data = json.load(f)
+            print(f"📂 Loaded cached chart for {user['name']}")
+        except Exception as e:
+            print(f"⚠️ Cache load failed: {e}, regenerating...")
+            astro_data = await calculate_chart(natal_data)
+            with open(chart_file, "w") as f:
+                json.dump(astro_data, f)
     else:
         try:
             astro_data = await calculate_chart(natal_data)
@@ -232,10 +257,10 @@ async def get_full_chart(data: NatalData):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
 
-    # --- 5. Build Sana prompt ---
+    # --- 6. Build Sana prompt ---
     natal_prompt = f"""
 You are Sana, goddess of astrology.
-Generate 5 daily insights for {user['name']}.
+Generate 5 daily insights for {user['name']} (age {age}).
 Also add one task for self-discovery and higher dimension.
 Tell user about their personality, patterns, secrets and so on using this chart.
 Avoid astrology jargon. Only one line each. Address naturally, human-like and in everyday words. User must feel you are real.
@@ -245,15 +270,20 @@ Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Chart data: {json.dumps(astro_data, indent=2)}
 """
 
-    # --- 6. Call OpenAI ---
-    [natal_response] = await asyncio.gather(
-        call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
-    )
+    # --- 7. Call OpenAI (with JSON safety) ---
+    try:
+        [natal_response] = await asyncio.gather(
+            call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Sana reflection failed: {e}")
 
-    # --- 7. Wrap into Unity-compatible object ---
+    # --- 8. Wrap into Unity-compatible object ---
     sana_mirror_json = {
         "natal": [
-            {"mirror": natal_response["mirror"]}
+            {
+                "mirror": natal_response.get("mirror", []),
+            }
         ]
     }
 
@@ -288,7 +318,7 @@ async def get_personal_insights(data: NatalData):
 
     prompt = f"""
 You are Sana, astrology expert.
-Generate 3 personal love insights for {data.name} in the following sections:
+Generate 3 personal love insights for {data.name} in the following sections using chart below:
 Each section must have "title" and "content", one line each. "title" must be one word or max two.
 use {data.name} or you to address the user naturally.
 Avoid astrology jargon.

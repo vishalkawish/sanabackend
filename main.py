@@ -287,15 +287,11 @@ async def get_personal_insights(data: NatalData):
             json.dump(astro_data, f, indent=2)
 
     prompt = f"""
-You are Sana, goddess of astrology.
-Generate personal insights for {data.name} in the following sections:
-- third_eye
-- you
-- higher_dimension
-- secret_message_for_you
-- awakening
-- message_from_universe
-Each section must have "title" and "content", one line each. Avoid astrology jargon.
+You are Sana, astrology expert.
+Generate 3 personal love insights for {data.name} in the following sections:
+Each section must have "title" and "content", one line each. "title" must be one word or max two.
+use {data.name} or you to address the user naturally.
+Avoid astrology jargon.
 Return ONLY JSON: {{"personal":[{{"title":"...","content":"..."}}]}}
 Chart data: {json.dumps(astro_data, indent=2)}
 """

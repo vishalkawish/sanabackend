@@ -53,6 +53,20 @@ async def call_openai_async(prompt: str, system_msg: str):
         }
 
 # ------------------------------
+# Helper: fetch chart from Supabase
+# ------------------------------
+def fetch_user_chart(user_id: str):
+    try:
+        resp = supabase.table("users").select("chart").eq("id", user_id).single().execute()
+        chart_str = resp.data.get("chart") if resp.data else None
+        if not chart_str:
+            return {}
+        return json.loads(chart_str.replace('\\"', '"'))  # parse stored JSON string
+    except Exception as e:
+        print(f"Error fetching chart: {e}")
+        return {}
+
+# ------------------------------
 # Chat Endpoint
 # ------------------------------
 @router.post("/sana/chat")
@@ -66,8 +80,19 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
 
     now_str = str(datetime.now())
 
+    # --- Fetch user's natal chart ---
+    user_chart = fetch_user_chart(user_id)
+
     # --- Instant Sana reply ---
-    prompt = f"User: {user_message}\nID: {user_id}\nName: {user_name}"
+    prompt = f"""
+User message: "{user_message}"
+User name: "{user_name}"
+User ID: "{user_id}"
+
+This is {user_name}'s natal chart (use it subtly in your reply):
+{json.dumps(user_chart)}
+"""
+
     messages = [
         {"role": "system", 
         "content":
@@ -107,8 +132,6 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
             f"Always address the user by their username '{user_name}' naturally. "
             "Respond in only one short line. Speak simply, kindly, honestly, human-like."
         },
-
-
 
         {"role": "user", "content": prompt}
     ]

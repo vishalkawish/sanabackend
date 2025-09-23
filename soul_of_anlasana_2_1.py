@@ -209,8 +209,8 @@ def soul_of_anlasana(user_id: str):
             continue
 
         # ✅ Age range ±7
-        if abs(other.get("age") - target_age) > 7:
-            continue
+        # if abs(other.get("age") - target_age) > 7:
+        #    continue
 
         seen.add(other.get("name"))
 

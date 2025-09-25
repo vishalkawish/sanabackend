@@ -157,7 +157,7 @@ def deep_compatibility(user_chart, crush_chart):
 def classify_connection(score):
     if score >= 85:
         return "soulmate"
-    if score >= 60:
+    if score >= 30:
         return "twin_flame"
     return "karmic"
 

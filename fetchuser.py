@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Query
 from pydantic import BaseModel
+from typing import Optional
 from supabase import create_client
 import os
 
@@ -10,20 +11,36 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 class CheckUserPayload(BaseModel):
-    id: str = None
-    email: str = None
+    id: Optional[str] = None
+    email: Optional[str] = None
 
 @router.post("/checkuser")
-def check_user(payload: CheckUserPayload):
-    if not payload.id and not payload.email:
+async def check_user(
+    request: Request,
+    id: Optional[str] = Query(None),
+    email: Optional[str] = Query(None)
+):
+    """
+    Fetch user by JSON body or query params.
+    Returns single user object or 404 if not found.
+    """
+
+    # Attempt to parse JSON body
+    try:
+        body = await request.json()
+        id = body.get("id", id)
+        email = body.get("email", email)
+    except Exception:
+        pass  # No JSON body sent → fallback to query params
+
+    if not id and not email:
         raise HTTPException(status_code=400, detail="id or email required")
 
     query = supabase.table("users").select("*")
-
-    if payload.id:
-        query = query.eq("id", payload.id)
-    if payload.email:
-        query = query.eq("email", payload.email)
+    if id:
+        query = query.eq("id", id)
+    if email:
+        query = query.eq("email", email)
 
     response = query.execute()
     users = response.data or []
@@ -31,12 +48,11 @@ def check_user(payload: CheckUserPayload):
     if not users:
         raise HTTPException(status_code=404, detail="User not found")
 
-    # ✅ Return single object instead of list
-    return users[0]
+    return users[0]  # Return single object instead of list
 
 
 # -----------------------------
-# Function needed for match.py
+# Helper function for match.py
 # -----------------------------
 def fetch_user_from_supabase_by_username(username: str):
     """Fetch a user by username from Supabase (used in match.py)."""

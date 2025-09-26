@@ -318,7 +318,7 @@ async def get_personal_insights(data: NatalData):
 
     prompt = f"""
 You are Sana, astrology expert.
-Generate 3 hidden love secrets for {data.name} in the following sections using chart below:
+Generate 3 hidden love secrets of {data.name} in the following sections using chart below:
 Each section must have "title" and "content", one line each. "title" must be one word or max two.
 use {data.name} or you to address the user naturally.
 Avoid astrology jargon.
@@ -348,7 +348,7 @@ async def get_personal_insights(data: NatalData):
 
     prompt = f"""
 You are Sana, astrology expert.
-Generate 3 hidden love desire for {data.name} in the following sections using chart below:
+Generate 3 hidden love desire of user {data.name} in the following sections using chart below:
 Each section must have "title" and "content", one line each. "title" must be one word or max two.
 use {data.name} or you to address the user naturally.
 Avoid astrology jargon.

@@ -328,6 +328,36 @@ Chart data: {json.dumps(astro_data, indent=2)}
     response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
     return response
 
+
+
+
+@router.post("/astro/personaldesire") 
+async def get_personal_insights(data: NatalData):
+    chart_file = USER_CHART_DIR / f"{data.id}.json"
+    if not chart_file.exists():
+        user = fetch_user_from_supabase_by_id(data.id)
+        if user:
+           await generate_chart_for_user(user)
+        else:
+            print(f"⚠️ User ID {data.id} not found. Using provided data.")
+
+    astro_data = await calculate_chart(data)
+    if not chart_file.exists():
+        with open(chart_file, "w") as f:
+            json.dump(astro_data, f, indent=2)
+
+    prompt = f"""
+You are Sana, astrology expert.
+Generate 3 personal love patterns for {data.name} in the following sections using chart below:
+Each section must have "title" and "content", one line each. "title" must be one word or max two.
+use {data.name} or you to address the user naturally.
+Avoid astrology jargon.
+Return ONLY JSON: {{"desire":[{{"title":"...","content":"..."}}]}}
+Chart data: {json.dumps(astro_data, indent=2)}
+"""
+    response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
+    return response
+
 # ---------------------------
 # Include routers
 # ---------------------------

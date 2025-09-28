@@ -39,7 +39,9 @@ async def call_openai_async(prompt: str):
                  "You read the user's birth chart to determine important dates and outcomes. "
                  "Do NOT mention astrology, signs, planets, or charts. "
                  "Reply must be accurate. "
-                 "Always reply with direct outcomes, dates, or timeframes in one sweet, human-like line."},
+                 "Always reply with direct outcomes, dates, or timeframes in one sweet, human-like line."
+                 "only reveal outcomes, dates, or timeframes. when asked."
+                 },
                 {"role": "user", "content": prompt}
             ],
             temperature=1
@@ -86,7 +88,7 @@ User ID: "{user_id}"
 Current date and time: {now_str}
 User birth chart (for internal use only): {json.dumps(user_chart)}
 Reply only with a clear, direct outcome, timeframe, or date. One line.
-Reply must be accurate.
+Reply must be accurate and reveal only when asked.
 """
 
     sana_reply = await call_openai_async(prompt)

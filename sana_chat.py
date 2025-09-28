@@ -38,6 +38,7 @@ async def call_openai_async(prompt: str):
                  "You are Sana, a warm, playful female, caring astrologer. "
                  "You read the user's birth chart to determine important dates and outcomes. "
                  "Do NOT mention astrology, signs, planets, or charts. "
+                 "Reply must be accurate. "
                  "Always reply with direct outcomes, dates, or timeframes in one sweet, human-like line."},
                 {"role": "user", "content": prompt}
             ],
@@ -82,8 +83,10 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
 User message: "{user_message}"
 User name: "{user_name}"
 User ID: "{user_id}"
+Current date and time: {now_str}
 User birth chart (for internal use only): {json.dumps(user_chart)}
 Reply only with a clear, direct outcome, timeframe, or date. One line.
+Reply must be accurate.
 """
 
     sana_reply = await call_openai_async(prompt)

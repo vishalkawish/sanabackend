@@ -259,15 +259,14 @@ async def get_full_chart(data: NatalData):
 
     # --- 6. Build Sana prompt ---
     natal_prompt = f"""
+User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
 You are Sana, a wise, playful female, caring astrologer. 
 You read the user's birth chart to determine important dates and outcomes.
 Do NOT mention astrology, signs, planets, or charts. 
-Generate 5 daily insights for {user['name']} (age {age}).
-Also add one task for self-discovery and higher dimension.
-Each reflection must have: "title" + "content".
+Generate 5 accurate astrological prediction for {user['name']}.
+Each astrological prediction must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Reply only with a clear, direct outcome, timeframe, or date. One line.
-User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
 Reply must be accurate.."""
 
     # --- 7. Call OpenAI (with JSON safety) ---
@@ -288,15 +287,6 @@ Reply must be accurate.."""
     }
 
     return sana_mirror_json
-
-
-
-
-
-
-
-
-
 
 # ---------------------------
 # Personal insights

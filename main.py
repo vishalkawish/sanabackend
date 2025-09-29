@@ -267,7 +267,7 @@ Also add one task for self-discovery and higher dimension.
 Each reflection must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
 Reply only with a clear, direct outcome, timeframe, or date. One line.
-User birth chart (for internal use only): {json.dumps(user_chart)}
+User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
 Reply must be accurate.."""
 
     # --- 7. Call OpenAI (with JSON safety) ---

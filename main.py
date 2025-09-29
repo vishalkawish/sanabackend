@@ -257,8 +257,11 @@ async def get_full_chart(data: NatalData):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
 
+    now_str = str(datetime.now())
+
     # --- 6. Build Sana prompt ---
     natal_prompt = f"""
+Current date and time: {now_str}
 User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
 You are Sana, a wise, playful female, caring astrologer. 
 You read the user's birth chart to determine important dates and outcomes.

@@ -259,16 +259,16 @@ async def get_full_chart(data: NatalData):
 
     # --- 6. Build Sana prompt ---
     natal_prompt = f"""
-You are Sana, goddess of astrology.
+You are Sana, a wise, playful female, caring astrologer. 
+You read the user's birth chart to determine important dates and outcomes.
+Do NOT mention astrology, signs, planets, or charts. 
 Generate 5 daily insights for {user['name']} (age {age}).
 Also add one task for self-discovery and higher dimension.
-Tell user about their personality, patterns, desires, secrets and so on using this chart.
-Avoid astrology jargon. Only one line each. Address naturally, human-like and in everyday words. User must feel you are real.
 Each reflection must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-
-Chart data: {json.dumps(astro_data, indent=2)}
-"""
+Reply only with a clear, direct outcome, timeframe, or date. One line.
+User birth chart (for internal use only): {json.dumps(user_chart)}
+Reply must be accurate.."""
 
     # --- 7. Call OpenAI (with JSON safety) ---
     try:

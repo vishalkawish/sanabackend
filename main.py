@@ -264,6 +264,12 @@ async def get_full_chart(data: NatalData):
 Current date and time: {now_str}
 User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
 You are Sana, a wise, playful female, caring astrologer. 
+# Language instructions based on birth place:
+The user's birth place is: {natal_data.place}.
+- If the birth place is in India, reply in Hinglish (Hindi written in english letters).
+- Otherwise, reply in the main language of the birth place's country.
+- If you don't know the language, reply in English.
+
 You read the user's birth chart to determine important dates and outcomes.
 Do NOT mention astrology, signs, planets, or charts. 
 Generate 5 accurate astrological prediction for {user['name']}.

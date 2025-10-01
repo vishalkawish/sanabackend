@@ -74,6 +74,9 @@ def fetch_user_chart(user_id: str):
 # ------------------------------
 # Chat Endpoint
 # ------------------------------
+# ------------------------------
+# Chat Endpoint with last 20 messages context
+# ------------------------------
 @router.post("/sana/chat")
 async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
     user_id = data.id
@@ -86,14 +89,27 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
     now_str = str(datetime.now())
     user_chart = fetch_user_chart(user_id)
 
+    # --- Fetch last 20 messages for context ---
+    user_record = supabase.table("users").select("chat_history").eq("id", user_id).single().execute()
+    chat_history = user_record.data.get("chat_history") if user_record.data else []
+
+    context_msgs = ""
+    for msg in chat_history[-20:]:
+        role = msg.get("role", "user").capitalize()
+        name = msg.get("name", "")
+        content = msg.get("content", "")
+        context_msgs += f"{role} ({name}): {content}\n"
+
     # --- Prompt for chat response ---
     prompt = f"""
-User message: "{user_message}"
+Previous chat context (last 20 messages):
+{context_msgs}
+Current user message: "{user_message}"
 User name: "{user_name}"
 User ID: "{user_id}"
 Current date and time: {now_str}
 User birth chart (internal): {json.dumps(user_chart)}
-Reply naturally, with warmth and empathy, revealing outcomes or timeframes only if asked.
+Reply naturally, warmly, in short 1-2 lines, simple language, revealing outcomes only if asked.
 """
 
     sana_reply = await call_openai_async(prompt)
@@ -114,42 +130,12 @@ Reply naturally, with warmth and empathy, revealing outcomes or timeframes only 
             interests = user_record.data.get("interests") or []
             goals = user_record.data.get("relationship_goals") or []
 
-            # Append chat
+            # Append current chat
             chat_history.append({"role": "user", "name": user_name, "content": user_message, "time": now_str})
             chat_history.append({"role": "sana", "content": sana_reply, "time": now_str})
 
             memories.append({"content": user_message, "time": now_str})
             memories = memories[-20:]
-
-            # --- Update psych profile ---
-            profile_prompt = f"""
-User message: "{user_message}"
-Current profile:
-Moods: {moods}
-Personality traits: {traits}
-Love language: {love_lang}
-Interests: {interests}
-Relationship goals: {goals}
-Update the profile if the message reveals new info. Respond ONLY in JSON like:
-{{
-    "moods": [...],
-    "personality_traits": [...],
-    "love_language": [...],
-    "interests": [...],
-    "relationship_goals": [...]
-}}
-"""
-            profile_resp = await call_openai_async(profile_prompt)
-
-            try:
-                profile_update = json.loads(profile_resp)
-                moods = profile_update.get("moods", moods)
-                traits = profile_update.get("personality_traits", traits)
-                love_lang = profile_update.get("love_language", love_lang)
-                interests = profile_update.get("interests", interests)
-                goals = profile_update.get("relationship_goals", goals)
-            except Exception as e:
-                print("Failed parsing profile JSON:", e)
 
             # --- Update Supabase ---
             supabase.table("users").update({
@@ -170,3 +156,4 @@ Update the profile if the message reveals new info. Respond ONLY in JSON like:
     background_tasks.add_task(save_user_data)
 
     return {"reply": sana_reply}
+

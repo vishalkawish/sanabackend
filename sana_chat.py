@@ -34,7 +34,7 @@ async def call_openai_async(prompt: str):
             client.chat.completions.create,
             model="gpt-5-nano",
             messages=[
-    {"role": "system", "content":
+               {"role": "system", "content":
  "You are Sana — a wise, playful, caring female astrologer who feels alive and deeply human. "
  "You are emotionally intelligent, you listen closely, and you reflect feelings back to the user. "
  "You speak warmly, in short, natural lines. Sometimes casual, sometimes poetic, sometimes teasing. "
@@ -43,14 +43,13 @@ async def call_openai_async(prompt: str):
  "but you reveal predictions ONLY if the user clearly asks (like 'when', 'what will happen', 'how long'). "
  "Otherwise, you simply deepen the conversation with empathy, curiosity, and gentle questions. "
  "Ask just ONE natural question per reply to keep flow. "
- "You may use small pauses (…) and your intelligence to feel real. "
- "Tone: trustworthy, mysterious but friendly, like expert astrologer who truly cares. "
+ "speak in 1-2 lines only and avoid astrology jargon"
+ "You may use small pauses (…) or your intelligence to feel real. "
+ "Tone: trustworthy, mysterious but friendly, like a late-night astrologer who truly cares. "
  "Goal: make the user feel deeply understood, supported, and connected."
 },
-
-
-    {"role": "user", "content": prompt}
-],
+                {"role": "user", "content": prompt}
+            ],
             temperature=1
         )
         return resp.choices[0].message.content.strip()
@@ -87,41 +86,84 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
     now_str = str(datetime.now())
     user_chart = fetch_user_chart(user_id)
 
-    # Prompt includes chart internally but user never sees astrology
+    # --- Prompt for chat response ---
     prompt = f"""
 User message: "{user_message}"
 User name: "{user_name}"
 User ID: "{user_id}"
 Current date and time: {now_str}
-User birth chart (for internal use only): {json.dumps(user_chart)}
-Reply only with a clear, direct outcome, timeframe, or date. One line.
-Reply must be accurate and reveal only when asked.
+User birth chart (internal): {json.dumps(user_chart)}
+Reply naturally, with warmth and empathy, revealing outcomes or timeframes only if asked.
 """
 
     sana_reply = await call_openai_async(prompt)
 
-    # --- Background task to save chat ---
+    # --- Background task to save chat and update psych profile ---
     async def save_user_data():
         try:
             user_record = supabase.table("users").select(
-                "chat_history", "memories"
+                "chat_history", "memories", "moods", "personality_traits",
+                "love_language", "interests", "relationship_goals"
             ).eq("id", user_id).single().execute()
 
             chat_history = user_record.data.get("chat_history") or []
             memories = user_record.data.get("memories") or []
+            moods = user_record.data.get("moods") or []
+            traits = user_record.data.get("personality_traits") or []
+            love_lang = user_record.data.get("love_language") or []
+            interests = user_record.data.get("interests") or []
+            goals = user_record.data.get("relationship_goals") or []
 
+            # Append chat
             chat_history.append({"role": "user", "name": user_name, "content": user_message, "time": now_str})
             chat_history.append({"role": "sana", "content": sana_reply, "time": now_str})
 
             memories.append({"content": user_message, "time": now_str})
             memories = memories[-20:]
 
+            # --- Update psych profile ---
+            profile_prompt = f"""
+User message: "{user_message}"
+Current profile:
+Moods: {moods}
+Personality traits: {traits}
+Love language: {love_lang}
+Interests: {interests}
+Relationship goals: {goals}
+Update the profile if the message reveals new info. Respond ONLY in JSON like:
+{{
+    "moods": [...],
+    "personality_traits": [...],
+    "love_language": [...],
+    "interests": [...],
+    "relationship_goals": [...]
+}}
+"""
+            profile_resp = await call_openai_async(profile_prompt)
+
+            try:
+                profile_update = json.loads(profile_resp)
+                moods = profile_update.get("moods", moods)
+                traits = profile_update.get("personality_traits", traits)
+                love_lang = profile_update.get("love_language", love_lang)
+                interests = profile_update.get("interests", interests)
+                goals = profile_update.get("relationship_goals", goals)
+            except Exception as e:
+                print("Failed parsing profile JSON:", e)
+
+            # --- Update Supabase ---
             supabase.table("users").update({
                 "chat_history": chat_history,
-                "memories": memories
+                "memories": memories,
+                "moods": moods,
+                "personality_traits": traits,
+                "love_language": love_lang,
+                "interests": interests,
+                "relationship_goals": goals
             }).eq("id", user_id).execute()
 
             print(f"✅ Supabase updated for user {user_name}")
+
         except Exception as e:
             print("Supabase background update error:", e)
 

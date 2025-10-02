@@ -146,8 +146,8 @@ Reply naturally, warmly, in short 1-2 lines, simple language, revealing outcomes
             memories = memories[-20:]
 
             # Extract psych info
-            extract_prompt = extract_prompt = f"""
-Analyze the following user message for psychological insights.
+            extract_prompt = f"""
+You are a psycologist AI. Analyze the following user message for psychological insights.
 Return a STRICT JSON ONLY with keys:
 - moods (list of strings)
 - personality_traits (list of strings)

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
-import json, asyncio, os
+import json, asyncio, os, re
 from openai import OpenAI
 from supabase import create_client
 
@@ -72,10 +72,19 @@ def fetch_user_chart(user_id: str):
         return {}
 
 # ------------------------------
+# Helper: safe JSON parse
+# ------------------------------
+def safe_json_parse(text):
+    try:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+    except Exception as e:
+        print("JSON parse failed:", e)
+    return {}
+
+# ------------------------------
 # Chat Endpoint
-# ------------------------------
-# ------------------------------
-# Chat Endpoint with last 20 messages context
 # ------------------------------
 @router.post("/sana/chat")
 async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
@@ -114,9 +123,10 @@ Reply naturally, warmly, in short 1-2 lines, simple language, revealing outcomes
 
     sana_reply = await call_openai_async(prompt)
 
-    # --- Background task to save chat and update psych profile ---
+    # --- Background task to save chat and detect personality ---
     async def save_user_data():
         try:
+            # Fetch user record
             user_record = supabase.table("users").select(
                 "chat_history", "memories", "moods", "personality_traits",
                 "love_language", "interests", "relationship_goals"
@@ -124,20 +134,43 @@ Reply naturally, warmly, in short 1-2 lines, simple language, revealing outcomes
 
             chat_history = user_record.data.get("chat_history") or []
             memories = user_record.data.get("memories") or []
-            moods = user_record.data.get("moods") or []
-            traits = user_record.data.get("personality_traits") or []
-            love_lang = user_record.data.get("love_language") or []
-            interests = user_record.data.get("interests") or []
-            goals = user_record.data.get("relationship_goals") or []
+            moods = user_record.data.get("moods") or ""
+            traits = user_record.data.get("personality_traits") or ""
+            love_lang = user_record.data.get("love_language") or ""
+            interests = user_record.data.get("interests") or ""
+            goals = user_record.data.get("relationship_goals") or ""
 
-            # Append current chat
             chat_history.append({"role": "user", "name": user_name, "content": user_message, "time": now_str})
             chat_history.append({"role": "sana", "content": sana_reply, "time": now_str})
-
             memories.append({"content": user_message, "time": now_str})
             memories = memories[-20:]
 
-            # --- Update Supabase ---
+            # Extract psych info
+            extract_prompt = extract_prompt = f"""
+Analyze the following user message for psychological insights.
+Return a STRICT JSON ONLY with keys:
+- moods (list of strings)
+- personality_traits (list of strings)
+- love_language (string)
+- interests (list of strings)
+- relationship_goals (string)
+
+User message: "{user_message}"
+
+IMPORTANT:
+- ONLY output valid JSON, nothing else.
+- Do not add explanations or text outside JSON.
+- If a field cannot be determined, return empty string or empty list.
+"""
+            extract_resp = await call_openai_async(extract_prompt)
+
+            psych_data = safe_json_parse(extract_resp)
+            moods = ", ".join(psych_data.get("moods", [])) if psych_data.get("moods") else moods
+            traits = ", ".join(psych_data.get("personality_traits", [])) if psych_data.get("personality_traits") else traits
+            love_lang = psych_data.get("love_language") or love_lang
+            interests = ", ".join(psych_data.get("interests", [])) if psych_data.get("interests") else interests
+            goals = psych_data.get("relationship_goals") or goals
+
             supabase.table("users").update({
                 "chat_history": chat_history,
                 "memories": memories,
@@ -156,4 +189,3 @@ Reply naturally, warmly, in short 1-2 lines, simple language, revealing outcomes
     background_tasks.add_task(save_user_data)
 
     return {"reply": sana_reply}
-

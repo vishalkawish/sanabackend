@@ -57,6 +57,28 @@ async def call_openai_async(prompt: str):
         print("OpenAI async error:", e)
         return "Sorry, I couldn't generate a reply right now."
 
+
+
+
+# 2. for psych-data extraction (STRICT JSON)
+async def call_psych_json_async(user_message: str):
+    resp = await asyncio.to_thread(
+        client.chat.completions.create,
+        model="gpt-5-nano",
+        messages=[
+            {"role": "system", "content":
+             "You are a psychologist AI. Output STRICT JSON ONLY with these keys: "
+             "moods (list of strings), personality_traits (list of strings), "
+             "love_language (string), interests (list of strings), relationship_goals (string). "
+             "Do NOT output any explanation or text — ONLY valid JSON. "
+             "If a field cannot be determined, return an empty list or empty string."
+            },
+            {"role": "user", "content": f'User message: "{user_message}"'}
+        ],
+        temperature=1
+    )
+    return resp.choices[0].message.content.strip()
+
 # ------------------------------
 # Helper: fetch chart from Supabase
 # ------------------------------
@@ -162,14 +184,16 @@ IMPORTANT:
 - Do not add explanations or text outside JSON.
 - If a field cannot be determined, return empty string or empty list.
 """
-            extract_resp = await call_openai_async(extract_prompt)
-
+            # Extract psych info using STRICT JSON
+            extract_resp = await call_psych_json_async(user_message)
             psych_data = safe_json_parse(extract_resp)
+
             moods = ", ".join(psych_data.get("moods", [])) if psych_data.get("moods") else moods
             traits = ", ".join(psych_data.get("personality_traits", [])) if psych_data.get("personality_traits") else traits
             love_lang = psych_data.get("love_language") or love_lang
             interests = ", ".join(psych_data.get("interests", [])) if psych_data.get("interests") else interests
             goals = psych_data.get("relationship_goals") or goals
+
 
             supabase.table("users").update({
                 "chat_history": chat_history,

@@ -259,6 +259,8 @@ async def get_full_chart(data: NatalData):
 
     now_str = str(datetime.now())
 
+
+
     # --- 6. Build Sana prompt ---
     natal_prompt = f"""
 Current date and time: {now_str}
@@ -272,10 +274,19 @@ The user's birth place is: {natal_data.place}.
 
 You read the user's birth chart to determine important dates and outcomes.
 Do NOT mention astrology, signs, planets, or charts. 
-Generate 5 accurate astrological prediction for {user['name']}.
-Each astrological prediction must have: "title" + "content".
+Generate 3 accurate astrological prediction for {user['name']}.
+Here are the user’s recent interactions with you:
+{user['chat_history']}
+User Moods: {user.get('moods')}
+User Personality Traits: {user.get('personality_traits')}
+User Love Language: {user.get('love_language')}
+User Relationship Goals: {user.get('relationship_goals')}
+User Interests: {user.get('interests')}
+Using the user information above mentioned and Generate 5 insight for user.
+Mix user information with chart insights. and give direction to the user.
+Each prediction and insight must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-Reply only with a clear, direct outcome, timeframe, or date. One line.
+Reply only with a clear, direct outcome, timeframe, or date. One line for astrology. Psycology, emotional intelligence for other for user.
 Reply must be accurate.."""
 
     # --- 7. Call OpenAI (with JSON safety) ---

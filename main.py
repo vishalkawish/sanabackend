@@ -282,11 +282,11 @@ User Personality Traits: {user.get('personality_traits')}
 User Love Language: {user.get('love_language')}
 User Relationship Goals: {user.get('relationship_goals')}
 User Interests: {user.get('interests')}
-Using the user information above mentioned and Generate 5 insight for user.
+Using the user information(moods, personality, love language, relation ship goal..interest, chat) above mentioned and Generate 5 insight for user to user understand himself.
 Mix user information with chart insights. and give direction to the user.
 Each prediction and insight must have: "title" + "content".
 Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-Reply only with a clear, direct outcome, timeframe, or date. One line for astrology. Psycology, emotional intelligence for other for user.
+Reply only with a clear, direct outcome, timeframe, or date. One line for astrology. and for other like (chat, mood etc) use Psycology, emotional intelligence.
 Reply must be accurate.."""
 
     # --- 7. Call OpenAI (with JSON safety) ---

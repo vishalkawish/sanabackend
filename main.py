@@ -4,6 +4,7 @@ load_dotenv()
 
 # 2️⃣ Standard imports
 import os
+import aiofiles
 import json
 import asyncio
 from pathlib import Path
@@ -176,13 +177,12 @@ import asyncio, json, os
 async def get_full_chart(data: NatalData):
     chart_file = USER_CHART_DIR / f"{data.id}.json"
 
-    # --- 1. Fetch user from Supabase safely ---
+    # --- 1. Fetch user ---
     try:
         resp = supabase.table("users").select("*").eq("id", data.id).single().execute()
         user = resp.data if resp and resp.data else None
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Supabase fetch error: {e}")
-
     if not user:
         raise HTTPException(status_code=404, detail=f"User {data.id} not found")
 
@@ -191,182 +191,94 @@ async def get_full_chart(data: NatalData):
         bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
         if bd and bt and bp:
             try:
-                dt = datetime.fromisoformat(bd)  # expects YYYY-MM-DD
+                dt = datetime.fromisoformat(bd)
                 hour, minute, *_ = map(int, bt.split(":"))
-                birth = {
-                    "year": dt.year,
-                    "month": dt.month,
-                    "day": dt.day,
-                    "hour": hour,
-                    "minute": minute,
-                    "place": bp
-                }
+                birth = {"year": dt.year, "month": dt.month, "day": dt.day,
+                         "hour": hour, "minute": minute, "place": bp}
                 supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
                 user["birth"] = birth
-                print(f"✅ Migrated birth data for {user['name']}")
-            except Exception as e:
-                print(f"⚠️ Birth migration failed for {user.get('name')}: {e}")
+            except:
+                pass
         else:
             raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
 
     # --- 3. Calculate age ---
-    def calculate_age(year, month, day):
-        try:
-            today = date.today()
-            return today.year - year - ((today.month, today.day) < (month, day))
-        except Exception as e:
-            print(f"[WARN] Failed age calc: {e}")
-            return None
-
+    def calculate_age(birth):
+        today = date.today()
+        return today.year - birth["year"] - ((today.month, today.day) < (birth["month"], birth["day"]))
     birth = user["birth"]
-    age = calculate_age(birth["year"], birth["month"], birth["day"])
-    if age and user.get("age") != age:  # update only if new or changed
+    age = calculate_age(birth)
+    if user.get("age") != age:
         supabase.table("users").update({"age": age}).eq("id", user["id"]).execute()
         user["age"] = age
-        print(f"🎂 Age calculated for {user['name']} => {age}")
 
-    # --- 4. Prepare NatalData ---
+    # --- 4. Assign Cosmic ID using global counter ---
+    if not user.get("cosmic_id"):
+       try:
+        resp_all = supabase.table("users").select("cosmic_id").neq("cosmic_id", None).execute()
+        existing_ids = [u["cosmic_id"] for u in resp_all.data if u.get("cosmic_id")]
+        numbers = [int(cid[1:]) for cid in existing_ids if cid.startswith("S") and cid[1:].isdigit()]
+        next_number = max(numbers) + 1 if numbers else 1
+        cosmic_id = f"S{next_number}"
+        supabase.table("users").update({"cosmic_id": cosmic_id}).eq("id", user["id"]).execute()
+        user["cosmic_id"] = cosmic_id
+        print(f"✨ Assigned Cosmic ID {cosmic_id} to {user['name']}")
+       except Exception as e:
+        print(f"⚠️ Failed to assign Cosmic ID: {e}")
+ 
+
+    # --- 5. Prepare NatalData ---
     natal_data = NatalData(
-        id=user["id"],
-        name=user.get("name", "Unknown"),
-        year=birth["year"],
-        month=birth["month"],
-        day=birth["day"],
-        hour=birth.get("hour", 0),
-        minute=birth.get("minute", 0),
+        id=user["id"], name=user.get("name", "Unknown"),
+        year=birth["year"], month=birth["month"], day=birth["day"],
+        hour=birth.get("hour", 0), minute=birth.get("minute", 0),
         place=birth["place"]
     )
 
-    # --- 5. Generate or load cached chart ---
-    if chart_file.exists():
-        try:
-            with open(chart_file, "r") as f:
-                astro_data = json.load(f)
-            print(f"📂 Loaded cached chart for {user['name']}")
-        except Exception as e:
-            print(f"⚠️ Cache load failed: {e}, regenerating...")
-            astro_data = await calculate_chart(natal_data)
-            with open(chart_file, "w") as f:
-                json.dump(astro_data, f)
-    else:
-        try:
-            astro_data = await calculate_chart(natal_data)
-            with open(chart_file, "w") as f:
-                json.dump(astro_data, f)
-            print(f"🪐 Generated and cached chart for {user['name']}")
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Chart generation failed: {e}")
+    # --- 6. Load or generate chart (async) ---
+    async def load_or_generate_chart():
+        if chart_file.exists():
+            try:
+                async with aiofiles.open(chart_file, "r") as f:
+                    return json.loads(await f.read())
+            except:
+                pass
+        astro_data = await calculate_chart(natal_data)
+        async with aiofiles.open(chart_file, "w") as f:
+            await f.write(json.dumps(astro_data))
+        return astro_data
 
+    astro_data = await load_or_generate_chart()
+
+    # --- 7. Build OpenAI prompt ---
     now_str = str(datetime.now())
-
-
-
-    # --- 6. Build Sana prompt ---
     natal_prompt = f"""
-Current date and time: {now_str}
-User birth chart (for internal use only): Chart data: {json.dumps(astro_data, indent=2)}
-You are Sana, a wise, playful female, caring astrologer. 
-# Language instructions based on birth place:
-The user's birth place is: {natal_data.place}.
-- If the birth place is in India, reply in Hinglish (Hindi written in english letters).
-- Otherwise, reply in the main language of the birth place's country.
-- If you don't know the language, reply in English.
-
-You read the user's birth chart to determine important dates and outcomes.
-Do NOT mention astrology, signs, planets, or charts. 
-Generate 3 accurate astrological prediction for {user['name']}.
-Here are the user’s recent interactions with you:
-{user['chat_history']}
-User Moods: {user.get('moods')}
-User Personality Traits: {user.get('personality_traits')}
-User Love Language: {user.get('love_language')}
-User Relationship Goals: {user.get('relationship_goals')}
-User Interests: {user.get('interests')}
-Using the user information(moods, personality, love language, relation ship goal..interest, chat) above mentioned and Generate 5 insight for user to user understand himself.
-Mix user information with chart insights. and give direction to the user.
+Current date: {now_str}
+User chart: {json.dumps(astro_data)}
+You are Sana, playful female astrologer.
+The user's birth place is: {natal_data.place}. - If the birth place is in India, reply in Hinglish (Hindi written in english letters). -
+ Otherwise, reply in the main language of the birth place's country. - If you don't know the language, reply in English.
+User info: {user.get('chat_history')}, moods: {user.get('moods')}, personality: {user.get('personality_traits')}, love language: {user.get('love_language')}, goals: {user.get('relationship_goals')}, interests: {user.get('interests')}
+Generate 3 astrological predictions(outcomes or dates).
+Do NOT mention astrology, signs, planets, or charts
+avoid astrology jargon.
+use simple language. strictly 1-2 lines.
+Reply only with a clear, direct outcome, timeframe, or date. One line for astrology. 
+Using the user information(moods, personality,
+love language, relation ship goal..interest, chat) above mentioned and Generate 5 insight for user so that user can understand himself.
 Each prediction and insight must have: "title" + "content".
-Return ONLY JSON: {{"mirror":[{{"title":"...","content":"..."}}]}}
-Reply only with a clear, direct outcome, timeframe, or date. One line for astrology. and for other like (chat, mood etc) use Psycology, emotional intelligence.
-Reply must be accurate.."""
+and for other like (chat, mood etc) use Psycology, emotional intelligence. Reply must be accurate..
+Return ONLY JSON with: {{'mirror':[{{'title':'...','content':'...'}}]}}
+"""
 
-    # --- 7. Call OpenAI (with JSON safety) ---
+    # --- 8. Call OpenAI async ---
     try:
-        [natal_response] = await asyncio.gather(
-            call_openai_async(natal_prompt, "You are Sana, a goddess, output JSON only."),
-        )
+        [natal_response] = await asyncio.gather(call_openai_async(natal_prompt, "You are Sana, JSON only"))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sana reflection failed: {e}")
 
-    # --- 8. Wrap into Unity-compatible object ---
-    sana_mirror_json = {
-        "natal": [
-            {
-                "mirror": natal_response.get("mirror", []),
-            }
-        ]
-    }
+    return {"natal": [{"mirror": natal_response.get("mirror", [])}]}
 
-    return sana_mirror_json
-
-# ---------------------------
-# Personal insights
-# ---------------------------
-@router.post("/astro/personal") 
-async def get_personal_insights(data: NatalData):
-    chart_file = USER_CHART_DIR / f"{data.id}.json"
-    if not chart_file.exists():
-        user = fetch_user_from_supabase_by_id(data.id)
-        if user:
-           await generate_chart_for_user(user)
-        else:
-            print(f"⚠️ User ID {data.id} not found. Using provided data.")
-
-    astro_data = await calculate_chart(data)
-    if not chart_file.exists():
-        with open(chart_file, "w") as f:
-            json.dump(astro_data, f, indent=2)
-
-    prompt = f"""
-You are Sana, astrology expert.
-Generate 3 hidden love secrets of {data.name} in the following sections using chart below:
-Each section must have "title" and "content", one line each. "title" must be one word or max two.
-use {data.name} or you to address the user naturally.
-Avoid astrology jargon.
-Return ONLY JSON: {{"personal":[{{"title":"...","content":"..."}}]}}
-Chart data: {json.dumps(astro_data, indent=2)}
-"""
-    response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
-    return response
-
-
-
-
-@router.post("/astro/personaldesire") 
-async def get_personal_insights(data: NatalData):
-    chart_file = USER_CHART_DIR / f"{data.id}.json"
-    if not chart_file.exists():
-        user = fetch_user_from_supabase_by_id(data.id)
-        if user:
-           await generate_chart_for_user(user)
-        else:
-            print(f"⚠️ User ID {data.id} not found. Using provided data.")
-
-    astro_data = await calculate_chart(data)
-    if not chart_file.exists():
-        with open(chart_file, "w") as f:
-            json.dump(astro_data, f, indent=2)
-
-    prompt = f"""
-You are Sana, astrology expert.
-Generate 3 hidden love desire of user {data.name} in the following sections using chart below:
-Each section must have "title" and "content", one line each. "title" must be one word or max two.
-use {data.name} or you to address the user naturally.
-Avoid astrology jargon.
-Return ONLY JSON: {{"desire":[{{"title":"...","content":"..."}}]}}
-Chart data: {json.dumps(astro_data, indent=2)}
-"""
-    response = await call_openai_async(prompt, "You are Sana, a goddess, output JSON only.")
-    return response
 
 # ---------------------------
 # Include routers
@@ -379,7 +291,3 @@ app.include_router(random_match_router)
 app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router)
-
-print("Registered routes:")
-for r in app.routes:
-    print(r.path)

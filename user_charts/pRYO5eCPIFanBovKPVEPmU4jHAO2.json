@@ -1,0 +1,106 @@
+{
+  "id": "pRYO5eCPIFanBovKPVEPmU4jHAO2",
+  "name": "SUHAIB FAROOQ",
+  "place": "kashmir",
+  "lat": 34.0833,
+  "lon": 74.8333,
+  "birthdate": "2005-06-27",
+  "birthtime": "03:00",
+  "julian_day": 2453548.625,
+  "ascendant": {
+    "longitude": 134.29,
+    "sign": "Leo",
+    "deg_in_sign": 14.29
+  },
+  "midheaven": {
+    "longitude": 37.52,
+    "sign": "Taurus",
+    "deg_in_sign": 7.52
+  },
+  "houses": [
+    134.29,
+    157.46,
+    185.12,
+    217.52,
+    252.01,
+    284.81,
+    314.29,
+    337.46,
+    5.12,
+    37.52,
+    72.01,
+    104.81
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 95.57,
+      "sign": "Cancer",
+      "deg_in_sign": 5.57
+    },
+    "Moon": {
+      "longitude": 344.36,
+      "sign": "Pisces",
+      "deg_in_sign": 14.36
+    },
+    "Mercury": {
+      "longitude": 118.47,
+      "sign": "Cancer",
+      "deg_in_sign": 28.47
+    },
+    "Venus": {
+      "longitude": 118.64,
+      "sign": "Cancer",
+      "deg_in_sign": 28.64
+    },
+    "Mars": {
+      "longitude": 10.29,
+      "sign": "Aries",
+      "deg_in_sign": 10.29
+    },
+    "Jupiter": {
+      "longitude": 189.63,
+      "sign": "Libra",
+      "deg_in_sign": 9.63
+    },
+    "Saturn": {
+      "longitude": 117.55,
+      "sign": "Cancer",
+      "deg_in_sign": 27.55
+    },
+    "Uranus": {
+      "longitude": 340.71,
+      "sign": "Pisces",
+      "deg_in_sign": 10.71
+    },
+    "Neptune": {
+      "longitude": 317.23,
+      "sign": "Aquarius",
+      "deg_in_sign": 17.23
+    },
+    "Pluto": {
+      "longitude": 262.84,
+      "sign": "Sagittarius",
+      "deg_in_sign": 22.84
+    },
+    "North Node": {
+      "longitude": 18.94,
+      "sign": "Aries",
+      "deg_in_sign": 18.94
+    },
+    "South Node": {
+      "longitude": 198.94,
+      "sign": "Libra",
+      "deg_in_sign": 18.94
+    }
+  },
+  "north_node": {
+    "longitude": 18.94,
+    "sign": "Aries",
+    "deg_in_sign": 18.94
+  },
+  "south_node": {
+    "longitude": 198.94,
+    "sign": "Libra",
+    "deg_in_sign": 18.94
+  }
+}

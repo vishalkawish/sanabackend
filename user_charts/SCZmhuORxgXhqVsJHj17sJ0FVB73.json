@@ -1,0 +1,106 @@
+{
+  "id": "SCZmhuORxgXhqVsJHj17sJ0FVB73",
+  "name": "Amey Rane",
+  "place": "virar Maharashtra India",
+  "lat": 19.43,
+  "lon": 72.84,
+  "birthdate": "2001-03-07",
+  "birthtime": "09:09",
+  "julian_day": 2451975.88125,
+  "ascendant": {
+    "longitude": 111.58,
+    "sign": "Cancer",
+    "deg_in_sign": 21.58
+  },
+  "midheaven": {
+    "longitude": 16.54,
+    "sign": "Aries",
+    "deg_in_sign": 16.54
+  },
+  "houses": [
+    111.58,
+    136.62,
+    164.75,
+    196.54,
+    229.84,
+    261.76,
+    291.58,
+    316.62,
+    344.75,
+    16.54,
+    49.84,
+    81.76
+  ],
+  "planets": {
+    "Sun": {
+      "longitude": 346.86,
+      "sign": "Pisces",
+      "deg_in_sign": 16.86
+    },
+    "Moon": {
+      "longitude": 134.0,
+      "sign": "Leo",
+      "deg_in_sign": 14.0
+    },
+    "Mercury": {
+      "longitude": 319.76,
+      "sign": "Aquarius",
+      "deg_in_sign": 19.76
+    },
+    "Venus": {
+      "longitude": 17.67,
+      "sign": "Aries",
+      "deg_in_sign": 17.67
+    },
+    "Mars": {
+      "longitude": 250.26,
+      "sign": "Sagittarius",
+      "deg_in_sign": 10.26
+    },
+    "Jupiter": {
+      "longitude": 63.89,
+      "sign": "Gemini",
+      "deg_in_sign": 3.89
+    },
+    "Saturn": {
+      "longitude": 55.61,
+      "sign": "Taurus",
+      "deg_in_sign": 25.61
+    },
+    "Uranus": {
+      "longitude": 322.28,
+      "sign": "Aquarius",
+      "deg_in_sign": 22.28
+    },
+    "Neptune": {
+      "longitude": 307.69,
+      "sign": "Aquarius",
+      "deg_in_sign": 7.69
+    },
+    "Pluto": {
+      "longitude": 255.25,
+      "sign": "Sagittarius",
+      "deg_in_sign": 15.25
+    },
+    "North Node": {
+      "longitude": 102.22,
+      "sign": "Cancer",
+      "deg_in_sign": 12.22
+    },
+    "South Node": {
+      "longitude": 282.22,
+      "sign": "Capricorn",
+      "deg_in_sign": 12.22
+    }
+  },
+  "north_node": {
+    "longitude": 102.22,
+    "sign": "Cancer",
+    "deg_in_sign": 12.22
+  },
+  "south_node": {
+    "longitude": 282.22,
+    "sign": "Capricorn",
+    "deg_in_sign": 12.22
+  }
+}

@@ -498,5 +498,9 @@
   "kashmir": {
     "lat": 34.0833,
     "lon": 74.8333
+  },
+  "virar Maharashtra India": {
+    "lat": 19.43,
+    "lon": 72.84
   }
 }

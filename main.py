@@ -26,6 +26,8 @@ from sana_chat import router as sana_router
 from soul_of_anlasana_2_1 import router as soul_router
 from demo_matches import router as random_match_router
 from premium import premium_activate
+from cosmic_id_search import router as cosmic_id_router
+from cosmic_id_match import router as cosmic_id_match_router
 from routes import profile_image
 from routes import save_phone_number
 
@@ -295,3 +297,5 @@ app.include_router(random_match_router)
 app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router)
+app.include_router(cosmic_id_router)
+app.include_router(cosmic_id_match_router)

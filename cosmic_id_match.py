@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 import httpx, os
 import openai
+import json
 
 router = APIRouter()
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -36,11 +37,10 @@ async def sana_match_opinion(request: MatchRequest):
     Give 5 honest match opinion between two users using their info and charts.
     include challanges, strengths, and growth areas, tip to make it work.
     use human like tone. avoid astrology jargon.
-    Below is their info: Use the practical details(personality_traits, love_language, interest) to form your opinion. and only use the charts to read their hearts desires and emotional needs.
+    Below is two users info: Use the practical details(personality_traits, love_language, interest) to form your opinion. and only use the charts to 
+    read their hearts desires and emotional needs.
     max 1-2 lines per point.
-    and end it with sana super honest advice on their match.
-    Respond ONLY in JSON format with 'title' and 'content'.
-
+    and end it with sana super honest advice and tip on their match.
     User 1:
     Name: {user1['name']}
     Birthdate: {user1['birthdate']}
@@ -62,8 +62,8 @@ async def sana_match_opinion(request: MatchRequest):
     Love language: {user2.get('love_language')}
     Interests: {user2.get('interests')}
     Chart: {user2.get('chart')}
-
-    Format ONLY as:
+    Each object must have title and content fields
+    Format ONLY in JSON as:
     {{"title": "...", "content": "..."}}
     """
 
@@ -74,7 +74,8 @@ async def sana_match_opinion(request: MatchRequest):
         )
 
         reply_text = response.choices[0].message.content.strip()
-        return {"sana_opinion": reply_text}
+        return {"sana_opinion": json.loads(reply_text)}
+
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"OpenAI error: {e}")

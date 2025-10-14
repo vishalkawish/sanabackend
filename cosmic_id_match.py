@@ -12,11 +12,11 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 class MatchRequest(BaseModel):
-    cosmic_id_1: str
-    cosmic_id_2: str
+    sana_id_1: str
+    sana_id_2: str
 
-async def fetch_user(cosmic_id: str):
-    url = f"{SUPABASE_URL}/rest/v1/users?cosmic_id=eq.{cosmic_id}&select=*"
+async def fetch_user(sana_id: str):
+    url = f"{SUPABASE_URL}/rest/v1/users?sana_id=eq.{sana_id}&select=*"
     headers = {"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"}
     async with httpx.AsyncClient() as client_http:
         resp = await client_http.get(url, headers=headers)
@@ -26,8 +26,8 @@ async def fetch_user(cosmic_id: str):
 
 @router.post("/cosmic_id_match")
 async def sana_match_opinion(request: MatchRequest):
-    user1 = await fetch_user(request.cosmic_id_1)
-    user2 = await fetch_user(request.cosmic_id_2)
+    user1 = await fetch_user(request.sana_id_1)
+    user2 = await fetch_user(request.sana_id_2)
 
     if not user1 or not user2:
         raise HTTPException(status_code=404, detail="One or both users not found.")

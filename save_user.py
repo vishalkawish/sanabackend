@@ -21,6 +21,8 @@ class UserData(BaseModel):
     birthtime: str | None = None
     birthplace: str | None = None
     profile_pic_url: str | None = None
+    gender: str | None = None
+
 
 
 def calculate_age_from_birthdate(birthdate: str) -> int | None:

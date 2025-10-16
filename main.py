@@ -188,29 +188,28 @@ async def get_full_chart(data: NatalData):
         raise HTTPException(status_code=404, detail=f"User {data.id} not found")
 
     # --- 2. Ensure birth data exists ---
-    if not user.get("birth"):
-        bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
-        if bd and bt and bp:
-            try:
-                dt = datetime.fromisoformat(bd)
-                hour, minute, *_ = map(int, bt.split(":"))
-                birth = {"year": dt.year, "month": dt.month, "day": dt.day,
-                         "hour": hour, "minute": minute, "place": bp}
-                supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
-                user["birth"] = birth
-            except Exception as e:
-                print("⚠️ Birth migration failed:", e)
-        else:
-            raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
-  
+   # get birth data from user
+birth = user.get("birth")
+if not birth:
+    bd, bt, bp = user.get("birthdate"), user.get("birthtime"), user.get("birthplace")
+    if bd and bt and bp:
+        dt = datetime.fromisoformat(bd)
+        hour, minute, *_ = map(int, bt.split(":"))
+        birth = {"year": dt.year, "month": dt.month, "day": dt.day,
+                 "hour": hour, "minute": minute, "place": bp}
+        supabase.table("users").update({"birth": birth}).eq("id", user["id"]).execute()
+        user["birth"] = birth
+    else:
+        raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
 
-    # --- 5. Prepare NatalData ---
-    natal_data = NatalData(
-        id=user["id"], name=user.get("name", "Unknown"),
-        year=birth["year"], month=birth["month"], day=birth["day"],
-        hour=birth.get("hour", 0), minute=birth.get("minute", 0),
-        place=birth["place"]
-    )
+# now birth is guaranteed to exist
+natal_data = NatalData(
+    id=user["id"], name=user.get("name", "Unknown"),
+    year=birth["year"], month=birth["month"], day=birth["day"],
+    hour=birth.get("hour", 0), minute=birth.get("minute", 0),
+    place=birth["place"]
+)
+
 
     # --- 6. Load or generate chart (Supabase cache, no files) ---
     async def load_or_generate_chart():

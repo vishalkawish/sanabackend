@@ -201,31 +201,7 @@ async def get_full_chart(data: NatalData):
                 print("⚠️ Birth migration failed:", e)
         else:
             raise HTTPException(status_code=400, detail=f"Insufficient birth info for {user.get('name')}")
-
-    # --- 3. Update age ---
-    def calculate_age(birth):
-        today = date.today()
-        return today.year - birth["year"] - ((today.month, today.day) < (birth["month"], birth["day"]))
-    birth = user["birth"]
-    age = calculate_age(birth)
-    if user.get("age") != age:
-        supabase.table("users").update({"age": age}).eq("id", user["id"]).execute()
-        user["age"] = age
-
-    # --- 4. Atomic Cosmic ID (safe, no duplicates) ---
-    if not user.get("cosmic_id"):
-        try:
-            counter = supabase.table("settings").select("value").eq("key", "max_cosmic_id").single().execute()
-            max_id = int(counter.data["value"]) if counter.data else 0
-            next_number = max_id + 1
-            cosmic_id = f"S{next_number}"
-            # Update counter first, then assign
-            supabase.table("settings").update({"value": next_number}).eq("key", "max_cosmic_id").execute()
-            supabase.table("users").update({"cosmic_id": cosmic_id}).eq("id", user["id"]).execute()
-            user["cosmic_id"] = cosmic_id
-            print(f"🌟 Assigned Cosmic ID {cosmic_id} to {user['name']}")
-        except Exception as e:
-            print(f"⚠️ Cosmic ID assignment failed: {e}")
+  
 
     # --- 5. Prepare NatalData ---
     natal_data = NatalData(
@@ -267,9 +243,8 @@ otherwise, reply in the main language of that country.
 If unknown, reply in English.
 User info: {user.get('chat_history')}, moods: {user.get('moods')}, personality: {user.get('personality_traits')},
 love language: {user.get('love_language')}, goals: {user.get('relationship_goals')}, interests: {user.get('interests')}
-Generate 3 astrological predictions (clear outcomes or dates).
+Generate 3 astrology insights about user future outcomes.
 Avoid astrology jargon and planet names.
-avoid prediction1, insight1, insight2, etc kinda headings.
 Use simple, warm language — 1–2 lines each.
 Also, using user info (moods, personality, love language, goals, etc.), generate 5 self-understanding insights.
 Each entry must have: "title" and "content".

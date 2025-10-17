@@ -20,7 +20,7 @@ class UserData(BaseModel):
     birthdate: str | None = None
     birthtime: str | None = None
     birthplace: str | None = None
-    profile_pic_url: str | None = None
+    profilePicUrl: str | None = None
     gender: str | None = None
 
 

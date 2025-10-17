@@ -200,7 +200,7 @@ async def get_full_chart(data: NatalData):
     
     birthdate = user.get("birthdate")
     if birthdate:
-        age = calculate_age_from_birthdate(user.birthdate)
+        age = calculate_age_from_birthdate(birthdate)
         if age is not None:
             user_data["age"] = age
 

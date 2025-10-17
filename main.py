@@ -198,8 +198,8 @@ async def get_full_chart(data: NatalData):
         raise HTTPException(status_code=404, detail=f"User {data.id} not found")
 
     
-    
-    if user.birthdate:
+    birthdate = user.get("birthdate")
+    if birthdate:
         age = calculate_age_from_birthdate(user.birthdate)
         if age is not None:
             user_data["age"] = age

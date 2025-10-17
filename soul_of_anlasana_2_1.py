@@ -203,8 +203,6 @@ def soul_of_anlasana(user_id: str):
             continue
         if not other.get("age") or other.get("age") < 18:  # ✅ 18+ check
             continue
-        if not other.get("phone_number"):  
-            continue
         if other.get("name") in seen:
             continue
 

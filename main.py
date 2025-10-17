@@ -176,6 +176,16 @@ from fastapi import HTTPException
 from datetime import datetime, date
 import asyncio, json, os
 
+
+def calculate_age_from_birthdate(birthdate: str) -> int | None:
+    try:
+        bd = datetime.fromisoformat(birthdate)
+        today = date.today()
+        return today.year - bd.year - ((today.month, today.day) < (bd.month, bd.day))
+    except Exception:
+        return None
+
+
 @router.post("/astro/full")
 async def get_full_chart(data: NatalData):
     # --- 1. Fetch user ---
@@ -186,6 +196,13 @@ async def get_full_chart(data: NatalData):
         raise HTTPException(status_code=500, detail=f"Supabase fetch error: {e}")
     if not user:
         raise HTTPException(status_code=404, detail=f"User {data.id} not found")
+
+    
+    
+    if user.birthdate:
+        age = calculate_age_from_birthdate(user.birthdate)
+        if age is not None:
+            user_data["age"] = age
 
     # --- 2. Ensure birth data exists ---
     birth = user.get("birth")

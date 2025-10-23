@@ -43,18 +43,20 @@ async def chat_socket(websocket: WebSocket, user_id: str):
 @app.get("/get_messages")
 async def get_messages(user1: str = Query(...), user2: str = Query(...)):
     try:
-        # ✅ Proper OR filter syntax for Supabase/PostgREST
-        or_filter = f"(sender_id.eq.{user1},receiver_id.eq.{user2}),(sender_id.eq.{user2},receiver_id.eq.{user1})"
+        # ✅ Fixed OR syntax
+        or_filter = f"and(sender_id.eq.{user1},receiver_id.eq.{user2}),and(sender_id.eq.{user2},receiver_id.eq.{user1})"
 
-        result = supabase.table("messages")\
-            .select("*")\
-            .or_(or_filter)\
-            .order("created_at")\
+        result = (
+            supabase.table("messages")
+            .select("*")
+            .or_(or_filter)
+            .order("created_at")
             .execute()
+        )
 
-        messages = result.data if result.data else []
-        return messages
+        return result.data or []
 
     except Exception as e:
         return {"error": str(e)}
+
 

@@ -43,9 +43,7 @@ async def chat_socket(websocket: WebSocket, user_id: str):
 @app.get("/get_messages")
 async def get_messages(user1: str = Query(...), user2: str = Query(...)):
     try:
-        # ✅ Fixed OR syntax
         or_filter = f"and(sender_id.eq.{user1},receiver_id.eq.{user2}),and(sender_id.eq.{user2},receiver_id.eq.{user1})"
-
         result = (
             supabase.table("messages")
             .select("*")
@@ -53,10 +51,9 @@ async def get_messages(user1: str = Query(...), user2: str = Query(...)):
             .order("created_at")
             .execute()
         )
-
-        return result.data or []
-
+        return {"messages": result.data or []}  # ✅ wrap result
     except Exception as e:
         return {"error": str(e)}
+
 
 

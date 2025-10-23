@@ -46,17 +46,20 @@ async def get_messages(
     user2: str = Query(...)
 ):
     try:
-        result = supabase.table("messages")\
-            .select("*")\
+        result = (
+            supabase.table("messages")
+            .select("*")
             .or_(
                 f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
                 f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
-            )\
-            .order("created_at")  # ✅ no 'ascending' argument
+            )
+            .order("created_at")  # ✅ no 'ascending'
             .execute()
+        )
 
         messages = result.data if result.data else []
         return messages
     except Exception as e:
         return {"error": str(e)}
+
 

@@ -41,24 +41,20 @@ async def chat_socket(websocket: WebSocket, user_id: str):
 
 # ✅ New HTTP endpoint to fetch chat history
 @app.get("/get_messages")
-async def get_messages(
-    user1: str = Query(...),
-    user2: str = Query(...)
-):
+async def get_messages(user1: str = Query(...), user2: str = Query(...)):
     try:
-        result = (
-            supabase.table("messages")
-            .select("*")
+        # Correct Supabase OR syntax
+        result = supabase.table("messages")\
+            .select("*")\
             .or_(
-                f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
-                f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
-            )
-            .order("created_at")  # ✅ no 'ascending'
+                f"sender_id.eq.{user1},receiver_id.eq.{user2}",
+                f"sender_id.eq.{user2},receiver_id.eq.{user1}"
+            )\
+            .order("created_at")\
             .execute()
-        )
 
-        messages = result.data if result.data else []
-        return messages
+        return result.data if result.data else []
+
     except Exception as e:
         return {"error": str(e)}
 

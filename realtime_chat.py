@@ -52,7 +52,7 @@ async def get_messages(
             f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
             f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
         )\
-        .order("created_at", ascending=True)\
+        .order("created_at", ascending="True")\
         .execute()
 
     messages = result.data if result.data else []

@@ -32,7 +32,6 @@ from save_user import router as save_user_router
 from routes import profile_image
 from routes import save_phone_number
 from realtime_chat import app as chat_app
-from realtime_chat import router as chat_app_router
 
 # ---------------------------
 # Environment variables
@@ -305,5 +304,4 @@ app.include_router(cosmic_id_router)
 app.include_router(cosmic_id_match_router)
 app.include_router(save_user_router)
 app.mount("/", chat_app)
-app.include_router(chat_app_router)
 

@@ -45,16 +45,18 @@ async def get_messages(
     user1: str = Query(...),
     user2: str = Query(...)
 ):
-    # Query Supabase for messages between user1 and user2
-    result = supabase.table("messages")\
-        .select("*")\
-        .or_(
-            f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
-            f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
-        )\
-        .order("created_at", ascending="True")\
-        .execute()
+    try:
+        result = supabase.table("messages")\
+            .select("*")\
+            .or_(
+                f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
+                f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
+            )\
+            .order("created_at")  # ✅ no 'ascending' argument
+            .execute()
 
-    messages = result.data if result.data else []
+        messages = result.data if result.data else []
+        return messages
+    except Exception as e:
+        return {"error": str(e)}
 
-    return messages

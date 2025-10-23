@@ -1,9 +1,10 @@
 # server.py
 # server.py
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.middleware.cors import CORSMiddleware
 from supabase import create_client, Client
 import os, json
+
 
 app = FastAPI()
 

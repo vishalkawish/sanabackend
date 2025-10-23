@@ -1,5 +1,5 @@
 # server.py
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, Query
 from supabase import create_client, Client
 import os, json, asyncio
 
@@ -11,6 +11,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 connected_users = {}  # { user_id: websocket }
 
+# WebSocket endpoint (already exists)
 @app.websocket("/ws/{user_id}")
 async def chat_socket(websocket: WebSocket, user_id: str):
     await websocket.accept()
@@ -37,3 +38,23 @@ async def chat_socket(websocket: WebSocket, user_id: str):
         print(f"Disconnected: {user_id} ({e})")
     finally:
         del connected_users[user_id]
+
+# ✅ New HTTP endpoint to fetch chat history
+@app.get("/get_messages")
+async def get_messages(
+    user1: str = Query(...),
+    user2: str = Query(...)
+):
+    # Query Supabase for messages between user1 and user2
+    result = supabase.table("messages")\
+        .select("*")\
+        .or_(
+            f"(sender_id.eq.{user1},receiver_id.eq.{user2})",
+            f"(sender_id.eq.{user2},receiver_id.eq.{user1})"
+        )\
+        .order("created_at", ascending=True)\
+        .execute()
+
+    messages = result.data if result.data else []
+
+    return messages

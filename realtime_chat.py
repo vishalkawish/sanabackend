@@ -92,7 +92,7 @@ async def get_user_chats(user_id: str = Query(...)):
                     "soulmate_id": soulmate_id,
                     "soulmate_name": user_data.get("name", "Unknown"),
                     "last_message": msg["content"],
-                    "profile_url": user_data.get("profilePicUrl", "https://example.com/default.png")
+                    "profile_url": user_data.get("profilePicUrl")
                 }
 
         chats = list(chat_dict.values())

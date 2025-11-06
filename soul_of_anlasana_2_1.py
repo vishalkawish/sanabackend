@@ -227,8 +227,8 @@ def soul_of_anlasana(user_id: str):
             "birthplace": other.get("birthplace")  # include birthplace in response
         })
 
-   # matches.sort(key=lambda x: x["match_percent"], reverse=True)
-    matches.sort(key=lambda x: x["name"].lower(), reverse=True)
+     matches.sort(key=lambda x: x["match_percent"], reverse=True)
+   # matches.sort(key=lambda x: x["name"].lower(), reverse=True)
 
 
     summary = {

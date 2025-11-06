@@ -45,9 +45,6 @@ Give 5 honest match opinions between two users using their info and charts.
 
 User 1:
 Name: {user1['name']}
-Birthdate: {user1['birthdate']}
-Birthtime: {user1.get('birthtime')}
-Birthplace: {user1.get('birthplace')}
 Gender: {user1.get('gender')}
 Personality traits: {user1.get('personality_traits')}
 Love language: {user1.get('love_language')}
@@ -56,9 +53,6 @@ Chart: {user1.get('chart')}
 
 User 2:
 Name: {user2['name']}
-Birthdate: {user2['birthdate']}
-Birthtime: {user2.get('birthtime')}
-Birthplace: {user2.get('birthplace')}
 Gender: {user2.get('gender')}
 Personality traits: {user2.get('personality_traits')}
 Love language: {user2.get('love_language')}

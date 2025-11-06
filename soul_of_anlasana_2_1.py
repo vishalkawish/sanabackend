@@ -215,6 +215,7 @@ def soul_of_anlasana(user_id: str):
         score = deep_compatibility(target_chart, other.get("chart"))
         ctype = classify_connection(score)
         matches.append({
+            "sana_id": other.get("sana_id"),    
             "user_id": other.get("id"),
             "name": other.get("name"),
             "url": other.get("profilePicUrl"),

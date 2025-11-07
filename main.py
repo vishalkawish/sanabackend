@@ -178,12 +178,35 @@ from datetime import datetime, date
 import asyncio, json, os
 
 
-def calculate_age_from_birthdate(birthdate: str) -> int | None:
+def calculate_age_from_birthdate(birthdate: str | None) -> int | None:
+    if not birthdate:
+        return None
+
     try:
-        bd = datetime.fromisoformat(birthdate)
+        # Handle if Supabase sends a dict, null, or extra quotes
+        if isinstance(birthdate, dict):
+            birthdate = birthdate.get("date")
+        if not isinstance(birthdate, str):
+            birthdate = str(birthdate)
+
+        birthdate = birthdate.strip().strip('"').strip("'")
+
+        # Try parsing using ISO or common patterns
+        for fmt in ("%Y-%m-%d", "%Y/%m/%d", "%d-%m-%Y", "%Y-%m-%dT%H:%M:%S"):
+            try:
+                bd = datetime.strptime(birthdate, fmt)
+                break
+            except ValueError:
+                bd = None
+
+        if bd is None:
+            # As a last fallback
+            bd = datetime.fromisoformat(birthdate)
+
         today = date.today()
         return today.year - bd.year - ((today.month, today.day) < (bd.month, bd.day))
-    except Exception:
+    except Exception as e:
+        print(f"⚠️ Age calculation failed for '{birthdate}': {e}")
         return None
 
 

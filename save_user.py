@@ -49,10 +49,6 @@ async def save_user(user: UserData):
         user_data = {k: v for k, v in user.model_dump().items() if v is not None}
 
         # 🧮 Calculate and include age if birthdate is present
-        if user.birthdate:
-            age = calculate_age_from_birthdate(user.birthdate)
-            if age is not None:
-                user_data["age"] = age
 
         # 🌟 Assign Cosmic ID (only if new user or missing cosmic_id)
         if not exists or not existing_user.get("sana_id"):

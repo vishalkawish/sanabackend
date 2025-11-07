@@ -227,6 +227,11 @@ async def get_full_chart(data: NatalData):
         age = calculate_age_from_birthdate(birthdate)
         if age is not None:
             user["age"] = age
+            try:
+               supabase.table("users").update({"age": age}).eq("id", user["id"]).execute()
+               print(f"✅ Age updated for {user['id']}: {age}")
+            except Exception as e:
+               print(f"⚠️ Failed to update age: {e}")
 
     # --- 2. Ensure birth data exists ---
     birth = user.get("birth")

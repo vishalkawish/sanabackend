@@ -228,7 +228,8 @@ def soul_of_anlasana(user_id: str):
             "birthplace": other.get("birthplace")  # include birthplace in response
         })
 
-    matches.sort(key=lambda x: x["match_percent"], reverse=True)
+    #matches.sort(key=lambda x: x["match_percent"], reverse=True)
+    random_top = random.choice(matches) if matches else None
    # matches.sort(key=lambda x: x["name"].lower(), reverse=True)
 
 
@@ -237,7 +238,7 @@ def soul_of_anlasana(user_id: str):
         "soulmates": len([m for m in matches if m["type"] == "soulmate"]),
         "twin_flames": len([m for m in matches if m["type"] == "twin_flame"]),
         "karmic": len([m for m in matches if m["type"] == "karmic"]),
-        "top_match": random.choice(matches) if matches else None
+        "top_match": random_top
     }
 
     return {"user_id": user_id, "summary": summary, "matches": matches}

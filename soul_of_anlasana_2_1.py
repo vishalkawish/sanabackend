@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from fastapi import APIRouter
 from supabase import create_client   
-import random
+import random, time
 
 router = APIRouter()
 
@@ -229,6 +229,8 @@ def soul_of_anlasana(user_id: str):
         })
 
     #matches.sort(key=lambda x: x["match_percent"], reverse=True)
+    random.seed(time.time())
+    random.shuffle(matches)  # randomize list
     random_top = random.choice(matches) if matches else None
    # matches.sort(key=lambda x: x["name"].lower(), reverse=True)
 

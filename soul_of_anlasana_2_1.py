@@ -2,7 +2,8 @@ import os
 import json
 from datetime import datetime
 from fastapi import APIRouter
-from supabase import create_client
+from supabase import create_client   
+import random
 
 router = APIRouter()
 
@@ -236,7 +237,7 @@ def soul_of_anlasana(user_id: str):
         "soulmates": len([m for m in matches if m["type"] == "soulmate"]),
         "twin_flames": len([m for m in matches if m["type"] == "twin_flame"]),
         "karmic": len([m for m in matches if m["type"] == "karmic"]),
-        "top_match": matches[0] if matches else None
+        "top_match": random.choice(matches) if matches else None
     }
 
     return {"user_id": user_id, "summary": summary, "matches": matches}

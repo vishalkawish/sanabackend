@@ -240,11 +240,8 @@ def soul_of_anlasana(user_id: str):
     # ✅ Simulated "nearby" users (for now random pick, you can later use actual location data)
     nearby_users = random.sample(matches, min(3, len(matches)))
 
-    soulmates = sorted(
-    [m for m in matches if m["type"] == "soulmate"],
-    key=lambda x: x["match_percent"],
-    reverse=True
-    )[:3]
+    soulmates = sorted(matches, key=lambda x: x["match_percent"], reverse=True)[:3]
+
    # matches.sort(key=lambda x: x["name"].lower(), reverse=True)
 
 

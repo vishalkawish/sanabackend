@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from typing import Optional
 from supabase import create_client
 import os
+from datetime import datetime, timezone
+
 
 router = APIRouter()
 

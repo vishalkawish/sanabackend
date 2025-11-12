@@ -5,7 +5,6 @@ from supabase import create_client
 import os
 from datetime import datetime, timezone
 
-
 router = APIRouter()
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
@@ -24,6 +23,7 @@ async def check_user(
 ):
     """
     Fetch user by JSON body or query params.
+    Updates last_active timestamp.
     Returns single user object or 404 if not found.
     """
 
@@ -44,9 +44,19 @@ async def check_user(
     if email:
         query = query.eq("email", email)
 
+    # Optional: sort by recent activity
+    query = query.order("last_active", desc=True)
+
     response = query.execute()
     users = response.data or []
 
+    if not users:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # 🌙 Fetch the first user
+    user = users[0]
+
+    # Update last_active timestamp
     try:
         supabase.table("users").update({
             "last_active": datetime.now(timezone.utc).isoformat()
@@ -54,10 +64,7 @@ async def check_user(
     except Exception as e:
         print(f"⚠️ Failed to update last_active: {e}")
 
-    if not users:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    return users[0]  # Return single object instead of list
+    return user  # Return single object instead of list
 
 
 # -----------------------------
@@ -68,7 +75,7 @@ def fetch_user_from_supabase_by_username(username: str):
     if not username:
         return None
 
-    query = supabase.table("users").select("*").eq("username", username)
+    query = supabase.table("users").select("*").eq("name", username)
     response = query.execute()
     users = response.data or []
     return users[0] if users else None

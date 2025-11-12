@@ -229,9 +229,18 @@ def soul_of_anlasana(user_id: str):
         })
 
     #matches.sort(key=lambda x: x["match_percent"], reverse=True)
-    random.seed(time.time())
-    random.shuffle(matches)  # randomize list
-    random_top = random.choice(matches) if matches else None
+    for m in matches:
+        last_active = m.get("last_active")
+        if last_active:
+            try:
+                m["_last_active_dt"] = datetime.fromisoformat(last_active)
+            except:
+                m["_last_active_dt"] = datetime.min
+        else:
+            m["_last_active_dt"] = datetime.min  # treat nulls as oldest
+
+    # Sort by last_active descending
+    matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
 
     
     # ✅ Simulated "online" users (for now random pick, you can later filter by online status)

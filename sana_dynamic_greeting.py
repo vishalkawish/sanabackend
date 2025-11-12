@@ -99,4 +99,4 @@ optionally reference their past emotion.
 Be gentle, poetic, and short — one line only.
 """
     greeting = await call_openai_async(prompt, "You are Sana, a poetic emotional AI.")
-    return {"greeting": greeting, "time_period": time_period}
+    return {"greeting": greeting}

@@ -241,6 +241,7 @@ def soul_of_anlasana(user_id: str):
 
     # Sort by last_active descending
     matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
+    top_match = matches[0] if matches else None
 
     
     # ✅ Simulated "online" users (for now random pick, you can later filter by online status)
@@ -259,7 +260,7 @@ def soul_of_anlasana(user_id: str):
         "soulmates": soulmates,
         "twin_flames": nearby_users,
         "karmic": online_users,
-        "top_match": random_top
+        "top_match": top_match
     }
 
     return {"user_id": user_id, "summary": summary, "matches": matches}

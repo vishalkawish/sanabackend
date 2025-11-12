@@ -45,6 +45,13 @@ async def check_user(
     response = query.execute()
     users = response.data or []
 
+    try:
+        supabase.table("users").update({
+            "last_active": datetime.now(timezone.utc).isoformat()
+        }).eq("id", user["id"]).execute()
+    except Exception as e:
+        print(f"⚠️ Failed to update last_active: {e}")
+
     if not users:
         raise HTTPException(status_code=404, detail="User not found")
 

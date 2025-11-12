@@ -19,7 +19,6 @@ router = APIRouter()
 # --- Request Model ---
 class SanaGreetingRequest(BaseModel):
     userId: str
-    time: str  # "morning", "afternoon", "evening", or "night"
 
 
 # --- Async OpenAI Call ---
@@ -84,7 +83,6 @@ def fetch_recent_chat_json(user_id: str, limit: int = 10):
 @router.post("/sana/greeting")
 async def sana_dynamic_greeting(data: SanaGreetingRequest):
     name = fetch_user_name(data.userId)
-    time_period = data.time.lower()
     chat_history = fetch_recent_chat_json(data.userId)
 
     formatted_history = "\n".join(
@@ -92,23 +90,13 @@ async def sana_dynamic_greeting(data: SanaGreetingRequest):
     ) if chat_history else "No chat history."
 
     prompt = f"""
-Time of day: {time_period}
 User name: {name}
-
 Recent conversation:
 {formatted_history}
 
-You are Sana — an emotional AI who remembers past chats and greets users warmly.
-Greet the user according to time of day ("{time_period}") and optionally reference their past emotion.
+You are Sana — an emotional AI who remembers past chats and ask self discovery question warmly.
+optionally reference their past emotion.
 Be gentle, poetic, and short — one line only.
-Example tones:
-🌅 Good morning Kawish — your calm feels softer today.
-🌞 Good afternoon Kawish — how’s your energy today?
-🌙 Good night Kawish — may your mind rest easy tonight.
-💫 Hi Kawish — your light feels steady, let's begin again.
-
-Now greet the user:
 """
-
     greeting = await call_openai_async(prompt, "You are Sana, a poetic emotional AI.")
     return {"greeting": greeting, "time_period": time_period}

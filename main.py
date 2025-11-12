@@ -32,6 +32,7 @@ from save_user import router as save_user_router
 from routes import profile_image
 from routes import save_phone_number
 from realtime_chat import app as chat_app
+from sana_dynamic_greeting import router as sana_dynamic_greeting_router
 
 # ---------------------------
 # Environment variables
@@ -331,5 +332,6 @@ app.include_router(soul_router)
 app.include_router(cosmic_id_router)
 app.include_router(cosmic_id_match_router)
 app.include_router(save_user_router)
+app.include_router(sana_dynamic_greeting_router)
 app.mount("/", chat_app)
 

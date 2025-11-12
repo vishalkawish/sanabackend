@@ -82,7 +82,7 @@ async def upload_profile_image(
         debug("Public URL", public_url)
 
         # Update user table
-        res = supabase.table("users").update({"profile_pic_url": public_url}).eq("id", userId).execute()
+        res = supabase.table("users").update({"profilePicUrl": public_url}).eq("id", userId).execute()
         debug("DB update result", res)
 
         return {"url": public_url}

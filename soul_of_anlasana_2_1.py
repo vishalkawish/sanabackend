@@ -257,12 +257,12 @@ def soul_of_anlasana(user_id: str):
 
 
     summary = {
-        "total_matches": len(matches),
-        "soulmates": soulmates,
-        "twin_flames": nearby_users,
-        "karmic": online_users,
+        #"total_matches": len(matches),
+        #"soulmates": soulmates,
+        #"twin_flames": nearby_users,
+        #"karmic": online_users,
         "top_match": top_match
     }
 
-    return {"user_id": user_id, "summary": summary, "matches": matches}
+    return {"user_id": user_id, "summary": summary, "matches": top_match}
 

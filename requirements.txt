@@ -9,4 +9,6 @@ flatlib==0.2.3
 supabase==2.18.1
 python-multipart
 aiofiles==23.2.1
+google-auth>=2.22.0
+firebase-admin>=6.2.0
 

@@ -265,5 +265,5 @@ def soul_of_anlasana(user_id: str):
         "top_match": top_match
     }
 
-    return {"user_id": user_id, "summary": summary, "matches": matches]}
+    return {"user_id": user_id, "summary": summary, "matches": matches}
 

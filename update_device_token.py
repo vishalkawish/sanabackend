@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from pydantic import BaseModel
 from supabase import create_client
 from dotenv import load_dotenv
@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+router = APIRouter()
+
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")  # Use service_role for write

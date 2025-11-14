@@ -6,6 +6,7 @@ import os, json
 import requests
 from google.oauth2 import service_account
 import google.auth.transport.requests
+import io
 
 # -------------------- SETUP --------------------
 app = FastAPI()
@@ -20,16 +21,18 @@ app.add_middleware(
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"  # your downloaded JSON
-PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID")     # put your project_id in env
+FCM_SERVICE_ACCOUNT_JSON = os.getenv("FCM_SERVICE_ACCOUNT_JSON")  # JSON as one-line env var
+PROJECT_ID = os.getenv("FIREBASE_PROJECT_ID")  # Firebase project ID
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 connected_users = {}  # { user_id: websocket }
 
 # -------------------- FCM PUSH (HTTP v1 API) --------------------
 def get_fcm_access_token():
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE,
+    # Load service account from environment variable
+    json_file = io.StringIO(FCM_SERVICE_ACCOUNT_JSON)
+    credentials = service_account.Credentials.from_service_account_info(
+        json.load(json_file),
         scopes=["https://www.googleapis.com/auth/firebase.messaging"]
     )
     request = google.auth.transport.requests.Request()
@@ -79,10 +82,8 @@ async def chat_socket(websocket: WebSocket, user_id: str):
             receiver_ws = connected_users.get(receiver_id)
 
             if receiver_ws:
-                # Receiver online → send via WebSocket
                 await receiver_ws.send_text(json.dumps(message))
             else:
-                # Receiver offline → send push notification
                 res = supabase.table("users").select("device_token, name").eq("id", receiver_id).execute()
                 if res.data:
                     device_token = res.data[0].get("device_token")

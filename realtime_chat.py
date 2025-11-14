@@ -91,8 +91,8 @@ async def chat_socket(websocket: WebSocket, user_id: str):
                     sender_name = sender_res.data[0]["name"] if sender_res.data else "Someone"
                     send_push_notification(
                         device_token=device_token,
-                        title="💌 New message on Anlasana",
-                        body=f"{sender_name} sent you a message"
+                        title=f"💌 New message from {sender_name}",
+                        body=message["content"]
                     )
 
     except WebSocketDisconnect:

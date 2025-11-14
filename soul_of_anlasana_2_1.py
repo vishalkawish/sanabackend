@@ -225,7 +225,8 @@ def soul_of_anlasana(user_id: str):
             "age": other.get("age"),  # include age in response
             "number": other.get("phone_number"),  # include phone number in response
             "birthdate": other.get("birthdate") , # include birthdate in response
-            "birthplace": other.get("birthplace")  # include birthplace in response
+            "birthplace": other.get("birthplace"),  # include birthplace in response
+            "last_active": other.get("last_active")
         })
 
     #matches.sort(key=lambda x: x["match_percent"], reverse=True)

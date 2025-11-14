@@ -242,6 +242,7 @@ def soul_of_anlasana(user_id: str):
 
     # Sort by last_active descending
     matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
+
     top_match = matches[0] if matches else None
 
     
@@ -264,5 +265,5 @@ def soul_of_anlasana(user_id: str):
         "top_match": top_match
     }
 
-    return {"user_id": user_id, "summary": summary, "matches": [top_match]}
+    return {"user_id": user_id, "summary": summary, "matches": matches]}
 

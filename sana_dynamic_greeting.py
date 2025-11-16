@@ -16,12 +16,29 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 router = APIRouter()
 
 
-# --- Request Model ---
 class SanaGreetingRequest(BaseModel):
     userId: str
 
 
-# --- Async OpenAI Call ---
+# -------- Fetch User Psychological Profile --------
+def fetch_user_profile(user_id: str):
+    try:
+        res = (
+            supabase.table("users")
+            .select(
+                "name, moods, personality_traits, love_language, interests, relationship_goals"
+            )
+            .eq("id", user_id)
+            .single()
+            .execute()
+        )
+        return res.data
+    except Exception as e:
+        print("⚠️ Profile fetch failed:", e)
+        return None
+
+
+# -------- OpenAI Async Wrapper --------
 async def call_openai_async(prompt: str, system_msg: str):
     try:
         resp = await asyncio.to_thread(
@@ -38,65 +55,34 @@ async def call_openai_async(prompt: str, system_msg: str):
         raise HTTPException(status_code=500, detail=f"Sana AI error: {e}")
 
 
-# --- Fetch user name from Supabase ---
-def fetch_user_name(user_id: str):
-    try:
-        res = (
-            supabase.table("users")
-            .select("name")
-            .eq("id", user_id)
-            .limit(1)
-            .execute()
-        )
-        if res.data and len(res.data) > 0:
-            full_name = res.data[0].get("name", "there")
-            # Extract only the first name
-            first_name = full_name.split()[0] if full_name else "there"
-            return first_name
-        return "there"
-    except Exception as e:
-        print("⚠️ User name fetch failed:", e)
-        return "there"
-
-
-
-# --- Fetch recent chat (optional) ---
-def fetch_recent_chat_json(user_id: str, limit: int = 10):
-    try:
-        res = (
-            supabase.table("chat_history")
-            .select("content, role, time")
-            .eq("user_id", user_id)
-            .order("time", desc=True)
-            .limit(limit)
-            .execute()
-        )
-        if not res.data:
-            return []
-        return list(reversed(res.data))  # oldest first
-    except Exception as e:
-        print("⚠️ Chat fetch failed:", e)
-        return []
-
-
-# --- Main Route ---
+# -------- Main Greeting Route --------
 @router.post("/sana/greeting")
 async def sana_dynamic_greeting(data: SanaGreetingRequest):
-    name = fetch_user_name(data.userId)
-    chat_history = fetch_recent_chat_json(data.userId)
+    profile = fetch_user_profile(data.userId)
 
-    formatted_history = "\n".join(
-        [f"{m['role']}: {m['content']}" for m in chat_history]
-    ) if chat_history else "No chat history."
+    if not profile:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Extract name only
+    name = profile.get("name", "there").split()[0]
 
     prompt = f"""
-User name: {name}
-Recent conversation:
-{formatted_history}
+Give the use one line, warm psychological reflection based on:
+name: {name}
+Moods: {profile.get("moods")}
+Personality traits: {profile.get("personality_traits")}
+Love language: {profile.get("love_language")}
+Interests: {profile.get("interests")}
+Relationship goals: {profile.get("relationship_goals")}
 
-You are Sana — an emotional AI who remembers past chats and ask self discovery question warmly.
-optionally reference their past emotion.
-Be gentle, poetic, and short — one line only.
+Rules:
+• one line max..choose random quality from above data to reflect on
+• Simple, human language, no jargon, say their name or a nickname based on their name 
+• Help them understand themselves better
+• Make them feel safe, prepared, and understood
+• No poetry, no metaphors
+• No over-the-top therapy talk
 """
-    greeting = await call_openai_async(prompt, "You are Sana, a poetic emotional AI.")
+
+    greeting = await call_openai_async(prompt, "You are Sana, a deeply human AI psychologist.")
     return {"greeting": greeting}

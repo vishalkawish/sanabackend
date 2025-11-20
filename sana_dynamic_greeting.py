@@ -67,7 +67,7 @@ async def sana_dynamic_greeting(data: SanaGreetingRequest):
     name = profile.get("name", "there").split()[0]
 
     prompt = f"""
-Give the use one line, warm psychological reflection based on:
+Give one psychological reflection based on:
 name: {name}
 Moods: {profile.get("moods")}
 Personality traits: {profile.get("personality_traits")}
@@ -76,12 +76,11 @@ Interests: {profile.get("interests")}
 Relationship goals: {profile.get("relationship_goals")}
 
 Rules:
-• one line max..choose random quality from above data to reflect on
-• Simple, human language, no jargon, say their name or a nickname based on their name 
-• Help them understand themselves better
+• One line max...Pick one key insight from the data above
+• Simple, human language, their name or a nickname based on their name 
 • Make them feel safe, prepared, and understood
 • No poetry, no metaphors
-formart : heading(one line) • reflection
+Formart : Insight heading(for example Qualties about you, weakness etc)  • reflection
 """
 
     greeting = await call_openai_async(prompt, "You are Sana, a deeply human AI psychologist.")

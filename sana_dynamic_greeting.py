@@ -81,7 +81,7 @@ Rules:
 • Help them understand themselves better
 • Make them feel safe, prepared, and understood
 • No poetry, no metaphors
-• No over-the-top therapy talk
+formart : heading(one line) • reflection
 """
 
     greeting = await call_openai_async(prompt, "You are Sana, a deeply human AI psychologist.")

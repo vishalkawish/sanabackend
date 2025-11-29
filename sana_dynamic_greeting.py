@@ -42,17 +42,23 @@ def fetch_user_profile(user_id: str):
 async def call_openai_async(prompt: str, system_msg: str):
     try:
         resp = await asyncio.to_thread(
-            client.chat.completions.create,
+            client.responses.create,
             model="gpt-5-nano",
-            messages=[
-                {"role": "system", "content": system_msg},
-                {"role": "user", "content": prompt},
-            ],
-            temperature=1,
+            input=[
+                {
+                    "role": "system",
+                    "content": system_msg,
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ]
         )
-        return resp.choices[0].message.content.strip()
+        return resp.output_text.strip()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sana AI error: {e}")
+
 
 
 # -------- Main Greeting Route --------

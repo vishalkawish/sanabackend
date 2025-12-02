@@ -465,7 +465,8 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
        profile_candidates,
        profile_versions,
        chart,
-       persona_settings
+       persona_settings.
+       relationship_profile
     """
     ).eq("id", user_id).single().execute()
 

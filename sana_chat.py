@@ -1,4 +1,11 @@
-# sana_dynamic.py
+# Patched sana_dynamic.py
+# - Robust JSON extractor
+# - Safer LLM wrapper defaults
+# - normalize_gender + resilient gender filtering
+# - RPC result normalizer (merges missing gender from DB if needed)
+# - Helpful debug prints
+# - Keeps original behavior otherwise
+
 import os
 import json
 import re
@@ -43,14 +50,42 @@ class SanaChatMessage(BaseModel):
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
+
 def safe_load_json_fragment(text: str) -> Dict:
+    """
+    Try multiple strategies to extract JSON from an LLM output.
+    1) non-greedy first {...}
+    2) fallback from first '{' to last '}'
+    3) final cleanup removing markdown fences
+    Returns {} on failure.
+    """
+    if not text or not isinstance(text, str):
+        return {}
     try:
-        m = re.search(r"\{.*\}", text, re.DOTALL)
+        # non-greedy
+        m = re.search(r"\{.*?\}", text, re.DOTALL)
         if m:
             return json.loads(m.group(0))
-    except Exception as e:
-        print("safe_load_json_fragment error:", e)
+    except Exception:
+        pass
+    try:
+        start = text.find("{")
+        end = text.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            candidate = text[start:end+1]
+            return json.loads(candidate)
+    except Exception:
+        pass
+    try:
+        # remove ``` fences and attempt again
+        cleaned = re.sub(r"^(`{3}json|`{3}|```).*?(`{3})?", "", text, flags=re.DOTALL).strip()
+        m2 = re.search(r"\{.*\}", cleaned, re.DOTALL)
+        if m2:
+            return json.loads(m2.group(0))
+    except Exception:
+        pass
     return {}
+
 
 async def to_thread_retry(fn, *args, retries=3, backoff=0.4, **kwargs):
     last_exc = None
@@ -73,7 +108,7 @@ RELATIONSHIP_KEYS = [
 ]
 
 # -------------------------
-# LLM Prompts (dynamic extractor + reply)
+# LLM Prompts (kept same)
 # -------------------------
 DYNAMIC_EXTRACTOR_SYSTEM = """
 You are a psychological inference engine for building meaningfull connection with people. You're an AI called Sana.
@@ -152,8 +187,12 @@ Keep language simple, human, and comforting. Avoid therapy jargon or long explan
 # -------------------------
 # LLM Call Wrappers
 # -------------------------
+
 def _call_chat_completions_create_model(payload):
+    payload.setdefault("temperature", 0.2)
+    payload.setdefault("max_tokens", 512)
     return client.chat.completions.create(**payload)
+
 
 async def call_dynamic_extractor(user_message: str) -> Dict[str, Any]:
     payload = {
@@ -167,6 +206,7 @@ async def call_dynamic_extractor(user_message: str) -> Dict[str, Any]:
     text = resp.choices[0].message.content
     return safe_load_json_fragment(text)
 
+
 async def call_light_extractor(user_message: str) -> Dict[str, Any]:
     payload = {
         "model": "gpt-5-nano",
@@ -177,16 +217,23 @@ async def call_light_extractor(user_message: str) -> Dict[str, Any]:
     }
     resp = await to_thread_retry(_call_chat_completions_create_model, payload)
     text = resp.choices[0].message.content
-    try:
-        out = json.loads(text)
-        # Ensure all keys exist (some LLM outputs might omit keys)
-        for k in RELATIONSHIP_KEYS:
-            out.setdefault(k, [])
-        return out
-    except Exception as e:
-        # return full shape with empty lists to simplify downstream code
-        print("call_light_extractor parse error:", e)
-        return {k: [] for k in RELATIONSHIP_KEYS}
+    parsed = safe_load_json_fragment(text)
+    if not parsed:
+        try:
+            parsed = json.loads(text)
+        except Exception:
+            parsed = {}
+    out = {}
+    for k in RELATIONSHIP_KEYS:
+        v = parsed.get(k) if isinstance(parsed, dict) else None
+        if isinstance(v, list):
+            out[k] = v
+        elif isinstance(v, str) and v.strip():
+            out[k] = [s.strip() for s in re.split(r"[;,/]| and ", v) if s.strip()][:3]
+        else:
+            out[k] = []
+    return out
+
 
 async def call_sana_reply(prompt: str) -> str:
     payload = {
@@ -203,8 +250,7 @@ async def call_sana_reply(prompt: str) -> str:
 def gpt_rank_and_explain_sync(user_profile: Dict, request_text: str, candidates: List[Dict]) -> str:
     # build pruned payload
     candidate_summaries = []
-    for c in candidates:
-        pm = c.get("psych_map") or {}
+    for c in candidates[:12]:
         summary = {
             "id": c.get("id"),
             "name": c.get("name"),
@@ -229,7 +275,6 @@ def gpt_rank_and_explain_sync(user_profile: Dict, request_text: str, candidates:
             {"role": "system", "content": system},
             {"role": "user", "content": json.dumps(user_prompt, ensure_ascii=False)}
         ],
-        temperature=1,
     )
     return resp.choices[0].message.content
 
@@ -239,19 +284,18 @@ def gpt_rank_and_explain_sync(user_profile: Dict, request_text: str, candidates:
 EMBED_MODEL = "text-embedding-3-small"  # 1536 dims
 
 def embed_sync(text: str) -> List[float]:
-    # minimal sync wrapper for the OpenAI client
     resp = client.embeddings.create(model=EMBED_MODEL, input=text)
     return resp.data[0].embedding
+
 
 async def embed_text_async(text: str) -> List[float]:
     return await asyncio.to_thread(embed_sync, text)
 
+
 def psych_map_to_plaintext(pm: Dict[str, Any]) -> str:
-    # Stable textual serialization designed to capture key fields compactly for embeddings
     if not pm:
         return ""
     parts = []
-    # Order keys deterministically
     for k in sorted(pm.keys()):
         v = pm[k]
         if isinstance(v, dict) and "value" in v:
@@ -260,13 +304,13 @@ def psych_map_to_plaintext(pm: Dict[str, Any]) -> str:
             parts.append(f"{k}: {json.dumps(v, ensure_ascii=False)}")
     return ". ".join(parts)
 
+
 async def embed_and_store_user_vector(user_id: str, psych_map: Dict[str, Any]):
     try:
         text = psych_map_to_plaintext(psych_map)
         if not text:
             return
         vector = await embed_text_async(text)
-        # update supabase
         supabase.table("users").update({
             "psych_map": psych_map,
             "psych_vector": vector
@@ -278,27 +322,28 @@ async def embed_and_store_user_vector(user_id: str, psych_map: Dict[str, Any]):
 # -------------------------
 # Matching helpers (RPC first, fallback local)
 # -------------------------
+
 def try_rpc_match(query_vector: List[float], k: int = 200):
-    """
-    Tries to call a Postgres RPC `match_users` that returns nearest users.
-    The DB function must be created in Postgres (see instructions beforehand).
-    """
     try:
         res = supabase.rpc("match_users", {"query_vector": query_vector, "match_limit": k}).execute()
-        # res.data may be None if no rows
-        return res.data or []
+        # supabase client can return dict or object-like; try both
+        data = None
+        if isinstance(res, dict):
+            data = res.get("data")
+        else:
+            data = getattr(res, "data", None)
+        if data is None:
+            return []
+        return data or []
     except Exception as e:
-        # rpc not available or failed
         print("RPC match_users failed or not available:", repr(e))
         return None
 
+
 def cosine_similarity(a: List[float], b: List[float]) -> float:
-    # basic safe cosine, returns -1..1
     if not a or not b:
         return -1.0
-    # same len expected
     if len(a) != len(b):
-        # if lengths mismatch, try trim to min
         m = min(len(a), len(b))
         a = a[:m]
         b = b[:m]
@@ -308,6 +353,7 @@ def cosine_similarity(a: List[float], b: List[float]) -> float:
     if na == 0 or nb == 0:
         return -1.0
     return dot / (na * nb)
+
 
 def local_vector_match(all_users: List[Dict], query_vector: List[float], k: int = 200) -> List[Dict]:
     scored = []
@@ -323,20 +369,46 @@ def local_vector_match(all_users: List[Dict], query_vector: List[float], k: int 
     scored.sort(key=lambda x: x["score"], reverse=True)
     return [s["user"] for s in scored[:k]]
 
+
 async def vector_search_candidates(request_vector: List[float], exclude_user_id: Optional[str], k: int = 200) -> List[Dict]:
     # 1) try RPC fast path
     rpc_res = try_rpc_match(request_vector, k)
     if rpc_res is not None:
-        # rpc returned rows; filter out requesting user
         results = [r for r in rpc_res if r.get("id") != exclude_user_id]
+        # if gender missing in RPC rows, fetch genders for returned ids
+        if results and any(r.get("gender") is None for r in results):
+            try:
+                ids = [str(r.get("id")) for r in results if r.get("id")]
+                if ids:
+                    # batch fetch genders and profilePicUrls
+                    db_rows = supabase.table("users").select("id, gender, profilePicUrl").in_("id", ids).execute()
+                    db_data = db_rows.data or []
+                    id_to = {str(d["id"]): d for d in db_data}
+                    for r in results:
+                        rid = str(r.get("id"))
+                        src = id_to.get(rid)
+                        if src:
+                            if r.get("gender") is None:
+                                r["gender"] = src.get("gender")
+                            if r.get("profilePicUrl") in (None, ""):
+                                r["profilePicUrl"] = src.get("profilePicUrl")
+            except Exception as e:
+                print("Failed to enrich RPC results with gender:", e)
         return results[:k]
 
     # 2) fallback: pull users with non-null psych_vector (small DB/testing)
     try:
-        res = supabase.table("users").select("id, name, gender, profilePicUrl, psych_map, psych_vector").execute()
+        res = supabase.table("users").select(
+            "id, name, gender, profilePicUrl, psych_map, psych_vector"
+        ).execute()
         rows = res.data or []
-        # filter out requester
         rows = [r for r in rows if r.get("id") != exclude_user_id]
+
+        # optional: log how many rows lack psych_vector
+        missing_vec = sum(1 for r in rows if not r.get("psych_vector"))
+        if missing_vec:
+            print(f"vector_search_candidates: {missing_vec} rows missing psych_vector (fallback)")
+
         candidates = await asyncio.to_thread(local_vector_match, rows, request_vector, k)
         return candidates
     except Exception as e:
@@ -353,11 +425,9 @@ MATCH_KEYWORDS = [
 
 def looks_like_match_request(text: str) -> bool:
     t = text.lower()
-    # simple heuristics: keywords or phrases that imply matchmaking
     for kw in MATCH_KEYWORDS:
         if kw in t:
             return True
-    # also short form: "I want someone who ..." pattern
     if re.search(r"\bi want (someone|a)\b", t):
         return True
     return False
@@ -366,7 +436,7 @@ def looks_like_match_request(text: str) -> bool:
 # Merge logic (kept same)
 # -------------------------
 def merge_into_psych_map(existing: Dict[str, Any], extracted: Dict[str, Any]) -> Dict[str, Any]:
-    out = json.loads(json.dumps(existing or {}))  # deep copy
+    out = json.loads(json.dumps(existing or {}))
     now = now_iso()
     items = extracted.get("extracted_traits") or []
 
@@ -415,10 +485,7 @@ def merge_into_psych_map(existing: Dict[str, Any], extracted: Dict[str, Any]) ->
 # Small helper to create a small preview on response (non-LLM)
 # -------------------------
 def extracted_preview_for_client(reply_text: str, user_message: str) -> Dict[str, Any]:
-    preview = {
-        "quick_hint": None,
-        "suggested_follow_up": None
-    }
+    preview = {"quick_hint": None, "suggested_follow_up": None}
     if any(w in user_message.lower() for w in ["rich", "money", "wealth", "earn", "salary"]):
         preview["quick_hint"] = {"key": "goal", "value": "financial success"}
         preview["suggested_follow_up"] = "Ask: 'What's your first small money goal right now?'"
@@ -507,18 +574,30 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
             # get top candidates (rpc or fallback)
             candidates = await vector_search_candidates(request_vector, exclude_user_id=user_id, k=200)
 
+            print("DEBUG: candidates received:", len(candidates))
+
             # -------------------------
             # Gender filtering (simple opposite-gender logic) - case-insensitive
             # -------------------------
-            user_gender = (user.get("gender") or "").strip().lower()
+            def normalize_gender(g: Optional[str]) -> str:
+                if not g:
+                    return ""
+                g = str(g).strip().lower()
+                if g.startswith("m"): return "male"
+                if g.startswith("f"): return "female"
+                return ""
+
+            user_gender = normalize_gender(user.get("gender"))
             if user_gender in ["male", "female"]:
                 target_gender = "female" if user_gender == "male" else "male"
                 filtered = []
                 for c in candidates:
-                    c_gender = (c.get("gender") or "").strip().lower()
+                    c_gender = normalize_gender(c.get("gender"))
                     if c_gender == target_gender:
                         filtered.append(c)
                 candidates = filtered
+
+            print("DEBUG: candidates after gender filter:", len(candidates))
 
             # refine top N with GPT (send top 20)
             top_for_refine = candidates[:20]
@@ -587,7 +666,7 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
                 {"role": "sana", "name": "sana", "content": sana_reply_text, "time": now}
             ]
             new_memories = (memories or []) + [{"content": user_message, "time": now}]
-            new_memories = new_memories[-400:]  # keep longer memory
+            new_memories = new_memories[-400:]
 
             # 2) call dynamic extractor
             extractor_resp = {}
@@ -683,10 +762,12 @@ CREATE INDEX IF NOT EXISTS users_psych_vector_idx
   ON public.users USING ivfflat (psych_vector vector_l2_ops) WITH (lists = 100);
 
 Also (optional) add a helper RPC for fastest matches:
+-- Make sure id is returned as text (not uuid) because your user ids are strings
+DROP FUNCTION IF EXISTS match_users(vector, integer);
 CREATE OR REPLACE FUNCTION match_users(query_vector vector(1536), match_limit int)
-RETURNS TABLE (id uuid, name text, psych_map jsonb, psych_vector vector, similarity float)
+RETURNS TABLE (id text, name text, gender text, profilePicUrl text, psych_map jsonb, psych_vector vector, similarity float)
 LANGUAGE sql STABLE AS $$
-  SELECT id, name, psych_map, psych_vector, 1 - (psych_vector <=> query_vector) AS similarity
+  SELECT id, name, gender, "profilePicUrl", psych_map, psych_vector, 1 - (psych_vector <=> query_vector) AS similarity
   FROM users
   WHERE psych_vector IS NOT NULL
   ORDER BY psych_vector <=> query_vector

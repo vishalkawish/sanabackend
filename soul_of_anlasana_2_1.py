@@ -217,13 +217,12 @@ def soul_of_anlasana(user_id: str):
         ctype = classify_connection(score)
         matches.append({
             "sana_id": other.get("sana_id"),    
-            "user_id": other.get("id"),
+            "id": other.get("id"),
             "name": other.get("name"),
-            "url": other.get("profilePicUrl"),
+            "profilePicUrl": other.get("profilePicUrl"),
             "type": ctype,
             "match_percent": score,
             "age": other.get("age"),  # include age in response
-            "number": other.get("phone_number"),  # include phone number in response
             "birthdate": other.get("birthdate") , # include birthdate in response
             "birthplace": other.get("birthplace"),  # include birthplace in response
             "last_active": other.get("last_active")

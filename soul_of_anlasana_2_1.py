@@ -1,9 +1,10 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter
-from supabase import create_client   
-import random, time
+from supabase import create_client
+import random
+import traceback
 
 router = APIRouter()
 
@@ -12,21 +13,19 @@ router = APIRouter()
 # -------------------------
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
+print("✅ SUPABASE_URL exists:", bool(SUPABASE_URL))
+print("✅ SUPABASE_KEY exists:", bool(SUPABASE_KEY))
+
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # -------------------------
 # Astrology constants
 # -------------------------
 PLANET_WEIGHTS = {
-    "Sun": 1.0,
-    "Moon": 1.5,
-    "Venus": 2.0,
-    "Mars": 1.8,
-    "Mercury": 1.0,
-    "Jupiter": 1.2,
-    "Saturn": 1.5,
-    "North Node": 2.0,
-    "South Node": 2.0
+    "Sun": 1.0, "Moon": 1.5, "Venus": 2.0, "Mars": 1.8,
+    "Mercury": 1.0, "Jupiter": 1.2, "Saturn": 1.5,
+    "North Node": 2.0, "South Node": 2.0
 }
 
 HOUSE_IMPORTANCE = {5: 1.5, 7: 2.0, 8: 1.8}
@@ -61,67 +60,28 @@ def get_aspect_score(diff):
             return info["score"]
     return 0
 
-def moon_phase_bonus(u_chart, c_chart):
-    u = u_chart.get("planets", {}).get("Moon")
-    c = c_chart.get("planets", {}).get("Moon")
-    if not u or not c:
-        return 0
-    diff = angle_diff(u.get("longitude", 0), c.get("longitude", 0))
-    return 5 if diff <= 60 else (3 if diff <= 120 else 0)
-
-def venus_mars_bonus(u_chart, c_chart):
-    u_v = u_chart.get("planets", {}).get("Venus")
-    u_m = u_chart.get("planets", {}).get("Mars")
-    c_v = c_chart.get("planets", {}).get("Venus")
-    c_m = c_chart.get("planets", {}).get("Mars")
-    bonus = 0
-    if u_v and c_m and angle_diff(u_v["longitude"], c_m["longitude"]) <= 30:
-        bonus += 5
-    if c_v and u_m and angle_diff(c_v["longitude"], u_m["longitude"]) <= 30:
-        bonus += 5
-    return bonus
-
-def nodal_bonus(u_chart, c_chart):
-    u_n = u_chart.get("planets", {}).get("North Node")
-    u_s = u_chart.get("planets", {}).get("South Node")
-    c_n = c_chart.get("planets", {}).get("North Node")
-    c_s = c_chart.get("planets", {}).get("South Node")
-    bonus = 0
-    if u_n and c_s and angle_diff(u_n["longitude"], c_s["longitude"]) <= 15:
-        bonus += 7
-    if c_n and u_s and angle_diff(c_n["longitude"], u_s["longitude"]) <= 15:
-        bonus += 7
-    return bonus
-
-def calc_life_path(birthdate_str):
+def safe_json(val):
     try:
-        date = datetime.strptime(birthdate_str, "%Y-%m-%d")
-        total = sum(int(d) for d in date.strftime("%Y%m%d"))
-        while total > 9:
-            total = sum(int(d) for d in str(total))
-        return total
+        if isinstance(val, str):
+            val = json.loads(val)
+        if isinstance(val, str):
+            val = json.loads(val)
+        return val if isinstance(val, dict) else {}
     except:
-        return None
-
-def life_path_bonus(u_chart, c_chart):
-    u_lp = calc_life_path(u_chart.get("birthdate"))
-    c_lp = calc_life_path(c_chart.get("birthdate"))
-    if u_lp is None or c_lp is None:
-        return 0
-    diff = abs(u_lp - c_lp)
-    return 5 if diff == 0 else (3 if diff == 1 else (2 if diff == 2 else 0))
+        return {}
 
 # -------------------------
-# Core compatibility
+# Compatibility Engine
 # -------------------------
 def deep_compatibility(user_chart, crush_chart):
-    if isinstance(user_chart, str):
-        user_chart = json.loads(user_chart)
-    if isinstance(crush_chart, str):
-        crush_chart = json.loads(crush_chart)
+    print("🔍 [compat] started")
+
+    user_chart = safe_json(user_chart)
+    crush_chart = safe_json(crush_chart)
 
     u_planets = user_chart.get("planets", {})
     c_planets = crush_chart.get("planets", {})
+
     total_score = 0
     total_weight = 0
 
@@ -130,30 +90,33 @@ def deep_compatibility(user_chart, crush_chart):
         c = c_planets.get(planet)
         if not u or not c:
             continue
+
         diff = angle_diff(u["longitude"], c["longitude"])
         aspect_score = get_aspect_score(diff)
         house_multiplier = HOUSE_IMPORTANCE.get(u.get("house"), 1.0)
+
         total_score += aspect_score * weight * house_multiplier
         total_weight += weight * house_multiplier
 
-    # Elemental match bonus
-    if u.get("sign") and c.get("sign"):
-        ue = SIGN_ELEMENTS.get(u["sign"])
-        ce = SIGN_ELEMENTS.get(c["sign"])
-        if ue and ce and ue == ce:
-            total_score += ELEMENT_SCORE[ue]
+    # ✅ SAFE elemental match bonus
+    u_sign = user_chart.get("ascendant", {}).get("sign")
+    c_sign = crush_chart.get("ascendant", {}).get("sign")
 
-    # One-time bonuses
-    total_score += moon_phase_bonus(user_chart, crush_chart)
-    total_score += venus_mars_bonus(user_chart, crush_chart)
-    total_score += nodal_bonus(user_chart, crush_chart)
-    total_score += life_path_bonus(user_chart, crush_chart)
+    print("🔍 [element] u_sign:", u_sign, "c_sign:", c_sign)
+
+    if u_sign and c_sign:
+        ue = SIGN_ELEMENTS.get(u_sign)
+        ce = SIGN_ELEMENTS.get(c_sign)
+        if ue and ce and ue == ce:
+            print("✅ [element] bonus applied:", ue)
+            total_score += ELEMENT_SCORE[ue]
 
     if total_weight == 0:
         return 0
 
-    match_percent = max(0, min(100, round((total_score / (total_weight * 10)) * 100)))
-    return match_percent
+    percent = max(0, min(100, round((total_score / (total_weight * 10)) * 100)))
+    print("✅ [compat] percent:", percent)
+    return percent
 
 def classify_connection(score):
     if score >= 85:
@@ -163,106 +126,140 @@ def classify_connection(score):
     return "karmic"
 
 # -------------------------
-# Supabase helpers
+# Supabase helpers ✅ SAFE + LOGGED
 # -------------------------
 def fetch_user(uid: str):
-    res = supabase.table("users").select("*").eq("id", uid).maybe_single().execute()
-    return res.data
+    try:
+        print("🟢 [fetch_user] id:", uid)
+
+        res = supabase.table("users").select("*").eq("id", uid).execute()
+        print("✅ [fetch_user] raw:", res)
+
+        if not res or not res.data:
+            print("⚠️ [fetch_user] not found")
+            return None
+
+        print("✅ [fetch_user] found")
+        return res.data[0]
+
+    except Exception as e:
+        print("🔥 [fetch_user] CRASH:", repr(e))
+        traceback.print_exc()
+        return None
+
 
 def fetch_all_users():
-    res = supabase.table("users").select("*").execute()
-    return res.data or []
+    try:
+        print("🟢 [fetch_all_users]")
+        res = supabase.table("users").select("*").execute()
+
+        if not res or not res.data:
+            print("⚠️ [fetch_all_users] empty")
+            return []
+
+        print("✅ [fetch_all_users] count:", len(res.data))
+        return res.data
+
+    except Exception as e:
+        print("🔥 [fetch_all_users] CRASH:", repr(e))
+        traceback.print_exc()
+        return []
 
 # -------------------------
-# API Route
-# -------------------------
-# -------------------------
-# API Route with age filtering
+# API Route ✅ FULL DEBUG SAFE + TIMEZONE SAFE
 # -------------------------
 @router.get("/soul_of_anlasana_2_1/{user_id}")
 def soul_of_anlasana(user_id: str):
-    user = fetch_user(user_id)
-    if not user:
-        return {"user_id": user_id, "matches": []}
 
-    target_chart = user.get("chart")
-    target_gender = user.get("gender")
-    target_age = user.get("age")  # fetch age from Supabase
+    print("\n🚀 [API HIT] user_id:", user_id)
 
-    if not target_chart or not target_gender or target_age is None:
-        return {"user_id": user_id, "matches": []}
+    try:
+        user = fetch_user(user_id)
 
-    all_users = fetch_all_users()
-    matches, seen = [], set()
+        if not user:
+            return {"user_id": user_id, "matches": []}
 
-    for other in all_users:
-        if other.get("id") == user_id:
-            continue
-        if other.get("gender") == target_gender:
-            continue
-        if not other.get("chart"):
-            continue
-        if not other.get("age") or other.get("age") < 18:  # ✅ 18+ check
-            continue
-        if other.get("name") in seen:
-            continue
+        target_chart = user.get("chart")
+        target_gender = user.get("gender")
+        target_age = user.get("age")
 
-        # ✅ Age range ±7
-        # if abs(other.get("age") - target_age) > 7:
-        #    continue
+        print("✅ [user] gender:", target_gender, "age:", target_age)
 
-        seen.add(other.get("name"))
+        if not target_chart or not target_gender or target_age is None:
+            return {"user_id": user_id, "matches": []}
 
-        score = deep_compatibility(target_chart, other.get("chart"))
-        ctype = classify_connection(score)
-        matches.append({
-            "sana_id": other.get("sana_id"),    
-            "id": other.get("id"),
-            "name": other.get("name"),
-            "profilePicUrl": other.get("profilePicUrl"),
-            "type": ctype,
-            "match_percent": score,
-            "age": other.get("age"),  # include age in response
-            "birthdate": other.get("birthdate") , # include birthdate in response
-            "birthplace": other.get("birthplace"),  # include birthplace in response
-            "last_active": other.get("last_active")
-        })
+        all_users = fetch_all_users()
 
-    #matches.sort(key=lambda x: x["match_percent"], reverse=True)
-    for m in matches:
-        last_active = m.get("last_active")
-        if last_active:
+        matches, seen = [], set()
+
+        for other in all_users:
             try:
-                m["_last_active_dt"] = datetime.fromisoformat(last_active)
+                if other.get("id") == user_id:
+                    continue
+                if other.get("gender") == target_gender:
+                    continue
+                if not other.get("chart"):
+                    continue
+                if not other.get("age") or other.get("age") < 18:
+                    continue
+                if other.get("name") in seen:
+                    continue
+
+                seen.add(other.get("name"))
+
+                score = deep_compatibility(target_chart, other.get("chart"))
+                ctype = classify_connection(score)
+
+                matches.append({
+                    "sana_id": other.get("sana_id"),
+                    "id": other.get("id"),
+                    "name": other.get("name"),
+                    "profilePicUrl": other.get("profilePicUrl"),
+                    "type": ctype,
+                    "match_percent": score,
+                    "age": other.get("age"),
+                    "birthdate": other.get("birthdate"),
+                    "birthplace": other.get("birthplace"),
+                    "last_active": other.get("last_active")
+                })
+
+            except Exception as loop_err:
+                print("⚠️ [loop user skipped]:", repr(loop_err))
+                traceback.print_exc()
+
+        # ✅ TIMEZONE-SAFE SORTING
+        for m in matches:
+            last_active = m.get("last_active")
+            try:
+                dt = datetime.fromisoformat(last_active)
+
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+
+                m["_last_active_dt"] = dt
+
             except:
-                m["_last_active_dt"] = datetime.min
-        else:
-            m["_last_active_dt"] = datetime.min  # treat nulls as oldest
+                m["_last_active_dt"] = datetime.min.replace(tzinfo=timezone.utc)
 
-    # Sort by last_active descending
-    matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
+        matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
 
-    top_match = matches[0] if matches else None
+        top_match = matches[0] if matches else None
 
-    
-    # ✅ Simulated "online" users (for now random pick, you can later filter by online status)
-    online_users = random.sample(matches, min(3, len(matches)))
+        print("✅ [API DONE] matches:", len(matches))
 
-    # ✅ Simulated "nearby" users (for now random pick, you can later use actual location data)
-    nearby_users = random.sample(matches, min(3, len(matches)))
+        return {
+            "user_id": user_id,
+            "summary": {
+                "top_match": top_match
+            },
+            "matches": matches
+        }
 
-    soulmates = sorted(matches, key=lambda x: x["match_percent"], reverse=True)[:3]
-
-   # matches.sort(key=lambda x: x["name"].lower(), reverse=True)
-
-
-    summary = {
-        #"total_matches": len(matches),
-        #"soulmates": soulmates,
-        #"twin_flames": nearby_users,
-        #"karmic": online_users,
-        "top_match": top_match
-    }
-
-    return {"user_id": user_id, "summary": summary, "matches": matches}
-
+    except Exception as e:
+        print("🔥🔥🔥 [API CRASH]:", repr(e))
+        traceback.print_exc()
+        return {
+            "user_id": user_id,
+            "error": str(e),
+            "type": str(type(e))
+        }

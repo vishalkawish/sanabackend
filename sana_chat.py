@@ -636,7 +636,6 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
                     fallback.append({
                         "id": c.get("id"),
                         "name": c.get("name"),
-                        "profile_url": c.get("profilePicUrl"),
                         "score": None,
                         "reason": "Close in semantic space to your request (fast fallback)."
                     })

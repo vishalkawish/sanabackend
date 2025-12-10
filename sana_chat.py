@@ -1,20 +1,11 @@
-# Patched sana_dynamic.py
-# - Robust JSON extractor
-# - Safer LLM wrapper defaults
-# - normalize_gender + resilient gender filtering
-# - RPC result normalizer (merges missing gender from DB if needed)
-# - Helpful debug prints
-# - Keeps original behavior otherwise
-
 import os
 import json
 import re
 import asyncio
-import math
 from datetime import datetime, timezone
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List, Optional
 
-from fastapi import FastAPI, APIRouter, BackgroundTasks, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException
 from pydantic import BaseModel
 from openai import OpenAI
 from supabase import create_client
@@ -25,10 +16,9 @@ from supabase import create_client
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-DATABASE_URL = os.environ.get("DATABASE_URL")  # optional if you use psycopg2 fallback
 
 if not all([OPENAI_API_KEY, SUPABASE_URL, SUPABASE_KEY]):
-    raise RuntimeError("Missing OPENAI_API_KEY or SUPABASE_URL or SUPABASE_KEY env vars")
+    raise RuntimeError("Missing OPENAI_API_KEY or SUPABASE_URL or SUPABASE_KEY")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -37,7 +27,7 @@ app = FastAPI()
 router = APIRouter()
 
 # -------------------------
-# Models
+# MODELS
 # -------------------------
 class SanaChatMessage(BaseModel):
     id: str
@@ -45,195 +35,40 @@ class SanaChatMessage(BaseModel):
     message: str
 
 # -------------------------
-# Utilities
+# UTILITIES
 # -------------------------
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
 def safe_load_json_fragment(text: str) -> Dict:
-    """
-    Try multiple strategies to extract JSON from an LLM output.
-    1) non-greedy first {...}
-    2) fallback from first '{' to last '}'
-    3) final cleanup removing markdown fences
-    Returns {} on failure.
-    """
     if not text or not isinstance(text, str):
         return {}
-    try:
-        # non-greedy
-        m = re.search(r"\{.*?\}", text, re.DOTALL)
-        if m:
-            return json.loads(m.group(0))
-    except Exception:
-        pass
     try:
         start = text.find("{")
         end = text.rfind("}")
         if start != -1 and end != -1 and end > start:
-            candidate = text[start:end+1]
-            return json.loads(candidate)
-    except Exception:
-        pass
-    try:
-        # remove ``` fences and attempt again
-        cleaned = re.sub(r"^(`{3}json|`{3}|```).*?(`{3})?", "", text, flags=re.DOTALL).strip()
-        m2 = re.search(r"\{.*\}", cleaned, re.DOTALL)
-        if m2:
-            return json.loads(m2.group(0))
+            return json.loads(text[start:end+1])
     except Exception:
         pass
     return {}
 
-
-async def to_thread_retry(fn, *args, retries=3, backoff=0.4, **kwargs):
-    last_exc = None
-    for i in range(retries):
-        try:
-            return await asyncio.to_thread(fn, *args, **kwargs)
-        except Exception as e:
-            last_exc = e
-            await asyncio.sleep(backoff * (2 ** i))
-    raise last_exc
-
-RELATIONSHIP_KEYS = [
-    "moods", "personality_traits", "love_language", "relationship_goals", "interests",
-    "red_flags", "green_flags", "attachment_style", "communication_style",
-    "conflict_style", "emotional_triggers", "stress_behaviors", "trauma_signals",
-    "boundaries", "dealbreakers", "partner_preferences", "affection_style",
-    "trust_style", "intimacy_style", "lifestyle_preferences", "values",
-    "core_fears", "stability_needs", "compatibility_requirements",
-    "likes", "dislikes", "emotional_needs", "emotional_giving_style"
-]
+async def to_thread(fn, *args):
+    return await asyncio.to_thread(fn, *args)
 
 # -------------------------
-# LLM Prompts (kept same)
+# SANA CHAT PROMPT
 # -------------------------
-DYNAMIC_EXTRACTOR_SYSTEM = """
-You are a psychological inference engine for building meaningfull connection with people. You're an AI called Sana.
-Your job is to extract HUMAN relationship traits from the user’s message and map them into a FIXED STRUCTURE. 
-Only extract TRAITS which are helpful to build a psychological profile for matchmaking and relationship.
-relationship traits include: values, attachment style, personality traits, love languages, emotional behaviors, conflict styles, fears, and other relevant psychological characteristics...Red Flags and Green Flags are so important.
-You may CREATE NEW TRAIT CATEGORIES automatically when useful (like "dealbreakers", "partner_preferences", "emotional_behaviors", "conflict_style", "how_they_behave_when_stressed, sad, emotional etc", green_flag, red_flag etc).
-Return STRICT JSON only with the following shape:
-{
-  "extracted_traits": [
-    {"key":"...", "value":"...", "confidence": 0.0}
-  ]
-}
-Rules:
-- Confidence is a number 0.0 - 1.0.
-- Return nothing else besides valid JSON.
-- If there are no extracted traits, return {"extracted_traits": []}.
-"""
-
-LIGHT_EXTRACTOR_SYSTEM = """
-Extract ONLY these 28 fields from the user's latest message:
-
-{
-  "moods": [],
-  "personality_traits": [],
-  "love_language": [],
-  "relationship_goals": [],
-  "interests": [],
-  "red_flags": [],
-  "green_flags": [],
-  "attachment_style": [],
-  "communication_style": [],
-  "conflict_style": [],
-  "emotional_triggers": [],
-  "stress_behaviors": [],
-  "trauma_signals": [],
-  "boundaries": [],
-  "dealbreakers": [],
-  "partner_preferences": [],
-  "affection_style": [],
-  "trust_style": [],
-  "intimacy_style": [],
-  "lifestyle_preferences": [],
-  "values": [],
-  "core_fears": [],
-  "stability_needs": [],
-  "compatibility_requirements": [],
-  "likes": [],
-  "dislikes": [],
-  "emotional_needs": [],
-  "emotional_giving_style": []
-}
-
-Rules:
-- Only pull what is clearly present in the message.
-- If not visible, return an empty array.
-- Keep values short (1–3 words).
-- Relationship-relevant only.
-- STRICT JSON only.
-"""
-
 SANA_REPLY_SYSTEM = """
-You are Sana — a warm, wise, slightly mysterious relationship guide.
-Your purpose is to help the user understand their emotional patterns, improve their relationship behaviors, 
-heal through difficult moments, and move closer to finding the right partner.
-
-Speak in 1–2 short sentences only.
-Tone: caring, calm, insightful, emotionally safe. 
-Offer small helpful reflections about the user's patterns, feelings, or relationships.
-Give gentle encouragement when the user is going through breakups, confusion, loneliness, or emotional ups and downs.
-
-Do NOT provide astrological predictions or timeframes unless the user explicitly asks.
-Keep language simple, human, and comforting. Avoid therapy jargon or long explanations.
+You are Sana — warm, emotionally intelligent, and slightly expressive.
+Every reply must feel natural and slightly different, even to similar messages.
+Reply in 1–2 short caring lines.
+Avoid repeating the same sentence structure.
+No astrology. No therapy jargon.
 """
 
-# -------------------------
-# LLM Call Wrappers
-# -------------------------
 
-def _call_chat_completions_create_model(payload):
-    payload.setdefault("temperature", 0.2)
-    payload.setdefault("max_tokens", 512)
+def _call_chat(payload):
     return client.chat.completions.create(**payload)
-
-
-async def call_dynamic_extractor(user_message: str) -> Dict[str, Any]:
-    payload = {
-        "model": "gpt-5-nano",
-        "messages": [
-            {"role": "system", "content": DYNAMIC_EXTRACTOR_SYSTEM},
-            {"role": "user", "content": f'User message: "{user_message}"'}
-        ],
-    }
-    resp = await to_thread_retry(_call_chat_completions_create_model, payload)
-    text = resp.choices[0].message.content
-    return safe_load_json_fragment(text)
-
-
-async def call_light_extractor(user_message: str) -> Dict[str, Any]:
-    payload = {
-        "model": "gpt-5-nano",
-        "messages": [
-            {"role": "system", "content": LIGHT_EXTRACTOR_SYSTEM},
-            {"role": "user", "content": user_message}
-        ],
-    }
-    resp = await to_thread_retry(_call_chat_completions_create_model, payload)
-    text = resp.choices[0].message.content
-    parsed = safe_load_json_fragment(text)
-    if not parsed:
-        try:
-            parsed = json.loads(text)
-        except Exception:
-            parsed = {}
-    out = {}
-    for k in RELATIONSHIP_KEYS:
-        v = parsed.get(k) if isinstance(parsed, dict) else None
-        if isinstance(v, list):
-            out[k] = v
-        elif isinstance(v, str) and v.strip():
-            out[k] = [s.strip() for s in re.split(r"[;,/]| and ", v) if s.strip()][:3]
-        else:
-            out[k] = []
-    return out
-
 
 async def call_sana_reply(prompt: str) -> str:
     payload = {
@@ -241,264 +76,90 @@ async def call_sana_reply(prompt: str) -> str:
         "messages": [
             {"role": "system", "content": SANA_REPLY_SYSTEM},
             {"role": "user", "content": prompt}
-        ],
+        ]
     }
-    resp = await to_thread_retry(_call_chat_completions_create_model, payload)
+    resp = await to_thread(_call_chat, payload)
     return resp.choices[0].message.content.strip()
 
-# small helper to call GPT for ranking/refinement (single call)
+# -------------------------
+# GPT MATCH REASONER
+# -------------------------
 def gpt_rank_and_explain_sync(user_profile: Dict, request_text: str, candidates: List[Dict]) -> str:
-    # build pruned payload
-    candidate_summaries = []
-    for c in candidates[:12]:
-        summary = {
-            "id": c.get("id"),
-            "name": c.get("name"),
-            "profile_url": c.get("profilePicUrl"),
-        }
-        candidate_summaries.append(summary)
+    summary = [{"id": c.get("id"), "name": c.get("name")} for c in candidates[:12]]
 
-    system = (
-        "You are Sana: a relationship psychologist and matchmaker. "
-        "Given the requesting user's profile and their natural-language request, rank the candidates by suitability "
-        "and return STRICT JSON with top 5 entries in the shape: {\"matches\": [{\"id\":..., \"score\":..., \"profile_url\":..., \"reason\": \"...\"}] }."
-    )
+    system = "Return STRICT JSON: { \"matches\": [{\"id\":..., \"score\":..., \"reason\": \"...\"}] }"
     user_prompt = {
         "request_text": request_text,
         "user_profile": user_profile,
-        "candidates": candidate_summaries,
-        "instructions": "Rank and explain briefly. Return JSON only."
+        "candidates": summary
     }
+
     resp = client.chat.completions.create(
         model="gpt-5-nano",
         messages=[
             {"role": "system", "content": system},
-            {"role": "user", "content": json.dumps(user_prompt, ensure_ascii=False)}
+            {"role": "user", "content": json.dumps(user_prompt)}
         ],
     )
     return resp.choices[0].message.content
 
 # -------------------------
-# Embedding helpers (embed text and embed psych_map)
+# EMBEDDINGS
 # -------------------------
-EMBED_MODEL = "text-embedding-3-small"  # 1536 dims
+EMBED_MODEL = "text-embedding-3-small"
 
 def embed_sync(text: str) -> List[float]:
-    resp = client.embeddings.create(model=EMBED_MODEL, input=text)
-    return resp.data[0].embedding
-
+    return client.embeddings.create(
+        model=EMBED_MODEL,
+        input=text
+    ).data[0].embedding
 
 async def embed_text_async(text: str) -> List[float]:
     return await asyncio.to_thread(embed_sync, text)
 
-
-def psych_map_to_plaintext(pm: Dict[str, Any]) -> str:
-    if not pm:
+# -------------------------
+# MATCHING HELPERS
+# -------------------------
+def normalize_gender(g: Optional[str]) -> str:
+    if not g:
         return ""
-    parts = []
-    for k in sorted(pm.keys()):
-        v = pm[k]
-        if isinstance(v, dict) and "value" in v:
-            parts.append(f"{k}: {v.get('value')}")
-        else:
-            parts.append(f"{k}: {json.dumps(v, ensure_ascii=False)}")
-    return ". ".join(parts)
+    g = str(g).strip().lower()
+    if g.startswith("m"): return "male"
+    if g.startswith("f"): return "female"
+    return ""
 
-
-async def embed_and_store_user_vector(user_id: str, psych_map: Dict[str, Any]):
+def try_rpc_match(query_vector: List[float], k: int = 50):
     try:
-        text = psych_map_to_plaintext(psych_map)
-        if not text:
-            return
-        vector = await embed_text_async(text)
-        supabase.table("users").update({
-            "psych_map": psych_map,
-            "psych_vector": vector
-        }).eq("id", user_id).execute()
-        print(f"✅ Embedded and stored vector for {user_id}")
+        res = supabase.rpc("match_users", {
+            "query_vector": query_vector,
+            "match_limit": k
+        }).execute()
+        return res.data or []
     except Exception as e:
-        print("embed_and_store_user_vector error:", e)
-
-# -------------------------
-# Matching helpers (RPC first, fallback local)
-# -------------------------
-
-def try_rpc_match(query_vector: List[float], k: int = 200):
-    try:
-        res = supabase.rpc("match_users", {"query_vector": query_vector, "match_limit": k}).execute()
-        # supabase client can return dict or object-like; try both
-        data = None
-        if isinstance(res, dict):
-            data = res.get("data")
-        else:
-            data = getattr(res, "data", None)
-        if data is None:
-            return []
-        return data or []
-    except Exception as e:
-        print("RPC match_users failed or not available:", repr(e))
-        return None
-
-
-def cosine_similarity(a: List[float], b: List[float]) -> float:
-    if not a or not b:
-        return -1.0
-    if len(a) != len(b):
-        m = min(len(a), len(b))
-        a = a[:m]
-        b = b[:m]
-    dot = sum(x*y for x,y in zip(a,b))
-    na = math.sqrt(sum(x*x for x in a))
-    nb = math.sqrt(sum(x*x for x in b))
-    if na == 0 or nb == 0:
-        return -1.0
-    return dot / (na * nb)
-
-
-def local_vector_match(all_users: List[Dict], query_vector: List[float], k: int = 200) -> List[Dict]:
-    scored = []
-    for u in all_users:
-        vec = u.get("psych_vector")
-        if not vec:
-            continue
-        try:
-            sim = cosine_similarity(query_vector, vec)
-        except Exception:
-            sim = -1.0
-        scored.append({"user": u, "score": sim})
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    return [s["user"] for s in scored[:k]]
-
-
-async def vector_search_candidates(request_vector: List[float], exclude_user_id: Optional[str], k: int = 200) -> List[Dict]:
-    # 1) try RPC fast path
-    rpc_res = try_rpc_match(request_vector, k)
-    if rpc_res is not None:
-        results = [r for r in rpc_res if r.get("id") != exclude_user_id]
-        # if gender missing in RPC rows, fetch genders for returned ids
-        if results and any(r.get("gender") is None for r in results):
-            try:
-                ids = [str(r.get("id")) for r in results if r.get("id")]
-                if ids:
-                    # batch fetch genders and profilePicUrls
-                    db_rows = supabase.table("users").select("id, gender, profilePicUrl").in_("id", ids).execute()
-                    db_data = db_rows.data or []
-                    id_to = {str(d["id"]): d for d in db_data}
-                    for r in results:
-                        rid = str(r.get("id"))
-                        src = id_to.get(rid)
-                        if src:
-                            if r.get("gender") is None:
-                                r["gender"] = src.get("gender")
-                            if r.get("profilePicUrl") in (None, ""):
-                                r["profilePicUrl"] = src.get("profilePicUrl")
-            except Exception as e:
-                print("Failed to enrich RPC results with gender:", e)
-        return results[:k]
-
-    # 2) fallback: pull users with non-null psych_vector (small DB/testing)
-    try:
-        res = supabase.table("users").select(
-            "id, name, gender, profilePicUrl, psych_map, psych_vector"
-        ).execute()
-        rows = res.data or []
-        rows = [r for r in rows if r.get("id") != exclude_user_id]
-
-        # optional: log how many rows lack psych_vector
-        missing_vec = sum(1 for r in rows if not r.get("psych_vector"))
-        if missing_vec:
-            print(f"vector_search_candidates: {missing_vec} rows missing psych_vector (fallback)")
-
-        candidates = await asyncio.to_thread(local_vector_match, rows, request_vector, k)
-        return candidates
-    except Exception as e:
-        print("vector_search_candidates fallback failed:", e)
+        print("RPC match failed:", e)
         return []
 
+async def vector_search_candidates(query_vector: List[float], exclude_user_id: str, k: int = 50):
+    rows = try_rpc_match(query_vector, k)
+    return [r for r in rows if r.get("id") != exclude_user_id]
+
 # -------------------------
-# Intent detection (simple)
+# MATCH INTENT
 # -------------------------
 MATCH_KEYWORDS = [
-    "match", "partner", "find me", "show me", "compatible", "soulmate", "mate", "date", "dating",
-    "true love", "loyal", "loyal partner", "bring me coffee", "coffee", "someone who", "looking for"
+    "match", "partner", "find me", "show me", "compatible",
+    "soulmate", "date", "dating", "true love", "loyal", "someone who"
 ]
 
 def looks_like_match_request(text: str) -> bool:
     t = text.lower()
-    for kw in MATCH_KEYWORDS:
-        if kw in t:
-            return True
-    if re.search(r"\bi want (someone|a)\b", t):
-        return True
-    return False
+    return any(kw in t for kw in MATCH_KEYWORDS)
 
-# -------------------------
-# Merge logic (kept same)
-# -------------------------
-def merge_into_psych_map(existing: Dict[str, Any], extracted: Dict[str, Any]) -> Dict[str, Any]:
-    out = json.loads(json.dumps(existing or {}))
-    now = now_iso()
-    items = extracted.get("extracted_traits") or []
-
-    for it in items:
-        key = (it.get("key") or "").strip()
-        val = it.get("value")
-        conf = float(it.get("confidence", 0.0))
-        if not key or val is None or val == "":
-            continue
-
-        key_slug = re.sub(r"\s+", "_", key.strip().lower())
-
-        entry = out.get(key_slug)
-        if not entry:
-            out[key_slug] = {
-                "value": val,
-                "confidence": conf,
-                "history": [{"time": now, "value": val, "confidence": conf}]
-            }
-            continue
-
-        try:
-            existing_conf = float(entry.get("confidence", 0.0))
-        except Exception:
-            existing_conf = 0.0
-
-        if conf >= existing_conf + 0.05:
-            entry["value"] = val
-            entry["confidence"] = conf
-            entry.setdefault("history", []).append({"time": now, "value": val, "confidence": conf})
-        elif abs(conf - existing_conf) < 0.05 and val != entry.get("value"):
-            alt_key = key_slug + "_alternatives"
-            alts = out.get(alt_key, [])
-            alts.append({"value": val, "confidence": conf, "time": now})
-            out[alt_key] = alts[-8:]
-            entry.setdefault("history", []).append({"time": now, "value": val, "confidence": conf})
-        else:
-            entry.setdefault("history", []).append({"time": now, "value": val, "confidence": conf})
-            entry["confidence"] = max(existing_conf, conf)
-
-        out[key_slug] = entry
-
-    return out
-
-# -------------------------
-# Small helper to create a small preview on response (non-LLM)
-# -------------------------
-def extracted_preview_for_client(reply_text: str, user_message: str) -> Dict[str, Any]:
-    preview = {"quick_hint": None, "suggested_follow_up": None}
-    if any(w in user_message.lower() for w in ["rich", "money", "wealth", "earn", "salary"]):
-        preview["quick_hint"] = {"key": "goal", "value": "financial success"}
-        preview["suggested_follow_up"] = "Ask: 'What's your first small money goal right now?'"
-    elif any(w in user_message.lower() for w in ["tired","burn","exhaust","drain"]):
-        preview["quick_hint"] = {"key":"mood","value":"exhausted"}
-        preview["suggested_follow_up"] = "Ask: 'When did this start?'"
-    return preview
-
-# -------------------------
-# Main chat endpoint (upgraded, includes matching)
-# -------------------------
+# =========================================================
+# ✅ ✅ ✅ FINAL /sana/chat ENDPOINT (ONE PIECE)
+# =========================================================
 @router.post("/sana/chat")
-async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
+async def sana_chat(data: SanaChatMessage):
     user_id = data.id
     user_name = data.name
     user_message = data.message
@@ -506,273 +167,131 @@ async def sana_chat(data: SanaChatMessage, background_tasks: BackgroundTasks):
     if not all([user_id, user_name, user_message]):
         raise HTTPException(status_code=400, detail="Missing id, name, or message")
 
-    # fetch user record
-    try:
-        resp = supabase.table("users").select(
-           """
-           id,
-           chat_history,
-           psych_map,
-           profile_candidates,
-           profile_versions,
-           chart,
-           gender,
-           profilePicUrl,
-           persona_settings,
-           relationship_profile,
-           memories
-        """
-        ).eq("id", user_id).single().execute()
-    except Exception as e:
-        print("Supabase fetch exception:", e)
-        raise HTTPException(status_code=500, detail="Database fetch failed")
+    user = supabase.table("users").select(
+        "chat_history, psych_map, profile_candidates, gender, memories"
+    ).eq("id", user_id).single().execute().data
 
-    if getattr(resp, "error", None):
-        print("Supabase fetch error:", resp.error)
-        raise HTTPException(status_code=500, detail="Database error")
-
-    if not getattr(resp, "data", None):
-        raise HTTPException(status_code=404, detail="User not found")
-
-    user = resp.data
-    psych_map = user.get("psych_map") or {}
     chat_history = user.get("chat_history") or []
     memories = user.get("memories") or []
-    persona_settings = user.get("persona_settings") or {}
+    psych_map = user.get("psych_map") or {}
 
     now = now_iso()
-
-    # Build a short context excerpt
-    recent = chat_history[-8:]
-    context_excerpt = "\n".join([f'{m.get("role","user")}: {m.get("content","")}' for m in recent])
-
-    # decide if the message is a match request (simple)
     is_match_request = looks_like_match_request(user_message)
 
-    # build reply prompt (short, respectful of persona settings)
-    ask_question = persona_settings.get("ask_question", True)
-    persona_tone = persona_settings.get("tone", "playful")
-    reply_prompt = f"Context:\n{context_excerpt}\nUser: {user_message}\nName: {user_name}\nTone: {persona_tone}\nKeep reply in 1-2 short lines. Ask 1 question: {ask_question}"
-
-    # If this is a match request, we will run matching pipeline and include results.
-    match_results = None
-    sana_reply = None
-
+    # ==================================================
+    # ❤️ MATCH MODE — PLACEHOLDER + VECTOR + GPT
+    # ==================================================
     if is_match_request:
-        # quick, friendly immediate reply to user (Sana voice)
         try:
-            sana_reply = await call_sana_reply(reply_prompt + "\n(Short reply while I search for matches.)")
-        except Exception as e:
-            print("call_sana_reply error:", e)
-            sana_reply = "I hear you — let me look into this."
+            sana_reply = "Sana found these for you."
 
-        # run matching pipeline: embed request -> vector search -> GPT refine
-        try:
-            request_text = user_message
-            request_vector = await embed_text_async(request_text)
+            # VECTOR SEARCH
+            request_vector = await embed_text_async(user_message)
+            candidates = await vector_search_candidates(
+                request_vector,
+                exclude_user_id=user_id,
+                k=50
+            )
 
-            # get top candidates (rpc or fallback)
-            candidates = await vector_search_candidates(request_vector, exclude_user_id=user_id, k=200)
-
-            print("DEBUG: candidates received:", len(candidates))
-
-            # -------------------------
-            # Gender filtering (simple opposite-gender logic) - case-insensitive
-            # -------------------------
-            def normalize_gender(g: Optional[str]) -> str:
-                if not g:
-                    return ""
-                g = str(g).strip().lower()
-                if g.startswith("m"): return "male"
-                if g.startswith("f"): return "female"
-                return ""
-
+            # GENDER FILTER
             user_gender = normalize_gender(user.get("gender"))
             if user_gender in ["male", "female"]:
                 target_gender = "female" if user_gender == "male" else "male"
-                filtered = []
-                for c in candidates:
-                    c_gender = normalize_gender(c.get("gender"))
-                    if c_gender == target_gender:
-                        filtered.append(c)
-                candidates = filtered
+                candidates = [
+                    c for c in candidates
+                    if normalize_gender(c.get("gender")) == target_gender
+                ]
 
-            print("DEBUG: candidates after gender filter:", len(candidates))
+            top_for_refine = candidates[:15]
 
-            # refine top N with GPT (send top 20)
-            top_for_refine = candidates[:20]
-
-            # call GPT to rank and explain (sync wrapper in thread)
+            # GPT REASONING
             def _gpt_refine():
-                return gpt_rank_and_explain_sync(psych_map, request_text, top_for_refine)
+                return gpt_rank_and_explain_sync(
+                    psych_map,
+                    user_message,
+                    top_for_refine
+                )
 
             gpt_resp_text = await asyncio.to_thread(_gpt_refine)
             matches_struct = safe_load_json_fragment(gpt_resp_text)
 
-            match_results = None
             if isinstance(matches_struct, dict):
                 match_results = matches_struct.get("matches")
+            else:
+                match_results = None
 
-            # --- NEW: inject profile_url & name defensively ---
-            if match_results and isinstance(match_results, list):
-                id_to_candidate = {}
-                for c in top_for_refine:
-                    cid = c.get("id") or c.get("user_id") or c.get("uuid")
-                    if cid is not None:
-                        id_to_candidate[str(cid)] = c
-
-                for m in match_results:
-                    cid = m.get("id")
-                    if cid is None:
-                        continue
-                    source = id_to_candidate.get(str(cid), {})
-                    m["profile_url"] = m.get("profile_url") or source.get("profilePicUrl") or source.get("profile_url")
-                    m["name"] = m.get("name") or source.get("name")
-
-            # If GPT returned nothing, create a fallback simple list
+            # FALLBACK
             if not match_results:
-                fallback = []
-                for c in top_for_refine[:5]:
-                    fallback.append({
+                match_results = [
+                    {
                         "id": c.get("id"),
                         "name": c.get("name"),
                         "score": None,
-                        "reason": "Close in semantic space to your request (fast fallback)."
-                    })
-                match_results = fallback
+                        "reason": "High emotional similarity (vector match)."
+                    }
+                    for c in top_for_refine[:5]
+                ]
+
+            # SAVE MATCH HISTORY
+            profile_candidates = (user.get("profile_candidates") or [])[-200:]
+            profile_candidates.append({
+                "match_results": match_results,
+                "time": now
+            })
+
+            supabase.table("users").update({
+                "profile_candidates": profile_candidates
+            }).eq("id", user_id).execute()
+
+            return {
+                "reply": sana_reply,
+                "match_results": match_results
+            }
 
         except Exception as e:
-            print("Matching pipeline error:", e)
-            match_results = None
+            print("MATCH ERROR:", e)
+            return {
+                "reply": "Matching failed. Try again.",
+                "match_results": []
+            }
 
+    # ==================================================
+    # 💬 NORMAL CHAT MODE
+    # ==================================================
     else:
-        # normal conversational reply (no matching)
+        recent = chat_history[-6:]
+        context = "\n".join([m.get("content", "") for m in recent])
+
+        reply_prompt = f"Context:\n{context}\nUser: {user_message}\nName: {user_name}"
+
         try:
             sana_reply = await call_sana_reply(reply_prompt)
         except Exception as e:
-            print("call_sana_reply error:", e)
-            sana_reply = "Thank you — tell me more."
+            print("Chat error:", e)
+            sana_reply = "I’m here with you."
 
-    # background: extract dynamic traits and save everything (and embed vector)
-    async def bg_save():
-        try:
-            # sanitize sana_reply before saving
-            sana_reply_text = sana_reply if isinstance(sana_reply, str) else (str(sana_reply) if sana_reply is not None else "")
+        chat_history += [
+            {"role": "user", "name": user_name, "content": user_message, "time": now},
+            {"role": "sana", "name": "sana", "content": sana_reply, "time": now}
+        ]
 
-            # 1) append chat & memory
-            new_chat = (chat_history or []) + [
-                {"role": "user", "name": user_name, "content": user_message, "time": now},
-                {"role": "sana", "name": "sana", "content": sana_reply_text, "time": now}
-            ]
-            new_memories = (memories or []) + [{"content": user_message, "time": now}]
-            new_memories = new_memories[-400:]
+        memories.append({"content": user_message, "time": now})
 
-            # 2) call dynamic extractor
-            extractor_resp = {}
-            try:
-                extractor_resp = await call_dynamic_extractor(user_message)
-            except Exception as e:
-                print("call_dynamic_extractor error:", e)
-                extractor_resp = {"extracted_traits": []}
+        supabase.table("users").update({
+            "chat_history": chat_history[-200:],
+            "memories": memories[-400:]
+        }).eq("id", user_id).execute()
 
-            # NEW: extract lightweight personality fields
-            try:
-                light = await call_light_extractor(user_message)
-            except Exception as e:
-                print("call_light_extractor error:", e)
-                light = {k: [] for k in RELATIONSHIP_KEYS}
-
-            extracted = extractor_resp if isinstance(extractor_resp, dict) else safe_load_json_fragment(str(extractor_resp))
-
-            # 3) merge into psych_map
-            updated_psych_map = merge_into_psych_map(psych_map, extracted)
-
-            # 4) candidate + versions
-            candidate_entry = {"candidate": extracted, "time": now}
-            profile_candidates = (user.get("profile_candidates") or [])[-200:] + [candidate_entry]
-
-            versions = (user.get("profile_versions") or [])
-            versions.append({
-                "before": psych_map,
-                "after": updated_psych_map,
-                "candidate": extracted,
-                "time": now
-            })
-            versions = versions[-500:]
-
-            relationship_profile = user.get("relationship_profile") or {}
-
-            # Merge 28 lightweight traits
-            for key in RELATIONSHIP_KEYS:
-                existing_list = relationship_profile.get(key, [])
-                new_list = light.get(key, []) if isinstance(light, dict) else []
-                if not isinstance(existing_list, list):
-                   existing_list = []
-                merged = existing_list[:]
-                for item in new_list:
-                    if item not in merged:
-                        merged.append(item)
-                relationship_profile[key] = merged
-
-            # 5) write to Supabase
-            supabase.table("users").update({
-                "chat_history": new_chat,
-                "memories": new_memories,
-                "psych_map": updated_psych_map,
-                "profile_candidates": profile_candidates,
-                "profile_versions": versions,
-                "relationship_profile": relationship_profile
-            }).eq("id", user_id).execute()
-
-            # 6) create & store embedding vector for updated psych_map (async)
-            await embed_and_store_user_vector(user_id, updated_psych_map)
-
-            print(f"✅ Updated psych_map + vector for user {user_id} at {now}")
-        except Exception as e:
-            print("Background save error:", e)
-
-    background_tasks.add_task(bg_save)
-
-    # build return object: include Sana's reply + match_results if any + small preview
-    response = {
-        "reply": sana_reply if isinstance(sana_reply, str) else "",
-        "extracted_preview": extracted_preview_for_client(sana_reply if isinstance(sana_reply, str) else "", user_message),
-        "match_results": match_results,
-        "note": "Saved to psych_map and (re-)embedded in background."
-    }
-    return response
-
-# attach router
-app.include_router(router, prefix="")
+        return {
+            "reply": sana_reply,
+            "match_results": None
+        }
 
 # -------------------------
-# Run notes & DB helper SQL (one time migration)
+# ATTACH ROUTER
 # -------------------------
-"""
-If you haven't created the psych_vector col / pgvector extension yet, run this (Supabase SQL):
 
-CREATE EXTENSION IF NOT EXISTS vector;
-
-ALTER TABLE public.users
-  ADD COLUMN IF NOT EXISTS psych_vector vector(1536);
-
--- optional ivfflat index:
-CREATE INDEX IF NOT EXISTS users_psych_vector_idx
-  ON public.users USING ivfflat (psych_vector vector_l2_ops) WITH (lists = 100);
-
-Also (optional) add a helper RPC for fastest matches:
--- Make sure id is returned as text (not uuid) because your user ids are strings
-DROP FUNCTION IF EXISTS match_users(vector, integer);
-CREATE OR REPLACE FUNCTION match_users(query_vector vector(1536), match_limit int)
-RETURNS TABLE (id text, name text, gender text, profilePicUrl text, psych_map jsonb, psych_vector vector, similarity float)
-LANGUAGE sql STABLE AS $$
-  SELECT id, name, gender, "profilePicUrl", psych_map, psych_vector, 1 - (psych_vector <=> query_vector) AS similarity
-  FROM users
-  WHERE psych_vector IS NOT NULL
-  ORDER BY psych_vector <=> query_vector
-  LIMIT match_limit;
-$$;
-"""
+# -------------------------
+# RUN
 # -------------------------
 # uvicorn sana_dynamic:app --reload --port 8000
-# -------------------------

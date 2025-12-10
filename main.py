@@ -24,6 +24,7 @@ from compatibility import calculate_compatibility_score
 from fetchuser import router as user_router
 from sana_chat import router as sana_router
 from soul_of_anlasana_2_1 import router as soul_router
+from sana_psych_worker import router as psych_router
 from demo_matches import router as random_match_router
 from premium import premium_activate
 from cosmic_id_search import router as cosmic_id_router
@@ -329,6 +330,7 @@ app.include_router(random_match_router)
 app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router)
+app.include_router(psych_router)
 app.include_router(cosmic_id_router)
 app.include_router(cosmic_id_match_router)
 app.include_router(save_user_router)

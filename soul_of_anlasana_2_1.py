@@ -186,6 +186,11 @@ async def soul_of_anlasana(user_id: str):
             "duplicate_name": 0
         }
         
+        # Debug: Check first few candidates to see what chart data looks like
+        for i, candidate in enumerate(candidates[:3]):
+            chart_data = candidate.get("chart")
+            print(f"🔎 [Debug] Candidate {i+1}: id={candidate.get('id')[:10]}..., has_chart_field={chart_data is not None}, chart_type={type(chart_data)}, chart_value_preview={str(chart_data)[:100] if chart_data else 'None'}")
+        
         for other in candidates:
             if other.get("id") == user_id: 
                 skipped_reasons["same_user"] += 1
@@ -193,9 +198,24 @@ async def soul_of_anlasana(user_id: str):
             if other.get("gender") == target_gender: 
                 skipped_reasons["same_gender"] += 1
                 continue
-            if not other.get("chart"): 
+            
+            chart_raw = other.get("chart")
+            if not chart_raw:
                 skipped_reasons["no_chart"] += 1
                 continue
+            
+            # Try to parse the chart to see if it's valid
+            try:
+                chart_parsed = safe_json(chart_raw)
+                if not chart_parsed or not chart_parsed.get("planets"):
+                    print(f"⚠️ [Debug] Chart exists but is empty/invalid for user {other.get('id')[:10]}... - chart_parsed: {chart_parsed}")
+                    skipped_reasons["no_chart"] += 1
+                    continue
+            except Exception as e:
+                print(f"❌ [Debug] Chart parsing failed for user {other.get('id')[:10]}... - error: {e}")
+                skipped_reasons["no_chart"] += 1
+                continue
+            
             if (other.get("age") or 0) < 18: 
                 skipped_reasons["under_18"] += 1
                 continue

@@ -155,30 +155,53 @@ async def soul_of_anlasana(user_id: str):
     try:
         user = fetch_user(user_id)
         if not user:
+            print(f"❌ [Matching] User {user_id} not found in database")
             return {"user_id": user_id, "matches": []}
 
         target_chart = user.get("chart")
         target_gender = user.get("gender")
         target_vector = user.get("psych_vector")
 
+        print(f"🔍 [Matching] User {user_id}: gender={target_gender}, has_chart={bool(target_chart)}, has_vector={bool(target_vector)}")
+
         if not target_chart or not target_gender:
+            print(f"❌ [Matching] User missing required fields - chart: {bool(target_chart)}, gender: {bool(target_gender)}")
             return {"user_id": user_id, "matches": []}
 
         # Quality matching: Start with top 100 psychological matches
         if target_vector:
             candidates = fetch_top_psych_matches(target_vector, 100)
+            print(f"📊 [Matching] Found {len(candidates)} candidates via psych_vector")
         else:
             res = supabase.table("users").select("*").limit(100).execute()
             candidates = res.data or []
+            print(f"📊 [Matching] Found {len(candidates)} candidates via general query")
 
         matches, seen = [], set()
+        skipped_reasons = {
+            "same_user": 0,
+            "same_gender": 0,
+            "no_chart": 0,
+            "under_18": 0,
+            "duplicate_name": 0
+        }
         
         for other in candidates:
-            if other.get("id") == user_id: continue
-            if other.get("gender") == target_gender: continue
-            if not other.get("chart"): continue
-            if (other.get("age") or 0) < 18: continue
-            if other.get("name") in seen: continue
+            if other.get("id") == user_id: 
+                skipped_reasons["same_user"] += 1
+                continue
+            if other.get("gender") == target_gender: 
+                skipped_reasons["same_gender"] += 1
+                continue
+            if not other.get("chart"): 
+                skipped_reasons["no_chart"] += 1
+                continue
+            if (other.get("age") or 0) < 18: 
+                skipped_reasons["under_18"] += 1
+                continue
+            if other.get("name") in seen: 
+                skipped_reasons["duplicate_name"] += 1
+                continue
 
             seen.add(other.get("name"))
 
@@ -198,9 +221,14 @@ async def soul_of_anlasana(user_id: str):
                 "last_active": other.get("last_active")
             })
 
+        print(f"🚫 [Matching] Skipped: {skipped_reasons}")
+        print(f"✅ [Matching] Found {len(matches)} valid matches before sorting")
+
         # Sort by match percent and limit to top 30 for quality
         matches.sort(key=lambda x: x["match_percent"], reverse=True)
         final_matches = matches[:30]
+
+        print(f"🎯 [Matching] Returning {len(final_matches)} final matches for user {user_id}")
 
         return {
             "user_id": user_id,
@@ -209,6 +237,7 @@ async def soul_of_anlasana(user_id: str):
 
     except Exception as e:
         traceback.print_exc()
+        print(f"❌ [Matching] Error: {str(e)}")
         return {"user_id": user_id, "error": str(e)}
 
 @router.get("/sana/advice/{user_id}/{target_id}")

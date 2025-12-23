@@ -1,23 +1,24 @@
 import os
 import json
 from datetime import datetime, timezone
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from supabase import create_client
+from openai import OpenAI
 import random
 import traceback
+import asyncio
 
 router = APIRouter()
 
 # -------------------------
-# Supabase setup
+# Setup
 # -------------------------
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-
-print("✅ SUPABASE_URL exists:", bool(SUPABASE_URL))
-print("✅ SUPABASE_KEY exists:", bool(SUPABASE_KEY))
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
 # -------------------------
 # Astrology constants
@@ -61,21 +62,29 @@ def get_aspect_score(diff):
     return 0
 
 def safe_json(val):
+    if not val:
+        return {}
+    if isinstance(val, dict):
+        return val
     try:
         if isinstance(val, str):
-            val = json.loads(val)
-        if isinstance(val, str):
+            # Try to parse if it's a string, removing possible outer quotes if it was double-serialized
+            val = val.strip()
+            if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
+                val = val[1:-1]
             val = json.loads(val)
         return val if isinstance(val, dict) else {}
     except:
         return {}
 
+def decrypt_if_needed(val):
+    # This is a placeholder - usually handled by frontend or storage layer
+    return val
+
 # -------------------------
 # Compatibility Engine
 # -------------------------
 def deep_compatibility(user_chart, crush_chart):
-    print("🔍 [compat] started")
-
     user_chart = safe_json(user_chart)
     crush_chart = safe_json(crush_chart)
 
@@ -98,168 +107,160 @@ def deep_compatibility(user_chart, crush_chart):
         total_score += aspect_score * weight * house_multiplier
         total_weight += weight * house_multiplier
 
-    # ✅ SAFE elemental match bonus
     u_sign = user_chart.get("ascendant", {}).get("sign")
     c_sign = crush_chart.get("ascendant", {}).get("sign")
-
-    print("🔍 [element] u_sign:", u_sign, "c_sign:", c_sign)
 
     if u_sign and c_sign:
         ue = SIGN_ELEMENTS.get(u_sign)
         ce = SIGN_ELEMENTS.get(c_sign)
         if ue and ce and ue == ce:
-            print("✅ [element] bonus applied:", ue)
             total_score += ELEMENT_SCORE[ue]
 
     if total_weight == 0:
         return 0
 
-    percent = max(0, min(100, round((total_score / (total_weight * 10)) * 100)))
-    print("✅ [compat] percent:", percent)
-    return percent
+    return max(0, min(100, round((total_score / (total_weight * 10)) * 100)))
 
 def classify_connection(score):
-    if score >= 85:
-        return "soulmate"
-    if score >= 30:
-        return "twin_flame"
+    if score >= 85: return "soulmate"
+    if score >= 30: return "twin_flame"
     return "karmic"
 
 # -------------------------
-# Supabase helpers ✅ SAFE + LOGGED
+# Supabase helpers
 # -------------------------
 def fetch_user(uid: str):
+    res = supabase.table("users").select("*").eq("id", uid).execute()
+    return res.data[0] if res.data else None
+
+def fetch_top_psych_matches(vector: list, limit: int = 100):
     try:
-        print("🟢 [fetch_user] id:", uid)
-
-        res = supabase.table("users").select("*").eq("id", uid).execute()
-        print("✅ [fetch_user] raw:", res)
-
-        if not res or not res.data:
-            print("⚠️ [fetch_user] not found")
-            return None
-
-        print("✅ [fetch_user] found")
-        return res.data[0]
-
+        res = supabase.rpc("match_users", {
+            "query_vector": vector,
+            "match_limit": limit
+        }).execute()
+        return res.data or []
     except Exception as e:
-        print("🔥 [fetch_user] CRASH:", repr(e))
-        traceback.print_exc()
-        return None
-
-
-def fetch_all_users():
-    try:
-        print("🟢 [fetch_all_users]")
-        res = supabase.table("users").select("*").execute()
-
-        if not res or not res.data:
-            print("⚠️ [fetch_all_users] empty")
-            return []
-
-        print("✅ [fetch_all_users] count:", len(res.data))
-        return res.data
-
-    except Exception as e:
-        print("🔥 [fetch_all_users] CRASH:", repr(e))
-        traceback.print_exc()
-        return []
+        print("🔥 [vector search] failed:", e)
+        # Fallback to general fetch if RPC fails
+        res = supabase.table("users").select("*").limit(limit).execute()
+        return res.data or []
 
 # -------------------------
-# API Route ✅ FULL DEBUG SAFE + TIMEZONE SAFE
+# API Routes
 # -------------------------
+
 @router.get("/soul_of_anlasana_2_1/{user_id}")
-def soul_of_anlasana(user_id: str):
-
-    print("\n🚀 [API HIT] user_id:", user_id)
-
+async def soul_of_anlasana(user_id: str):
     try:
         user = fetch_user(user_id)
-
         if not user:
             return {"user_id": user_id, "matches": []}
 
         target_chart = user.get("chart")
         target_gender = user.get("gender")
-        target_age = user.get("age")
+        target_vector = user.get("psych_vector")
 
-        print("✅ [user] gender:", target_gender, "age:", target_age)
-
-        if not target_chart or not target_gender or target_age is None:
+        if not target_chart or not target_gender:
             return {"user_id": user_id, "matches": []}
 
-        all_users = fetch_all_users()
+        # Quality matching: Start with top 100 psychological matches
+        if target_vector:
+            candidates = fetch_top_psych_matches(target_vector, 100)
+        else:
+            res = supabase.table("users").select("*").limit(100).execute()
+            candidates = res.data or []
 
         matches, seen = [], set()
+        
+        for other in candidates:
+            if other.get("id") == user_id: continue
+            if other.get("gender") == target_gender: continue
+            if not other.get("chart"): continue
+            if (other.get("age") or 0) < 18: continue
+            if other.get("name") in seen: continue
 
-        for other in all_users:
-            try:
-                if other.get("id") == user_id:
-                    continue
-                if other.get("gender") == target_gender:
-                    continue
-                if not other.get("chart"):
-                    continue
-                if not other.get("age") or other.get("age") < 18:
-                    continue
-                if other.get("name") in seen:
-                    continue
+            seen.add(other.get("name"))
 
-                seen.add(other.get("name"))
+            astrological_score = deep_compatibility(target_chart, other.get("chart"))
+            ctype = classify_connection(astrological_score)
 
-                score = deep_compatibility(target_chart, other.get("chart"))
-                ctype = classify_connection(score)
+            matches.append({
+                "id": other.get("id"),
+                "sana_id": other.get("sana_id"),
+                "name": other.get("name"),
+                "profilePicUrl": other.get("profilePicUrl"),
+                "type": ctype,
+                "match_percent": astrological_score,
+                "age": other.get("age"),
+                "birthdate": other.get("birthdate"),
+                "birthplace": other.get("birthplace"),
+                "last_active": other.get("last_active")
+            })
 
-                matches.append({
-                    "sana_id": other.get("sana_id"),
-                    "id": other.get("id"),
-                    "name": other.get("name"),
-                    "profilePicUrl": other.get("profilePicUrl"),
-                    "type": ctype,
-                    "match_percent": score,
-                    "age": other.get("age"),
-                    "birthdate": other.get("birthdate"),
-                    "birthplace": other.get("birthplace"),
-                    "last_active": other.get("last_active")
-                })
-
-            except Exception as loop_err:
-                print("⚠️ [loop user skipped]:", repr(loop_err))
-                traceback.print_exc()
-
-        # ✅ TIMEZONE-SAFE SORTING
-        for m in matches:
-            last_active = m.get("last_active")
-            try:
-                dt = datetime.fromisoformat(last_active)
-
-                if dt.tzinfo is None:
-                    dt = dt.replace(tzinfo=timezone.utc)
-
-                m["_last_active_dt"] = dt
-
-            except:
-                m["_last_active_dt"] = datetime.min.replace(tzinfo=timezone.utc)
-
-        matches.sort(key=lambda x: x["_last_active_dt"], reverse=True)
-
-        top_match = matches[0] if matches else None
-
-        print("✅ [API DONE] matches:", len(matches))
+        # Sort by match percent and limit to top 30 for quality
+        matches.sort(key=lambda x: x["match_percent"], reverse=True)
+        final_matches = matches[:30]
 
         return {
             "user_id": user_id,
-            "summary": {
-                "top_match": top_match
-            },
-            "matches": matches
+            "matches": final_matches
         }
 
     except Exception as e:
-        print("🔥🔥🔥 [API CRASH]:", repr(e))
         traceback.print_exc()
+        return {"user_id": user_id, "error": str(e)}
+
+@router.get("/sana/advice/{user_id}/{target_id}")
+async def get_sana_advice(user_id: str, target_id: str):
+    try:
+        u1 = fetch_user(user_id)
+        u2 = fetch_user(target_id)
+        
+        if not u1 or not u2:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        p1 = safe_json(u1.get("psych_map"))
+        p2 = safe_json(u2.get("psych_map"))
+
+        # Astrology context for GPT
+        score = deep_compatibility(u1.get("chart"), u2.get("chart"))
+
+        prompt = f"""
+        Analyze the psychological compatibility between two users.
+        
+        User 1 Traits: {json.dumps(p1)}
+        User 2 Traits: {json.dumps(p2)}
+        Astrological Compatibility: {score}%
+        
+        Rules:
+        1. Write 2-3 warm, insightful sentences from Sana's perspective.
+        2. Explain WHY they match based on shared values or complementary psychology.
+        3. Provide an 'ai_rating' from 1 to 10.
+        4. Return STRICT JSON: {{"advice": "...", "ai_rating": 8.5}}
+        """
+
+        def _call_gpt():
+            return openai_client.chat.completions.create(
+                model="gpt-5-nano",
+                messages=[{"role": "system", "content": "You are Sana, a warm AI matchmaker."},
+                          {"role": "user", "content": prompt}]
+            )
+
+        resp = await asyncio.to_thread(_call_gpt)
+        content = resp.choices[0].message.content
+        data = json.loads(content[content.find("{"):content.rfind("}")+1])
+
         return {
-            "user_id": user_id,
-            "error": str(e),
-            "type": str(type(e))
+            "target_id": target_id,
+            "advice": data.get("advice"),
+            "ai_rating": data.get("ai_rating"),
+            "astrological_score": score
+        }
+
+    except Exception as e:
+        print(f"Advice Error: {e}")
+        return {
+            "advice": "Sana is sensing a unique connection here. Focus on your shared values.",
+            "ai_rating": 7.0
         }

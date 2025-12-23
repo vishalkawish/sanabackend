@@ -11,6 +11,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException, APIRouter, BackgroundTasks
 from pydantic import BaseModel, validator
 import requests
+import httpx # Adding for async requests if needed, otherwise will use to_thread
 import swisseph as swe
 from openai import OpenAI
 
@@ -25,13 +26,9 @@ from fetchuser import router as user_router
 from sana_chat import router as sana_router
 from soul_of_anlasana_2_1 import router as soul_router
 from sana_psych_worker import router as psych_router
-from demo_matches import router as random_match_router
 from premium import premium_activate
-from cosmic_id_search import router as cosmic_id_router
-from cosmic_id_match import router as cosmic_id_match_router
 from save_user import router as save_user_router
 from routes import profile_image
-from routes import save_phone_number
 from realtime_chat import app as chat_app
 from sana_dynamic_greeting import router as sana_dynamic_greeting_router
 from update_device_token import router as update_device_token_router
@@ -143,11 +140,15 @@ async def call_openai_async(prompt, system_msg):
 # ---------------------------
 # Supabase fetch
 # ---------------------------
-def fetch_user_from_supabase_by_id(user_id: str):
+async def fetch_user_from_supabase_by_id(user_id: str):
     url = f"{SUPABASE_URL}/rest/v1/users?id=eq.{user_id}&select=*"
     headers = {"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"}
     try:
-        resp = requests.get(url, headers=headers)
+        # Using to_thread to avoid blocking the event loop
+        def sync_get():
+            return requests.get(url, headers=headers)
+        
+        resp = await asyncio.to_thread(sync_get)
         if resp.status_code == 200 and resp.json():
             return resp.json()[0]
         return None
@@ -158,28 +159,10 @@ def fetch_user_from_supabase_by_id(user_id: str):
 # ---------------------------
 # Full Chart Endpoint
 # ---------------------------
-router = APIRouter()
-
 # ---------------------------
-# Full Chart Endpoint
+# Full Chart Router
 # ---------------------------
-from fastapi import HTTPException
-
-
-
-from fastapi import APIRouter, HTTPException
-from pathlib import Path
-import json, asyncio
-from datetime import datetime
-
 router = APIRouter()
-USER_CHART_DIR = Path("user_charts")
-
-# make sure this folder exists
-from fastapi import HTTPException
-from datetime import datetime, date
-import asyncio, json, os
-
 
 def calculate_age_from_birthdate(birthdate: str | None) -> int | None:
     if not birthdate:
@@ -326,13 +309,9 @@ app.include_router(router)
 app.include_router(user_router)
 app.include_router(sana_router)
 app.include_router(profile_image.router)
-app.include_router(random_match_router)
-app.include_router(save_phone_number.router)
 app.include_router(premium_activate.router, prefix="/api/premium")
 app.include_router(soul_router)
 app.include_router(psych_router)
-app.include_router(cosmic_id_router)
-app.include_router(cosmic_id_match_router)
 app.include_router(save_user_router)
 app.include_router(sana_dynamic_greeting_router)
 app.include_router(update_device_token_router)

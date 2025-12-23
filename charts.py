@@ -93,7 +93,7 @@ async def geocode_with_openai(place: str):
     try:
         resp = await asyncio.to_thread(
             client.chat.completions.create,
-            model="gpt-5-nano",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "Provide only latitude and longitude in JSON."},
                 {"role": "user", "content": prompt}

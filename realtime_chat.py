@@ -121,13 +121,25 @@ async def get_user_chats(user_id: str = Query(...)):
             .execute()
         messages = messages_resp.data or []
 
+        # 1. Identify all unique soulmate IDs
+        soulmate_ids = set()
+        for msg in messages:
+            sid = msg["receiver_id"] if msg["sender_id"] == user_id else msg["sender_id"]
+            soulmate_ids.add(sid)
+
+        # 2. Batch fetch user details in ONE query
+        user_map = {}
+        if soulmate_ids:
+            users_resp = supabase.table("users").select("id, name, profilePicUrl").in_("id", list(soulmate_ids)).execute()
+            for u in (users_resp.data or []):
+                user_map[u["id"]] = u
+
+        # 3. Build chat previews
         chat_dict = {}
         for msg in messages:
             soulmate_id = msg["receiver_id"] if msg["sender_id"] == user_id else msg["sender_id"]
             if soulmate_id not in chat_dict:
-                user_resp = supabase.table("users").select("*").eq("id", soulmate_id).execute()
-                user_data = user_resp.data[0] if user_resp.data else {}
-
+                user_data = user_map.get(soulmate_id, {})
                 chat_dict[soulmate_id] = {
                     "soulmate_id": soulmate_id,
                     "soulmate_name": user_data.get("name", "Unknown"),

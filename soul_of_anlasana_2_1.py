@@ -310,10 +310,9 @@ async def get_sana_advice(user_id: str, target_id: str):
         Astrological Compatibility: {score}%
         
         Rules:
-        1. Write 2-3 warm, insightful sentences from Sana's perspective.
+        1. Write one line from Sana's perspective.
         2. Explain WHY they match based on shared values or complementary psychology.
-        3. Provide an 'ai_rating' from 1 to 10.
-        4. Return STRICT JSON: {{"advice": "...", "ai_rating": 8.5}}
+        4. Return STRICT JSON: {{"advice": "..."}}
         """
 
         def _call_gpt():
@@ -330,7 +329,6 @@ async def get_sana_advice(user_id: str, target_id: str):
         return {
             "target_id": target_id,
             "advice": data.get("advice"),
-            "ai_rating": data.get("ai_rating"),
             "astrological_score": score
         }
 
@@ -338,5 +336,4 @@ async def get_sana_advice(user_id: str, target_id: str):
         print(f"Advice Error: {e}")
         return {
             "advice": "Sana is sensing a unique connection here. Focus on your shared values.",
-            "ai_rating": 7.0
         }

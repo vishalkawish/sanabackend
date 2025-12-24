@@ -310,7 +310,7 @@ async def get_sana_advice(user_id: str, target_id: str):
         Astrological Compatibility: {score}%
         
         Rules:
-        1. Write one line from Sana's perspective.
+        1. Write very short one line from Sana's perspective.
         2. Explain WHY they match based on shared values or complementary psychology.
         4. Return STRICT JSON: {{"advice": "..."}}
         """

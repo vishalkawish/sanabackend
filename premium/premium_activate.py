@@ -78,38 +78,61 @@ def activate_premium(data: PremiumRequest):
 # -------------------------
 # Check Premium Status endpoint
 # -------------------------
+# -------------------------
+# Check Premium Status endpoint
+# -------------------------
 @router.get("/status/{user_id}")
 def get_premium_status(user_id: str):
-    # 1️⃣ Fetch from premium_users
-    res = supabase.table("premium_users").select("*").eq("user_id", user_id).maybe_single().execute()
-    
-    if not res or not getattr(res, "data", None):
-        return {
-            "is_premium": False,
-            "premium_type": "free",
-            "badge": "none",
-            "days_remaining": 0,
-            "end_date": None,
-            "message": "No active premium subscription found."
-        }
-    
-    data = res.data
-    end_date_str = data.get("end_date")
-    
-    if not end_date_str:
-        return {
-            "is_premium": False,
-            "premium_type": "free",
-            "badge": "none",
-            "days_remaining": 0,
-            "end_date": None,
-            "message": "Invalid subscription data."
-        }
-
-    # 2️⃣ Calculate days remaining
     try:
-        end_date = datetime.fromisoformat(end_date_str.replace("Z", "+00:00"))
-        now = datetime.utcnow()
+        # Debugging: Ensure env vars are loaded
+        if not SUPABASE_URL or not SUPABASE_KEY:
+             print("❌ SUPABASE_URL or SUPABASE_KEY missing in premium_activate.py")
+             raise HTTPException(status_code=500, detail="Server configuration error: Missing Supabase credentials")
+
+        # 1️⃣ Fetch from premium_users
+        res = supabase.table("premium_users").select("*").eq("user_id", user_id).maybe_single().execute()
+        
+        if not res or not getattr(res, "data", None):
+            # No premium record found -> Free user
+            return {
+                "is_premium": False,
+                "premium_type": "free",
+                "badge": "none",
+                "days_remaining": 0,
+                "end_date": None,
+                "message": "No active premium subscription found."
+            }
+        
+        data = res.data
+        end_date_str = data.get("end_date")
+        
+        if not end_date_str:
+             return {
+                "is_premium": False,
+                "premium_type": "free",
+                "badge": "none",
+                "days_remaining": 0,
+                "end_date": None,
+                "message": "Invalid subscription data (no end date)."
+            }
+
+        # 2️⃣ Calculate days remaining
+        
+        # Handle 'Z' manually if python < 3.11 for isoformat mostly loves it, but be safe
+        # replace("Z", "+00:00") is standard fix for fromisoformat
+        clean_date_str = end_date_str.replace("Z", "+00:00")
+        end_date = datetime.fromisoformat(clean_date_str)
+        
+        # Use utcnow to compare
+        now = datetime.utcnow().replace(tzinfo=None) # naive
+        # end_date from isoformat might have timezone if +00:00 was there
+        
+        if end_date.tzinfo is not None:
+             # Convert to naive UTC for comparison or make 'now' aware
+             # Easier: make now aware
+             from datetime import timezone
+             now = datetime.now(timezone.utc)
+        
         remaining = (end_date - now).days
         
         is_active = remaining > 0
@@ -123,11 +146,8 @@ def get_premium_status(user_id: str):
             "message": "Active subscription found." if is_active else "Subscription has expired."
         }
     except Exception as e:
-        return {
-            "is_premium": False,
-            "premium_type": "error",
-            "badge": "none",
-            "days_remaining": 0,
-            "end_date": end_date_str,
-            "message": f"Error parsing expiry: {str(e)}"
-        }
+        print(f"🔥 Error in get_premium_status: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        # Return error as detail so frontend sees it
+        raise HTTPException(status_code=500, detail=f"Internal Error checking status: {str(e)}")

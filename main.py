@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException, APIRouter, BackgroundTasks
 from pydantic import BaseModel, validator
 import requests
 import httpx # Adding for async requests if needed, otherwise will use to_thread
+from datetime import datetime, date
 import swisseph as swe
 from openai import OpenAI
 

@@ -170,9 +170,36 @@ async def soul_of_anlasana(user_id: str):
 
         # Quality matching: Start with top 100 psychological matches
         if target_vector:
-            candidates = fetch_top_psych_matches(target_vector, 100)
-            print(f"📊 [Matching] Found {len(candidates)} candidates via psych_vector")
+            # RPC returns only IDs, we need to fetch full user data
+            match_results = fetch_top_psych_matches(target_vector, 100)
+            print(f"📊 [Matching] RPC returned {len(match_results)} results")
+            if match_results and len(match_results) > 0:
+                print(f"🔍 [Matching] First RPC result keys: {list(match_results[0].keys())}")
+            else:
+                print(f"🔍 [Matching] No results from RPC")
+            
+            # Extract IDs and fetch full user data including charts
+            if match_results:
+                user_ids = [m.get("id") for m in match_results if m.get("id")]
+                print(f"🔍 [Matching] Extracted {len(user_ids)} user IDs from RPC")
+                
+                if user_ids:
+                    print(f"🔍 [Matching] Re-fetching full data for {len(user_ids)} users...")
+                    res = supabase.table("users").select("*").in_("id", user_ids).execute()
+                    candidates = res.data or []
+                    print(f"✅ [Matching] Successfully fetched {len(candidates)} full user records")
+                    if candidates and len(candidates) > 0:
+                        print(f"🔍 [Matching] First candidate keys: {list(candidates[0].keys())}")
+                    else:
+                        print(f"⚠️ [Matching] No candidates returned from fetch")
+                else:
+                    print(f"⚠️ [Matching] No user IDs extracted, using empty candidates")
+                    candidates = []
+            else:
+                print(f"⚠️ [Matching] No match results from RPC, using empty candidates")
+                candidates = []
         else:
+            print(f"⚠️ [Matching] No psych_vector, using general query")
             res = supabase.table("users").select("*").limit(100).execute()
             candidates = res.data or []
             print(f"📊 [Matching] Found {len(candidates)} candidates via general query")

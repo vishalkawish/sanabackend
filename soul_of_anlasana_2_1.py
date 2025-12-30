@@ -298,6 +298,9 @@ async def get_sana_advice(user_id: str, target_id: str):
 
         p1 = safe_json(u1.get("psych_map"))
         p2 = safe_json(u2.get("psych_map"))
+        name1 = u1.get("name")
+        name2 = u2.get("name")
+
 
         # Astrology context for GPT
         score = deep_compatibility(u1.get("chart"), u2.get("chart"))
@@ -305,15 +308,14 @@ async def get_sana_advice(user_id: str, target_id: str):
         prompt = f"""
         Analyze the psychological compatibility between two users.
         
-        User 1 Traits: {json.dumps(p1)}
-        User 2 Traits: {json.dumps(p2)}
+        {name1} Traits: {json.dumps(p1)}
+        {name2} Traits: {json.dumps(p2)}
         Astrological Compatibility: {score}%
         
         Rules:
-        1. Write 2-3 warm, insightful sentences from Sana's perspective.
-        2. Explain WHY they match based on shared values or complementary psychology.
-        3. Provide an 'ai_rating' from 1 to 10.
-        4. Return STRICT JSON: {{"advice": "...", "ai_rating": 8.5}}
+        1. Reply in one line if they are good fit or not.
+        2. Highlight their common interests and traits.. Maximum 4 interests or traits.
+        3. Return STRICT JSON: {{"advice": "...", "common_traits": "..."}}
         """
 
         def _call_gpt():
@@ -330,13 +332,12 @@ async def get_sana_advice(user_id: str, target_id: str):
         return {
             "target_id": target_id,
             "advice": data.get("advice"),
-            "ai_rating": data.get("ai_rating"),
-            "astrological_score": score
+            "astrological_score": score,
+            "common_traits": data.get("common_traits")
         }
 
     except Exception as e:
         print(f"Advice Error: {e}")
         return {
             "advice": "Sana is sensing a unique connection here. Focus on your shared values.",
-            "ai_rating": 7.0
         }

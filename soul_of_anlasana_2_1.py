@@ -62,18 +62,18 @@ def get_aspect_score(diff):
     return 0
 
 def safe_json(val):
-    if not val:
+    if val is None:
         return {}
     if isinstance(val, dict):
         return val
     try:
         if isinstance(val, str):
-            # Try to parse if it's a string, removing possible outer quotes if it was double-serialized
             val = val.strip()
             if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
                 val = val[1:-1]
-            val = json.loads(val)
-        return val if isinstance(val, dict) else {}
+            parsed = json.loads(val)
+            return parsed if isinstance(parsed, dict) else {}
+        return {}
     except:
         return {}
 
@@ -216,7 +216,8 @@ async def soul_of_anlasana(user_id: str):
         # Debug: Check first few candidates to see what chart data looks like
         for i, candidate in enumerate(candidates[:3]):
             chart_data = candidate.get("chart")
-            print(f"🔎 [Debug] Candidate {i+1}: id={candidate.get('id')[:10]}..., has_chart_field={chart_data is not None}, chart_type={type(chart_data)}, chart_value_preview={str(chart_data)[:100] if chart_data else 'None'}")
+            cid = (candidate.get("id") or "")[:10]
+            print(f"🔎 [Debug] Candidate {i+1}: id={cid}..., has_chart_field={chart_data is not None}, chart_type={type(chart_data)}, chart_value_preview={str(chart_data)[:100] if chart_data else 'None'}")
         
         for other in candidates:
             if other.get("id") == user_id: 
@@ -235,11 +236,13 @@ async def soul_of_anlasana(user_id: str):
             try:
                 chart_parsed = safe_json(chart_raw)
                 if not chart_parsed or not chart_parsed.get("planets"):
-                    print(f"⚠️ [Debug] Chart exists but is empty/invalid for user {other.get('id')[:10]}... - chart_parsed: {chart_parsed}")
+                    oid = (other.get("id") or "")[:10]
+                    print(f"⚠️ [Debug] Chart exists but is empty/invalid for user {oid}... - chart_parsed: {chart_parsed}")
                     skipped_reasons["no_chart"] += 1
                     continue
             except Exception as e:
-                print(f"❌ [Debug] Chart parsing failed for user {other.get('id')[:10]}... - error: {e}")
+                oid = (other.get("id") or "")[:10]
+                print(f"❌ [Debug] Chart parsing failed for user {oid}... - error: {e}")
                 skipped_reasons["no_chart"] += 1
                 continue
             
@@ -255,6 +258,10 @@ async def soul_of_anlasana(user_id: str):
             astrological_score = deep_compatibility(target_chart, other.get("chart"))
             ctype = classify_connection(astrological_score)
 
+            # Parse relationship profile (support both snake_case and camelCase keys in DB)
+            rp_raw = other.get("relationship_profile") or other.get("relationshipProfile")
+            rp_parsed = safe_json(rp_raw) if rp_raw is not None else {}
+
             matches.append({
                 "id": other.get("id"),
                 "sana_id": other.get("sana_id"),
@@ -265,7 +272,10 @@ async def soul_of_anlasana(user_id: str):
                 "age": other.get("age"),
                 "birthdate": other.get("birthdate"),
                 "birthplace": other.get("birthplace"),
-                "last_active": other.get("last_active")
+                "last_active": other.get("last_active"),
+                # include relationship profile for frontend use
+                "relationship_profile": rp_parsed,
+                "relationshipProfile": rp_parsed
             })
 
         print(f"🚫 [Matching] Skipped: {skipped_reasons}")
@@ -303,41 +313,4 @@ async def get_sana_advice(user_id: str, target_id: str):
 
 
         # Astrology context for GPT
-        score = deep_compatibility(u1.get("chart"), u2.get("chart"))
-
-        prompt = f"""
-        Analyze the psychological compatibility between two users.
-        
-        {name1} Traits: {json.dumps(p1)}
-        {name2} Traits: {json.dumps(p2)}
-        Astrological Compatibility: {score}%
-        
-        Rules:
-        1. Reply in one line if they are good fit or not.
-        2. Highlight their common interests and traits.. Maximum 4 interests or traits.
-        3. Return STRICT JSON: {{"advice": "...", "common_traits": "..."}}
-        """
-
-        def _call_gpt():
-            return openai_client.chat.completions.create(
-                model="gpt-5-nano",
-                messages=[{"role": "system", "content": "You are Sana, a warm AI matchmaker."},
-                          {"role": "user", "content": prompt}]
-            )
-
-        resp = await asyncio.to_thread(_call_gpt)
-        content = resp.choices[0].message.content
-        data = json.loads(content[content.find("{"):content.rfind("}")+1])
-
-        return {
-            "target_id": target_id,
-            "advice": data.get("advice"),
-            "astrological_score": score,
-            "common_traits": data.get("common_traits")
-        }
-
-    except Exception as e:
-        print(f"Advice Error: {e}")
-        return {
-            "advice": "Sana is sensing a unique connection here. Focus on your shared values.",
-        }
+        score = deep_compatible

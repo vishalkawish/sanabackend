@@ -259,7 +259,7 @@ async def soul_of_anlasana(user_id: str):
             ctype = classify_connection(astrological_score)
 
             # Parse relationship profile (support both snake_case and camelCase keys in DB)
-            rp_raw = other.get("relationship_profile") or other.get("relationshipProfile")
+            rp_raw = other.get("relationship_profile")
             rp_parsed = safe_json(rp_raw) if rp_raw is not None else {}
 
             matches.append({
@@ -298,11 +298,11 @@ async def soul_of_anlasana(user_id: str):
         return {"user_id": user_id, "error": str(e)}
 
 @router.get("/sana/advice/{user_id}/{target_id}")
-async def get_sana_advice(user_id: str, target_id: str):
+async def get_sana_advice(user_id: str, target_id: str, heading1: str = "", heading2: str = "", trait1: str = "", trait2: str = ""):
     try:
         u1 = fetch_user(user_id)
         u2 = fetch_user(target_id)
-        
+
         if not u1 or not u2:
             raise HTTPException(status_code=404, detail="User not found")
 
@@ -311,6 +311,35 @@ async def get_sana_advice(user_id: str, target_id: str):
         name1 = u1.get("name")
         name2 = u2.get("name")
 
+        # Compute astrological compatibility score if charts exist
+        chart1 = u1.get("chart")
+        chart2 = u2.get("chart")
+        try:
+            score = deep_compatibility(chart1, chart2) if chart1 and chart2 else None
+        except Exception:
+            score = None
 
-        # Astrology context for GPT
-        score = deep_compatible
+        # Build a simple advice payload that includes the provided headings and trait values
+        advice_text = (
+            f"Compatibility between {name1} and {name2}: {score if score is not None else 'N/A'}. "
+            f"Provided headings: [{heading1}] [{heading2}]. Provided traits: [{trait1}] [{trait2}]."
+        )
+
+        return {
+            "user_id": user_id,
+            "target_id": target_id,
+            "name1": name1,
+            "name2": name2,
+            "psych_map_1": p1,
+            "psych_map_2": p2,
+            "compatibility_score": score,
+            "headings": {"heading1": heading1, "heading2": heading2},
+            "traits": {"trait1": trait1, "trait2": trait2},
+            "advice": advice_text
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))

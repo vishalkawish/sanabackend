@@ -16,6 +16,8 @@ router = APIRouter()
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+# Use a fixed model name (no environment variable required)
+OPENAI_MODEL = "gpt-5-nano"
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
@@ -274,8 +276,7 @@ async def soul_of_anlasana(user_id: str):
                 "birthplace": other.get("birthplace"),
                 "last_active": other.get("last_active"),
                 # include relationship profile for frontend use
-                "relationship_profile": rp_parsed,
-                "relationshipProfile": rp_parsed
+                "relationship_profile": rp_parsed
             })
 
         print(f"🚫 [Matching] Skipped: {skipped_reasons}")
@@ -298,7 +299,7 @@ async def soul_of_anlasana(user_id: str):
         return {"user_id": user_id, "error": str(e)}
 
 @router.get("/sana/advice/{user_id}/{target_id}")
-async def get_sana_advice(user_id: str, target_id: str, heading1: str = "", heading2: str = "", trait1: str = "", trait2: str = ""):
+async def get_sana_advice(user_id: str, target_id: str):
     try:
         u1 = fetch_user(user_id)
         u2 = fetch_user(target_id)
@@ -315,26 +316,72 @@ async def get_sana_advice(user_id: str, target_id: str, heading1: str = "", head
         chart1 = u1.get("chart")
         chart2 = u2.get("chart")
         try:
-            score = deep_compatibility(chart1, chart2) if chart1 and chart2 else None
+            compatibility_score = deep_compatibility(chart1, chart2) if chart1 and chart2 else None
         except Exception:
-            score = None
+            compatibility_score = None
 
-        # Build a simple advice payload that includes the provided headings and trait values
-        advice_text = (
-            f"Compatibility between {name1} and {name2}: {score if score is not None else 'N/A'}. "
-            f"Provided headings: [{heading1}] [{heading2}]. Provided traits: [{trait1}] [{trait2}]."
-        )
+        # Build prompt for GPT using psych maps and compatibility only
+        prompt_parts = [
+            f"You are a concise relationship adviser. Provide short, actionable advice for two people.",
+            f"Person A: {name1}",
+            f"Person B: {name2}",
+            f"Compatibility score: {compatibility_score if compatibility_score is not None else 'N/A'}",
+            f"Psych map A: {json.dumps(p1) if p1 else '{}'}",
+            f"Psych map B: {json.dumps(p2) if p2 else '{}'}",
+            "Output format: a short paragraph of advice (1-3 sentences) and up to 3 bullet points of suggestions."
+        ]
+        prompt = "\n\n".join(prompt_parts)
+
+        advice_text = None
+        # Try to call OpenAI; if call fails, return a graceful fallback
+        try:
+            if hasattr(openai_client, "chat") and hasattr(openai_client.chat, "completions"):
+                resp = openai_client.chat.completions.create(
+                    model=OPENAI_MODEL,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=400
+                )
+                advice_text = None
+                if hasattr(resp, "choices") and len(resp.choices) > 0:
+                    choice = resp.choices[0]
+                    if hasattr(choice, "message") and hasattr(choice.message, "content"):
+                        advice_text = choice.message.content
+                    elif hasattr(choice, "text"):
+                        advice_text = choice.text
+            elif hasattr(openai_client, "responses"):
+                resp = openai_client.responses.create(
+                    model=OPENAI_MODEL,
+                    input=prompt,
+                    max_tokens=400
+                )
+                if hasattr(resp, "output") and len(resp.output) > 0:
+                    out = resp.output[0]
+                    if isinstance(out, dict) and out.get("content"):
+                        content = out.get("content")
+                        if isinstance(content, list) and len(content) > 0 and isinstance(content[0], dict):
+                            advice_text = content[0].get("text") or content[0].get("markdown")
+                        elif isinstance(content, str):
+                            advice_text = content
+                elif hasattr(resp, "choices") and len(resp.choices) > 0:
+                    ch = resp.choices[0]
+                    advice_text = getattr(ch, "text", None) or getattr(ch, "message", None)
+        except Exception as e:
+            print("❌ [OpenAI] call failed:", e)
+            advice_text = None
+
+        if not advice_text:
+            # Fallback advice if GPT fails
+            advice_text = (
+                f"Quick advice for {name1} and {name2}: Compatibility = {compatibility_score if compatibility_score is not None else 'N/A'}. "
+                "Focus on clear communication, shared activities that build trust, and respecting each other's differences."
+            )
 
         return {
             "user_id": user_id,
             "target_id": target_id,
             "name1": name1,
             "name2": name2,
-            "psych_map_1": p1,
-            "psych_map_2": p2,
-            "compatibility_score": score,
-            "headings": {"heading1": heading1, "heading2": heading2},
-            "traits": {"trait1": trait1, "trait2": trait2},
+            "compatibility_score": compatibility_score,
             "advice": advice_text
         }
 

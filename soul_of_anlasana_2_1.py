@@ -16,8 +16,8 @@ router = APIRouter()
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-# Use a fixed model name (no environment variable required)
-OPENAI_MODEL = "gpt-5-nano"
+# Default to gpt-5-nano when OPENAI_MODEL not provided in environment
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5-nano")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
@@ -212,7 +212,8 @@ async def soul_of_anlasana(user_id: str):
             "same_gender": 0,
             "no_chart": 0,
             "under_18": 0,
-            "duplicate_name": 0
+            "duplicate_name": 0,
+            "no_relationship_profile": 0
         }
         
         # Debug: Check first few candidates to see what chart data looks like
@@ -264,6 +265,23 @@ async def soul_of_anlasana(user_id: str):
             rp_raw = other.get("relationship_profile")
             rp_parsed = safe_json(rp_raw) if rp_raw is not None else {}
 
+            # Skip if relationship profile is missing or empty
+            if not rp_parsed:
+                skipped_reasons["no_relationship_profile"] = skipped_reasons.get("no_relationship_profile", 0) + 1
+                continue
+
+            # Parse last_active to timestamp for sorting
+            last_active_raw = other.get("last_active")
+            last_active_ts = 0
+            if last_active_raw:
+                try:
+                    last_active_ts = datetime.fromisoformat(last_active_raw).timestamp()
+                except Exception:
+                    try:
+                        last_active_ts = datetime.strptime(last_active_raw, "%Y-%m-%dT%H:%M:%S%z").timestamp()
+                    except Exception:
+                        last_active_ts = 0
+
             matches.append({
                 "id": other.get("id"),
                 "sana_id": other.get("sana_id"),
@@ -274,7 +292,7 @@ async def soul_of_anlasana(user_id: str):
                 "age": other.get("age"),
                 "birthdate": other.get("birthdate"),
                 "birthplace": other.get("birthplace"),
-                "last_active": other.get("last_active"),
+                "last_active": last_active_ts,
                 # include relationship profile for frontend use
                 "relationship_profile": rp_parsed
             })
@@ -282,8 +300,20 @@ async def soul_of_anlasana(user_id: str):
         print(f"🚫 [Matching] Skipped: {skipped_reasons}")
         print(f"✅ [Matching] Found {len(matches)} valid matches before sorting")
 
-        # Sort by match percent and limit to top 30 for quality
-        matches.sort(key=lambda x: x["match_percent"], reverse=True)
+        # Sort by most recent activity (last_active). Parse timestamps safely.
+        def _last_active_ts(item):
+            la = item.get("last_active")
+            if not la:
+                return 0
+            try:
+                return datetime.fromisoformat(la).timestamp()
+            except Exception:
+                try:
+                    return datetime.strptime(la, "%Y-%m-%dT%H:%M:%S%z").timestamp()
+                except Exception:
+                    return 0
+        
+        matches.sort(key=_last_active_ts, reverse=True)
         final_matches = matches[:30]
 
         print(f"🎯 [Matching] Returning {len(final_matches)} final matches for user {user_id}")

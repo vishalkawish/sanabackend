@@ -2,6 +2,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.middleware.cors import CORSMiddleware
 from supabase import create_client, Client
+import traceback
 import os, json
 import requests
 from google.oauth2 import service_account
@@ -150,4 +151,6 @@ async def get_user_chats(user_id: str = Query(...)):
 
         return {"chats": list(chat_dict.values())}
     except Exception as e:
+        print("Error in /get_user_chats:")
+        traceback.print_exc()
         return {"chats": [], "error": str(e)}
